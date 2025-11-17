@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Sidebar menu base text colors */
+.custom-sidebar-menu.ant-menu-light .ant-menu-item,
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title {
+  color: #111827;
+}
+
+.custom-sidebar-menu.ant-menu-light .ant-menu-item a {
+  color: inherit;
+}
+
+/* Selected item (active) background + text color */
+.custom-sidebar-menu.ant-menu-light .ant-menu-item-selected,
+.custom-sidebar-menu.ant-menu-light .ant-menu-item-selected > a,
+
+
+/* Hover state */
+.custom-sidebar-menu.ant-menu-light .ant-menu-item:hover,
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover,
+.custom-sidebar-menu.ant-menu-light .ant-menu-item:hover > a,
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover > span {
+  background-color: rgba(0, 91, 79, 0.10) !important;
+  color: #005B4F !important;
+}
+
+/* Remove default side border indicator */
+.custom-sidebar-menu.ant-menu-light .ant-menu-item::after {
+  border-inline-end: none !important;
+}

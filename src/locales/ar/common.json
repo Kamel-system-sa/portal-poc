@@ -1,0 +1,13 @@
+{
+    "portalTitle": "بوابة كامل",
+    "dashboardTitle": "لوحة التحكم",
+    "testPageTitle": "صفحة الاختبار",
+    "mainColorCard": "بطاقة اللون الأساسي",
+    "dangerCard": "بطاقة الحذف",
+    "warningCard": "بطاقة التحذير",
+    "infoCard": "بطاقة المعلومات",
+    "buttonsSection": "الأزرار",
+    "alertsSection": "التنبيهات",
+    "tailwindBoxesSection": "مربعات Tailwind"
+  }
+  
