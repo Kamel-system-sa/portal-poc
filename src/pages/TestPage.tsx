@@ -1,35 +1,38 @@
 import { Button, Card, Alert, Typography, Space } from "antd";
+import { useTranslation } from "react-i18next";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title } = Typography;
 
 const TestPage = () => {
+  const { t } = useTranslation("common");
+  
   return (
     <div className="p-8 space-y-8">
 
       <Title level={2} className="text-mainColor">
-        Test Page – Tailwind + Ant Design
+        {t("testPageTitle")} – Tailwind + Ant Design
       </Title>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card title="Main Color Card" bordered={false} className="shadow">
+        <Card title={t("mainColorCard")} bordered={false} className="shadow">
           <p className="text-mainColor font-bold">Main color text</p>
         </Card>
 
-        <Card title="Danger Card" bordered={false} className="shadow">
+        <Card title={t("dangerCard")} bordered={false} className="shadow">
           <p className="text-danger font-bold">Danger red color</p>
         </Card>
 
-        <Card title="Warning Card" bordered={false} className="shadow">
+        <Card title={t("warningCard")} bordered={false} className="shadow">
           <p className="text-warning font-semibold">Warning yellow color</p>
         </Card>
 
-        <Card title="Info Card" bordered={false} className="shadow">
+        <Card title={t("infoCard")} bordered={false} className="shadow">
           <p className="text-info font-bold">Info blue color</p>
         </Card>
       </div>
 
       <div className="space-y-4">
-        <Title level={4}>Buttons</Title>
+        <Title level={4}>{t("buttonsSection")}</Title>
 
         <Space wrap>
           <Button
@@ -62,7 +65,7 @@ const TestPage = () => {
       </div>
 
       <div className="space-y-4">
-        <Title level={4}>Alerts</Title>
+        <Title level={4}>{t("alertsSection")}</Title>
 
         <Alert
           message="Main Color Alert"
@@ -100,7 +103,7 @@ const TestPage = () => {
       </div>
 
       <div className="space-y-4">
-        <Title level={4}>Tailwind Boxes</Title>
+        <Title level={4}>{t("tailwindBoxesSection")}</Title>
 
         <div className="p-4 rounded-lg bg-mainColor text-white font-bold">
           Tailwind Box – mainColor
