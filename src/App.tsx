@@ -1,6 +1,5 @@
 import { Card, Button } from "antd";
 import { useTranslation } from "react-i18next";
-import TestPage from "./pages/TestPage";
 
 function App() {
   const { t } = useTranslation("common");
@@ -15,7 +14,6 @@ function App() {
 
         <Button type="primary">Test Button</Button>
       </Card>
-      <TestPage />;
     </div>
   );
 }

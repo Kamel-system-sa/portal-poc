@@ -15,7 +15,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
 
   const selectedKey =
     location.pathname === "/"
-      ? "dashboard"
+      ? "home"
       : location.pathname.startsWith("/test")
       ? "test"
       : location.pathname.startsWith("/service-centers")
@@ -40,9 +40,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         className="bg-white custom-sidebar-menu"
         items={[
           {
-            key: "dashboard",
+            key: "home",
             icon: <HomeOutlined />,
-            label: <Link to="/">{t("dashboardTitle")}</Link>
+            label: <Link to="/">{t("homeTitle")}</Link>
           },
           {
             key: "service-centers",

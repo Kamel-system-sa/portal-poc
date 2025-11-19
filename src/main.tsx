@@ -8,14 +8,14 @@ import "./i18n";
 import PortalLayout from "./layouts/PortalLayout";
 import TestPage from "./pages/TestPage";
 import ServiceCentersPage from "./pages/ServiceCentersPage";
-import App from "./App";
+import HomePage from "./pages/HomePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PortalLayout />,
     children: [
-      { index: true, element: <App /> },
+      { index: true, element: <HomePage /> },
       { path: "test", element: <TestPage /> },
       { path: "service-centers", element: <ServiceCentersPage /> },
     ],

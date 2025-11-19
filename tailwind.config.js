@@ -10,12 +10,21 @@ export default {
         // Brand Colors
         mainColor: "#005B4F",
         primary: "#00796B",
+        primaryColor: "#00796B",
+        secondaryColor: "#00A896",
         
         // Status Colors
         danger: "#D64545",
         warning: "#F2C94C",
         info: "#2F80ED",
         success: "#27AE60",
+        
+        // Additional Gray Variants
+        grayBG: "#F5F7FA",
+        customgray: "#9CA3AF",
+        bordergray: "#E5E7EB",
+        gray100: "#F3F4F6",
+        lightGray: "#F9FAFB",
         
         // Blue (B2B Centers)
         blue: {
