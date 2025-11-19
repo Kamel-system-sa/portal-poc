@@ -43,7 +43,7 @@ const LanguageSwitcher = () => {
         type="button"
         className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 shadow-sm hover:shadow-md hover:border-mainColor transition"
       >
-        <GlobalOutlined style={{ fontSize: 16, color: "#005B4F" }} />
+        <GlobalOutlined className="text-mainColor" style={{ fontSize: 16 }} />
         <span className="text-xs font-semibold text-gray-700">{currentLabel}</span>
       </button>
     </Dropdown>

@@ -7,6 +7,7 @@ import "./i18n";
 
 import PortalLayout from "./layouts/PortalLayout";
 import TestPage from "./pages/TestPage";
+import OrganizersPage from "./pages/OrganizersPage";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: "test", element: <TestPage /> },
+      { path: "organizers", element: <OrganizersPage /> },
     ],
   },
 ]);

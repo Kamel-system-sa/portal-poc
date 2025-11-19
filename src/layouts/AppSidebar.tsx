@@ -1,5 +1,5 @@
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, TeamOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       ? "dashboard"
       : location.pathname.startsWith("/test")
       ? "test"
+      : location.pathname.startsWith("/organizers")
+      ? "organizers"
       : "";
 
   return (
@@ -46,6 +48,11 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             key: "test",
             icon: <AppstoreOutlined />,
             label: <Link to="/test">{t("testPageTitle")}</Link>
+          },
+          {
+            key: "organizers",
+            icon: <TeamOutlined />,
+            label: <Link to="/organizers">{t("organizersTitle")}</Link>
           }
         ]}
       />

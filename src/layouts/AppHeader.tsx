@@ -47,8 +47,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         />
         <Title
           level={4}
-          className="m-0"
-          style={{ color: "#005B4F", fontWeight: 700 }}
+          className="m-0 text-mainColor font-bold"
         >
           {t("portalTitle")}
         </Title>
@@ -63,7 +62,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           trigger={["click"]}
         >
           <Avatar
-            style={{ backgroundColor: "#005B4F", cursor: "pointer" }}
+            className="bg-mainColor cursor-pointer"
             icon={<UserOutlined />}
           />
         </Dropdown>

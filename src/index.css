@@ -6,7 +6,7 @@
 /* Sidebar menu base text colors */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item,
 .custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title {
-  color: #111827;
+  color: rgb(17, 24, 39);
 }
 
 .custom-sidebar-menu.ant-menu-light .ant-menu-item a {
@@ -30,4 +30,33 @@
 /* Remove default side border indicator */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item::after {
   border-inline-end: none !important;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Country code select - always LTR */
+.country-code-select,
+.country-code-select .ant-select-selector,
+.country-code-select .ant-select-selection-item {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+.country-code-select .ant-select-dropdown {
+  direction: ltr !important;
+  text-align: left !important;
 }

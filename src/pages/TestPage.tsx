@@ -34,28 +34,28 @@ const TestPage = () => {
         <Space wrap>
           <Button
             type="primary"
-            style={{ background: "#005B4F", borderColor: "#005B4F" }}
+            className="bg-mainColor border-mainColor hover:bg-primary hover:border-primary"
           >
             Primary (mainColor)
           </Button>
 
-          <Button style={{ background: "#00796B", color: "white" }}>
+          <Button className="bg-primary text-white hover:bg-primary/90">
             Secondary (primary)
           </Button>
 
-          <Button style={{ background: "#D64545", color: "white" }}>
+          <Button className="bg-danger text-white hover:bg-danger/90">
             Danger
           </Button>
 
-          <Button style={{ background: "#F2C94C", color: "black" }}>
+          <Button className="bg-warning text-black hover:bg-warning/90">
             Warning
           </Button>
 
-          <Button style={{ background: "#2F80ED", color: "white" }}>
+          <Button className="bg-info text-white hover:bg-info/90">
             Info
           </Button>
 
-          <Button style={{ background: "#27AE60", color: "white" }}>
+          <Button className="bg-success text-white hover:bg-success/90">
             Success
           </Button>
         </Space>
@@ -68,8 +68,7 @@ const TestPage = () => {
           message="Main Color Alert"
           description="Using the mainColor styling."
           type="success"
-          style={{ borderColor: "#005B4F" }}
-          className="text-mainColor"
+          className="text-mainColor border-mainColor"
           showIcon
         />
 
@@ -77,8 +76,7 @@ const TestPage = () => {
           message="Danger Alert"
           description="Danger-level notification."
           type="error"
-          style={{ borderColor: "#D64545" }}
-          className="text-danger"
+          className="text-danger border-danger"
           showIcon
         />
 

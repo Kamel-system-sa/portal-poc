@@ -12,7 +12,9 @@ export default {
         danger: "#D64545",
         warning: "#F2C94C",
         info: "#2F80ED",
-        success: "#27AE60"
+        success: "#27AE60",
+        gray: "#808080",
+        
       }
     },
   },
