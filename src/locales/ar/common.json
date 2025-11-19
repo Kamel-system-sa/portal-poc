@@ -168,6 +168,10 @@
     "mission": "بعثة",
     "regular": "عادي"
   },
+  "sidebar": {
+    "openSidebar": "فتح القائمة الجانبية",
+    "closeSidebar": "إغلاق القائمة الجانبية"
+  },
   "homepage": {
     "welcomeMessage": "مرحباً بك في لوحة التحكم",
     "welcomeSubtitle": "إليك ما يحدث في بوابتك اليوم",
@@ -217,6 +221,8 @@
     "systemUpdate": "تحديث النظام",
     "systemUpdateDesc": "ميزات وتحسينات جديدة متاحة الآن",
     "annualReport": "التقرير السنوي",
-    "reportDesc": "نظرة شاملة على إنجازات هذا العام"
+    "reportDesc": "نظرة شاملة على إنجازات هذا العام",
+    "viewAll": "عرض الكل",
+    "by": "بواسطة"
   }
 }

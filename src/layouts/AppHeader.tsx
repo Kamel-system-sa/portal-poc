@@ -1,4 +1,4 @@
-import { Layout, Button, Dropdown, Avatar, Typography } from "antd";
+import { Layout, Button, Dropdown, Avatar, Typography, Tooltip } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -20,7 +20,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   collapsed,
   onToggleSidebar
 }) => {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
+  const isRtl = i18n.language === "ar" || i18n.language === "ur";
 
   const userMenuItems = [
     { key: "profile", label: <span>Profile</span> },
@@ -28,27 +29,37 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     { key: "logout", label: <span>Logout</span> }
   ];
 
+  const sidebarWidth = collapsed ? 80 : 220;
+  const headerLeft = isRtl ? 0 : sidebarWidth;
+  const headerRight = isRtl ? sidebarWidth : 0;
+
   return (
     <Header
-      className="flex items-center justify-between px-4 bg-white shadow"
-      style={{ height: 60 }}
+      className="flex items-center justify-between px-4 bg-white shadow fixed top-0 z-40 transition-all duration-200"
+      style={{ 
+        height: 60, 
+        left: headerLeft,
+        right: headerRight
+      }}
     >
       <div className="flex items-center gap-4">
-        <Button
-          type="text"
-          onClick={onToggleSidebar}
-          icon={
-            collapsed ? (
-              <MenuUnfoldOutlined style={{ fontSize: 20 }} />
-            ) : (
-              <MenuFoldOutlined style={{ fontSize: 20 }} />
-            )
-          }
-        />
+        <Tooltip title={collapsed ? t("sidebar.openSidebar") : t("sidebar.closeSidebar")}>
+          <Button
+            type="text"
+            onClick={onToggleSidebar}
+            aria-label={collapsed ? t("sidebar.openSidebar") : t("sidebar.closeSidebar")}
+            icon={
+              collapsed ? (
+                <MenuUnfoldOutlined style={{ fontSize: 20 }} />
+              ) : (
+                <MenuFoldOutlined style={{ fontSize: 20 }} />
+              )
+            }
+          />
+        </Tooltip>
         <Title
           level={4}
-          className="m-0"
-          style={{ color: "#005B4F", fontWeight: 700 }}
+          className="m-0 text-mainColor font-bold"
         >
           {t("portalTitle")}
         </Title>
@@ -59,11 +70,11 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         <Button type="text" icon={<BellOutlined style={{ fontSize: 20 }} />} />
         <Dropdown
           menu={{ items: userMenuItems }}
-          placement="bottomRight"
+          placement={isRtl ? "bottomLeft" : "bottomRight"}
           trigger={["click"]}
         >
           <Avatar
-            style={{ backgroundColor: "#005B4F", cursor: "pointer" }}
+            className="bg-mainColor cursor-pointer"
             icon={<UserOutlined />}
           />
         </Dropdown>

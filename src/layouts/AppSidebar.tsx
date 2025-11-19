@@ -10,8 +10,9 @@ interface AppSidebarProps {
 }
 
 const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
   const location = useLocation();
+  const isRtl = i18n.language === "ar" || i18n.language === "ur";
 
   const selectedKey =
     location.pathname === "/"
@@ -22,13 +23,19 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       ? "service-centers"
       : "";
 
+  const borderClass = isRtl ? "border-l" : "border-r";
+
   return (
     <Sider
       collapsible
       collapsed={collapsed}
       trigger={null}
       width={220}
-      className="bg-white border-r border-gray-200"
+      className={`bg-white ${borderClass} border-gray-200 fixed top-0 h-screen z-50 overflow-y-auto`}
+      style={{ 
+        height: '100vh',
+        [isRtl ? 'right' : 'left']: 0
+      }}
     >
       <div className="text-mainColor text-center font-bold py-4 text-lg">
         {collapsed ? "KP" : t("portalTitle")}

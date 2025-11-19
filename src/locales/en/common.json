@@ -168,6 +168,10 @@
     "mission": "Mission",
     "regular": "Regular"
   },
+  "sidebar": {
+    "openSidebar": "Open Sidebar",
+    "closeSidebar": "Close Sidebar"
+  },
   "homepage": {
     "welcomeMessage": "Welcome to Dashboard",
     "welcomeSubtitle": "Here's what's happening with your portal today",
@@ -217,6 +221,8 @@
     "systemUpdate": "System Update",
     "systemUpdateDesc": "New features and improvements available now",
     "annualReport": "Annual Report",
-    "reportDesc": "Comprehensive overview of this year's achievements"
+    "reportDesc": "Comprehensive overview of this year's achievements",
+    "viewAll": "View All",
+    "by": "by"
   }
 }

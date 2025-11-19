@@ -164,6 +164,10 @@
     "mission": "مشن",
     "regular": "عام"
   },
+  "sidebar": {
+    "openSidebar": "سائیڈ بار کھولیں",
+    "closeSidebar": "سائیڈ بار بند کریں"
+  },
   "homepage": {
     "welcomeMessage": "ڈیش بورڈ میں خوش آمدید",
     "welcomeSubtitle": "آج آپ کے پورٹل میں کیا ہو رہا ہے",
@@ -213,6 +217,8 @@
     "systemUpdate": "سسٹم اپڈیٹ",
     "systemUpdateDesc": "نئی خصوصیات اور بہتری اب دستیاب ہیں",
     "annualReport": "سالانہ رپورٹ",
-    "reportDesc": "اس سال کی کامیابیوں کا جامع جائزہ"
+    "reportDesc": "اس سال کی کامیابیوں کا جامع جائزہ",
+    "viewAll": "سب دیکھیں",
+    "by": "کی طرف سے"
   }
 }
