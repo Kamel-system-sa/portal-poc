@@ -61,6 +61,22 @@ type FormState = {
     hawiya: string;
     deputy: string;
   };
+  firstDeputy: {
+    name: string;
+    email: string;
+    mobile: string;
+    age: string;
+    bravoCode: string;
+    hawiya: string;
+  };
+  secondDeputy: {
+    name: string;
+    email: string;
+    mobile: string;
+    age: string;
+    bravoCode: string;
+    hawiya: string;
+  };
   locations: {
     mecca: string;
     mina: string[];
@@ -90,6 +106,22 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
       bravoCode: '',
       hawiya: '',
       deputy: ''
+    },
+    firstDeputy: initialData?.firstDeputy ?? {
+      name: '',
+      email: '',
+      mobile: '',
+      age: '',
+      bravoCode: '',
+      hawiya: ''
+    },
+    secondDeputy: initialData?.secondDeputy ?? {
+      name: '',
+      email: '',
+      mobile: '',
+      age: '',
+      bravoCode: '',
+      hawiya: ''
     },
     locations: initialData?.locations ? {
       mecca: initialData.locations.meccaUrl || '',
@@ -134,6 +166,20 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
     setForm(prev => ({
       ...prev,
       responsible: { ...prev.responsible, [key]: value }
+    }));
+  };
+
+  const updateFirstDeputy = (key: keyof typeof form.firstDeputy, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      firstDeputy: { ...prev.firstDeputy, [key]: value }
+    }));
+  };
+
+  const updateSecondDeputy = (key: keyof typeof form.secondDeputy, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      secondDeputy: { ...prev.secondDeputy, [key]: value }
     }));
   };
 
@@ -215,6 +261,8 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
         muzdalifahUrls: form.locations.muzdalifah.length > 0 ? form.locations.muzdalifah : undefined
       },
       responsible: form.responsible,
+      firstDeputy: form.firstDeputy.name || form.firstDeputy.email || form.firstDeputy.mobile ? form.firstDeputy : undefined,
+      secondDeputy: form.secondDeputy.name || form.secondDeputy.email || form.secondDeputy.mobile ? form.secondDeputy : undefined,
       members,
       createdAt: initialData?.createdAt ?? '',
       status: form.status
@@ -355,7 +403,7 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
           <h4 className="text-xl font-bold text-gray-900">{t('form.responsible')}</h4>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya', 'deputy'] as const).map(field => {
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
               name: <UserOutlined className="text-mainColor text-base" />,
               email: <MailOutlined className="text-mainColor text-base" />,
@@ -384,7 +432,78 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
       </section>
       </div>
 
-      {/* Row 2: Locations and Members */}
+      {/* Row 2: First Deputy and Second Deputy */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* النائب الأول */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.firstDeputy')}</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
+            const iconMap: Record<string, React.ReactNode> = {
+              name: <UserOutlined className="text-mainColor text-base" />,
+              email: <MailOutlined className="text-mainColor text-base" />,
+              mobile: <PhoneOutlined className="text-mainColor text-base" />,
+              age: <UserOutlined className="text-mainColor text-base" />,
+              bravoCode: <IdcardOutlined className="text-mainColor text-base" />,
+              hawiya: <IdcardOutlined className="text-mainColor text-base" />
+            };
+            return (
+              <label key={field} className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  {iconMap[field]}
+                  <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
+                </div>
+                <input
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  placeholder={t(`placeholders.${field}`)}
+                  value={form.firstDeputy[field]}
+                  onChange={e => updateFirstDeputy(field, e.target.value)}
+                />
+              </label>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* النائب الثاني */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.secondDeputy')}</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
+            const iconMap: Record<string, React.ReactNode> = {
+              name: <UserOutlined className="text-mainColor text-base" />,
+              email: <MailOutlined className="text-mainColor text-base" />,
+              mobile: <PhoneOutlined className="text-mainColor text-base" />,
+              age: <UserOutlined className="text-mainColor text-base" />,
+              bravoCode: <IdcardOutlined className="text-mainColor text-base" />,
+              hawiya: <IdcardOutlined className="text-mainColor text-base" />
+            };
+            return (
+              <label key={field} className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  {iconMap[field]}
+                  <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
+                </div>
+                <input
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  placeholder={t(`placeholders.${field}`)}
+                  value={form.secondDeputy[field]}
+                  onChange={e => updateSecondDeputy(field, e.target.value)}
+                />
+              </label>
+            );
+          })}
+        </div>
+      </section>
+      </div>
+
+      {/* Row 3: Locations and Members */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* المواقع */}
       <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">

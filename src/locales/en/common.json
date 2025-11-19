@@ -51,6 +51,8 @@
     "selectType": "Select Type",
     "capacity": "Capacity",
     "responsible": "Responsible (Mutawwif)",
+    "firstDeputy": "First Deputy",
+    "secondDeputy": "Second Deputy",
     "locations": "Locations",
     "mecca": "Mecca",
     "meccaSingleLink": "Mecca (Single Link)",

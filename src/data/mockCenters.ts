@@ -36,6 +36,22 @@ export interface Center {
     hawiya: string;
     deputy: string;
   };
+  firstDeputy?: {
+    name: string;
+    email: string;
+    mobile: string;
+    age: string;
+    bravoCode: string;
+    hawiya: string;
+  };
+  secondDeputy?: {
+    name: string;
+    email: string;
+    mobile: string;
+    age: string;
+    bravoCode: string;
+    hawiya: string;
+  };
   members: Member[];
   createdAt: string;
   status: 'active' | 'inactive';

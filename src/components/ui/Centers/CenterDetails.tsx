@@ -14,7 +14,7 @@ import {
   CloseCircleOutlined
 } from '@ant-design/icons';
 import type { Center, Member } from '../../../data/mockCenters';
-import { renderLocations, translateSection } from '../../../utils';
+import { renderLocations, translateSection, getResponsibleLabels } from '../../../utils';
 import { MemberDetails } from './MemberDetails';
 
 interface CenterDetailsProps {
@@ -27,272 +27,280 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   return (
-    <div className="space-y-6">
+    <div className="w-full space-y-6">
+      {/* Row 1: Center Data and Responsible */}
+      <div className="grid grid-cols-1 gap-8">
       {/* معلومات المركز */}
       <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <header className="mb-6 pb-6 border-b border-gray-100">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-mainColor to-primary flex items-center justify-center shadow-lg shadow-mainColor/20">
-                <NumberOutlined className="text-3xl text-white" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-1 tracking-tight">
-                  {t('details.centerNumber')} {center.number}
-                </h3>
-                <div className="flex items-center gap-2">
-                  {center.status === 'active' ? (
-                    <CheckCircleOutlined className="text-green-500 text-sm" />
-                  ) : (
-                    <CloseCircleOutlined className="text-red-500 text-sm" />
-                  )}
-                  <span className={`text-sm font-semibold ${
-                    center.status === 'active' ? 'text-green-600' : 'text-red-600'
-                  }`}>
-                    {center.status === 'active' ? t('centers.active') : t('centers.inactive')}
-                  </span>
-                </div>
-              </div>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.centerData')}</h4>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <NumberOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.centerNumber')}</span>
             </div>
-            <div className={`px-4 py-2 rounded-xl text-sm font-bold ${
-              center.serviceType === 'B2B' ? 'bg-blue-50 text-blue-700' :
-              center.serviceType === 'B2C' ? 'bg-green-50 text-green-700' :
-              'bg-purple-50 text-purple-700'
-            }`}>
+            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+              {center.number}
+            </div>
+          </label>
+
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <ApartmentOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.serviceType')}</span>
+            </div>
+            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
               {center.serviceType}
             </div>
-          </div>
-        </header>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50/50 to-transparent border border-blue-100">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <ApartmentOutlined className="text-blue-600 text-lg" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('details.serviceType')}</p>
-                <p className="text-base font-bold text-gray-900">{center.serviceType}</p>
-              </div>
-            </div>
-          </div>
+          </label>
 
           {center.serviceDetail && (
-            <div className="p-4 rounded-xl bg-gradient-to-br from-indigo-50/50 to-transparent border border-indigo-100">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center">
-                  <ApartmentOutlined className="text-indigo-600 text-lg" />
+            <>
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <ApartmentOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('form.centerType')}</span>
                 </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('form.centerType')}</p>
-                  <p className="text-base font-bold text-gray-900">
-                    {center.serviceDetail === 'سياحة' ? t('centerTypes.tourism') : center.serviceDetail === 'بعثة' ? t('centerTypes.mission') : center.serviceDetail}
-                  </p>
+                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+                  {center.serviceDetail === 'سياحة' ? t('centerTypes.tourism') : center.serviceDetail === 'بعثة' ? t('centerTypes.mission') : center.serviceDetail}
                 </div>
-              </div>
-            </div>
+              </label>
+
+              {center.serviceDetail === 'بعثة' && center.missionNationality && (
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <IdcardOutlined className="text-mainColor text-base" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.nationality')}</span>
+                  </div>
+                  <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+                    {center.missionNationality}
+                  </div>
+                </label>
+              )}
+            </>
           )}
 
-          {center.missionNationality && (
-            <div className="p-4 rounded-xl bg-gradient-to-br from-teal-50/50 to-transparent border border-teal-100">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center">
-                  <IdcardOutlined className="text-teal-600 text-lg" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('form.nationality')}</p>
-                  <p className="text-base font-bold text-gray-900">{center.missionNationality}</p>
-                </div>
-              </div>
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <TeamOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.capacity')}</span>
             </div>
-          )}
+            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+              {center.capacity.toLocaleString()}
+            </div>
+          </label>
 
-          <div className="p-4 rounded-xl bg-gradient-to-br from-green-50/50 to-transparent border border-green-100">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                <TeamOutlined className="text-green-600 text-lg" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('details.capacity')}</p>
-                <p className="text-base font-bold text-gray-900">{center.capacity.toLocaleString()}</p>
-              </div>
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircleOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.status')}</span>
             </div>
-          </div>
-
-          <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50/50 to-transparent border border-amber-100">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-                <CheckCircleOutlined className="text-amber-600 text-lg" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{t('centers.status')}</p>
-                <p className="text-base font-bold text-gray-900">
-                  {center.status === 'active' ? t('centers.active') : t('centers.inactive')}
-                </p>
-              </div>
+            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+              {center.status === 'active' ? t('centers.active') : t('centers.inactive')}
             </div>
-          </div>
-
-          <div className="md:col-span-2 p-4 rounded-xl bg-gradient-to-br from-purple-50/50 to-transparent border border-purple-100">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                <EnvironmentOutlined className="text-purple-600 text-lg" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{t('details.locations')}</p>
-                <div className="space-y-2">
-                  {center.locations.mecca && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-600 mb-1">{t('form.mecca')}:</p>
-                      {center.locations.meccaUrl ? (
-                        <a href={center.locations.meccaUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:text-blue-800 underline break-all">
-                          {center.locations.meccaUrl}
-                        </a>
-                      ) : (
-                        <p className="text-sm text-gray-500">{t('details.notSpecified')}</p>
-                      )}
-                    </div>
-                  )}
-                  {center.locations.mina && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-600 mb-1">{t('form.mina')}:</p>
-                      {center.locations.minaUrls && center.locations.minaUrls.length > 0 ? (
-                        <div className="space-y-1">
-                          {center.locations.minaUrls.map((url, idx) => (
-                            <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-600 hover:text-blue-800 underline break-all">
-                              {url}
-                            </a>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-sm text-gray-500">{t('details.notSpecified')}</p>
-                      )}
-                    </div>
-                  )}
-                  {center.locations.arafat && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-600 mb-1">{t('form.arafat')}:</p>
-                      {center.locations.arafatUrls && center.locations.arafatUrls.length > 0 ? (
-                        <div className="space-y-1">
-                          {center.locations.arafatUrls.map((url, idx) => (
-                            <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-600 hover:text-blue-800 underline break-all">
-                              {url}
-                            </a>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-sm text-gray-500">{t('details.notSpecified')}</p>
-                      )}
-                    </div>
-                  )}
-                  {center.locations.muzdalifah && (
-                    <div>
-                      <p className="text-xs font-semibold text-gray-600 mb-1">{t('form.muzdalifah')}:</p>
-                      {center.locations.muzdalifahUrls && center.locations.muzdalifahUrls.length > 0 ? (
-                        <div className="space-y-1">
-                          {center.locations.muzdalifahUrls.map((url, idx) => (
-                            <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="block text-sm text-blue-600 hover:text-blue-800 underline break-all">
-                              {url}
-                            </a>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-sm text-gray-500">{t('details.notSpecified')}</p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+          </label>
         </div>
       </section>
 
       {/* المسؤول */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-          <h4 className="text-xl font-bold text-gray-900">{t('details.responsible')}</h4>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.responsible')}</h4>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <UserOutlined className="text-mainColor text-lg" />
+        <div className="grid grid-cols-2 gap-4">
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
+            const iconMap: Record<string, React.ReactNode> = {
+              name: <UserOutlined className="text-mainColor text-base" />,
+              email: <MailOutlined className="text-mainColor text-base" />,
+              mobile: <PhoneOutlined className="text-mainColor text-base" />,
+              age: <UserOutlined className="text-mainColor text-base" />,
+              bravoCode: <IdcardOutlined className="text-mainColor text-base" />,
+              hawiya: <IdcardOutlined className="text-mainColor text-base" />
+            };
+            return (
+              <label key={field} className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  {iconMap[field]}
+                  <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
+                </div>
+                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                  {center.responsible[field] || t('details.notSpecified')}
+                </div>
+              </label>
+            );
+          })}
+        </div>
+      </section>
+      </div>
+
+      {/* Row 2: First Deputy and Second Deputy */}
+      <div className="grid grid-cols-1 gap-8">
+      {/* النائب الأول */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.firstDeputy')}</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
+            const iconMap: Record<string, React.ReactNode> = {
+              name: <UserOutlined className="text-mainColor text-base" />,
+              email: <MailOutlined className="text-mainColor text-base" />,
+              mobile: <PhoneOutlined className="text-mainColor text-base" />,
+              age: <UserOutlined className="text-mainColor text-base" />,
+              bravoCode: <IdcardOutlined className="text-mainColor text-base" />,
+              hawiya: <IdcardOutlined className="text-mainColor text-base" />
+            };
+            return (
+              <label key={field} className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  {iconMap[field]}
+                  <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
+                </div>
+                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                  {center.firstDeputy?.[field] || t('details.notSpecified')}
+                </div>
+              </label>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* النائب الثاني */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.secondDeputy')}</h4>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
+            const iconMap: Record<string, React.ReactNode> = {
+              name: <UserOutlined className="text-mainColor text-base" />,
+              email: <MailOutlined className="text-mainColor text-base" />,
+              mobile: <PhoneOutlined className="text-mainColor text-base" />,
+              age: <UserOutlined className="text-mainColor text-base" />,
+              bravoCode: <IdcardOutlined className="text-mainColor text-base" />,
+              hawiya: <IdcardOutlined className="text-mainColor text-base" />
+            };
+            return (
+              <label key={field} className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  {iconMap[field]}
+                  <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
+                </div>
+                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                  {center.secondDeputy?.[field] || t('details.notSpecified')}
+                </div>
+              </label>
+            );
+          })}
+        </div>
+      </section>
+      </div>
+
+      {/* Row 3: Locations and Members */}
+      <div className="grid grid-cols-1 gap-8">
+      {/* المواقع */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('form.locations')}</h4>
+        </div>
+        <div className="grid grid-cols-1 gap-6">
+          {/* مكة */}
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <EnvironmentOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.meccaSingleLink')}</span>
             </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('details.name')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.name}</p>
+            {center.locations.meccaUrl ? (
+              <a href={center.locations.meccaUrl} target="_blank" rel="noopener noreferrer" className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-blue-600 hover:text-blue-800 underline break-all block">
+                {center.locations.meccaUrl}
+              </a>
+            ) : (
+              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+                {t('details.notSpecified')}
+              </div>
+            )}
+          </label>
+
+          {/* منى */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <EnvironmentOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.minaSites')}</span>
             </div>
+            {center.locations.minaUrls && center.locations.minaUrls.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {center.locations.minaUrls.map((url, idx) => (
+                  <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-gradient-to-r from-mainColor/10 to-primary/10 text-mainColor rounded-xl text-sm hover:from-mainColor/20 hover:to-primary/20 transition-all duration-200 border-2 border-mainColor/20 hover:border-mainColor/40 font-medium break-all">
+                    {url}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+                {t('details.notSpecified')}
+              </div>
+            )}
           </div>
 
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <MailOutlined className="text-mainColor text-lg" />
+          {/* عرفات */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <EnvironmentOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.arafatSites')}</span>
             </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('details.email')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.email}</p>
-            </div>
+            {center.locations.arafatUrls && center.locations.arafatUrls.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {center.locations.arafatUrls.map((url, idx) => (
+                  <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-gradient-to-r from-mainColor/10 to-primary/10 text-mainColor rounded-xl text-sm hover:from-mainColor/20 hover:to-primary/20 transition-all duration-200 border-2 border-mainColor/20 hover:border-mainColor/40 font-medium break-all">
+                    {url}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+                {t('details.notSpecified')}
+              </div>
+            )}
           </div>
 
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <PhoneOutlined className="text-mainColor text-lg" />
+          {/* مزدلفة */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <EnvironmentOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.muzdalifahSites')}</span>
             </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('details.mobile')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.mobile}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <IdcardOutlined className="text-mainColor text-lg" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('details.bravoCode')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.bravoCode}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <UserOutlined className="text-mainColor text-lg" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('labels.age')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.age || t('details.notSpecified')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <IdcardOutlined className="text-mainColor text-lg" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('labels.hawiya')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.hawiya || t('details.notSpecified')}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100">
-            <div className="w-10 h-10 rounded-lg bg-mainColor/10 flex items-center justify-center">
-              <UserOutlined className="text-mainColor text-lg" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-gray-500 mb-1">{t('labels.deputy')}</p>
-              <p className="text-sm font-bold text-gray-900">{center.responsible.deputy || t('details.notSpecified')}</p>
-            </div>
+            {center.locations.muzdalifahUrls && center.locations.muzdalifahUrls.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {center.locations.muzdalifahUrls.map((url, idx) => (
+                  <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-gradient-to-r from-mainColor/10 to-primary/10 text-mainColor rounded-xl text-sm hover:from-mainColor/20 hover:to-primary/20 transition-all duration-200 border-2 border-mainColor/20 hover:border-mainColor/40 font-medium break-all">
+                    {url}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+                {t('details.notSpecified')}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* الأعضاء */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-          <h4 className="text-xl font-bold text-gray-900">{t('details.members')}</h4>
-        </div>
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
+        <header className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
+          </div>
+        </header>
         {center.members.length === 0 ? (
           <div className="text-center py-8">
             <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
@@ -319,6 +327,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
           </div>
         )}
       </section>
+      </div>
 
       {/* زر تعديل */}
       <footer className="pt-4">
