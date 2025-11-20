@@ -8,6 +8,7 @@ import "./i18n";
 import PortalLayout from "./layouts/PortalLayout";
 import TestPage from "./pages/TestPage";
 import ServiceCentersPage from "./pages/ServiceCentersPage";
+import HRDashboardPage from "./pages/HRDashboardPage";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, element: <App /> },
       { path: "test", element: <TestPage /> },
       { path: "service-centers", element: <ServiceCentersPage /> },
+      { path: "hr", element: <HRDashboardPage /> },
     ],
   },
 ]);

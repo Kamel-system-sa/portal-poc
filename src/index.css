@@ -31,3 +31,27 @@
 .custom-sidebar-menu.ant-menu-light .ant-menu-item::after {
   border-inline-end: none !important;
 }
+
+/* Custom scrollbar for department cards */
+.dept-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 91, 79, 0.3) rgba(0, 91, 79, 0.1);
+}
+
+.dept-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dept-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 91, 79, 0.05);
+  border-radius: 10px;
+}
+
+.dept-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 91, 79, 0.3);
+  border-radius: 10px;
+}
+
+.dept-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 91, 79, 0.5);
+}

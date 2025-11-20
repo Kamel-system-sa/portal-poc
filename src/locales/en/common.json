@@ -166,5 +166,306 @@
     "tourism": "Tourism",
     "mission": "Mission",
     "regular": "Regular"
+  },
+  "hr": {
+    "title": "Human Resources",
+    "dashboard": "HR Dashboard",
+    "employees": "Employees",
+    "addEmployee": "Add Employee",
+    "editEmployee": "Edit Employee",
+    "employeeDetails": "Employee Details",
+    "employmentForm": "Employment Form",
+    "jobOffer": "Job Offer",
+    "dataExport": "Data Export",
+    "print": "Print",
+    "employeeCard": "Employee Card",
+    "contract": "Contract",
+    "noEmployees": "No employees to display",
+    "startAddingEmployee": "Start by adding a new employee",
+    "searchPlaceholder": "Search for an employee...",
+    "totalEmployees": "Total Employees",
+    "pendingContracts": "Pending Contracts",
+    "cardsPrinted": "Cards Printed",
+    "summary": "Summary",
+    "filters": {
+      "nationality": "Nationality",
+      "selectNationality": "Select Nationality",
+      "gender": "Gender",
+      "status": "Filters",
+      "reset": "Reset",
+      "apply": "Apply"
+    },
+    "form": {
+      "personalInfo": "Personal Information",
+      "name": "Name",
+      "nationality": "Nationality",
+      "id": "ID Number",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "age": "Age",
+      "mobile": "Mobile Number",
+      "email": "Email",
+      "departmentRole": "Department & Role",
+      "department": "Department",
+      "selectDepartment": "Select Department",
+      "transport": "Transport",
+      "reception": "Reception",
+      "accommodation": "Accommodation",
+      "fieldServices": "Field Services",
+      "other": "Other",
+      "jobRank": "Job Rank",
+      "selectJobRank": "Select Job Rank",
+      "field": "Field",
+      "supervisor": "Supervisor",
+      "departmentHead": "Department Head",
+      "shiftDuration": "Shift Duration",
+      "selectShiftDuration": "Select Shift Duration",
+      "8h": "8 hours",
+      "12h": "12 hours",
+      "shiftPeriod": "Shift Period",
+      "selectShiftPeriod": "Select Shift Period",
+      "firstShift": "First (8:00–14:00)",
+      "secondShift": "Second (14:00–22:00)",
+      "thirdShift": "Third (22:00–8:00)",
+      "contractInfo": "Contract Information",
+      "contractStartDate": "Contract Start Date",
+      "contractEndDate": "Contract End Date",
+      "numberOfDays": "Number of Days",
+      "salaryInfo": "Salary Information",
+      "seasonalSalary": "Seasonal Salary",
+      "dailySalary": "Daily Salary",
+      "tasks": "Tasks",
+      "mainTasks": "Main Tasks",
+      "additionalTasks": "Additional Tasks",
+      "addTask": "Add Task",
+      "removeTask": "Remove Task",
+      "recommendations": "Recommendations",
+      "recommendationsPlaceholder": "Employment recommendations for service centers",
+      "calculatedAutomatically": "Calculated automatically",
+      "profilePicture": "Profile Picture",
+      "uploadImage": "Upload Image",
+      "changeImage": "Change Image",
+      "printContract": "Print Contract",
+      "sendToPhone": "Send to Phone",
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close",
+      "next": "Next",
+      "previous": "Previous",
+      "step1": "Step 1: Personal Information",
+      "step2": "Step 2: Department & Role",
+      "step3": "Step 3: Contract Information",
+      "step4": "Step 4: Tasks",
+      "step5": "Step 5: Review"
+    },
+    "shifts": {
+      "title": "Shift Tables",
+      "firstShift": "First Shift (8:00–14:00)",
+      "secondShift": "Second Shift (14:00–22:00)",
+      "thirdShift": "Third Shift (22:00–8:00)",
+      "department": "Department",
+      "employee": "Employee",
+      "noEmployees": "No employees in this shift"
+    },
+    "departments": {
+      "transport": "Transport",
+      "reception": "Reception",
+      "accommodation": "Accommodation",
+      "fieldServices": "Field Services",
+      "other": "Other",
+      "all": "All"
+    },
+    "jobOffer": {
+      "title": "Job Offer",
+      "template": "Template",
+      "selectTemplate": "Select Template",
+      "editTemplate": "Edit Template",
+      "preview": "Preview",
+      "send": "Send",
+      "sendConfirmation": "Send Confirmation",
+      "sendConfirmationMessage": "Are you sure you want to send the job offer to",
+      "subject": "Subject",
+      "body": "Body",
+      "uploadFile": "Upload Offer File",
+      "clickToUpload": "Click to upload",
+      "orDragDrop": "or drag and drop",
+      "removeFile": "Remove File",
+      "uploadNote": "You can upload a file containing the job offer instead of writing it as text",
+      "optional": "Optional",
+      "fileUploadedPlaceholder": "File uploaded, the uploaded file will be used instead of text",
+      "fileWillBeAttached": "This file will be attached to the email",
+      "fileAttachedMessage": "Job offer file has been attached to this email.",
+      "invalidFileType": "Invalid file type. Please upload PDF, DOC, DOCX, or TXT file",
+      "placeholders": {
+        "name": "[Employee Name]",
+        "position": "[Position]",
+        "salary": "[Salary]",
+        "startDate": "[Start Date]",
+        "endDate": "[End Date]"
+      }
+    },
+    "export": {
+      "title": "Data Export",
+      "format": "Format",
+      "excel": "Excel",
+      "pdf": "PDF",
+      "csv": "CSV",
+      "selectFields": "Select Fields",
+      "selectEmployees": "Select Employees",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "export": "Export",
+      "exporting": "Exporting...",
+      "exportSuccess": "Export successful"
+    },
+    "print": {
+      "title": "Print",
+      "paperSize": "Paper Size",
+      "a4": "A4",
+      "a3": "A3",
+      "letter": "Letter",
+      "template": "Template",
+      "preview": "Print Preview",
+      "print": "Print",
+      "orientation": "Orientation",
+      "portrait": "Portrait",
+      "landscape": "Landscape",
+      "templates": {
+        "default": "Default Template",
+        "company": "Company Template",
+        "custom": "Custom Template"
+      },
+      "contractNumber": "Contract Number",
+      "contractDate": "Contract Date",
+      "termsAndConditions": "Terms and Conditions",
+      "term1": "Employee must comply with all applicable laws and regulations",
+      "term2": "Employee must maintain confidentiality of company information",
+      "term3": "Employee must adhere to specified work schedules",
+      "employeeSignature": "Employee Signature",
+      "companySignature": "Company Signature",
+      "companyAddress": "Address: Kingdom of Saudi Arabia",
+      "companyContact": "Email: info@kamelportal.com"
+    },
+    "employeeCard": {
+      "title": "Print Employee Card",
+      "cardSize": "Card Size",
+      "standard": "Standard",
+      "long": "Long (for card holder)",
+      "preview": "Card Preview",
+      "print": "Print Card"
+    },
+    "checkboxes": {
+      "title": "Administrative Checklist",
+      "employeeCardPrinted": "Employee Card Printed",
+      "registeredInAjir": "Registered in Ajir",
+      "nuskCardIssued": "Nusk Card Issued",
+      "tooltips": {
+        "employeeCardPrinted": "Employee card has been printed successfully",
+        "registeredInAjir": "Employee is registered in Ajir system",
+        "nuskCardIssued": "Nusk card has been issued for the employee"
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View",
+      "printCard": "Print Card",
+      "sendOffer": "Send Offer",
+      "export": "Export",
+      "print": "Print"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "hr": "Human Resources",
+      "dashboard": "Dashboard",
+      "form": "Employment Form",
+      "offer": "Job Offer",
+      "export": "Data Export",
+      "print": "Print"
+    },
+    "states": {
+      "loading": "Loading...",
+      "error": "Error",
+      "errorMessage": "Failed to load data. Please try again.",
+      "empty": "No Data",
+      "emptyMessage": "No employees to display. Start by adding a new employee."
+    },
+    "deleteConfirmMessage": "Are you sure you want to delete {{name}}?",
+    "pagination": {
+      "itemsPerPage": "Items per page",
+      "showing": "Showing",
+      "of": "of",
+      "total": "total"
+    },
+    "employeeData": {
+      "E-1": {
+        "name": "Ahmed Mohammed Ali",
+        "mainTasks": {
+          "0": "Receiving pilgrims",
+          "1": "Organizing schedules",
+          "2": "Coordinating with teams"
+        },
+        "additionalTasks": {
+          "0": "Assisting in emergencies",
+          "1": "Training new employees"
+        },
+        "recommendations": "Recommended for Center 001 - Excellent customer service skills"
+      },
+      "E-2": {
+        "name": "Fatima Khalid",
+        "mainTasks": {
+          "0": "Managing accommodation",
+          "1": "Coordinating appointments"
+        },
+        "additionalTasks": {
+          "0": "Responding to inquiries"
+        },
+        "recommendations": "Suitable for VIP centers"
+      },
+      "E-3": {
+        "name": "Mohammed Abdullah",
+        "mainTasks": {
+          "0": "Field services",
+          "1": "Coordinating with centers"
+        },
+        "additionalTasks": {
+          "0": "Recording data",
+          "1": "Following up with pilgrims"
+        },
+        "recommendations": "Recommended for B2B centers"
+      },
+      "E-4": {
+        "name": "Sara Ahmed",
+        "mainTasks": {
+          "0": "Receiving clients",
+          "1": "Check-in"
+        },
+        "additionalTasks": {}
+      },
+      "E-5": {
+        "name": "Khalid bin Saad",
+        "mainTasks": {
+          "0": "Team management",
+          "1": "General coordination",
+          "2": "Problem solving"
+        },
+        "additionalTasks": {
+          "0": "Training",
+          "1": "Evaluation"
+        },
+        "recommendations": "Ideal for high-capacity centers"
+      },
+      "E-6": {
+        "name": "Nora Hassan",
+        "mainTasks": {
+          "0": "Driving vehicles",
+          "1": "Transporting pilgrims"
+        },
+        "additionalTasks": {
+          "0": "Vehicle maintenance"
+        }
+      }
+    }
   }
 }

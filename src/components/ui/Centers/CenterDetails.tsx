@@ -27,22 +27,22 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-5">
       {/* Row 1: Center Data and Responsible */}
-      <div className="grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* معلومات المركز */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100">
+        <div className="flex items-center gap-3 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.centerData')}</h4>
         </div>
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <NumberOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('form.centerNumber')}</span>
             </div>
-            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+            <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
               {center.number}
             </div>
           </label>
@@ -52,7 +52,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
               <ApartmentOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('form.serviceType')}</span>
             </div>
-            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+            <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
               {center.serviceType}
             </div>
           </label>
@@ -64,7 +64,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                   <ApartmentOutlined className="text-mainColor text-base" />
                   <span className="block text-sm font-semibold text-gray-700">{t('form.centerType')}</span>
                 </div>
-                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+                <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
                   {center.serviceDetail === 'سياحة' ? t('centerTypes.tourism') : center.serviceDetail === 'بعثة' ? t('centerTypes.mission') : center.serviceDetail}
                 </div>
               </label>
@@ -75,7 +75,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                     <IdcardOutlined className="text-mainColor text-base" />
                     <span className="block text-sm font-semibold text-gray-700">{t('form.nationality')}</span>
                   </div>
-                  <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+                  <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
                     {center.missionNationality}
                   </div>
                 </label>
@@ -88,7 +88,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
               <TeamOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('form.capacity')}</span>
             </div>
-            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+            <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
               {center.capacity.toLocaleString()}
             </div>
           </label>
@@ -98,7 +98,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
               <CheckCircleOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('form.status')}</span>
             </div>
-            <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
+            <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700 font-medium">
               {center.status === 'active' ? t('centers.active') : t('centers.inactive')}
             </div>
           </label>
@@ -106,12 +106,12 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </section>
 
       {/* المسؤول */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
-        <div className="flex items-center gap-3 mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.responsible')}</h4>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
               name: <UserOutlined className="text-mainColor text-base" />,
@@ -127,7 +127,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                   {iconMap[field]}
                   <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
                 </div>
-                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
                   {center.responsible[field] || t('details.notSpecified')}
                 </div>
               </label>
@@ -138,14 +138,14 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </div>
 
       {/* Row 2: First Deputy and Second Deputy */}
-      <div className="grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* النائب الأول */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
-        <div className="flex items-center gap-3 mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.firstDeputy')}</h4>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
               name: <UserOutlined className="text-mainColor text-base" />,
@@ -161,7 +161,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                   {iconMap[field]}
                   <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
                 </div>
-                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
                   {center.firstDeputy?.[field] || t('details.notSpecified')}
                 </div>
               </label>
@@ -171,12 +171,12 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </section>
 
       {/* النائب الثاني */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
-        <div className="flex items-center gap-3 mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.secondDeputy')}</h4>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
               name: <UserOutlined className="text-mainColor text-base" />,
@@ -192,7 +192,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                   {iconMap[field]}
                   <span className="block text-sm font-semibold text-gray-700">{getResponsibleLabels()[field]}</span>
                 </div>
-                <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
+                <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-700">
                   {center.secondDeputy?.[field] || t('details.notSpecified')}
                 </div>
               </label>
@@ -203,14 +203,14 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </div>
 
       {/* Row 3: Locations and Members */}
-      <div className="grid grid-cols-1 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* المواقع */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
-        <div className="flex items-center gap-3 mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <div className="flex items-center gap-3 mb-5">
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.locations')}</h4>
         </div>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-4">
           {/* مكة */}
           <label className="block">
             <div className="flex items-center gap-2 mb-2">
@@ -218,11 +218,11 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
               <span className="block text-sm font-semibold text-gray-700">{t('form.meccaSingleLink')}</span>
             </div>
             {center.locations.meccaUrl ? (
-              <a href={center.locations.meccaUrl} target="_blank" rel="noopener noreferrer" className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-blue-600 hover:text-blue-800 underline break-all block">
+              <a href={center.locations.meccaUrl} target="_blank" rel="noopener noreferrer" className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-blue-600 hover:text-blue-800 underline break-all block">
                 {center.locations.meccaUrl}
               </a>
             ) : (
-              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+              <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
                 {t('details.notSpecified')}
               </div>
             )}
@@ -243,7 +243,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                 ))}
               </div>
             ) : (
-              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+              <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
                 {t('details.notSpecified')}
               </div>
             )}
@@ -264,7 +264,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                 ))}
               </div>
             ) : (
-              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+              <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
                 {t('details.notSpecified')}
               </div>
             )}
@@ -285,7 +285,7 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
                 ))}
               </div>
             ) : (
-              <div className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
+              <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm text-gray-500">
                 {t('details.notSpecified')}
               </div>
             )}
@@ -294,8 +294,8 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </section>
 
       {/* الأعضاء */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 w-full">
-        <header className="flex justify-between items-center mb-6">
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <header className="flex justify-between items-center mb-5">
           <div className="flex items-center gap-3">
             <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
             <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
@@ -330,9 +330,9 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </div>
 
       {/* زر تعديل */}
-      <footer className="pt-4">
+      <footer className="pt-2">
         <button 
-          className="w-full px-6 py-3.5 text-white bg-gradient-to-r from-mainColor to-primary rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold"
+          className="w-full px-6 py-3 text-white bg-gradient-to-r from-mainColor to-primary rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 flex items-center justify-center gap-2.5 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold"
           onClick={onEdit}
         >
           <EditOutlined className="text-lg" />
