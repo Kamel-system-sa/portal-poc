@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Typography, Space, Divider, Card, Avatar } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
@@ -39,7 +39,7 @@ const { Title, Text } = Typography;
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation('common');
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(true);
   
   // Mock user data - in real app, this would come from auth context
   const currentUser = {
@@ -96,10 +96,6 @@ const HomePage: React.FC = () => {
       priority: 'low',
     },
   ]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Handle approval
   const handleApprove = (id: string) => {
