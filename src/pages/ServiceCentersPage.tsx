@@ -163,7 +163,7 @@ const ServiceCentersPage: React.FC = () => {
           }}
         >
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative w-full max-w-xl max-h-[90vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
+          <div className="relative w-full max-w-5xl max-h-[95vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
             <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
               <h2 className="text-xl font-semibold text-gray-800">{t('centers.centerDetails')}</h2>
               <button
@@ -174,7 +174,7 @@ const ServiceCentersPage: React.FC = () => {
                 <CloseOutlined className="text-lg" />
               </button>
             </div>
-            <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
+            <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-6">
               <CenterDetails
                 center={selectedCenter}
                 onEdit={handleEditCenter}

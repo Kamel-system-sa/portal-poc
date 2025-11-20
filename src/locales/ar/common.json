@@ -168,61 +168,308 @@
     "mission": "بعثة",
     "regular": "عادي"
   },
-  "sidebar": {
-    "openSidebar": "فتح القائمة الجانبية",
-    "closeSidebar": "إغلاق القائمة الجانبية"
-  },
-  "homepage": {
-    "welcomeMessage": "مرحباً بك في لوحة التحكم",
-    "welcomeSubtitle": "إليك ما يحدث في بوابتك اليوم",
-    "overview": "نظرة عامة",
-    "modules": "وحدات النظام",
-    "totalUsers": "إجمالي المستخدمين",
-    "totalReservations": "إجمالي الحجوزات",
-    "totalDepartments": "إجمالي الأقسام",
-    "totalApprovals": "إجمالي الموافقات",
-    "pendingTasks": "المهام المعلقة",
-    "todaysActivity": "نشاط اليوم",
-    "policies": "السياسات",
-    "procedures": "الإجراءات",
-    "photoGallery": "معرض الصور",
-    "forms": "النماذج",
-    "noPolicies": "لا توجد سياسات متاحة",
-    "noProcedures": "لا توجد إجراءات متاحة",
-    "noGalleryItems": "لا توجد عناصر في المعرض",
-    "noForms": "لا توجد نماذج متاحة",
-    "quickActions": "إجراءات سريعة",
-    "moreActions": "المزيد من الإجراءات",
-    "featuredItems": "العناصر المميزة",
-    "recentActivity": "النشاط الأخير",
-    "announcements": "إعلانات الشركة",
-    "myTasks": "مهامي",
-    "pendingApprovals": "الموافقات المعلقة",
-    "goodMorning": "صباح الخير",
-    "goodAfternoon": "مساء الخير",
-    "goodEvening": "مساء الخير",
+  "hr": {
+    "title": "الموارد البشرية",
+    "dashboard": "لوحة تحكم الموارد البشرية",
+    "employees": "الموظفون",
+    "addEmployee": "إضافة موظف",
+    "editEmployee": "تعديل موظف",
+    "employeeDetails": "تفاصيل الموظف",
+    "employmentForm": "نموذج التوظيف",
+    "jobOffer": "عرض العمل",
+    "dataExport": "تصدير البيانات",
+    "print": "طباعة",
+    "employeeCard": "بطاقة الموظف",
+    "contract": "العقد",
+    "noEmployees": "لا يوجد موظفون لعرضهم",
+    "startAddingEmployee": "ابدأ بإضافة موظف جديد",
+    "searchPlaceholder": "البحث عن موظف...",
     "totalEmployees": "إجمالي الموظفين",
-    "activeProjects": "المشاريع النشطة",
-    "leaveRequests": "طلبات الإجازة",
-    "todayAttendance": "الحضور اليوم",
-    "monthlyExpenses": "المصروفات الشهرية",
-    "performance": "الأداء",
-    "unreadMessages": "الرسائل غير المقروءة",
-    "requestLeave": "طلب إجازة",
-    "submitExpense": "تقديم مصروفات",
-    "viewDocuments": "عرض المستندات",
-    "attendance": "الحضور",
-    "myProfile": "ملفي الشخصي",
-    "settings": "الإعدادات",
-    "newPolicyUpdate": "تحديث سياسة جديد",
-    "policyUpdateDesc": "أحدث التحديثات حول حماية البيانات واللوائح الخاصة بالخصوصية",
-    "trainingWorkshop": "ورشة تدريبية",
-    "trainingDesc": "انضم إلى برنامج التدريب القيادي القادم",
-    "systemUpdate": "تحديث النظام",
-    "systemUpdateDesc": "ميزات وتحسينات جديدة متاحة الآن",
-    "annualReport": "التقرير السنوي",
-    "reportDesc": "نظرة شاملة على إنجازات هذا العام",
-    "viewAll": "عرض الكل",
-    "by": "بواسطة"
+    "pendingContracts": "العقود المعلقة",
+    "cardsPrinted": "البطاقات المطبوعة",
+    "summary": "ملخص",
+    "filters": {
+      "nationality": "الجنسية",
+      "selectNationality": "اختر الجنسية",
+      "gender": "الجنس",
+      "status": "الفلاتر",
+      "reset": "إعادة الضبط",
+      "apply": "تطبيق"
+    },
+    "form": {
+      "personalInfo": "المعلومات الشخصية",
+      "name": "الاسم",
+      "nationality": "الجنسية",
+      "id": "رقم الهوية",
+      "gender": "الجنس",
+      "male": "ذكر",
+      "female": "أنثى",
+      "age": "العمر",
+      "mobile": "رقم الجوال",
+      "email": "البريد الإلكتروني",
+      "departmentRole": "القسم والمنصب",
+      "department": "القسم",
+      "selectDepartment": "اختر القسم",
+      "transport": "النقل",
+      "reception": "الاستقبال",
+      "accommodation": "الإسكان",
+      "fieldServices": "الخدمات الميدانية",
+      "other": "أخرى",
+      "jobRank": "المسمى الوظيفي",
+      "selectJobRank": "اختر المسمى الوظيفي",
+      "field": "ميداني",
+      "supervisor": "مشرف",
+      "departmentHead": "رئيس قسم",
+      "shiftDuration": "مدة الفترة",
+      "selectShiftDuration": "اختر مدة الفترة",
+      "8h": "8 ساعات",
+      "12h": "12 ساعة",
+      "shiftPeriod": "فترة العمل",
+      "selectShiftPeriod": "اختر فترة العمل",
+      "firstShift": "الأولى (8:00–14:00)",
+      "secondShift": "الثانية (14:00–22:00)",
+      "thirdShift": "الثالثة (22:00–8:00)",
+      "contractInfo": "معلومات العقد",
+      "contractStartDate": "تاريخ بداية العقد",
+      "contractEndDate": "تاريخ نهاية العقد",
+      "numberOfDays": "عدد الأيام",
+      "salaryInfo": "معلومات الراتب",
+      "seasonalSalary": "الراتب الموسمي",
+      "dailySalary": "الراتب اليومي",
+      "tasks": "المهام",
+      "mainTasks": "المهام الرئيسية",
+      "additionalTasks": "المهام الإضافية",
+      "addTask": "إضافة مهمة",
+      "removeTask": "إزالة مهمة",
+      "recommendations": "التوصيات",
+      "recommendationsPlaceholder": "توصيات التوظيف لمراكز الخدمة",
+      "calculatedAutomatically": "محسوب تلقائياً",
+      "profilePicture": "صورة الملف الشخصي",
+      "uploadImage": "رفع صورة",
+      "changeImage": "تغيير الصورة",
+      "printContract": "طباعة العقد",
+      "sendToPhone": "إرسال إلى الهاتف",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "next": "التالي",
+      "previous": "السابق",
+      "step1": "الخطوة 1: المعلومات الشخصية",
+      "step2": "الخطوة 2: القسم والمنصب",
+      "step3": "الخطوة 3: معلومات العقد",
+      "step4": "الخطوة 4: المهام",
+      "step5": "الخطوة 5: المراجعة"
+    },
+    "shifts": {
+      "title": "جداول الفترة",
+      "firstShift": "الفترة الأولى (8:00–14:00)",
+      "secondShift": "الفترة الثانية (14:00–22:00)",
+      "thirdShift": "الفترة الثالثة (22:00–8:00)",
+      "department": "القسم",
+      "employee": "الموظف",
+      "noEmployees": "لا يوجد موظفون في هذه الفترة"
+    },
+    "departments": {
+      "transport": "النقل",
+      "reception": "الاستقبال",
+      "accommodation": "الإسكان",
+      "fieldServices": "الخدمات الميدانية",
+      "other": "أخرى",
+      "all": "الكل"
+    },
+    "departmentManager": "مدير القسم",
+    "jobOffer": {
+      "title": "عرض العمل",
+      "template": "القالب",
+      "selectTemplate": "اختر قالب",
+      "editTemplate": "تعديل القالب",
+      "preview": "معاينة",
+      "send": "إرسال",
+      "sendConfirmation": "تأكيد الإرسال",
+      "sendConfirmationMessage": "هل أنت متأكد من إرسال عرض العمل إلى",
+      "subject": "الموضوع",
+      "body": "المحتوى",
+      "uploadFile": "رفع ملف العرض",
+      "clickToUpload": "انقر للرفع",
+      "orDragDrop": "أو اسحب الملف هنا",
+      "removeFile": "إزالة الملف",
+      "uploadNote": "يمكنك رفع ملف يحتوي على عرض العمل بدلاً من كتابته كنص",
+      "optional": "اختياري",
+      "fileUploadedPlaceholder": "تم رفع ملف، سيتم استخدام الملف المرفوع بدلاً من النص",
+      "fileWillBeAttached": "سيتم إرفاق هذا الملف مع الإيميل",
+      "fileAttachedMessage": "تم إرفاق ملف عرض العمل مع هذا الإيميل.",
+      "invalidFileType": "نوع الملف غير صحيح. يرجى رفع ملف PDF أو DOC أو DOCX أو TXT",
+      "placeholders": {
+        "name": "[اسم الموظف]",
+        "position": "[المنصب]",
+        "salary": "[الراتب]",
+        "startDate": "[تاريخ البدء]",
+        "endDate": "[تاريخ الانتهاء]"
+      }
+    },
+    "export": {
+      "title": "تصدير البيانات",
+      "format": "التنسيق",
+      "excel": "Excel",
+      "pdf": "PDF",
+      "csv": "CSV",
+      "selectFields": "اختر الحقول",
+      "selectEmployees": "اختر الموظفين",
+      "selectAll": "تحديد الكل",
+      "deselectAll": "إلغاء تحديد الكل",
+      "export": "تصدير",
+      "exporting": "جاري التصدير...",
+      "exportSuccess": "تم التصدير بنجاح"
+    },
+    "print": {
+      "title": "الطباعة",
+      "paperSize": "حجم الورق",
+      "a4": "A4",
+      "a3": "A3",
+      "letter": "Letter",
+      "template": "القالب",
+      "preview": "معاينة الطباعة",
+      "print": "طباعة",
+      "orientation": "الاتجاه",
+      "portrait": "عمودي",
+      "landscape": "أفقي",
+      "templates": {
+        "default": "القالب الافتراضي",
+        "company": "قالب الشركة",
+        "custom": "قالب مخصص"
+      },
+      "contractNumber": "رقم العقد",
+      "contractDate": "تاريخ العقد",
+      "termsAndConditions": "الشروط والأحكام",
+      "term1": "يجب على الموظف الالتزام بجميع القوانين واللوائح المعمول بها",
+      "term2": "يجب الحفاظ على سرية المعلومات الخاصة بالشركة",
+      "term3": "يجب الالتزام بمواعيد العمل المحددة",
+      "employeeSignature": "توقيع الموظف",
+      "companySignature": "توقيع الشركة",
+      "companyAddress": "العنوان: المملكة العربية السعودية",
+      "companyContact": "البريد الإلكتروني: info@kamelportal.com"
+    },
+    "employeeCard": {
+      "title": "طباعة بطاقة الموظف",
+      "cardSize": "حجم البطاقة",
+      "standard": "قياسي",
+      "long": "طويل (لحامل البطاقة)",
+      "preview": "معاينة البطاقة",
+      "print": "طباعة البطاقة"
+    },
+    "checkboxes": {
+      "title": "قائمة التحقق الإدارية",
+      "employeeCardPrinted": "تم طباعة بطاقة الموظف",
+      "registeredInAjir": "مسجل في أجير",
+      "nuskCardIssued": "تم إصدار بطاقة نسك",
+      "tooltips": {
+        "employeeCardPrinted": "تم طباعة بطاقة الموظف بنجاح",
+        "registeredInAjir": "تم تسجيل الموظف في نظام أجير",
+        "nuskCardIssued": "تم إصدار بطاقة نسك للموظف"
+      }
+    },
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف",
+      "view": "عرض",
+      "printCard": "طباعة البطاقة",
+      "sendOffer": "إرسال عرض",
+      "export": "تصدير",
+      "print": "طباعة"
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "hr": "الموارد البشرية",
+      "dashboard": "لوحة التحكم",
+      "form": "نموذج التوظيف",
+      "offer": "عرض العمل",
+      "export": "تصدير البيانات",
+      "print": "الطباعة"
+    },
+    "states": {
+      "loading": "جاري التحميل...",
+      "error": "حدث خطأ",
+      "errorMessage": "فشل تحميل البيانات. يرجى المحاولة مرة أخرى.",
+      "empty": "لا توجد بيانات",
+      "emptyMessage": "لا يوجد موظفون لعرضهم. ابدأ بإضافة موظف جديد."
+    },
+    "deleteConfirmMessage": "هل أنت متأكد من حذف {{name}}؟",
+    "pagination": {
+      "itemsPerPage": "عناصر لكل صفحة",
+      "showing": "عرض",
+      "of": "من",
+      "total": "إجمالي",
+      "previous": "السابق",
+      "next": "التالي"
+    },
+    "employeeData": {
+      "E-1": {
+        "name": "أحمد محمد علي",
+        "mainTasks": {
+          "0": "استقبال الحجاج",
+          "1": "تنظيم الجدول الزمني",
+          "2": "التنسيق مع الفرق"
+        },
+        "additionalTasks": {
+          "0": "مساعدة في حالات الطوارئ",
+          "1": "تدريب الموظفين الجدد"
+        },
+        "recommendations": "موصى به لمركز 001 - مهارات ممتازة في خدمة العملاء"
+      },
+      "E-2": {
+        "name": "فاطمة خالد",
+        "mainTasks": {
+          "0": "إدارة الإسكان",
+          "1": "تنسيق المواعيد"
+        },
+        "additionalTasks": {
+          "0": "الرد على الاستفسارات"
+        },
+        "recommendations": "مناسب لمراكز VIP"
+      },
+      "E-3": {
+        "name": "محمد عبدالله",
+        "mainTasks": {
+          "0": "الخدمات الميدانية",
+          "1": "التنسيق مع المراكز"
+        },
+        "additionalTasks": {
+          "0": "تسجيل البيانات",
+          "1": "متابعة الحجاج"
+        },
+        "recommendations": "موصى به لمراكز B2B"
+      },
+      "E-4": {
+        "name": "سارة أحمد",
+        "mainTasks": {
+          "0": "استقبال العملاء",
+          "1": "تسجيل الدخول"
+        },
+        "additionalTasks": {}
+      },
+      "E-5": {
+        "name": "خالد بن سعد",
+        "mainTasks": {
+          "0": "إدارة الفريق",
+          "1": "التنسيق العام",
+          "2": "حل المشاكل"
+        },
+        "additionalTasks": {
+          "0": "التدريب",
+          "1": "التقييم"
+        },
+        "recommendations": "مثالي لمراكز عالية السعة"
+      },
+      "E-6": {
+        "name": "نورا حسن",
+        "mainTasks": {
+          "0": "قيادة المركبات",
+          "1": "توصيل الحجاج"
+        },
+        "additionalTasks": {
+          "0": "صيانة المركبات"
+        }
+      }
+    }
   }
 }

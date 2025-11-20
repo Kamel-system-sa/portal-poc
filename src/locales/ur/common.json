@@ -164,61 +164,281 @@
     "mission": "مشن",
     "regular": "عام"
   },
-  "sidebar": {
-    "openSidebar": "سائیڈ بار کھولیں",
-    "closeSidebar": "سائیڈ بار بند کریں"
-  },
-  "homepage": {
-    "welcomeMessage": "ڈیش بورڈ میں خوش آمدید",
-    "welcomeSubtitle": "آج آپ کے پورٹل میں کیا ہو رہا ہے",
-    "overview": "جائزہ",
-    "modules": "سسٹم ماڈیولز",
-    "totalUsers": "کل صارفین",
-    "totalReservations": "کل ریزرویشنز",
-    "totalDepartments": "کل محکمے",
-    "totalApprovals": "کل منظوریاں",
-    "pendingTasks": "زیر التواء کام",
-    "todaysActivity": "آج کی سرگرمی",
-    "policies": "پالیسیاں",
-    "procedures": "طریقہ کار",
-    "photoGallery": "فوٹو گیلری",
-    "forms": "فارمز",
-    "noPolicies": "کوئی پالیسیاں دستیاب نہیں",
-    "noProcedures": "کوئی طریقہ کار دستیاب نہیں",
-    "noGalleryItems": "گیلری میں کوئی آئٹمز دستیاب نہیں",
-    "noForms": "کوئی فارمز دستیاب نہیں",
-    "quickActions": "فوری اقدامات",
-    "moreActions": "مزید اقدامات",
-    "featuredItems": "نمایاں آئٹمز",
-    "recentActivity": "حالیہ سرگرمی",
-    "announcements": "کمپنی کے اعلانات",
-    "myTasks": "میرے کام",
-    "pendingApprovals": "زیر التواء منظوریاں",
-    "goodMorning": "صبح بخیر",
-    "goodAfternoon": "دوپہر بخیر",
-    "goodEvening": "شام بخیر",
+  "hr": {
+    "title": "انسانی وسائل",
+    "dashboard": "HR ڈیش بورڈ",
+    "employees": "ملازمین",
+    "addEmployee": "ملازم شامل کریں",
+    "editEmployee": "ملازم میں ترمیم کریں",
+    "employeeDetails": "ملازم کی تفصیلات",
+    "employmentForm": "ملازمت کا فارم",
+    "jobOffer": "کام کا پیشکش",
+    "dataExport": "ڈیٹا ایکسپورٹ",
+    "print": "پرنٹ",
+    "employeeCard": "ملازم کارڈ",
+    "contract": "معاہدہ",
+    "noEmployees": "کوئی ملازمین دکھانے کے لیے نہیں",
+    "startAddingEmployee": "نیا ملازم شامل کرنا شروع کریں",
+    "searchPlaceholder": "ملازم تلاش کریں...",
     "totalEmployees": "کل ملازمین",
-    "activeProjects": "فعال منصوبے",
-    "leaveRequests": "چھٹی کی درخواستیں",
-    "todayAttendance": "آج کی حاضری",
-    "monthlyExpenses": "ماہانہ اخراجات",
-    "performance": "کارکردگی",
-    "unreadMessages": "غیر پڑھے پیغامات",
-    "requestLeave": "چھٹی کی درخواست",
-    "submitExpense": "خرچ جمع کریں",
-    "viewDocuments": "دستاویزات دیکھیں",
-    "attendance": "حاضری",
-    "myProfile": "میرا پروفائل",
-    "settings": "ترتیبات",
-    "newPolicyUpdate": "نیا پالیسی اپڈیٹ",
-    "policyUpdateDesc": "ڈیٹا تحفظ اور رازداری کے قوانین پر تازہ ترین اپڈیٹس",
-    "trainingWorkshop": "تربیتی ورکشاپ",
-    "trainingDesc": "ہماری آنے والی قیادت کی تربیتی پروگرام میں شامل ہوں",
-    "systemUpdate": "سسٹم اپڈیٹ",
-    "systemUpdateDesc": "نئی خصوصیات اور بہتری اب دستیاب ہیں",
-    "annualReport": "سالانہ رپورٹ",
-    "reportDesc": "اس سال کی کامیابیوں کا جامع جائزہ",
-    "viewAll": "سب دیکھیں",
-    "by": "کی طرف سے"
+    "pendingContracts": "زیر التواء معاہدے",
+    "cardsPrinted": "پرنٹ شدہ کارڈز",
+    "summary": "خلاصہ",
+    "filters": {
+      "nationality": "قومیت",
+      "gender": "جنس",
+      "status": "فلٹرز",
+      "reset": "دوبارہ ترتیب دیں",
+      "apply": "لاگو کریں"
+    },
+    "form": {
+      "personalInfo": "ذاتی معلومات",
+      "name": "نام",
+      "nationality": "قومیت",
+      "id": "شناختی کارڈ نمبر",
+      "gender": "جنس",
+      "male": "مرد",
+      "female": "عورت",
+      "age": "عمر",
+      "mobile": "موبائل نمبر",
+      "email": "ای میل",
+      "departmentRole": "شعبہ اور عہدہ",
+      "department": "شعبہ",
+      "selectDepartment": "شعبہ منتخب کریں",
+      "transport": "نقل و حمل",
+      "reception": "استقبال",
+      "accommodation": "رہائش",
+      "fieldServices": "فیلڈ سروسز",
+      "other": "دیگر",
+      "jobRank": "عہدہ",
+      "selectJobRank": "عہدہ منتخب کریں",
+      "field": "فیلڈ",
+      "supervisor": "نگران",
+      "departmentHead": "شعبہ سربراہ",
+      "shiftDuration": "شیفٹ کی مدت",
+      "selectShiftDuration": "شیفٹ کی مدت منتخب کریں",
+      "8h": "8 گھنٹے",
+      "12h": "12 گھنٹے",
+      "shiftPeriod": "شیفٹ کا دورانیہ",
+      "selectShiftPeriod": "شیفٹ کا دورانیہ منتخب کریں",
+      "firstShift": "پہلی (8:00–14:00)",
+      "secondShift": "دوسری (14:00–22:00)",
+      "thirdShift": "تیسری (22:00–8:00)",
+      "contractInfo": "معاہدے کی معلومات",
+      "contractStartDate": "معاہدے کی تاریخ شروع",
+      "contractEndDate": "معاہدے کی تاریخ ختم",
+      "numberOfDays": "دنوں کی تعداد",
+      "salaryInfo": "تنخواہ کی معلومات",
+      "seasonalSalary": "موسمی تنخواہ",
+      "dailySalary": "روزانہ تنخواہ",
+      "tasks": "کام",
+      "mainTasks": "اہم کام",
+      "additionalTasks": "اضافی کام",
+      "addTask": "کام شامل کریں",
+      "removeTask": "کام ہٹائیں",
+      "recommendations": "توصیفات",
+      "recommendationsPlaceholder": "سروس سینٹرز کے لیے ملازمت کی توصیفات",
+      "calculatedAutomatically": "خودکار طور پر حساب شدہ",
+      "profilePicture": "پروفائل تصویر",
+      "uploadImage": "تصویر اپ لوڈ کریں",
+      "changeImage": "تصویر تبدیل کریں",
+      "printContract": "معاہدہ پرنٹ کریں",
+      "sendToPhone": "فون پر بھیجیں",
+      "save": "محفوظ کریں",
+      "cancel": "منسوخ",
+      "close": "بند کریں",
+      "next": "اگلا",
+      "previous": "پچھلا",
+      "step1": "مرحلہ 1: ذاتی معلومات",
+      "step2": "مرحلہ 2: شعبہ اور عہدہ",
+      "step3": "مرحلہ 3: معاہدے کی معلومات",
+      "step4": "مرحلہ 4: کام",
+      "step5": "مرحلہ 5: جائزہ"
+    },
+    "shifts": {
+      "title": "شیفٹ ٹیبلز",
+      "firstShift": "پہلی شیفٹ (8:00–14:00)",
+      "secondShift": "دوسری شیفٹ (14:00–22:00)",
+      "thirdShift": "تیسری شیفٹ (22:00–8:00)",
+      "department": "شعبہ",
+      "employee": "ملازم",
+      "noEmployees": "اس شیفٹ میں کوئی ملازمین نہیں"
+    },
+    "departments": {
+      "transport": "نقل و حمل",
+      "reception": "استقبال",
+      "accommodation": "رہائش",
+      "fieldServices": "فیلڈ سروسز",
+      "other": "دیگر",
+      "all": "سب"
+    },
+    "jobOffer": {
+      "title": "کام کا پیشکش",
+      "template": "ٹیمپلیٹ",
+      "selectTemplate": "ٹیمپلیٹ منتخب کریں",
+      "editTemplate": "ٹیمپلیٹ میں ترمیم کریں",
+      "preview": "پیش منظر",
+      "send": "بھیجیں",
+      "sendConfirmation": "بھیجنے کی تصدیق",
+      "sendConfirmationMessage": "کیا آپ واقعی کام کا پیشکش بھیجنا چاہتے ہیں",
+      "subject": "موضوع",
+      "body": "متن",
+      "placeholders": {
+        "name": "[ملازم کا نام]",
+        "position": "[عہدہ]",
+        "salary": "[تنخواہ]",
+        "startDate": "[شروع کی تاریخ]",
+        "endDate": "[ختم کی تاریخ]"
+      }
+    },
+    "export": {
+      "title": "ڈیٹا ایکسپورٹ",
+      "format": "فارمیٹ",
+      "excel": "Excel",
+      "pdf": "PDF",
+      "csv": "CSV",
+      "selectFields": "فیلڈز منتخب کریں",
+      "selectEmployees": "ملازمین منتخب کریں",
+      "selectAll": "سب منتخب کریں",
+      "deselectAll": "سب کا انتخاب منسوخ کریں",
+      "export": "ایکسپورٹ",
+      "exporting": "ایکسپورٹ ہو رہا ہے...",
+      "exportSuccess": "ایکسپورٹ کامیاب"
+    },
+    "print": {
+      "title": "پرنٹ",
+      "paperSize": "کاغذ کا سائز",
+      "a4": "A4",
+      "a3": "A3",
+      "letter": "Letter",
+      "template": "ٹیمپلیٹ",
+      "preview": "پرنٹ پیش منظر",
+      "print": "پرنٹ",
+      "orientation": "سمت",
+      "portrait": "عمودی",
+      "landscape": "افقی"
+    },
+    "employeeCard": {
+      "title": "ملازم کارڈ پرنٹ کریں",
+      "cardSize": "کارڈ کا سائز",
+      "standard": "معیاری",
+      "long": "لمبا (کارڈ ہولڈر کے لیے)",
+      "preview": "کارڈ پیش منظر",
+      "print": "کارڈ پرنٹ کریں"
+    },
+    "checkboxes": {
+      "title": "انتظامی چیک لسٹ",
+      "employeeCardPrinted": "ملازم کارڈ پرنٹ ہو گیا",
+      "registeredInAjir": "اجیر میں رجسٹرڈ",
+      "nuskCardIssued": "نسک کارڈ جاری ہو گیا",
+      "tooltips": {
+        "employeeCardPrinted": "ملازم کارڈ کامیابی سے پرنٹ ہو گیا",
+        "registeredInAjir": "ملازم اجیر سسٹم میں رجسٹرڈ ہے",
+        "nuskCardIssued": "ملازم کے لیے نسک کارڈ جاری کیا گیا ہے"
+      }
+    },
+    "actions": {
+      "edit": "ترمیم",
+      "delete": "حذف",
+      "view": "دیکھیں",
+      "printCard": "کارڈ پرنٹ کریں",
+      "sendOffer": "پیشکش بھیجیں",
+      "export": "ایکسپورٹ",
+      "print": "پرنٹ"
+    },
+    "breadcrumbs": {
+      "home": "ہوم",
+      "hr": "انسانی وسائل",
+      "dashboard": "ڈیش بورڈ",
+      "form": "ملازمت کا فارم",
+      "offer": "کام کا پیشکش",
+      "export": "ڈیٹا ایکسپورٹ",
+      "print": "پرنٹ"
+    },
+    "states": {
+      "loading": "لوڈ ہو رہا ہے...",
+      "error": "خرابی",
+      "errorMessage": "ڈیٹا لوڈ کرنے میں ناکام. براہ کرم دوبارہ کوشش کریں.",
+      "empty": "کوئی ڈیٹا نہیں",
+      "emptyMessage": "کوئی ملازمین دکھانے کے لیے نہیں. نیا ملازم شامل کرنا شروع کریں."
+    },
+    "deleteConfirmMessage": "کیا آپ واقعی {{name}} کو حذف کرنا چاہتے ہیں؟",
+    "pagination": {
+      "itemsPerPage": "فی صفحہ آئٹمز",
+      "showing": "دکھا رہا ہے",
+      "of": "کا",
+      "total": "کل",
+      "previous": "پچھلا",
+      "next": "اگلا"
+    },
+    "employeeData": {
+      "E-1": {
+        "name": "احمد محمد علی",
+        "mainTasks": {
+          "0": "حجاج کا استقبال",
+          "1": "شیڈول منظم کرنا",
+          "2": "ٹیموں کے ساتھ رابطہ"
+        },
+        "additionalTasks": {
+          "0": "ایمرجنسی میں مدد",
+          "1": "نئے ملازمین کی تربیت"
+        },
+        "recommendations": "مرکز 001 کے لیے سفارش - بہترین کسٹمر سروس کی مہارتیں"
+      },
+      "E-2": {
+        "name": "فاطمہ خالد",
+        "mainTasks": {
+          "0": "رہائش کا انتظام",
+          "1": "ملاقاتوں کا رابطہ"
+        },
+        "additionalTasks": {
+          "0": "سوالات کا جواب دینا"
+        },
+        "recommendations": "VIP مراکز کے لیے موزوں"
+      },
+      "E-3": {
+        "name": "محمد عبداللہ",
+        "mainTasks": {
+          "0": "فیلڈ سروسز",
+          "1": "مراکز کے ساتھ رابطہ"
+        },
+        "additionalTasks": {
+          "0": "ڈیٹا ریکارڈ کرنا",
+          "1": "حجاج کی پیروی"
+        },
+        "recommendations": "B2B مراکز کے لیے سفارش"
+      },
+      "E-4": {
+        "name": "سارہ احمد",
+        "mainTasks": {
+          "0": "کلائنٹس کا استقبال",
+          "1": "چیک ان"
+        },
+        "additionalTasks": {}
+      },
+      "E-5": {
+        "name": "خالد بن سعد",
+        "mainTasks": {
+          "0": "ٹیم مینجمنٹ",
+          "1": "عام رابطہ",
+          "2": "مسائل حل کرنا"
+        },
+        "additionalTasks": {
+          "0": "تربیت",
+          "1": "تشخیص"
+        },
+        "recommendations": "اعلی صلاحیت والے مراکز کے لیے مثالی"
+      },
+      "E-6": {
+        "name": "نورا حسن",
+        "mainTasks": {
+          "0": "گاڑیاں چلانا",
+          "1": "حجاج کی نقل و حمل"
+        },
+        "additionalTasks": {
+          "0": "گاڑیوں کی دیکھ بھال"
+        }
+      }
+    }
   }
 }
