@@ -8,8 +8,8 @@ import {
   CheckSquareOutlined,
   CloseSquareOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateEmployeeName } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateEmployeeName } from '../../utils';
 
 interface DataExportScreenProps {
   employees: Employee[];

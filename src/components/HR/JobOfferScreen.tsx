@@ -11,8 +11,8 @@ import {
   DeleteOutlined,
   FileOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateEmployeeName, translateDepartment, translateJobRank, translateShiftPeriod } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateEmployeeName, translateDepartment, translateJobRank, translateShiftPeriod } from '../../utils';
 
 interface JobOfferScreenProps {
   employee: Employee;

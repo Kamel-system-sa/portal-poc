@@ -19,21 +19,21 @@ import {
   MailOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
-import OverviewCard from '../components/ui/HomePageComponent/OverviewCard';
-import StatsWidget from '../components/ui/HomePageComponent/StatsWidget';
-import DashboardGrid from '../components/ui/HomePageComponent/DashboardGrid';
-import ContentCarousel from '../components/ui/HomePageComponent/ContentCarousel';
-import ActivityFeed from '../components/ui/HomePageComponent/ActivityFeed';
-import QuickActions from '../components/ui/HomePageComponent/QuickActions';
-import AnnouncementsCard from '../components/ui/HomePageComponent/AnnouncementsCard';
-import MyTasksCard from '../components/ui/HomePageComponent/MyTasksCard';
-import PendingApprovalsCard from '../components/ui/HomePageComponent/PendingApprovalsCard';
-import type { SectionSummaryProps } from '../components/ui/HomePageComponent/SectionSummary';
-import type { CarouselItem } from '../components/ui/HomePageComponent/ContentCarousel';
-import type { ActivityItem } from '../components/ui/HomePageComponent/ActivityFeed';
-import type { Announcement } from '../components/ui/HomePageComponent/AnnouncementsCard';
-import type { Task } from '../components/ui/HomePageComponent/MyTasksCard';
-import type { Approval } from '../components/ui/HomePageComponent/PendingApprovalsCard';
+import OverviewCard from '../components/HomePageComponent/OverviewCard';
+import StatsWidget from '../components/HomePageComponent/StatsWidget';
+import DashboardGrid from '../components/HomePageComponent/DashboardGrid';
+import ContentCarousel from '../components/HomePageComponent/ContentCarousel';
+import ActivityFeed from '../components/HomePageComponent/ActivityFeed';
+import QuickActions from '../components/HomePageComponent/QuickActions';
+import AnnouncementsCard from '../components/HomePageComponent/AnnouncementsCard';
+import MyTasksCard from '../components/HomePageComponent/MyTasksCard';
+import PendingApprovalsCard from '../components/HomePageComponent/PendingApprovalsCard';
+import type { SectionSummaryProps } from '../components/HomePageComponent/SectionSummary';
+import type { CarouselItem } from '../components/HomePageComponent/ContentCarousel';
+import type { ActivityItem } from '../components/HomePageComponent/ActivityFeed';
+import type { Announcement } from '../components/HomePageComponent/AnnouncementsCard';
+import type { Task } from '../components/HomePageComponent/MyTasksCard';
+import type { Approval } from '../components/HomePageComponent/PendingApprovalsCard';
 
 const { Title, Text } = Typography;
 

@@ -12,8 +12,8 @@ import {
   ApartmentOutlined,
   ClockCircleOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateNationality, translateDepartment, translateJobRank, translateShiftPeriod, translateEmployeeName, translateTask, translateRecommendations } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateNationality, translateDepartment, translateJobRank, translateShiftPeriod, translateEmployeeName, translateTask, translateRecommendations } from '../../utils';
 
 interface EmployeeCardProps {
   employee: Employee;

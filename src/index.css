@@ -7,6 +7,9 @@
 .custom-sidebar-menu.ant-menu-light .ant-menu-item,
 .custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title {
   color: #111827;
+  border-radius: 8px;
+  margin: 4px 8px;
+  transition: all 0.2s ease-in-out;
 }
 
 .custom-sidebar-menu.ant-menu-light .ant-menu-item a {
@@ -15,21 +18,52 @@
 
 /* Selected item (active) background + text color */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item-selected,
-.custom-sidebar-menu.ant-menu-light .ant-menu-item-selected > a,
+.custom-sidebar-menu.ant-menu-light .ant-menu-item-selected > a {
+  background: linear-gradient(135deg, rgba(0, 121, 107, 0.15) 0%, rgba(0, 168, 150, 0.1) 100%) !important;
+  color: #005B4F !important;
+  font-weight: 600;
+  border-left: 3px solid #00796B;
+}
 
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
+  color: #005B4F !important;
+  font-weight: 600;
+}
+
+/* Submenu items */
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu .ant-menu-item {
+  margin: 2px 8px 2px 24px;
+  padding-left: 16px !important;
+}
+
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu .ant-menu-item-selected {
+  background: linear-gradient(135deg, rgba(0, 121, 107, 0.12) 0%, rgba(0, 168, 150, 0.08) 100%) !important;
+  border-left: 3px solid #00A896;
+}
 
 /* Hover state */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item:hover,
 .custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover,
 .custom-sidebar-menu.ant-menu-light .ant-menu-item:hover > a,
 .custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover > span {
-  background-color: rgba(0, 91, 79, 0.10) !important;
+  background-color: rgba(0, 91, 79, 0.08) !important;
   color: #005B4F !important;
+  transform: translateX(2px);
 }
 
 /* Remove default side border indicator */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item::after {
   border-inline-end: none !important;
+}
+
+/* Submenu arrow styling */
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-arrow {
+  color: #6B7280;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-open > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  color: #00796B;
 }
 
 /* Custom scrollbar for department cards */
@@ -54,4 +88,120 @@
 
 .dept-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 91, 79, 0.5);
+}
+
+/* Override Ant Design default blue colors with Tailwind config colors */
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.ant-select-focused:not(.ant-select-disabled) .ant-select-selector {
+  border-color: #00796B !important;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: rgba(0, 121, 107, 0.1) !important;
+  color: #00796B !important;
+}
+
+.ant-select-item-option:hover:not(.ant-select-item-option-disabled) {
+  background-color: rgba(0, 121, 107, 0.05) !important;
+}
+
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #00796B !important;
+  box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.1) !important;
+}
+
+.ant-btn-primary {
+  background: #00796B !important;
+  border-color: #00796B !important;
+}
+
+.ant-btn-primary:hover:not(:disabled),
+.ant-btn-primary:focus:not(:disabled) {
+  background: #005B4F !important;
+  border-color: #005B4F !important;
+}
+
+.ant-btn-primary:active:not(:disabled) {
+  background: #005B4F !important;
+  border-color: #005B4F !important;
+}
+
+.ant-btn-primary:not(:hover):not(:focus):not(:active):not(:disabled) {
+  background: #00796B !important;
+  border-color: #00796B !important;
+}
+
+/* Housing Actions Menu Dropdown Styling */
+.housing-actions-menu .ant-dropdown-menu {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  min-width: 200px;
+}
+
+.housing-actions-menu .ant-dropdown-menu-item {
+  border-radius: 8px;
+  margin: 4px 0;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.housing-actions-menu .ant-dropdown-menu-item:hover {
+  background: rgba(0, 121, 107, 0.1) !important;
+  color: #005B4F !important;
+}
+
+.housing-actions-menu .ant-dropdown-menu-item-divider {
+  margin: 8px 0;
+  background-color: #E5E7EB;
+}
+
+.housing-actions-menu .ant-dropdown-menu-item-active {
+  background: rgba(0, 121, 107, 0.1) !important;
+}
+
+.ant-btn-default:hover:not(:disabled),
+.ant-btn-default:focus:not(:disabled) {
+  border-color: #00796B !important;
+  color: #00796B !important;
+}
+
+.ant-btn-default:active:not(:disabled) {
+  border-color: #00796B !important;
+  color: #00796B !important;
+}
+
+.ant-btn-default:not(:hover):not(:focus):not(:active):not(:disabled) {
+  border-color: #d9d9d9 !important;
+  color: rgba(0, 0, 0, 0.88) !important;
+}
+
+/* Bed Details Modal - Centered and styled */
+.bed-details-modal .ant-modal-content,
+.pilgrim-details-modal .ant-modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.bed-details-modal .ant-modal-body,
+.pilgrim-details-modal .ant-modal-body {
+  padding: 0;
+}
+
+.bed-details-modal .ant-modal-close,
+.pilgrim-details-modal .ant-modal-close {
+  top: 16px;
+  right: 16px;
+  color: #6B7280;
+}
+
+.bed-details-modal .ant-modal-close:hover,
+.pilgrim-details-modal .ant-modal-close:hover {
+  color: #00796B;
 }

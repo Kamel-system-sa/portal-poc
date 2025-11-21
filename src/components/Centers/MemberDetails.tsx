@@ -7,8 +7,8 @@ import {
   PhoneOutlined, 
   IdcardOutlined
 } from '@ant-design/icons';
-import type { Member } from '../../../data/mockCenters';
-import { translateSection } from '../../../utils';
+import type { Member } from '../../data/mockCenters';
+import { translateSection } from '../../utils';
 
 interface MemberDetailsProps {
   member: Member;

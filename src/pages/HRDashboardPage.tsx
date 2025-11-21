@@ -19,15 +19,15 @@ import {
   ApartmentOutlined,
 } from '@ant-design/icons';
 import { Breadcrumb, Input, Select, Checkbox, Space, Button } from 'antd';
-import { ShiftSummary } from '../components/ui/HR/ShiftSummary';
-import { EmploymentForm } from '../components/ui/HR/EmploymentForm';
-import { EmployeeCard } from '../components/ui/HR/EmployeeCard';
-import { JobOfferScreen } from '../components/ui/HR/JobOfferScreen';
-import { DataExportScreen } from '../components/ui/HR/DataExportScreen';
-import { PrintScreen } from '../components/ui/HR/PrintScreen';
-import { EmployeeCardPrint } from '../components/ui/HR/EmployeeCardPrint';
+import { ShiftSummary } from '../components/HR/ShiftSummary';
+import { EmploymentForm } from '../components/HR/EmploymentForm';
+import { EmployeeCard } from '../components/HR/EmployeeCard';
+import { JobOfferScreen } from '../components/HR/JobOfferScreen';
+import { DataExportScreen } from '../components/HR/DataExportScreen';
+import { PrintScreen } from '../components/HR/PrintScreen';
+import { EmployeeCardPrint } from '../components/HR/EmployeeCardPrint';
 import { mockEmployees, type Employee } from '../data/mockEmployees';
-import { ConfirmDeleteModal } from '../components/ui/Centers/ConfirmDeleteModal';
+import { ConfirmDeleteModal } from '../components/Centers/ConfirmDeleteModal';
 import { translateNationality, translateDepartment, translateJobRank, translateEmployeeName } from '../utils';
 
 const HRDashboardPage: React.FC = () => {

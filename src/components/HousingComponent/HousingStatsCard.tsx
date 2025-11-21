@@ -31,13 +31,13 @@ export const HousingStatsCard: React.FC<HousingStatsCardProps> = ({
   };
 
   return (
-    <GlassCard hover={false} className="p-6">
+    <GlassCard hover={false} className="p-6 bg-white/90 border-2 border-bordergray/50">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-customgray mb-1">{title}</p>
-          <p className="text-3xl font-bold text-gray-800 mb-1">{value}</p>
+          <p className="text-xs font-semibold text-customgray uppercase tracking-wide mb-2">{title}</p>
+          <p className="text-3xl font-bold text-gray-800 mb-2">{value}</p>
           {subtitle && (
-            <p className="text-xs text-customgray">{subtitle}</p>
+            <p className="text-xs font-medium text-customgray">{subtitle}</p>
           )}
           {trend && (
             <div className="mt-2 flex items-center gap-1">
@@ -51,7 +51,7 @@ export const HousingStatsCard: React.FC<HousingStatsCardProps> = ({
           )}
         </div>
         {icon && (
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex items-center justify-center shadow-lg`}>
+          <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300`}>
             <div className="text-white text-xl">
               {icon}
             </div>

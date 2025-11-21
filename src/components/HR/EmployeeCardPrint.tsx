@@ -5,8 +5,8 @@ import {
   IdcardOutlined,
   CloseOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateEmployeeName, translateNationality, translateDepartment, translateJobRank } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateEmployeeName, translateNationality, translateDepartment, translateJobRank } from '../../utils';
 
 interface EmployeeCardPrintProps {
   employee: Employee;

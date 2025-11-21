@@ -5,8 +5,8 @@ import {
   FileTextOutlined,
   CloseOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateEmployeeName, translateNationality, translateDepartment, translateJobRank, translateShiftPeriod, translateTask } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateEmployeeName, translateNationality, translateDepartment, translateJobRank, translateShiftPeriod, translateTask } from '../../utils';
 
 interface PrintScreenProps {
   employee?: Employee;

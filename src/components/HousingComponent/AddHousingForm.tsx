@@ -15,8 +15,8 @@ import {
   LinkOutlined,
   SaveOutlined
 } from '@ant-design/icons';
-import { allOrganizers } from '../../../data/mockOrganizers';
-import type { HousingRecord, Organizer } from '../../../types/housing';
+import { allOrganizers } from '../../data/mockOrganizers';
+import type { HousingRecord, Organizer } from '../../types/housing';
 
 interface AddHousingFormProps {
   onCancel: () => void;
@@ -139,13 +139,15 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
-      {/* Row 1: Organizer Information */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-          <h4 className="text-xl font-bold text-gray-900">{t('housing.organizerInfo')}</h4>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {/* Horizontal Layout: Organizer Information (Left) and Housing Information (Right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Left Side: Organizer Information */}
+        <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h4 className="text-xl font-bold text-gray-900">{t('housing.organizerInfo')}</h4>
+          </div>
+          <div className="space-y-4">
           <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <NumberOutlined className="text-mainColor text-base" />
@@ -295,16 +297,16 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
               pattern="^05\d{8}$"
             />
           </label>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Row 2: Housing Information */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-          <h4 className="text-xl font-bold text-gray-900">{t('housing.housingInfo')}</h4>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Right Side: Housing Information */}
+        <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h4 className="text-xl font-bold text-gray-900">{t('housing.housingInfo')}</h4>
+          </div>
+          <div className="space-y-4">
           <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <HomeOutlined className="text-mainColor text-base" />
@@ -418,7 +420,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             />
           </label>
 
-          <label className="block lg:col-span-2">
+          <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <EnvironmentOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('housing.fullAddress')}</span>
@@ -433,7 +435,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             />
           </label>
 
-          <label className="block lg:col-span-2">
+          <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <LinkOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('housing.googleMapsUrl')}</span>
@@ -464,6 +466,17 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             />
           </label>
 
+          </div>
+        </section>
+      </div>
+
+      {/* Third Section: Additional Details */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 mt-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('housing.additionalDetails')}</h4>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <label className="block">
             <div className="flex items-center gap-2 mb-2">
               <SafetyOutlined className="text-mainColor text-base" />

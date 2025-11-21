@@ -1,63 +1,153 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GlassCard } from '../../components/ui/HousingComponent/GlassCard';
-import { TentBedVisualizer } from '../../components/ui/HousingComponent/TentBedVisualizer';
-import { HousingStatsCard } from '../../components/ui/HousingComponent/HousingStatsCard';
-import { Input, Select, Button } from 'antd';
-import { SearchOutlined, CloseOutlined, EyeOutlined } from '@ant-design/icons';
-import { mockMinaTents } from '../../data/mockHousing';
-import { Tent3DViewer } from '../../components/ui/HousingComponent/Tent3DViewer';
-import type { Tent } from '../../types/housing';
+import { GlassCard } from '../../components/HousingComponent/GlassCard';
+import { TentBedVisualizer } from '../../components/HousingComponent/TentBedVisualizer';
+import { HousingStatsCard } from '../../components/HousingComponent/HousingStatsCard';
+import { PilgrimDetailsModal } from '../../components/HousingComponent/PilgrimDetailsModal';
+import { MiniChartsSection } from '../../components/HousingComponent/MiniChartsSection';
+import { UnifiedFilters } from '../../components/HousingComponent/UnifiedFilters';
+import type { UnifiedFilterState } from '../../components/HousingComponent/UnifiedFilters';
+import { HousingActionsMenu } from '../../components/HousingMenu';
+import { Modal } from 'antd';
+import { CloseOutlined, EyeOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
+import { FaBed, FaCampground } from 'react-icons/fa';
+import { mockMinaTents, mockPilgrims } from '../../data/mockHousing';
+import { Tent3DViewer } from '../../components/HousingComponent/Tent3DViewer';
+import type { Tent, Bed } from '../../types/housing';
 
-const { Option } = Select;
 
 const MinaHousingPage: React.FC = () => {
   const { t } = useTranslation('common');
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedTent, setSelectedTent] = useState<Tent | null>(null);
   const [selectedTent3D, setSelectedTent3D] = useState<Tent | null>(null);
-  const [filters, setFilters] = useState({
-    section: '' as string,
-    minCapacity: '' as string,
-    maxCapacity: '' as string
+  const [selectedBed, setSelectedBed] = useState<Bed | null>(null);
+  const [selectedBedRoomInfo, setSelectedBedRoomInfo] = useState<{ type: 'room' | 'tent'; number: string; location?: string } | null>(null);
+  const [showAllTentsModal, setShowAllTentsModal] = useState(false);
+  const [tentsState, setTentsState] = useState<Tent[]>(mockMinaTents);
+  const [unifiedFilters, setUnifiedFilters] = useState<UnifiedFilterState>({
+    searchTerm: '',
+    gender: 'all',
+    capacity: 'all',
+    emptyRooms: false,
+    section: 'all',
+    minCapacity: 'all',
+    maxCapacity: 'all',
+    pilgrimName: '',
+    roomNumber: '',
+    nationality: 'all',
+    passportNumber: '',
+    organizerNumber: '',
+    mobileNumber: '',
+    visaNumber: '',
+    enabledAdvancedFilters: {
+      pilgrimName: false,
+      roomNumber: false,
+      nationality: false,
+      passportNumber: false,
+      organizerNumber: false,
+      mobileNumber: false,
+      visaNumber: false,
+    }
   });
 
   const filteredTents = useMemo(() => {
-    return mockMinaTents.filter((tent: Tent) => {
-      // Search filter
-      if (searchTerm && !tent.tentNumber.toLowerCase().includes(searchTerm.toLowerCase())) {
+    return tentsState.filter((tent: Tent) => {
+      // Basic search filter
+      if (unifiedFilters.searchTerm && !tent.tentNumber.toLowerCase().includes(unifiedFilters.searchTerm.toLowerCase())) {
         return false;
       }
 
+      // Advanced filters - Tent number
+      if (unifiedFilters.enabledAdvancedFilters.roomNumber && unifiedFilters.roomNumber) {
+        if (!tent.tentNumber.toLowerCase().includes(unifiedFilters.roomNumber.toLowerCase())) {
+          return false;
+        }
+      }
+
+      // Advanced filters - Pilgrim attributes
+      if (unifiedFilters.enabledAdvancedFilters.pilgrimName || 
+          unifiedFilters.enabledAdvancedFilters.nationality || 
+          unifiedFilters.enabledAdvancedFilters.passportNumber ||
+          unifiedFilters.enabledAdvancedFilters.organizerNumber ||
+          unifiedFilters.enabledAdvancedFilters.mobileNumber ||
+          unifiedFilters.enabledAdvancedFilters.visaNumber) {
+        const tentPilgrims = tent.beds
+          .filter(b => b.occupied && b.pilgrimId)
+          .map(b => mockPilgrims.find(p => p.id === b.pilgrimId))
+          .filter(Boolean);
+
+        if (tentPilgrims.length === 0) {
+          if (unifiedFilters.enabledAdvancedFilters.pilgrimName || 
+              unifiedFilters.enabledAdvancedFilters.nationality || 
+              unifiedFilters.enabledAdvancedFilters.passportNumber ||
+              unifiedFilters.enabledAdvancedFilters.organizerNumber ||
+              unifiedFilters.enabledAdvancedFilters.mobileNumber ||
+              unifiedFilters.enabledAdvancedFilters.visaNumber) {
+            return false;
+          }
+        } else {
+          const matchesAdvancedFilters = tentPilgrims.some(pilgrim => {
+            if (!pilgrim) return false;
+            if (unifiedFilters.enabledAdvancedFilters.pilgrimName && unifiedFilters.pilgrimName) {
+              if (!pilgrim.name.toLowerCase().includes(unifiedFilters.pilgrimName.toLowerCase())) return false;
+            }
+            if (unifiedFilters.enabledAdvancedFilters.nationality && unifiedFilters.nationality !== 'all') {
+              if (pilgrim.nationality !== unifiedFilters.nationality) return false;
+            }
+            if (unifiedFilters.enabledAdvancedFilters.mobileNumber && unifiedFilters.mobileNumber) {
+              if (!pilgrim.phone?.includes(unifiedFilters.mobileNumber)) return false;
+            }
+            if (unifiedFilters.enabledAdvancedFilters.organizerNumber && unifiedFilters.organizerNumber) {
+              if (!pilgrim.organizer?.toLowerCase().includes(unifiedFilters.organizerNumber.toLowerCase())) return false;
+            }
+            return true;
+          });
+          if (!matchesAdvancedFilters) return false;
+        }
+      }
+
       // Section filter
-      if (filters.section && tent.section !== filters.section) {
+      if (unifiedFilters.section && unifiedFilters.section !== 'all' && tent.section !== unifiedFilters.section) {
         return false;
       }
 
       // Capacity filters
-      if (filters.minCapacity && tent.totalBeds < parseInt(filters.minCapacity)) {
+      if (unifiedFilters.minCapacity && unifiedFilters.minCapacity !== 'all' && tent.totalBeds < parseInt(unifiedFilters.minCapacity)) {
         return false;
       }
-      if (filters.maxCapacity && tent.totalBeds > parseInt(filters.maxCapacity)) {
+      if (unifiedFilters.maxCapacity && unifiedFilters.maxCapacity !== 'all' && tent.totalBeds > parseInt(unifiedFilters.maxCapacity)) {
         return false;
+      }
+
+      // Empty tents filter
+      if (unifiedFilters.emptyRooms && tent.beds.filter(b => b.occupied).length > 0) {
+        return false;
+      }
+
+      // Gender filter
+      if (unifiedFilters.gender && unifiedFilters.gender !== 'all') {
+        const tentPilgrims = tent.beds
+          .filter(b => b.occupied && b.pilgrimId)
+          .map(b => mockPilgrims.find(p => p.id === b.pilgrimId))
+          .filter(Boolean);
+        if (tentPilgrims.length > 0) {
+          const hasMatchingGender = tentPilgrims.some(p => p?.gender === unifiedFilters.gender);
+          if (!hasMatchingGender) return false;
+        }
       }
 
       return true;
     });
-  }, [searchTerm, filters]);
+  }, [unifiedFilters, tentsState]);
 
   const stats = useMemo(() => {
-    const totalTents = mockMinaTents.length;
-    const totalBeds = mockMinaTents.reduce((sum, t) => sum + t.totalBeds, 0);
-    const occupiedBeds = mockMinaTents.reduce((sum, t) => sum + t.beds.filter(b => b.occupied).length, 0);
+    const totalTents = tentsState.length;
+    const totalBeds = tentsState.reduce((sum, t) => sum + t.totalBeds, 0);
+    const occupiedBeds = tentsState.reduce((sum, t) => sum + t.beds.filter(b => b.occupied).length, 0);
     const availableBeds = totalBeds - occupiedBeds;
     return { totalTents, totalBeds, occupiedBeds, availableBeds };
-  }, []);
+  }, [tentsState]);
 
-  const sections = useMemo(() => {
-    const uniqueSections = new Set(mockMinaTents.map(t => t.section).filter(Boolean));
-    return Array.from(uniqueSections);
-  }, []);
 
   const handleTentClick = (tent: Tent) => {
     setSelectedTent(tent);
@@ -75,113 +165,124 @@ const MinaHousingPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            {t('housing.mina')}
-          </h1>
-          <p className="text-customgray">
-            {t('housing.manageMinaTents')}
-          </p>
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              {t('housing.mina')} — {t('housing.managementAndBedAssignment')}
+            </h1>
+            <p className="text-customgray">
+              {t('housing.manageMinaTents')}
+            </p>
+          </div>
+          <HousingActionsMenu type="mina" />
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        {/* Stats Cards - Enhanced */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <HousingStatsCard
             title={t('housing.totalTents')}
             value={stats.totalTents}
             color="mainColor"
+            icon={<FaCampground />}
           />
           <HousingStatsCard
             title={t('housing.totalBeds')}
             value={stats.totalBeds}
             color="primaryColor"
+            icon={<FaBed />}
           />
           <HousingStatsCard
             title={t('housing.occupiedBeds')}
             value={stats.occupiedBeds}
             color="secondaryColor"
+            icon={<UserOutlined />}
           />
           <HousingStatsCard
             title={t('housing.availableBeds')}
             value={stats.availableBeds}
             color="success"
+            icon={<FaBed />}
           />
         </div>
 
-        {/* Filters */}
-        <GlassCard className="p-4 mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <Input
-              placeholder={t('housing.searchTents')}
-              prefix={<SearchOutlined className="text-customgray" />}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1"
-              size="large"
-            />
-            <Select
-              placeholder={t('housing.filterBySection')}
-              value={filters.section}
-              onChange={(value) => setFilters(prev => ({ ...prev, section: value }))}
-              allowClear
-              className="w-full md:w-48"
-              size="large"
-            >
-              {sections.map(section => (
-                <Option key={section} value={section}>{section}</Option>
-              ))}
-            </Select>
-            <Select
-              placeholder={t('housing.minCapacity')}
-              value={filters.minCapacity}
-              onChange={(value) => setFilters(prev => ({ ...prev, minCapacity: value }))}
-              allowClear
-              className="w-full md:w-32"
-              size="large"
-            >
-              <Option value="10">10+</Option>
-              <Option value="20">20+</Option>
-              <Option value="30">30+</Option>
-              <Option value="40">40+</Option>
-            </Select>
-            <Select
-              placeholder={t('housing.maxCapacity')}
-              value={filters.maxCapacity}
-              onChange={(value) => setFilters(prev => ({ ...prev, maxCapacity: value }))}
-              allowClear
-              className="w-full md:w-32"
-              size="large"
-            >
-              <Option value="20">20</Option>
-              <Option value="30">30</Option>
-              <Option value="40">40</Option>
-              <Option value="50">50</Option>
-            </Select>
-          </div>
-        </GlassCard>
+        {/* Mini Charts Section */}
+        <MiniChartsSection type="mina" roomsOrTents={tentsState} />
+
+        {/* Unified Filters */}
+        <UnifiedFilters type="mina" onFilterChange={setUnifiedFilters} initialFilters={{ section: 'all', minCapacity: 'all', maxCapacity: 'all' }} />
+
+        {/* Show All Tents Button */}
+        <div className="mb-4 flex justify-end">
+          <button
+            type="button"
+            className="h-10 px-4 rounded-lg bg-primaryColor text-white hover:bg-primaryColor/90 border-2 border-primaryColor font-medium transition-all duration-200 flex items-center gap-2"
+            onClick={() => setShowAllTentsModal(true)}
+          >
+            <UnorderedListOutlined />
+            {t('housing.showAllTents')}
+          </button>
+        </div>
 
         {/* Tents Grid */}
+        {filteredTents.length > 0 && (
+          <div className="mb-4">
+            <p className="text-sm text-customgray">
+              {t('housing.showingResults')} {filteredTents.length} {t('housing.of')} {tentsState.length} {t('housing.totalTents')}
+            </p>
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTents.map((tent) => (
-            <div key={tent.id} className="relative">
-              <TentBedVisualizer
-                beds={tent.beds}
-                tentNumber={tent.tentNumber}
-                totalBeds={tent.totalBeds}
-                onClick={() => handleTentClick(tent)}
-              />
-              <Button
-                type="primary"
-                icon={<EyeOutlined />}
-                className="absolute top-4 right-4"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedTent3D(tent);
-                }}
-              >
-                {t('housing.view3D')}
-              </Button>
-            </div>
+            <GlassCard key={tent.id} className="p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[420px]">
+              <div className="flex-1">
+                <TentBedVisualizer
+                  beds={tent.beds}
+                  tentNumber={tent.tentNumber}
+                  totalBeds={tent.totalBeds}
+                  onBedClick={(bed) => {
+                    setSelectedBed(bed);
+                    setSelectedBedRoomInfo({
+                      type: 'tent',
+                      number: tent.tentNumber,
+                      location: t('housing.minaCamp')
+                    });
+                  }}
+                />
+              </div>
+              <div className="mt-auto pt-4 border-t border-bordergray">
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-customgray">{t('housing.tentNumber')}:</span>
+                    <span className="font-semibold text-gray-800">{tent.tentNumber}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-customgray">{t('housing.section')}:</span>
+                    <span className="font-semibold text-gray-800">{tent.section || t('housing.notAvailable')}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-customgray">{t('housing.totalBeds')}:</span>
+                    <span className="font-semibold text-gray-800">{tent.totalBeds}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-customgray">{t('housing.occupiedBeds')}:</span>
+                    <span className="font-semibold text-primaryColor">
+                      {tent.beds.filter(b => b.occupied).length}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-primaryColor to-secondaryColor text-white hover:from-primaryColor/90 hover:to-secondaryColor/90 border-0 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedTent3D(tent);
+                  }}
+                >
+                  <EyeOutlined />
+                  {t('housing.view3D')}
+                </button>
+              </div>
+            </GlassCard>
           ))}
         </div>
 
@@ -227,7 +328,7 @@ const MinaHousingPage: React.FC = () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-customgray">{t('housing.section')}:</span>
-                        <span className="font-semibold">{selectedTent.section || 'N/A'}</span>
+                        <span className="font-semibold">{selectedTent.section || t('housing.notAvailable')}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-customgray">{t('housing.totalBeds')}:</span>
@@ -275,6 +376,42 @@ const MinaHousingPage: React.FC = () => {
           </div>
         )}
 
+        {/* Show All Tents Modal */}
+        <Modal
+          title={t('housing.showAllTents')}
+          open={showAllTentsModal}
+          onCancel={() => setShowAllTentsModal(false)}
+          footer={null}
+          width={800}
+          className="housing-modal"
+        >
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {tentsState.map((tent) => (
+              <GlassCard
+                key={tent.id}
+                className="p-4 cursor-pointer hover:shadow-lg transition-all"
+                onClick={() => {
+                  handleTentClick(tent);
+                  setShowAllTentsModal(false);
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-gray-800">{tent.tentNumber}</h3>
+                    <p className="text-sm text-customgray">{tent.section || t('housing.notAvailable')}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-gray-700">{tent.totalBeds} {t('housing.totalBeds')}</p>
+                    <p className="text-xs text-customgray">
+                      {tent.beds.filter(b => b.occupied).length} {t('housing.occupiedBeds')}
+                    </p>
+                  </div>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        </Modal>
+
         {/* 3D Tent Viewer */}
         {selectedTent3D && (
           <Tent3DViewer
@@ -285,6 +422,43 @@ const MinaHousingPage: React.FC = () => {
             onClose={() => setSelectedTent3D(null)}
           />
         )}
+
+        {/* Pilgrim Details Modal */}
+        <PilgrimDetailsModal
+          bed={selectedBed}
+          open={!!selectedBed}
+          onClose={() => {
+            setSelectedBed(null);
+            setSelectedBedRoomInfo(null);
+          }}
+          onAssign={(bed, pilgrimId) => {
+            const pilgrim = mockPilgrims.find(p => p.id === pilgrimId);
+            if (pilgrim && selectedBedRoomInfo) {
+              setTentsState(prevTents => 
+                prevTents.map(tent => {
+                  if (tent.tentNumber === selectedBedRoomInfo.number) {
+                    return {
+                      ...tent,
+                      beds: tent.beds.map(b => 
+                        b.id === bed.id 
+                          ? {
+                              ...b,
+                              occupied: true,
+                              pilgrimId: pilgrim.id,
+                              pilgrimName: pilgrim.name,
+                              pilgrimGender: pilgrim.gender
+                            }
+                          : b
+                      )
+                    };
+                  }
+                  return tent;
+                })
+              );
+            }
+          }}
+          roomOrTentInfo={selectedBedRoomInfo || undefined}
+        />
       </div>
     </div>
   );

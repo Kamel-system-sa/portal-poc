@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AddCenterForm } from '../components/ui/Centers/AddCenterForm';
-import { CenterDetails } from '../components/ui/Centers/CenterDetails';
-import { CentersToolbar } from '../components/ui/Centers/CentersToolbar';
-import { SummaryCards } from '../components/ui/Centers/SummaryCards';
-import { CentersGrid } from '../components/ui/Centers/CentersGrid';
+import { AddCenterForm } from '../components/Centers/AddCenterForm';
+import { CenterDetails } from '../components/Centers/CenterDetails';
+import { CentersToolbar } from '../components/Centers/CentersToolbar';
+import { SummaryCards } from '../components/Centers/SummaryCards';
+import { CentersGrid } from '../components/Centers/CentersGrid';
 import { mockCenters } from '../data/mockCenters';
 import type { Center } from '../data/mockCenters';
 import type { FilterState } from '../types';

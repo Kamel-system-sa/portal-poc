@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { FilterBar } from '../../components/ui/HousingComponent/FilterBar';
-import type { FilterState } from '../../components/ui/HousingComponent/FilterBar';
-import { GlassCard } from '../../components/ui/HousingComponent/GlassCard';
+import { FilterBar } from '../../components/HousingComponent/FilterBar';
+import type { FilterState } from '../../components/HousingComponent/FilterBar';
+import { GlassCard } from '../../components/HousingComponent/GlassCard';
 import { Table, Tag, Button } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import { mockPilgrims } from '../../data/mockHousing';
@@ -46,7 +46,6 @@ const PilgrimsListPage: React.FC = () => {
         const searchLower = filters.search.toLowerCase();
         const matchesSearch = 
           pilgrim.name.toLowerCase().includes(searchLower) ||
-          pilgrim.bravoCode?.toLowerCase().includes(searchLower) ||
           pilgrim.hawiya?.toLowerCase().includes(searchLower) ||
           pilgrim.phone?.toLowerCase().includes(searchLower) ||
           pilgrim.email?.toLowerCase().includes(searchLower);
@@ -99,7 +98,7 @@ const PilgrimsListPage: React.FC = () => {
       dataIndex: 'gender',
       key: 'gender',
       render: (gender: string) => (
-        <Tag color={gender === 'male' ? 'blue' : 'pink'}>
+        <Tag color={gender === 'male' ? 'default' : 'default'} className={gender === 'male' ? 'bg-primaryColor/10 text-primaryColor border-primaryColor/30' : 'bg-pink-100 text-pink-600 border-pink-300'}>
           {gender === 'male' ? t('housing.male') : t('housing.female')}
         </Tag>
       ),
@@ -124,17 +123,12 @@ const PilgrimsListPage: React.FC = () => {
       ),
     },
     {
-      title: t('labels.bravoCode') || 'Bravo Code',
-      dataIndex: 'bravoCode',
-      key: 'bravoCode',
-    },
-    {
       title: t('housing.assignment'),
       key: 'assignment',
       render: (_, record: Pilgrim) => {
         if (record.assignedRoom) {
           return (
-            <Tag color="green">
+            <Tag className="bg-success/10 text-success border-success/30">
               {record.assignedRoom.type === 'hotel' ? t('housing.hotel') : t('housing.building')} - 
               {t('housing.room')} {record.assignedRoom.roomNumber}
             </Tag>
@@ -142,13 +136,13 @@ const PilgrimsListPage: React.FC = () => {
         }
         if (record.assignedTent) {
           return (
-            <Tag color="orange">
+            <Tag className="bg-warning/10 text-warning border-warning/30">
               {record.assignedTent.location === 'mina' ? t('housing.mina') : t('housing.arafat')} - 
               {t('housing.tent')} {record.assignedTent.tentNumber}
             </Tag>
           );
         }
-        return <Tag color="default">{t('housing.notAssigned')}</Tag>;
+        return <Tag className="bg-gray-100 text-gray-600 border-gray-300">{t('housing.notAssigned')}</Tag>;
       },
     },
     {

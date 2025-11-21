@@ -13,8 +13,8 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined
 } from '@ant-design/icons';
-import type { Center, Member } from '../../../data/mockCenters';
-import { renderLocations, translateSection, getResponsibleLabels } from '../../../utils';
+import type { Center, Member } from '../../data/mockCenters';
+import { renderLocations, translateSection, getResponsibleLabels } from '../../utils';
 import { MemberDetails } from './MemberDetails';
 
 interface CenterDetailsProps {

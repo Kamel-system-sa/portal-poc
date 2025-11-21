@@ -29,7 +29,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
     { key: "logout", label: <span>Logout</span> }
   ];
 
-  const sidebarWidth = collapsed ? 80 : 220;
+  const sidebarWidth = collapsed ? 80 : 260;
   const headerLeft = isRtl ? 0 : sidebarWidth;
   const headerRight = isRtl ? sidebarWidth : 0;
 

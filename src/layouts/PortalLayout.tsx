@@ -4,6 +4,8 @@ import { Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AppSidebar from "../layouts/AppSidebar";
 import AppHeader from "../layouts/AppHeader";
+import ScrollToTopButton from "../components/common/ScrollToTopButton";
+import Breadcrumb from "../components/common/Breadcrumb";
 
 const { Content } = Layout;
 
@@ -24,13 +26,15 @@ const PortalLayout = () => {
         <Content 
           className="p-6 bg-gray-100 min-h-screen transition-all duration-200"
           style={{ 
-            [isRtl ? 'marginRight' : 'marginLeft']: collapsed ? 80 : 220,
+            [isRtl ? 'marginRight' : 'marginLeft']: collapsed ? 80 : 260,
             paddingTop: 84
           }}
         >
+          <Breadcrumb />
           <Outlet />
         </Content>
       </Layout>
+      <ScrollToTopButton />
     </Layout>
   );
 };

@@ -9,7 +9,7 @@ import {
   EyeOutlined,
   TeamOutlined
 } from '@ant-design/icons';
-import type { Center } from '../../../data/mockCenters';
+import type { Center } from '../../data/mockCenters';
 
 interface CenterCardProps {
   center: Center;

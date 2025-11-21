@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SearchOutlined, PlusOutlined, FilterOutlined } from '@ant-design/icons';
-import type { FilterState } from '../../../types';
+import type { FilterState } from '../../types';
 import { FiltersForm } from './FiltersForm';
 
 interface CentersToolbarProps {

@@ -98,6 +98,9 @@ export interface Pilgrim {
   serviceCenter?: string;
   organizer?: string;
   group?: string;
+  passportNumber?: string;
+  visaNumber?: string;
+  photo?: string;
   assignedRoom?: {
     type: 'hotel' | 'building';
     hotelId?: string;

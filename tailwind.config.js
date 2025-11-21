@@ -84,6 +84,46 @@ export default {
           600: "#DC2626"
         },
         
+        // Teal (for variety)
+        teal: {
+          50: "#F0FDFA",
+          100: "#CCFBF1",
+          200: "#99F6E4",
+          500: "#14B8A6",
+          600: "#0D9488",
+          700: "#0F766E"
+        },
+        
+        // Amber (for variety)
+        amber: {
+          50: "#FFFBEB",
+          100: "#FEF3C7",
+          200: "#FDE68A",
+          500: "#F59E0B",
+          600: "#D97706",
+          700: "#B45309"
+        },
+        
+        // Cyan (for variety)
+        cyan: {
+          50: "#ECFEFF",
+          100: "#CFFAFE",
+          200: "#A5F3FC",
+          500: "#06B6D4",
+          600: "#0891B2",
+          700: "#0E7490"
+        },
+        
+        // Violet (for variety)
+        violet: {
+          50: "#F5F3FF",
+          100: "#EDE9FE",
+          200: "#DDD6FE",
+          500: "#8B5CF6",
+          600: "#7C3AED",
+          700: "#6D28D9"
+        },
+        
         // Gray (Texts & Backgrounds)
         gray: {
           50: "#F9FAFB",

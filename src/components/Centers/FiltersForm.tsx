@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CheckOutlined } from '@ant-design/icons';
-import type { FilterState } from '../../../types';
+import type { FilterState } from '../../types';
 
 interface FiltersFormProps {
   filters: FilterState;

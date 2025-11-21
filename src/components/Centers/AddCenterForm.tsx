@@ -15,8 +15,8 @@ import {
   SaveOutlined,
   CheckCircleOutlined
 } from '@ant-design/icons';
-import type { Center, Member } from '../../../data/mockCenters';
-import { generateId, buildDefaultMembers, getResponsibleLabels } from '../../../utils';
+import type { Center, Member } from '../../data/mockCenters';
+import { generateId, buildDefaultMembers, getResponsibleLabels } from '../../utils';
 import { ConfirmDeleteModal } from './ConfirmDeleteModal';
 
 // Helper to normalize section values (convert old Arabic to keys)

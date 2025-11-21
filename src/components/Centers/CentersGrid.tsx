@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { InboxOutlined } from '@ant-design/icons';
-import type { Center } from '../../../data/mockCenters';
+import type { Center } from '../../data/mockCenters';
 import { CenterCard } from './CenterCard';
 
 interface CentersGridProps {

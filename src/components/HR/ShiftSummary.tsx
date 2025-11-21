@@ -5,8 +5,8 @@ import {
   ApartmentOutlined,
   UserOutlined
 } from '@ant-design/icons';
-import type { Employee } from '../../../data/mockEmployees';
-import { translateDepartment, translateEmployeeName } from '../../../utils';
+import type { Employee } from '../../data/mockEmployees';
+import { translateDepartment, translateEmployeeName } from '../../utils';
 
 interface ShiftSummaryProps {
   employees: Employee[];
