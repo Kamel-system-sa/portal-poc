@@ -776,6 +776,8 @@
     "generateExcel": "إنشاء Excel",
     "genderDistribution": "توزيع الجنس",
     "nationalityDistribution": "توزيع الجنسية",
+    "reports": "التقارير",
+    "reportsDescription": "عرض التقارير وإدارة قائمة الحجاج",
     "reportsOverview": "نظرة عامة على التقارير",
     "totalReportsCreated": "إجمالي التقارير المُنشأة",
     "reportsInDraft": "التقارير في المسودة",

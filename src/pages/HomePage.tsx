@@ -625,35 +625,35 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-x-hidden">
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Welcome Header Section */}
-        <div className={`mb-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <Card className="border-0 shadow-lg bg-gradient-to-r from-mainColor to-primaryColor">
-            <Row align="middle" gutter={[24, 24]}>
-              <Col xs={24} md={16}>
+            <Row align="middle" gutter={[16, 16]} className="sm:!mx-0">
+              <Col xs={24} sm={24} md={16}>
                 <Space direction="vertical" size="small" className="w-full">
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <Avatar
-                      size={64}
+                      size={{ xs: 48, sm: 56, md: 64 }}
                       icon={<UserOutlined />}
-                      className="bg-white text-mainColor border-4 border-white shadow-lg"
+                      className="bg-white text-mainColor border-2 sm:border-4 border-white shadow-lg flex-shrink-0"
                     />
-                    <div>
-                      <Title level={2} className="!mb-1 !text-white !text-2xl md:!text-3xl font-bold">
+                    <div className="min-w-0 flex-1">
+                      <Title level={2} className="!mb-1 !text-white !text-lg sm:!text-xl md:!text-2xl lg:!text-3xl font-bold break-words">
                         {getGreeting()}, {currentUser.name}
                       </Title>
-                      <Text className="text-white/90 text-base">
+                      <Text className="text-white/90 text-xs sm:text-sm md:text-base break-words">
                         {currentUser.role} • {currentUser.department}
                       </Text>
                     </div>
                   </div>
-                  <Text className="text-white/80 text-sm md:text-base block mt-2">
+                  <Text className="text-white/80 text-xs sm:text-sm md:text-base block mt-2 break-words">
                     {t('homepage.welcomeSubtitle')}
                   </Text>
                 </Space>
               </Col>
-              <Col xs={24} md={8}>
+              <Col xs={24} sm={24} md={8}>
                 <StatsWidget stats={quickStats} />
               </Col>
             </Row>
@@ -661,18 +661,18 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className={`mb-8 ${mounted ? 'animate-fade-in-up animate-delay-100' : 'opacity-0'}`}>
+        <div className={`${mounted ? 'animate-fade-in-up animate-delay-100' : 'opacity-0'}`}>
           <QuickActions title={t('homepage.quickActions')} actions={quickActions} />
         </div>
 
         {/* Overview Cards Grid */}
-        <div className={`mb-8 ${mounted ? 'animate-fade-in-up animate-delay-200' : 'opacity-0'}`}>
-          <div className="flex items-center justify-between mb-6">
-            <Title level={3} className="!mb-0 !text-gray-800">
+        <div className={`${mounted ? 'animate-fade-in-up animate-delay-200' : 'opacity-0'}`}>
+          <div className="flex items-center justify-between mb-4 sm:mb-5 md:mb-6">
+            <Title level={3} className="!mb-0 !text-gray-800 !text-base sm:!text-lg md:!text-xl lg:!text-2xl">
               {t('homepage.overview')}
             </Title>
           </div>
-          <Row gutter={[16, 16]}>
+          <Row gutter={[12, 12]} className="sm:!mx-0">
             {overviewCards.map((card, index) => {
               const delayClass = index === 0 ? 'animate-delay-100' : 
                                 index === 1 ? 'animate-delay-200' :
@@ -680,7 +680,7 @@ const HomePage: React.FC = () => {
                                 index === 3 ? 'animate-delay-400' :
                                 index === 4 ? 'animate-delay-500' : 'animate-delay-100';
               return (
-                <Col xs={24} sm={12} lg={8} xl={8} key={index}>
+                <Col xs={24} sm={12} md={12} lg={8} xl={8} key={index}>
                   <div
                     className={mounted ? `animate-fade-in-up ${delayClass}` : 'opacity-0'}
                   >
@@ -692,16 +692,16 @@ const HomePage: React.FC = () => {
           </Row>
         </div>
 
-        <Divider className="my-8" />
+        <Divider className="my-4 sm:my-6 md:my-8" />
 
         {/* Main Content Grid - Tasks, Approvals, Announcements */}
-        <Row gutter={[24, 24]} className="mb-8">
-          <Col xs={24} lg={12}>
+        <Row gutter={[12, 12]} className="sm:!mx-0">
+          <Col xs={24} sm={24} md={24} lg={12}>
             <div className={mounted ? 'animate-slide-in-left' : 'opacity-0'}>
               <MyTasksCard tasks={myTasks} title={t('homepage.myTasks')} />
             </div>
           </Col>
-          <Col xs={24} lg={12}>
+          <Col xs={24} sm={24} md={24} lg={12}>
             <div className={mounted ? 'animate-slide-in-right' : 'opacity-0'}>
               <PendingApprovalsCard
                 approvals={approvals}
@@ -714,8 +714,8 @@ const HomePage: React.FC = () => {
         </Row>
 
         {/* Announcements and Activity Feed */}
-        <Row gutter={[24, 24]} className="mb-8">
-          <Col xs={24} lg={16}>
+        <Row gutter={[12, 12]} className="sm:!mx-0">
+          <Col xs={24} sm={24} md={24} lg={16}>
             <div className={mounted ? 'animate-slide-in-left' : 'opacity-0'}>
               <AnnouncementsCard
                 announcements={announcements}
@@ -723,7 +723,7 @@ const HomePage: React.FC = () => {
               />
             </div>
           </Col>
-          <Col xs={24} lg={8}>
+          <Col xs={24} sm={24} md={24} lg={8}>
             <div className={mounted ? 'animate-slide-in-right' : 'opacity-0'}>
               <ActivityFeed
                 activities={recentActivities}
@@ -734,10 +734,10 @@ const HomePage: React.FC = () => {
           </Col>
         </Row>
 
-        <Divider className="my-8" />
+        <Divider className="my-4 sm:my-6 md:my-8" />
 
         {/* Featured Items Carousel */}
-        <div className={`mb-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <ContentCarousel
             title={t('homepage.featuredItems')}
             items={featuredItems}
@@ -745,11 +745,11 @@ const HomePage: React.FC = () => {
           />
         </div>
 
-        <Divider className="my-8" />
+        <Divider className="my-4 sm:my-6 md:my-8" />
 
         {/* Dashboard Grid Sections */}
-        <div className={`mb-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <Title level={3} className="!mb-6 !text-gray-800">
+        <div className={`${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+          <Title level={3} className="!mb-4 sm:!mb-5 md:!mb-6 !text-gray-800 !text-base sm:!text-lg md:!text-xl lg:!text-2xl">
             {t('homepage.modules')}
           </Title>
           <DashboardGrid sections={dashboardSections} />

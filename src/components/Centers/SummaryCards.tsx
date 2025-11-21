@@ -15,17 +15,17 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ centers }) => {
   const b2gCenters = centers.filter((c: Center) => c.serviceType === 'B2G').length;
 
   return (
-    <div className="mb-8">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-mainColor to-primary flex items-center justify-center shadow-lg shadow-mainColor/20">
+    <div className="mb-6">
+      <div className="flex items-center gap-3 mb-4 sm:mb-5 md:mb-6">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-mainColor to-primary flex items-center justify-center shadow-lg shadow-mainColor/20 flex-shrink-0">
           <GlobalOutlined className="text-xl text-white" />
         </div>
-        <div>
-          <h3 className="text-2xl font-bold text-gray-900 tracking-tight">{t('centers.totalCenters')}</h3>
-          <p className="text-sm text-gray-500 mt-0.5">{t('centers.totalCentersSubtitle')}</p>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 tracking-tight break-words">{t('centers.totalCenters')}</h3>
+          <p className="text-xs sm:text-sm text-gray-500 mt-0.5 break-words">{t('centers.totalCentersSubtitle')}</p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
         <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 hover:shadow-xl hover:shadow-blue-200/30 hover:-translate-y-1 hover:border-blue-200/50 transition-all duration-300 flex flex-col items-center group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-full -mr-16 -mt-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
           <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/30">

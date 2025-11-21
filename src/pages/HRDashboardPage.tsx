@@ -178,38 +178,39 @@ const HRDashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-x-hidden">
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Breadcrumbs */}
-        <Breadcrumb className="mb-6">
+        <Breadcrumb className="mb-0">
           <Breadcrumb.Item>
-            <button onClick={() => navigate('/')} className="text-gray-500 hover:text-mainColor">
+            <button onClick={() => navigate('/')} className="text-gray-500 hover:text-mainColor text-xs sm:text-sm">
               {t('hr.breadcrumbs.home')}
             </button>
           </Breadcrumb.Item>
-          <Breadcrumb.Item className="text-mainColor font-semibold">
+          <Breadcrumb.Item className="text-mainColor font-semibold text-xs sm:text-sm">
             {t('hr.breadcrumbs.hr')}
           </Breadcrumb.Item>
-          <Breadcrumb.Item>{t('hr.breadcrumbs.dashboard')}</Breadcrumb.Item>
+          <Breadcrumb.Item className="text-xs sm:text-sm">{t('hr.breadcrumbs.dashboard')}</Breadcrumb.Item>
         </Breadcrumb>
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('hr.dashboard')}</h1>
-            <p className="text-gray-600">{t('hr.title')}</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2 break-words">{t('hr.dashboard')}</h1>
+            <p className="text-gray-600 text-sm sm:text-base break-words">{t('hr.title')}</p>
           </div>
-          <div className="flex gap-3 flex-wrap">
+          <div className="flex gap-2 sm:gap-3 flex-wrap w-full sm:w-auto flex-shrink-0">
             <button
               onClick={() => setIsExportOpen(true)}
-              className="px-6 py-3 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-mainColor transition-all duration-200 font-semibold flex items-center gap-2 text-gray-700"
+              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-mainColor transition-all duration-200 font-semibold flex items-center gap-2 text-gray-700 text-sm sm:text-base flex-1 sm:flex-initial"
             >
               <ExportOutlined />
-              {t('hr.actions.export')}
+              <span className="hidden sm:inline">{t('hr.actions.export')}</span>
+              <span className="sm:hidden">{t('hr.actions.export')}</span>
             </button>
             <button
               onClick={handleAddEmployee}
-              className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold flex items-center gap-2"
+              className="px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold flex items-center gap-2 text-sm sm:text-base flex-1 sm:flex-initial"
             >
               <PlusOutlined />
               {t('hr.addEmployee')}
@@ -218,44 +219,44 @@ const HRDashboardPage: React.FC = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">{t('hr.totalEmployees')}</p>
-                <p className="text-3xl font-bold text-mainColor">{totalEmployees}</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-1">{t('hr.totalEmployees')}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-mainColor">{totalEmployees}</p>
               </div>
-              <div className="w-12 h-12 bg-mainColor/10 rounded-xl flex items-center justify-center">
-                <UserOutlined className="text-2xl text-mainColor" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-mainColor/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <UserOutlined className="text-xl sm:text-2xl text-mainColor" />
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">{t('hr.pendingContracts')}</p>
-                <p className="text-3xl font-bold text-warning">{pendingContracts}</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-1">{t('hr.pendingContracts')}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-warning">{pendingContracts}</p>
               </div>
-              <div className="w-12 h-12 bg-warning/10 rounded-xl flex items-center justify-center">
-                <FileTextOutlined className="text-2xl text-warning" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-warning/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <FileTextOutlined className="text-xl sm:text-2xl text-warning" />
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">{t('hr.cardsPrinted')}</p>
-                <p className="text-3xl font-bold text-success">{cardsPrinted}</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-1">{t('hr.cardsPrinted')}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-success">{cardsPrinted}</p>
               </div>
-              <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center">
-                <PrinterOutlined className="text-2xl text-success" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-success/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <PrinterOutlined className="text-xl sm:text-2xl text-success" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 mb-6">
+        <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <div className="flex-1">
               <Input
@@ -364,10 +365,10 @@ const HRDashboardPage: React.FC = () => {
         />
 
         {/* Split Screen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
           {/* Employee List - Grouped by Department */}
-          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">{t('hr.employees')}</h2>
+          <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">{t('hr.employees')}</h2>
             {filteredEmployees.length === 0 ? (
               <div className="text-center py-12">
                 <InboxOutlined className="text-5xl text-gray-400 mb-4" />

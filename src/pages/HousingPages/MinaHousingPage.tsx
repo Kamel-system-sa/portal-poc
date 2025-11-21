@@ -162,23 +162,25 @@ const MinaHousingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 overflow-x-hidden">
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Header */}
-        <div className="mb-6 flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-1 sm:mb-2 break-words">
               {t('housing.mina')} — {t('housing.managementAndBedAssignment')}
             </h1>
-            <p className="text-customgray">
+            <p className="text-customgray text-sm sm:text-base break-words">
               {t('housing.manageMinaTents')}
             </p>
           </div>
-          <HousingActionsMenu type="mina" />
+          <div className="flex-shrink-0 w-full sm:w-auto">
+            <HousingActionsMenu type="mina" />
+          </div>
         </div>
 
         {/* Stats Cards - Enhanced */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           <HousingStatsCard
             title={t('housing.totalTents')}
             value={stats.totalTents}
@@ -212,10 +214,10 @@ const MinaHousingPage: React.FC = () => {
         <UnifiedFilters type="mina" onFilterChange={setUnifiedFilters} initialFilters={{ section: 'all', minCapacity: 'all', maxCapacity: 'all' }} />
 
         {/* Show All Tents Button */}
-        <div className="mb-4 flex justify-end">
+        <div className="flex justify-end">
           <button
             type="button"
-            className="h-10 px-4 rounded-lg bg-primaryColor text-white hover:bg-primaryColor/90 border-2 border-primaryColor font-medium transition-all duration-200 flex items-center gap-2"
+            className="h-9 sm:h-10 px-3 sm:px-4 rounded-lg bg-primaryColor text-white hover:bg-primaryColor/90 border-2 border-primaryColor font-medium transition-all duration-200 flex items-center gap-2 text-sm sm:text-base"
             onClick={() => setShowAllTentsModal(true)}
           >
             <UnorderedListOutlined />
@@ -225,15 +227,15 @@ const MinaHousingPage: React.FC = () => {
 
         {/* Tents Grid */}
         {filteredTents.length > 0 && (
-          <div className="mb-4">
-            <p className="text-sm text-customgray">
+          <div>
+            <p className="text-xs sm:text-sm text-customgray">
               {t('housing.showingResults')} {filteredTents.length} {t('housing.of')} {tentsState.length} {t('housing.totalTents')}
             </p>
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
           {filteredTents.map((tent) => (
-            <GlassCard key={tent.id} className="p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[420px]">
+            <GlassCard key={tent.id} className="p-3 sm:p-4 md:p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[380px] sm:min-h-[400px] md:min-h-[420px]">
               <div className="flex-1">
                 <TentBedVisualizer
                   beds={tent.beds}
@@ -297,25 +299,25 @@ const MinaHousingPage: React.FC = () => {
         {/* Tent Details Side Panel */}
         {selectedTent && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-end p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center sm:justify-end p-2 sm:p-4"
             onClick={(e) => {
               if (e.target === e.currentTarget) setSelectedTent(null);
             }}
           >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-            <div className="relative w-full max-w-md max-h-[90vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
-              <div className="flex items-center justify-between p-6 border-b border-bordergray bg-gray-50">
-                <h2 className="text-xl font-semibold text-gray-800">
+            <div className="relative w-full max-w-md max-h-[95vh] sm:max-h-[90vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
+              <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-bordergray bg-gray-50">
+                <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 truncate pr-2">
                   {t('housing.tentDetails')} - {selectedTent.tentNumber}
                 </h2>
                 <button
                   onClick={() => setSelectedTent(null)}
-                  className="p-2 text-customgray hover:text-gray-700 hover:bg-gray-200 rounded-lg transition"
+                  className="p-2 text-customgray hover:text-gray-700 hover:bg-gray-200 rounded-lg transition flex-shrink-0"
                 >
                   <CloseOutlined className="text-lg" />
                 </button>
               </div>
-              <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
+              <div className="overflow-y-auto max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-80px)] p-3 sm:p-4 md:p-6">
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-sm font-medium text-customgray mb-2">

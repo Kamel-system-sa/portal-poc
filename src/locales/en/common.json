@@ -774,6 +774,8 @@
     "generateExcel": "Generate Excel",
     "genderDistribution": "Gender Distribution",
     "nationalityDistribution": "Nationality Distribution",
+    "reports": "Reports",
+    "reportsDescription": "View reports and manage pilgrims list",
     "reportsOverview": "Reports Overview",
     "totalReportsCreated": "Total Reports Created",
     "reportsInDraft": "Reports In Draft",

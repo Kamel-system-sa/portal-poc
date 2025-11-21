@@ -18,7 +18,9 @@ import MinaHousingPage from "./pages/HousingPages/MinaHousingPage";
 import ArafatHousingPage from "./pages/HousingPages/ArafatHousingPage";
 import PilgrimsListPage from "./pages/HousingPages/PilgrimsListPage";
 import PilgrimDetailsPage from "./pages/HousingPages/PilgrimDetailsPage";
+import ReportsPage from "./pages/HousingPages/ReportsPage";
 import App from "./App";
+import { UserRoleProvider } from "./contexts/UserRoleContext";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
       { path: "housing/buildings", element: <BuildingHousingPage /> },
       { path: "housing/mina", element: <MinaHousingPage /> },
       { path: "housing/arafat", element: <ArafatHousingPage /> },
-      { path: "housing/pilgrims", element: <PilgrimsListPage /> },
+      { path: "housing/reports", element: <ReportsPage /> },
       { path: "housing/pilgrims/:id", element: <PilgrimDetailsPage /> },
     ],
   },
@@ -43,6 +45,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserRoleProvider>
+      <RouterProvider router={router} />
+    </UserRoleProvider>
   </React.StrictMode>
 );

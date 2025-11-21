@@ -866,7 +866,7 @@ const OrganizersPage = () => {
 
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6 overflow-x-hidden">
       {/* Header with Add Button */}
       <OrganizersHeader 
         onAddClick={() => setModalVisible(true)} 
@@ -904,17 +904,17 @@ const OrganizersPage = () => {
       {/* Organizers Cards Section */}
       <div id="organizers-cards">
         {loading ? (
-          <div className="flex justify-center items-center py-20">
+          <div className="flex justify-center items-center py-10 sm:py-16 md:py-20">
             <Spin size="large" />
           </div>
         ) : filteredOrganizers.length === 0 ? (
-          <Card className="text-center py-10">
-            <Text type="secondary" className="text-lg">
+          <Card className="text-center py-6 sm:py-8 md:py-10">
+            <Text type="secondary" className="text-base sm:text-lg">
               {searchText ? t("noResultsFound") : t("noOrganizers")}
             </Text>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3">
             {filteredOrganizers.map((organizer) => (
               <OrganizerCard
                 key={organizer.id}

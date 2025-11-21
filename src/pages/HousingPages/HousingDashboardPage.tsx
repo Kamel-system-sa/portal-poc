@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { GlassCard } from '../../components/HousingComponent/GlassCard';
 import { HousingStatsCard } from '../../components/HousingComponent/HousingStatsCard';
 import { AddHousingForm } from '../../components/HousingComponent/AddHousingForm';
-import { ReportBuilder } from '../../components/HousingComponent/ReportBuilder';
 import { 
   HomeOutlined, 
   BuildOutlined, 
@@ -16,12 +15,13 @@ import {
   BarChartOutlined,
   FileTextOutlined,
   CheckCircleOutlined,
-  SendOutlined,
-  InboxOutlined,
   HeartOutlined,
   SafetyOutlined,
   WarningOutlined,
-  ExclamationCircleOutlined
+  ExclamationCircleOutlined,
+  AppstoreOutlined,
+  CheckSquareOutlined,
+  GlobalOutlined
 } from '@ant-design/icons';
 import { FaCampground, FaHotel, FaBuilding } from 'react-icons/fa';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -42,7 +42,6 @@ const HousingDashboardPage: React.FC = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
-  const [isReportBuilderOpen, setIsReportBuilderOpen] = useState(false);
 
   // Get hotels and buildings with records
   const hotels = getHotelsWithRecords();
@@ -141,13 +140,6 @@ const HousingDashboardPage: React.FC = () => {
     };
   }, [hotels, buildings]);
 
-  // Reports summary mock data
-  const reportsSummary = useMemo(() => ({
-    totalCreated: 24,
-    inDraft: 5,
-    sent: 18,
-    received: 12
-  }), []);
 
   // Pilgrim Preferences mock data
   const pilgrimPreferences = useMemo(() => ({
@@ -317,38 +309,31 @@ const HousingDashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 overflow-x-hidden">
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <div>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-1 sm:mb-2 break-words">
                 {t('housing.dashboardTitle')}
               </h1>
-              <p className="text-customgray">
+              <p className="text-customgray text-sm sm:text-base break-words">
                 {t('housing.dashboardSubtitle')}
               </p>
             </div>
             
             {/* Quick Actions */}
-            <GlassCard className="p-4 lg:p-5">
-              <div className="flex flex-wrap items-center gap-3">
+            <GlassCard className="p-3 sm:p-4 lg:p-5 flex-shrink-0 w-full lg:w-auto">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAddFormOpen(true)}
-                  className="px-4 py-2.5 bg-gradient-to-r from-primaryColor to-primaryColor/90 text-white rounded-xl hover:shadow-lg hover:shadow-primaryColor/30 transition-all duration-200 flex items-center gap-2 font-medium text-sm"
+                  className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-primaryColor to-primaryColor/90 text-white rounded-xl hover:shadow-lg hover:shadow-primaryColor/30 transition-all duration-200 flex items-center gap-2 font-medium text-xs sm:text-sm flex-1 sm:flex-initial"
                 >
                   <PlusOutlined />
                   <span className="hidden sm:inline">{t('housing.addHousingRecord')}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => navigate('/housing/pilgrims')}
-                  className="px-4 py-2.5 bg-gradient-to-r from-secondaryColor to-secondaryColor/90 text-white rounded-xl hover:shadow-lg hover:shadow-secondaryColor/30 transition-all duration-200 flex items-center gap-2 font-medium text-sm"
-                >
-                  <UserOutlined />
-                  <span className="hidden sm:inline">{t('housing.viewPilgrims')}</span>
+                  <span className="sm:hidden">{t('housing.addHousingRecord')}</span>
                 </button>
               </div>
             </GlassCard>
@@ -356,39 +341,59 @@ const HousingDashboardPage: React.FC = () => {
         </div>
 
         {/* Overall Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           <HousingStatsCard
-            title={t('housing.totalHoused')}
-            value={minaStats.occupiedBeds + arafatStats.occupiedBeds + hotelsStats.occupiedBeds + buildingsStats.occupiedBeds}
-            subtitle={t('housing.registeredPilgrims')}
-            icon={<UserOutlined />}
+            title={t('housing.totalPilgrims')}
+            value={mockPilgrims.length}
+            icon={<GlobalOutlined />}
             color="mainColor"
           />
           <HousingStatsCard
             title={t('housing.availableBeds')}
             value={minaStats.availableBeds + arafatStats.availableBeds + hotelsStats.availableBeds + buildingsStats.availableBeds}
-            subtitle={t('housing.readyForAssignment')}
-            icon={<TeamOutlined />}
+            icon={<CheckSquareOutlined />}
             color="success"
           />
           <HousingStatsCard
             title={t('housing.totalCapacity')}
             value={minaStats.totalBeds + arafatStats.totalBeds + hotelsStats.totalBeds + buildingsStats.totalBeds}
-            subtitle={t('housing.totalBeds')}
-            icon={<HomeOutlined />}
+            icon={<AppstoreOutlined />}
             color="primaryColor"
           />
           <HousingStatsCard
-            title={t('housing.totalPilgrims')}
-            value={mockPilgrims.length}
-            subtitle={t('housing.registeredPilgrims')}
-            icon={<TeamOutlined />}
+            title={t('housing.totalHoused')}
+            value={minaStats.occupiedBeds + arafatStats.occupiedBeds + hotelsStats.occupiedBeds + buildingsStats.occupiedBeds}
+            icon={<HomeOutlined />}
             color="secondaryColor"
+          />
+          <HousingStatsCard
+            title={t('housing.mina') + ' ' + t('housing.tents')}
+            value={minaStats.totalTents}
+            icon={<FaCampground />}
+            color="primaryColor"
+          />
+          <HousingStatsCard
+            title={t('housing.arafat') + ' ' + t('housing.tents')}
+            value={arafatStats.totalTents}
+            icon={<FaCampground />}
+            color="secondaryColor"
+          />
+          <HousingStatsCard
+            title={t('housing.makkah') + ' ' + t('housing.hotels') + ' & ' + t('housing.buildings')}
+            value={cityStats.makkah.hotels + cityStats.makkah.buildings}
+            icon={<BuildOutlined />}
+            color="mainColor"
+          />
+          <HousingStatsCard
+            title={t('housing.madinah') + ' ' + t('housing.hotels') + ' & ' + t('housing.buildings')}
+            value={cityStats.madinah.hotels + cityStats.madinah.buildings}
+            icon={<ApartmentOutlined />}
+            color="success"
           />
         </div>
 
         {/* 2x2 Grid: Hotels, Buildings, Mina, Arafat */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
           {/* Row 1: Hotels */}
           <SectionCard
             title={t('housing.hotels')}
@@ -657,58 +662,6 @@ const HousingDashboardPage: React.FC = () => {
           </GlassCard>
         </div>
 
-        {/* Reports Overview Section */}
-        <div className="mb-8">
-          <GlassCard className="p-6 border-2 border-bordergray/50 bg-white/90">
-            <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-              <FileTextOutlined className="text-primaryColor text-xl" />
-              {t('housing.reportsOverview') || 'Reports Overview'}
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              <div className="p-4 bg-gradient-to-br from-primaryColor/10 to-primaryColor/5 rounded-lg border border-primaryColor/20">
-                <div className="flex items-center gap-3 mb-2">
-                  <FileTextOutlined className="text-primaryColor text-xl" />
-                  <div className="text-2xl font-bold text-primaryColor">{reportsSummary.totalCreated}</div>
-                </div>
-                <div className="text-sm text-customgray">{t('housing.totalReportsCreated') || 'Total Reports Created'}</div>
-              </div>
-
-              <div className="p-4 bg-gradient-to-br from-amber-100 to-amber-50 rounded-lg border border-amber-200">
-                <div className="flex items-center gap-3 mb-2">
-                  <FileTextOutlined className="text-amber-600 text-xl" />
-                  <div className="text-2xl font-bold text-amber-600">{reportsSummary.inDraft}</div>
-                </div>
-                <div className="text-sm text-customgray">{t('housing.reportsInDraft') || 'Reports In Draft'}</div>
-              </div>
-
-              <div className="p-4 bg-gradient-to-br from-secondaryColor/10 to-secondaryColor/5 rounded-lg border border-secondaryColor/20">
-                <div className="flex items-center gap-3 mb-2">
-                  <SendOutlined className="text-secondaryColor text-xl" />
-                  <div className="text-2xl font-bold text-secondaryColor">{reportsSummary.sent}</div>
-                </div>
-                <div className="text-sm text-customgray">{t('housing.reportsSent') || 'Reports Sent'}</div>
-              </div>
-
-              <div className="p-4 bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-lg border border-cyan-200">
-                <div className="flex items-center gap-3 mb-2">
-                  <InboxOutlined className="text-cyan-600 text-xl" />
-                  <div className="text-2xl font-bold text-cyan-600">{reportsSummary.received}</div>
-                </div>
-                <div className="text-sm text-customgray">{t('housing.reportsReceived') || 'Reports Received'}</div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setIsReportBuilderOpen(true)}
-              className="w-full px-6 py-3 bg-gradient-to-r from-primaryColor to-secondaryColor text-white rounded-xl hover:shadow-lg hover:shadow-primaryColor/30 transition-all duration-200 flex items-center justify-center gap-2 font-medium"
-            >
-              <PlusOutlined />
-              {t('housing.createReport') || 'Create Report'}
-            </button>
-          </GlassCard>
-        </div>
       </div>
 
       {/* Add Housing Form Modal */}
@@ -742,32 +695,6 @@ const HousingDashboardPage: React.FC = () => {
         </div>
       )}
 
-      {/* Report Builder Modal */}
-      {isReportBuilderOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsReportBuilderOpen(false);
-          }}
-        >
-          <div className="relative w-full max-w-5xl max-h-[95vh] bg-white rounded-xl shadow-2xl overflow-hidden z-10">
-            <div className="flex items-center justify-between p-6 border-b border-bordergray bg-gradient-to-r from-gray-50 to-white">
-              <h2 className="text-2xl font-bold text-gray-800">
-                {t('housing.reportBuilder') || 'Report Builder'}
-              </h2>
-              <button
-                onClick={() => setIsReportBuilderOpen(false)}
-                className="p-2 text-customgray hover:text-gray-700 hover:bg-gray-200 rounded-lg transition"
-              >
-                <CloseOutlined className="text-lg" />
-              </button>
-            </div>
-            <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-6">
-              <ReportBuilder />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
