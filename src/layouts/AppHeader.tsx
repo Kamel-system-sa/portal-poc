@@ -52,15 +52,15 @@ const AppHeader: React.FC<AppHeaderProps> = ({
       label: (
         <div className="flex items-center gap-2">
           <SwapOutlined />
-          <span className="font-semibold">Switch Role</span>
+          <span className="font-semibold">{t("header.switchRole")}</span>
         </div>
       ),
     },
     ...roleMenuItems,
     { type: "divider" },
-    { key: "profile", label: <span>Profile</span> },
-    { key: "settings", label: <span>Settings</span> },
-    { key: "logout", label: <span>Logout</span> }
+    { key: "profile", label: <span>{t("header.profile")}</span> },
+    { key: "settings", label: <span>{t("header.settings")}</span> },
+    { key: "logout", label: <span>{t("header.logout")}</span> }
   ];
 
   const sidebarWidth = collapsed ? 80 : 260;
@@ -109,11 +109,14 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         <div className="hidden sm:block">
           <LanguageSwitcher />
         </div>
-        <Button 
-          type="text" 
-          icon={<BellOutlined style={{ fontSize: 18 }} />}
-          className="hidden sm:flex"
-        />
+        <Tooltip title={t("header.notifications")}>
+          <Button 
+            type="text" 
+            icon={<BellOutlined style={{ fontSize: 18 }} />}
+            className="hidden sm:flex"
+            aria-label={t("header.notifications")}
+          />
+        </Tooltip>
         <Dropdown
           menu={{ items: userMenuItems }}
           placement={isRtl ? "bottomLeft" : "bottomRight"}

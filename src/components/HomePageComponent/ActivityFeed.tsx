@@ -109,7 +109,7 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({
               </Text>
               {activity.user && (
                 <Text className={`text-gray-500 text-xs ${isRTL ? 'text-right' : ''}`}>
-                  {isRTL ? `${activity.user} ${t('homepage.by') || 'بواسطة'}` : `${t('homepage.by') || 'by'} ${activity.user}`}
+                  {isRTL ? `${activity.user} ${t('homepage.by')}` : `${t('homepage.by')} ${activity.user}`}
                 </Text>
               )}
             </div>

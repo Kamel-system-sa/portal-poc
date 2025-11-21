@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography, List, Button, Avatar, Tag } from 'antd';
 import { FileTextOutlined, UserOutlined, CheckOutlined, CloseOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
@@ -31,6 +32,7 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
   onApprove,
   onReject,
 }) => {
+  const { t } = useTranslation('common');
   const getTypeIcon = (type: Approval['type']) => {
     switch (type) {
       case 'leave':
@@ -49,15 +51,15 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
   const getTypeLabel = (type: Approval['type']) => {
     switch (type) {
       case 'leave':
-        return 'Leave Request';
+        return t('homepage.leaveRequest');
       case 'expense':
-        return 'Expense Report';
+        return t('homepage.expenseReport');
       case 'document':
-        return 'Document';
+        return t('homepage.document');
       case 'request':
-        return 'General Request';
+        return t('homepage.generalRequest');
       default:
-        return 'Request';
+        return t('homepage.homepageRequest');
     }
   };
 
@@ -89,7 +91,7 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
           </Title>
         </div>
         <Tag color="red" className="cursor-pointer">
-          {approvals.length} Pending
+          {approvals.length} {t('homepage.homepagePending')}
         </Tag>
       </div>
 
@@ -110,7 +112,7 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
                       {item.title}
                     </Text>
                     <Tag color={getPriorityColor(item.priority)} className="!m-0 text-xs">
-                      {item.priority}
+                      {t(`homepage.${item.priority}`)}
                     </Tag>
                   </div>
                   <Text className="text-gray-600 text-xs block mb-1">
@@ -118,8 +120,8 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
                   </Text>
                   <div className="flex items-center gap-3 text-xs text-gray-500">
                     <Text>{item.date}</Text>
-                    {item.amount && <Text>• Amount: {item.amount}</Text>}
-                    {item.days && <Text>• {item.days} days</Text>}
+                    {item.amount && <Text>• {t('homepage.amount')}: {item.amount}</Text>}
+                    {item.days && <Text>• {item.days} {t('homepage.homepageDays')}</Text>}
                   </div>
                 </div>
               </div>
@@ -131,7 +133,7 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
                   onClick={() => onApprove?.(item.id)}
                   className="bg-success border-success hover:bg-green-600"
                 >
-                  Approve
+                  {t('homepage.approve')}
                 </Button>
                 <Button
                   size="small"
@@ -139,7 +141,7 @@ const PendingApprovalsCard: React.FC<PendingApprovalsCardProps> = ({
                   onClick={() => onReject?.(item.id)}
                   className="text-danger border-danger hover:bg-red-50"
                 >
-                  Reject
+                  {t('homepage.reject')}
                 </Button>
               </div>
             </div>

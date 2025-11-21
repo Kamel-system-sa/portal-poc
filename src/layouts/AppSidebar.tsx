@@ -60,7 +60,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       {
         key: "organizers",
         icon: <UserOutlined />,
-        label: <Link to="/organizers">{t("organizersTitle") || "Organizers"}</Link>
+        label: <Link to="/organizers">{t("organizersTitle")}</Link>
       },
       {
         key: "hr",
@@ -100,7 +100,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "housing-reports",
             icon: <FileTextOutlined />,
-            label: <Link to="/housing/reports">{t("housing.reports") || "Reports"}</Link>
+            label: <Link to="/housing/reports">{t("housing.reports")}</Link>
           }
         ]
       },
@@ -169,7 +169,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         <div className={`flex items-center justify-center border-b border-bordergray transition-all duration-300 py-4 px-3`}>
           <img 
             src={collapsed ? "/images/kamelPortalSmallLogo.png" : "/images/kamelPortalLogo.png"}
-            alt="Kamel Portal Logo" 
+            alt={t("logo.alt")} 
             className="object-contain transition-all duration-300"
             style={{
               height: collapsed ? '56px' : '72px',

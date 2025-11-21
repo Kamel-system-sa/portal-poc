@@ -116,14 +116,14 @@ const HeroSlider: React.FC = () => {
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hidden md:flex items-center justify-center"
-        aria-label="Previous slide"
+        aria-label={t('ariaLabels.previousSlide')}
       >
         <LeftOutlined className="text-lg" />
       </button>
       <button
         onClick={next}
         className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hidden md:flex items-center justify-center"
-        aria-label="Next slide"
+        aria-label={t('ariaLabels.nextSlide')}
       >
         <RightOutlined className="text-lg" />
       </button>

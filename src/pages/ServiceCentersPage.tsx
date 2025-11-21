@@ -139,7 +139,7 @@ const ServiceCentersPage: React.FC = () => {
               <button
                 onClick={handleCloseAdd}
                 className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition flex-shrink-0"
-                aria-label="Close modal"
+                aria-label={t('ariaLabels.closeModal')}
               >
                 <CloseOutlined className="text-lg" />
               </button>
@@ -169,7 +169,7 @@ const ServiceCentersPage: React.FC = () => {
               <button
                 onClick={() => setSelectedCenter(null)}
                 className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition flex-shrink-0"
-                aria-label="Close modal"
+                aria-label={t('ariaLabels.closeModal')}
               >
                 <CloseOutlined className="text-lg" />
               </button>

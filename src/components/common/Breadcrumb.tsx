@@ -88,7 +88,7 @@ const Breadcrumb: React.FC = () => {
   return (
     <nav 
       className="mb-2 sm:mb-3 md:mb-4 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm overflow-x-auto pb-2 scrollbar-hide"
-      aria-label="Breadcrumb"
+      aria-label={t('ariaLabels.breadcrumb')}
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       {breadcrumbs.map((crumb, index) => (
