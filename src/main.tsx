@@ -9,6 +9,7 @@ import PortalLayout from "./layouts/PortalLayout";
 import HomePage from "./pages/HomePage";
 import TestPage from "./pages/TestPage";
 import ServiceCentersPage from "./pages/ServiceCentersPage";
+import OrganizersPage from "./pages/OrganizersPage";
 import HRDashboardPage from "./pages/HRDashboardPage";
 import HousingDashboardPage from "./pages/HousingPages/HousingDashboardPage";
 import HotelHousingPage from "./pages/HousingPages/HotelHousingPage";
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "test", element: <TestPage /> },
       { path: "service-centers", element: <ServiceCentersPage /> },
+      { path: "organizers", element: <OrganizersPage /> },
       { path: "hr", element: <HRDashboardPage /> },
       { path: "housing", element: <HousingDashboardPage /> },
       { path: "housing/hotels", element: <HotelHousingPage /> },

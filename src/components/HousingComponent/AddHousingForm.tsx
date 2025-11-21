@@ -15,7 +15,7 @@ import {
   LinkOutlined,
   SaveOutlined
 } from '@ant-design/icons';
-import { allOrganizers } from '../../data/mockOrganizers';
+import { allOrganizers } from '../../data/housingOrganizers';
 import type { HousingRecord, Organizer } from '../../types/housing';
 
 interface AddHousingFormProps {

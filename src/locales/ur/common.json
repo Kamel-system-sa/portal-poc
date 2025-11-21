@@ -1,17 +1,18 @@
 {
-  "portalTitle": "کامل پورٹل",
-  "dashboardTitle": "ڈیش بورڈ",
+    "portalTitle": "کامل پورٹل",
+    "dashboardTitle": "ڈیش بورڈ",
   "homeTitle": "ہوم",
   "serviceCentersTitle": "سروس سینٹرز",
+  "organizersTitle": "آرگنائزرز",
   "housingTitle": "رہائش",
-  "testPageTitle": "ٹیسٹ پیج",
+    "testPageTitle": "ٹیسٹ پیج",
   "scrollToTop": "اوپر سکرول کریں",
-  "mainColorCard": "مین کلر کارڈ",
-  "dangerCard": "خطرہ کارڈ",
-  "warningCard": "وارننگ کارڈ",
-  "infoCard": "انفو کارڈ",
-  "buttonsSection": "بٹنز",
-  "alertsSection": "الرٹس",
+    "mainColorCard": "مین کلر کارڈ",
+    "dangerCard": "خطرہ کارڈ",
+    "warningCard": "وارننگ کارڈ",
+    "infoCard": "انفو کارڈ",
+    "buttonsSection": "بٹنز",
+    "alertsSection": "الرٹس",
   "tailwindBoxesSection": "Tailwind باکسز",
   "centers": {
     "totalCenters": "کل مراکز",
@@ -105,6 +106,11 @@
     "indonesian": "انڈونیشیائی",
     "malaysian": "ملائیشیائی",
     "palestinian": "فلسطینی",
+    "nigerian": "نائجیرین",
+    "sudanese": "سوڈانی",
+    "afghan": "افغان",
+    "somali": "صومالی",
+    "ethiopian": "ایتھوپین",
     "other": "دیگر"
   },
   "details": {
@@ -757,4 +763,5 @@
     "mediumIssues": "درمیانے مسائل",
     "criticalIssues": "اہم مسائل"
   }
-}
+  }
+  

@@ -3,6 +3,7 @@
   "dashboardTitle": "Dashboard",
   "homeTitle": "Home",
   "serviceCentersTitle": "Service Centers",
+  "organizersTitle": "Organizers",
   "housingTitle": "Housing",
   "testPageTitle": "Test Page",
   "scrollToTop": "Scroll to top",
@@ -109,6 +110,11 @@
     "indonesian": "Indonesian",
     "malaysian": "Malaysian",
     "palestinian": "Palestinian",
+    "nigerian": "Nigerian",
+    "sudanese": "Sudanese",
+    "afghan": "Afghan",
+    "somali": "Somali",
+    "ethiopian": "Ethiopian",
     "other": "Other"
   },
   "details": {

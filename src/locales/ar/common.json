@@ -3,6 +3,7 @@
   "dashboardTitle": "لوحة التحكم",
   "homeTitle": "الرئيسية",
   "serviceCentersTitle": "مراكز الخدمة",
+  "organizersTitle": "المنظمون",
   "housingTitle": "الإسكان",
   "testPageTitle": "صفحة الاختبار",
   "mainColorCard": "بطاقة اللون الأساسي",
@@ -108,6 +109,11 @@
     "indonesian": "إندونيسية",
     "malaysian": "ماليزية",
     "palestinian": "فلسطينية",
+    "nigerian": "نيجيرية",
+    "sudanese": "سودانية",
+    "afghan": "أفغانية",
+    "somali": "صومالية",
+    "ethiopian": "إثيوبية",
     "other": "أخرى"
   },
   "details": {
