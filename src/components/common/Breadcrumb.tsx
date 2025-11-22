@@ -56,6 +56,48 @@ const Breadcrumb: React.FC = () => {
         case 'service-centers':
           label = t('serviceCentersTitle');
           break;
+        case 'reception':
+          if (index === pathSegments.length - 1) {
+            label = t('reception.dashboard.title') || t('reception.title');
+          } else {
+            label = t('reception.title');
+          }
+          break;
+        case 'pre-arrival':
+          label = t('reception.preArrival.list.title') || t('reception.preArrival.dashboard.title') || 'Pre-Arrival Preparation';
+          break;
+        case 'ports':
+          if (pathSegments[pathSegments.length - 1] === 'airports') {
+            label = t('reception.ports.airports.title');
+          } else if (pathSegments[pathSegments.length - 1] === 'land') {
+            label = t('reception.ports.landPorts.title');
+          } else {
+            label = t('reception.ports.title');
+          }
+          break;
+        case 'list':
+          if (pathSegments.includes('pre-arrival')) {
+            label = t('reception.preArrival.list.title') || 'Arrival Schedules';
+          }
+          break;
+        case 'airports':
+          label = t('reception.ports.airports.title');
+          break;
+        case 'land':
+          label = t('reception.ports.landPorts.title');
+          break;
+        case 'campaigns':
+          if (pathSegments[pathSegments.length - 1] === 'register') {
+            label = t('reception.campaigns.registration.title');
+          } else {
+            label = t('reception.campaigns.title');
+          }
+          break;
+        case 'register':
+          if (pathSegments.includes('campaigns')) {
+            label = t('reception.campaigns.registration.title');
+          }
+          break;
         case 'test':
           label = t('testPageTitle');
           break;

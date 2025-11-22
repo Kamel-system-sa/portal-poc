@@ -17,6 +17,12 @@ import MinaHousingPage from "./pages/HousingPages/MinaHousingPage";
 import ArafatHousingPage from "./pages/HousingPages/ArafatHousingPage";
 import PilgrimsListPage from "./pages/HousingPages/PilgrimsListPage";
 import PilgrimDetailsPage from "./pages/HousingPages/PilgrimDetailsPage";
+import PreArrivalDashboardPage from "./pages/ReceptionPages/PreArrivalDashboardPage";
+import PreDepartureDashboardPage from "./pages/ReceptionPages/PreDepartureDashboardPage";
+import ReceptionDashboardPage from "./pages/ReceptionPages/ReceptionDashboardPage";
+import PortsListPage from "./pages/ReceptionPages/PortsListPage";
+import CampaignsListPage from "./pages/ReceptionPages/CampaignsListPage";
+import CampaignsRegistrationPage from "./pages/ReceptionPages/CampaignsRegistrationPage";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -35,6 +41,16 @@ const router = createBrowserRouter([
       { path: "housing/arafat", element: <ArafatHousingPage /> },
       { path: "housing/pilgrims", element: <PilgrimsListPage /> },
       { path: "housing/pilgrims/:id", element: <PilgrimDetailsPage /> },
+      { path: "reception", element: <ReceptionDashboardPage /> },
+      { path: "reception/dashboard", element: <ReceptionDashboardPage /> },
+      { path: "reception/pre-arrival", element: <PreArrivalDashboardPage /> },
+      { path: "reception/pre-arrival/list", element: <PreArrivalDashboardPage /> },
+      { path: "reception/pre-arrival/departures", element: <PreDepartureDashboardPage /> },
+      { path: "reception/ports", element: <PortsListPage /> },
+      { path: "reception/ports/airports", element: <PortsListPage /> },
+      { path: "reception/ports/land", element: <PortsListPage /> },
+      { path: "reception/campaigns", element: <CampaignsListPage /> },
+      { path: "reception/campaigns/register", element: <CampaignsRegistrationPage /> },
     ],
   },
 ]);

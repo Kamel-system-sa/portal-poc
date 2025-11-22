@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -30,13 +30,33 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/pilgrims")) return ["housing-pilgrims"];
       return ["housing-dashboard"];
     }
+    if (location.pathname.startsWith("/reception")) {
+      if (location.pathname === "/reception" || location.pathname === "/reception/dashboard") {
+        return ["reception-dashboard"];
+      }
+      if (location.pathname.includes("/pre-arrival/departures")) {
+        return ["reception-pre-arrival-departures"];
+      }
+      if (location.pathname.includes("/pre-arrival")) {
+        return ["reception-pre-arrival-arrivals"];
+      }
+      if (location.pathname.includes("/ports")) return ["reception-ports"];
+      if (location.pathname.includes("/campaigns")) {
+        return ["reception-campaigns"];
+      }
+      return ["reception-dashboard"];
+    }
     return [];
   };
 
-  // Auto-expand housing menu if on a housing sub-page
-  const openKeys = location.pathname.startsWith("/housing") && location.pathname !== "/housing" 
-    ? ["housing"] 
-    : [];
+  // Auto-expand menus if on sub-pages
+  const openKeys: string[] = [];
+  if (location.pathname.startsWith("/housing") && location.pathname !== "/housing") {
+    openKeys.push("housing");
+  }
+  if (location.pathname.startsWith("/reception")) {
+    openKeys.push("reception");
+  }
 
   const borderClass = isRtl ? "border-l" : "border-r";
 
@@ -90,6 +110,38 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           key: "housing-pilgrims",
           icon: <TeamOutlined />,
           label: <Link to="/housing/pilgrims">{t("housing.pilgrimsList")}</Link>
+        }
+      ]
+    },
+    {
+      key: "reception",
+      icon: <LoginOutlined />,
+      label: t("reception.title"),
+      children: [
+        {
+          key: "reception-dashboard",
+          icon: <DashboardOutlined />,
+          label: <Link to="/reception">{t("reception.dashboard.title") || "ملخص الاستقبال"}</Link>
+        },
+        {
+          key: "reception-pre-arrival-arrivals",
+          icon: <HomeOutlined />,
+          label: <Link to="/reception/pre-arrival">{t("reception.preArrival.arrivals.title") || "الاستعداد المسبق للوصول"}</Link>
+        },
+        {
+          key: "reception-pre-arrival-departures",
+          icon: <HomeOutlined />,
+          label: <Link to="/reception/pre-arrival/departures">{t("reception.preArrival.departures.title") || "Pre-Arrival for Departures"}</Link>
+        },
+        {
+          key: "reception-ports",
+          icon: <CarOutlined />,
+          label: <Link to="/reception/ports">{t("reception.ports.title")}</Link>
+        },
+        {
+          key: "reception-campaigns",
+          icon: <GlobalOutlined />,
+          label: <Link to="/reception/campaigns">{t("reception.campaigns.title")}</Link>
         }
       ]
     },

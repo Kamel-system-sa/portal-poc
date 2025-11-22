@@ -756,5 +756,34 @@
     "noIssues": "کوئی مسائل نہیں",
     "mediumIssues": "درمیانے مسائل",
     "criticalIssues": "اہم مسائل"
+  },
+  "reception": {
+    "title": "استقبال",
+    "dashboard": {
+      "title": "استقبال کنٹرول سینٹر",
+      "subtitle": "تمام ذیلی شعبوں کا جائزہ",
+      "sectionCharts": "شعبوں کا موازنہ",
+      "preArrivalTitle": "پہلے سے آمد کی تیاری",
+      "preDepartureTitle": "پہلے سے روانگی کی تیاری",
+      "portsTitle": "ہوائی اور زمینی بندرگاہیں",
+      "campaignsTitle": "مہمات",
+      "groups": "گروپس",
+      "entries": "اندراجات",
+      "campaign": "مہم",
+      "campaigns": "مہمات",
+      "pilgrims": "حجاج",
+      "groupsEntriesBySection": "شعبے کے لحاظ سے گروپس/اندراجات کی تعداد",
+      "pilgrimsBySection": "شعبے کے لحاظ سے حجاج کی تعداد",
+      "preArrivalStatusTitle": "پہلے سے آمد کی تیاری کے گروپس کی حالت",
+      "preDepartureStatusTitle": "پہلے سے روانگی کی تیاری کے گروپس کی حالت",
+      "portsTypeTitle": "بندرگاہ کی قسم (ہوائی/زمینی)",
+      "portsStatusTitle": "بندرگاہ کے داخلے کی حالت",
+      "campaignsStatusTitle": "مہمات کی حالت",
+      "departureKPITitle": "پہلے سے روانگی کی کارکردگی کے اشارے",
+      "viewDetails": "تفصیلات دیکھیں",
+      "totalPilgrims": "کل حجاج",
+      "totalGroupsEntries": "کل گروپس/اندراجات",
+      "completedCampaigns": "مکمل شدہ مہمات"
+    }
   }
 }
