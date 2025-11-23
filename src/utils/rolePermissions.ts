@@ -12,6 +12,12 @@ export type MenuKey =
   | "housing-mina"
   | "housing-arafat"
   | "housing-reports"
+  | "reception"
+  | "reception-dashboard"
+  | "reception-pre-arrival-arrivals"
+  | "reception-pre-arrival-departures"
+  | "reception-ports"
+  | "reception-campaigns"
   | "test";
 
 // Define which menu items each role can access
@@ -28,6 +34,15 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "housing-mina",
     "housing-arafat",
     "housing-reports",
+
+    // reception permissions
+    "reception",
+    "reception-dashboard",
+    "reception-pre-arrival-arrivals",
+    "reception-pre-arrival-departures",
+    "reception-ports",
+    "reception-campaigns",
+
     "test",
   ],
   "housing-user": [
@@ -76,4 +91,3 @@ export const getRoleDisplayName = (role: UserRole): string => {
   };
   return displayNames[role];
 };
-
