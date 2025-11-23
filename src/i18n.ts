@@ -8,6 +8,9 @@ import urCommon from "./locales/ur/common.json";
 import enOrganizers from "./locales/en/organizers.json";
 import arOrganizers from "./locales/ar/organizers.json";
 import urOrganizers from "./locales/ur/organizers.json";
+import enPublicAffairs from "./locales/en/PublicAffairs.json";
+import arPublicAffairs from "./locales/ar/PublicAffairs.json";
+import urPublicAffairs from "./locales/ur/PublicAffairs.json";
 
 // Utility function to apply font and direction based on language
 const applyLanguageStyles = (language: string) => {
@@ -31,21 +34,24 @@ i18n
     resources: {
       en: { 
         common: enCommon,
-        organizers: enOrganizers
+        organizers: enOrganizers,
+        PublicAffairs: enPublicAffairs
       },
       ar: { 
         common: arCommon,
-        organizers: arOrganizers
+        organizers: arOrganizers,
+        PublicAffairs: arPublicAffairs
       },
       ur: { 
         common: urCommon,
-        organizers: urOrganizers
+        organizers: urOrganizers,
+        PublicAffairs: urPublicAffairs
       },
     },
     fallbackLng: "ar",
     supportedLngs: ["en", "ar", "ur"],
     defaultNS: "common",
-    ns: ["common", "organizers"],
+    ns: ["common", "organizers", "PublicAffairs"],
     interpolation: {
       escapeValue: false,
     },

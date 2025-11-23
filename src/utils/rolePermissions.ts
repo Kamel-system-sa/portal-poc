@@ -18,6 +18,11 @@ export type MenuKey =
   | "reception-pre-arrival-departures"
   | "reception-ports"
   | "reception-campaigns"
+  | "public-affairs"
+  | "public-affairs-dashboard"
+  | "public-affairs-deaths"
+  | "public-affairs-hospitalized"
+  | "public-affairs-other"
   | "test";
 
 // Define which menu items each role can access
@@ -42,6 +47,13 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "reception-pre-arrival-departures",
     "reception-ports",
     "reception-campaigns",
+
+    // public affairs permissions
+    "public-affairs",
+    "public-affairs-dashboard",
+    "public-affairs-deaths",
+    "public-affairs-hospitalized",
+    "public-affairs-other",
 
     "test",
   ],

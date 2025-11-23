@@ -3,30 +3,38 @@ import { useTranslation } from 'react-i18next';
 import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 interface ConfirmDeleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  open?: boolean;
+  isOpen?: boolean;
+  onClose?: () => void;
+  onCancel?: () => void;
   onConfirm: () => void;
+  title?: string;
   message?: string;
 }
 
 export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
+  open,
   isOpen,
   onClose,
+  onCancel,
   onConfirm,
+  title,
   message
 }) => {
   const { t } = useTranslation('common');
+  const isModalOpen = open !== undefined ? open : isOpen;
+  const handleClose = onClose || onCancel || (() => {});
 
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
   const handleConfirm = () => {
     onConfirm();
-    onClose();
+    handleClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose}></div>
       
       <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden z-10">
         <div className="bg-gradient-to-r from-red-500 to-red-600 p-6">
@@ -36,12 +44,12 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
                 <ExclamationCircleOutlined className="text-2xl text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white mb-1">{t('form.confirmDelete')}</h2>
+                <h2 className="text-xl font-bold text-white mb-1">{title || t('form.confirmDelete')}</h2>
                 <p className="text-sm text-white/80">{t('form.confirmDeleteSubtitle')}</p>
               </div>
             </div>
             <button 
-              onClick={onClose} 
+              onClick={handleClose} 
               className="p-2 text-white hover:bg-white/20 rounded-lg transition-colors"
             >
               <CloseOutlined className="text-lg" />
@@ -56,7 +64,7 @@ export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
 
           <div className="flex gap-3">
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="flex-1 px-6 py-3 text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-semibold"
             >
               {t('form.cancel')}

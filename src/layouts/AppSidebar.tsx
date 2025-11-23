@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -15,6 +15,7 @@ interface AppSidebarProps {
 
 const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const { t, i18n } = useTranslation("common");
+  const { t: tPublicAffairs } = useTranslation("PublicAffairs");
   const { currentRole } = useUserRole();
   const location = useLocation();
   const isRtl = i18n.language === "ar" || i18n.language === "ur";
@@ -50,6 +51,13 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       }
       return ["reception-dashboard"];
     }
+    if (location.pathname.startsWith("/public-affairs")) {
+      if (location.pathname === "/public-affairs") return ["public-affairs-dashboard"];
+      if (location.pathname.includes("/deaths")) return ["public-affairs-deaths"];
+      if (location.pathname.includes("/hospitalized")) return ["public-affairs-hospitalized"];
+      if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
+      return ["public-affairs-dashboard"];
+    }
     return [];
   };
 
@@ -60,6 +68,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/reception")) {
     openKeys.push("reception");
+  }
+  if (location.pathname.startsWith("/public-affairs")) {
+    openKeys.push("public-affairs");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -157,6 +168,33 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         ]
       },
       {
+        key: "public-affairs",
+        icon: <SafetyOutlined />,
+        label: tPublicAffairs("title"),
+        children: [
+          {
+            key: "public-affairs-dashboard",
+            icon: <DashboardOutlined />,
+            label: <Link to="/public-affairs">{tPublicAffairs("dashboardTitle")}</Link>
+          },
+          {
+            key: "public-affairs-deaths",
+            icon: <FileTextOutlined />,
+            label: <Link to="/public-affairs/deaths">{tPublicAffairs("deaths")}</Link>
+          },
+          {
+            key: "public-affairs-hospitalized",
+            icon: <FileTextOutlined />,
+            label: <Link to="/public-affairs/hospitalized">{tPublicAffairs("hospitalized")}</Link>
+          },
+          {
+            key: "public-affairs-other",
+            icon: <FileTextOutlined />,
+            label: <Link to="/public-affairs/other-incidents">{tPublicAffairs("otherIncidents")}</Link>
+          }
+        ]
+      },
+      {
         key: "test",
         icon: <AppstoreOutlined />,
         label: <Link to="/test">{t("testPageTitle")}</Link>
@@ -176,8 +214,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           return null;
         }
         
-        // For menus with children (housing, reception), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception") && "children" in item && item.children) {
+        // For menus with children (housing, reception, public-affairs), filter children and only show parent if at least one child is visible
+        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs") && "children" in item && item.children) {
           const filteredChildren = item.children.filter((child: any) => {
             if (!child) return false;
             return hasPermission(currentRole, child.key as any);
