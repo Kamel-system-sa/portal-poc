@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, IdcardOutlined, PlusOutlined, SearchOutlined, InboxOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -58,6 +58,16 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
       return ["public-affairs-dashboard"];
     }
+    if (location.pathname.startsWith("/passport")) {
+      if (location.pathname === "/passport" || location.pathname === "/passport/dashboard") {
+        return ["passport-dashboard"];
+      }
+      if (location.pathname.includes("/new")) return ["passport-new"];
+      if (location.pathname.includes("/search")) return ["passport-search"];
+      if (location.pathname.includes("/storage/builder")) return ["passport-storage-builder"];
+      if (location.pathname.includes("/storage")) return ["passport-storage"];
+      return ["passport-dashboard"];
+    }
     return [];
   };
 
@@ -71,6 +81,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/public-affairs")) {
     openKeys.push("public-affairs");
+  }
+  if (location.pathname.startsWith("/passport")) {
+    openKeys.push("passport");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -195,6 +208,38 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         ]
       },
       {
+        key: "passport",
+        icon: <IdcardOutlined />,
+        label: t("passport.title"),
+        children: [
+          {
+            key: "passport-dashboard",
+            icon: <DashboardOutlined />,
+            label: <Link to="/passport">{t("passport.dashboard")}</Link>
+          },
+          {
+            key: "passport-new",
+            icon: <PlusOutlined />,
+            label: <Link to="/passport/new">{t("passport.new")}</Link>
+          },
+          {
+            key: "passport-search",
+            icon: <SearchOutlined />,
+            label: <Link to="/passport/search">{t("passport.search")}</Link>
+          },
+          {
+            key: "passport-storage",
+            icon: <InboxOutlined />,
+            label: <Link to="/passport/storage">{t("passport.storage")}</Link>
+          },
+          {
+            key: "passport-storage-builder",
+            icon: <BuildOutlined />,
+            label: <Link to="/passport/storage/builder">{t("passport.storageBuilder")}</Link>
+          }
+        ]
+      },
+      {
         key: "test",
         icon: <AppstoreOutlined />,
         label: <Link to="/test">{t("testPageTitle")}</Link>
@@ -214,8 +259,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           return null;
         }
         
-        // For menus with children (housing, reception, public-affairs), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs") && "children" in item && item.children) {
+        // For menus with children (housing, reception, public-affairs, passport), filter children and only show parent if at least one child is visible
+        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "passport") && "children" in item && item.children) {
           const filteredChildren = item.children.filter((child: any) => {
             if (!child) return false;
             return hasPermission(currentRole, child.key as any);

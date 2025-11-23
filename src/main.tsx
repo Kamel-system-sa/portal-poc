@@ -29,6 +29,11 @@ import PublicAffairsDashboardPage from "./pages/PublicAffairsPages/PublicAffairs
 import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
+import PassportDashboardPage from "./pages/PassportPages/PassportDashboardPage";
+import NewServiceProofPage from "./pages/PassportPages/NewServiceProofPage";
+import PassportSearchPage from "./pages/PassportPages/PassportSearchPage";
+import StorageManagementPage from "./pages/PassportPages/StorageManagementPage";
+import StorageBuilderPage from "./pages/PassportPages/StorageBuilderPage";
 import App from "./App";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
@@ -63,6 +68,12 @@ const router = createBrowserRouter([
       { path: "public-affairs/deaths", element: <DeathCasesPage /> },
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
+      { path: "passport", element: <PassportDashboardPage /> },
+      { path: "passport/dashboard", element: <PassportDashboardPage /> },
+      { path: "passport/new", element: <NewServiceProofPage /> },
+      { path: "passport/search", element: <PassportSearchPage /> },
+      { path: "passport/storage", element: <StorageManagementPage /> },
+      { path: "passport/storage/builder", element: <StorageBuilderPage /> },
     ],
   },
 ]);

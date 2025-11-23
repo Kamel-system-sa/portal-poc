@@ -23,6 +23,12 @@ export type MenuKey =
   | "public-affairs-deaths"
   | "public-affairs-hospitalized"
   | "public-affairs-other"
+  | "passport"
+  | "passport-dashboard"
+  | "passport-new"
+  | "passport-search"
+  | "passport-storage"
+  | "passport-storage-builder"
   | "test";
 
 // Define which menu items each role can access
@@ -55,6 +61,14 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "public-affairs-hospitalized",
     "public-affairs-other",
 
+    // passport permissions
+    "passport",
+    "passport-dashboard",
+    "passport-new",
+    "passport-search",
+    "passport-storage",
+    "passport-storage-builder",
+
     "test",
   ],
   "housing-user": [
@@ -70,10 +84,24 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
   "company-user": [
     "home",
     "organizers",
+    // passport permissions
+    "passport",
+    "passport-dashboard",
+    "passport-new",
+    "passport-search",
+    "passport-storage",
+    "passport-storage-builder",
   ],
   "service-center-user": [
     "home",
     "service-centers",
+    // passport permissions
+    "passport",
+    "passport-dashboard",
+    "passport-new",
+    "passport-search",
+    "passport-storage",
+    "passport-storage-builder",
   ],
   "department-user": [
     "home",

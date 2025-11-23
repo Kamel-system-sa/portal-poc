@@ -98,6 +98,35 @@ const Breadcrumb: React.FC = () => {
             label = t('reception.campaigns.registration.title');
           }
           break;
+        case 'passport':
+          if (index === pathSegments.length - 1) {
+            label = t('passport.dashboard');
+          } else {
+            label = t('passport.title');
+          }
+          break;
+        case 'new':
+          if (pathSegments.includes('passport')) {
+            label = t('passport.new');
+          }
+          break;
+        case 'search':
+          if (pathSegments.includes('passport')) {
+            label = t('passport.search');
+          }
+          break;
+        case 'storage':
+          if (pathSegments[pathSegments.length - 1] === 'builder') {
+            label = t('passport.storageBuilder');
+          } else if (pathSegments.includes('passport')) {
+            label = t('passport.storage');
+          }
+          break;
+        case 'builder':
+          if (pathSegments.includes('storage')) {
+            label = t('passport.storageBuilder');
+          }
+          break;
         case 'test':
           label = t('testPageTitle');
           break;
