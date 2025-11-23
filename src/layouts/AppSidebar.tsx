@@ -49,6 +49,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/campaigns")) {
         return ["reception-campaigns"];
       }
+      if (location.pathname.includes("/centers-dashboard")) {
+        return ["reception-centers-dashboard"];
+      }
       return ["reception-dashboard"];
     }
     if (location.pathname.startsWith("/public-affairs")) {
@@ -144,6 +147,11 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             key: "reception-dashboard",
             icon: <DashboardOutlined />,
             label: <Link to="/reception">{t("reception.dashboard.title") || "ملخص الاستقبال"}</Link>
+          },
+          {
+            key: "reception-centers-dashboard",
+            icon: <BankOutlined />,
+            label: <Link to="/reception/centers-dashboard">{t("reception.centersDashboard.title") || "لوحة تحكم المراكز"}</Link>
           },
           {
             key: "reception-pre-arrival-arrivals",
