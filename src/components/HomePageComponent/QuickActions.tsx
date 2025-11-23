@@ -87,7 +87,7 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   return (
     <Card
       className="border-0 shadow-md hover:shadow-lg transition-shadow duration-300"
-      bodyStyle={{ padding: '24px' }}
+      styles={{ body: { padding: '24px' } }}
     >
       <h3 className="text-lg font-semibold text-gray-800 mb-6">{title}</h3>
       <Row gutter={[12, 12]}>

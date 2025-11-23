@@ -62,7 +62,7 @@ const AnnouncementsCard: React.FC<AnnouncementsCardProps> = ({
   return (
     <Card
       className="h-full border-0 shadow-md hover:shadow-lg transition-shadow duration-300"
-      bodyStyle={{ padding: '24px' }}
+      styles={{ body: { padding: '24px' } }}
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">

@@ -134,8 +134,8 @@ export const MiniChartsSection: React.FC<MiniChartsSectionProps> = ({ type, room
           <h4 className="text-sm font-bold text-gray-800">{t('housing.nationalitiesDistribution')}</h4>
         </div>
         <div className="flex items-start gap-3">
-          <div className="flex-shrink-0" style={{ width: '120px', height: '120px' }}>
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-shrink-0" style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}>
+            <ResponsiveContainer width={120} height={120} minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={nationalitiesData}
@@ -177,8 +177,8 @@ export const MiniChartsSection: React.FC<MiniChartsSectionProps> = ({ type, room
           <h4 className="text-sm font-bold text-gray-800">{t('housing.genderDistribution')}</h4>
         </div>
         <div className="flex items-start gap-3">
-          <div className="flex-shrink-0" style={{ width: '120px', height: '120px' }}>
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-shrink-0" style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}>
+            <ResponsiveContainer width={120} height={120} minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={genderData}
@@ -220,8 +220,8 @@ export const MiniChartsSection: React.FC<MiniChartsSectionProps> = ({ type, room
           <h4 className="text-sm font-bold text-gray-800">{t('housing.ageGroups')}</h4>
         </div>
         <div className="flex items-start gap-3">
-          <div className="flex-shrink-0" style={{ width: '120px', height: '120px' }}>
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-shrink-0" style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}>
+            <ResponsiveContainer width={120} height={120} minWidth={0} minHeight={0}>
               <BarChart data={ageGroupsData}>
                 <Bar dataKey="value" fill="#00796B" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -254,8 +254,8 @@ export const MiniChartsSection: React.FC<MiniChartsSectionProps> = ({ type, room
           <h4 className="text-sm font-bold text-gray-800">{t('housing.pilgrimsPerOrganizer')}</h4>
         </div>
         <div className="flex items-start gap-3">
-          <div className="flex-shrink-0" style={{ width: '120px', height: '120px' }}>
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-shrink-0" style={{ width: '120px', height: '120px', minWidth: '120px', minHeight: '120px' }}>
+            <ResponsiveContainer width={120} height={120} minWidth={0} minHeight={0}>
               <BarChart data={organizerData}>
                 <Bar dataKey="value" fill="#F59E0B" radius={[4, 4, 0, 0]} />
               </BarChart>

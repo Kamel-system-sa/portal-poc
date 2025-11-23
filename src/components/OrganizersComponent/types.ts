@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 export interface Organizer {
   id: string;
   organizerNumber: string;
@@ -18,6 +16,6 @@ export interface Organizer {
   passport: string;
   email: string;
   imageURL?: string;
-  createdAt: Timestamp;
+  createdAt: Date | string;
 }
 

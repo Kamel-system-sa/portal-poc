@@ -12,6 +12,63 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Fix React DevTools semver error - must run before React loads
+      (function() {
+        if (typeof window === 'undefined') return;
+        
+        // Suppress React DevTools errors
+        const originalError = window.onerror;
+        window.onerror = function(msg, url, line, col, error) {
+          if (msg && typeof msg === 'string' && 
+              (msg.includes('semver') || msg.includes('react_devtools_backend'))) {
+            return true; // Suppress error
+          }
+          if (originalError) {
+            return originalError.apply(this, arguments);
+          }
+          return false;
+        };
+
+        // Also catch unhandled promise rejections
+        window.addEventListener('error', function(e) {
+          if (e.message && (
+              e.message.includes('semver') || 
+              e.message.includes('react_devtools_backend') ||
+              e.message.includes('Invalid argument not valid semver')
+            )) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, true);
+
+        // Handle React DevTools hook
+        if (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+          try {
+            const hook = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+            if (hook && typeof hook.registerRendererInterface === 'function') {
+              const originalRegister = hook.registerRendererInterface;
+              hook.registerRendererInterface = function() {
+                try {
+                  return originalRegister.apply(this, arguments);
+                } catch (e) {
+                  if (e && e.message && (
+                      e.message.includes('semver') || 
+                      e.message.includes('Invalid argument')
+                    )) {
+                    return; // Suppress error
+                  }
+                  throw e;
+                }
+              };
+            }
+          } catch (e) {
+            // Ignore
+          }
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

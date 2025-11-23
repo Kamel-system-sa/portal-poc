@@ -17,7 +17,7 @@ export const OrganizerCard = ({ organizer, onShowDetails, translateNationality, 
     <Card
       key={organizer.id}
       className="shadow-md rounded-2xl hover:shadow-xl transition-all duration-300 border-0 overflow-hidden group bg-gradient-to-br from-white to-gray-50"
-      bodyStyle={{ padding: "0" }}
+      styles={{ body: { padding: "0" } }}
     >
       {/* Header with Image */}
       <div className="relative bg-gradient-to-br from-mainColor/10 to-primary/10 p-2">

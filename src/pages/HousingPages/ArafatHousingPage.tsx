@@ -9,11 +9,16 @@ import { UnifiedFilters } from '../../components/HousingComponent/UnifiedFilters
 import type { UnifiedFilterState } from '../../components/HousingComponent/UnifiedFilters';
 import { HousingActionsMenu } from '../../components/HousingMenu';
 import { Modal } from 'antd';
-import { CloseOutlined, EyeOutlined, UnorderedListOutlined, UserOutlined, ApartmentOutlined } from '@ant-design/icons';
+import { CloseOutlined, EyeOutlined, UnorderedListOutlined, UserOutlined, ApartmentOutlined, PlusOutlined, UploadOutlined, DeleteOutlined, FileTextOutlined, HomeOutlined, AppstoreOutlined, TeamOutlined, BankOutlined } from '@ant-design/icons';
 import { FaBed, FaCampground } from 'react-icons/fa';
 import { mockArafatTents, mockPilgrims } from '../../data/mockHousing';
 import { Tent3DViewer } from '../../components/HousingComponent/Tent3DViewer';
-import type { Tent, Bed } from '../../types/housing';
+import type { Tent, Bed, MashairTent, MashairTentAssignment } from '../../types/housing';
+import { Button, Select, Input, message, Table } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import { getArafatTents, saveArafatTents, deleteArafatTent, getArafatAssignments, saveArafatAssignments, deleteArafatAssignment } from '../../data/mashairStorage';
+
+const { Option } = Select;
 
 
 const ArafatHousingPage: React.FC = () => {
@@ -24,6 +29,18 @@ const ArafatHousingPage: React.FC = () => {
   const [selectedBedRoomInfo, setSelectedBedRoomInfo] = useState<{ type: 'room' | 'tent'; number: string; location?: string } | null>(null);
   const [showAllTentsModal, setShowAllTentsModal] = useState(false);
   const [tentsState, setTentsState] = useState<Tent[]>(mockArafatTents);
+  
+  // Mashair features state
+  const [mashairTents, setMashairTents] = useState<MashairTent[]>(getArafatTents());
+  const [mashairAssignments, setMashairAssignments] = useState<MashairTentAssignment[]>(getArafatAssignments());
+  const [isAddTentsModalOpen, setIsAddTentsModalOpen] = useState(false);
+  const [isAssignmentsModalOpen, setIsAssignmentsModalOpen] = useState(false);
+  const [uploadedTentsFile, setUploadedTentsFile] = useState<File | null>(null);
+  const [uploadedAssignmentsFile, setUploadedAssignmentsFile] = useState<File | null>(null);
+  const [extractedTentsData, setExtractedTentsData] = useState<MashairTent[]>([]);
+  const [extractedAssignmentsData, setExtractedAssignmentsData] = useState<Partial<MashairTentAssignment>[]>([]);
+  const [isProcessingTents, setIsProcessingTents] = useState(false);
+  const [isProcessingAssignments, setIsProcessingAssignments] = useState(false);
   const [unifiedFilters, setUnifiedFilters] = useState<UnifiedFilterState>({
     searchTerm: '',
     gender: 'all',
@@ -178,7 +195,11 @@ const ArafatHousingPage: React.FC = () => {
               {t('housing.manageArafatTents')}
             </p>
           </div>
-          <HousingActionsMenu type="arafat" />
+          <HousingActionsMenu 
+            type="arafat" 
+            onAddSite={() => setIsAddTentsModalOpen(true)}
+            onUploadAssignmentPDF={() => setIsAssignmentsModalOpen(true)}
+          />
         </div>
 
         {/* Stats Cards - Enhanced */}
@@ -214,6 +235,186 @@ const ArafatHousingPage: React.FC = () => {
 
         {/* Unified Filters */}
         <UnifiedFilters type="arafat" onFilterChange={setUnifiedFilters} initialFilters={{ section: 'all', minCapacity: 'all', maxCapacity: 'all' }} />
+
+        {/* Mashair Section: Add Arafat Tents */}
+        <div className="mt-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">{t('mashair.addArafatTents')}</h2>
+          {mashairTents.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              {mashairTents.map((tent) => (
+                <GlassCard key={tent.id} className="p-3 relative overflow-hidden group">
+                  {/* Decorative Background Shape */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-secondaryColor/10 to-primaryColor/5 rounded-full blur-xl -z-0"></div>
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-secondaryColor/5 to-transparent rounded-full blur-lg -z-0"></div>
+                  
+                  <div className="relative z-10 space-y-2">
+                    {/* Header with Icon */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="p-1.5 bg-gradient-to-br from-secondaryColor to-secondaryColor/80 rounded-lg shadow-md">
+                        <FaCampground className="text-white text-sm" />
+                      </div>
+                      <Button 
+                        type="text" 
+                        danger 
+                        size="small"
+                        icon={<DeleteOutlined />} 
+                        className="hover:bg-red-50 rounded p-1 h-auto"
+                        onClick={() => {
+                          const newTents = mashairTents.filter(t => t.id !== tent.id);
+                          setMashairTents(newTents);
+                          deleteArafatTent(tent.id);
+                          message.success(t('mashair.tentDeleted'));
+                        }}
+                      />
+                    </div>
+                    
+                    <h3 className="text-sm font-bold text-gray-800 truncate mb-2">{tent.tentNameOrNumber}</h3>
+                    
+                    {/* Info Cards */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-1.5 p-1.5 bg-gradient-to-r from-blue-50 to-blue-50/50 rounded-md border border-blue-100">
+                        <AppstoreOutlined className="text-primaryColor text-xs" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] text-customgray truncate">{t('mashair.area')}</p>
+                          <p className="text-xs font-semibold text-gray-800 truncate">{tent.area} {t('mashair.squareMeters')}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-1.5 p-1.5 bg-gradient-to-r from-green-50 to-green-50/50 rounded-md border border-green-100">
+                        <TeamOutlined className="text-success text-xs" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] text-customgray truncate">{t('mashair.capacity')}</p>
+                          <p className="text-xs font-semibold text-gray-800 truncate">{tent.capacity}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
+            </div>
+          ) : (
+            <GlassCard className="p-8 text-center">
+              <div className="flex flex-col items-center gap-2">
+                <FaCampground className="text-3xl text-customgray/50" />
+                <p className="text-customgray">{t('mashair.noTents')}</p>
+              </div>
+            </GlassCard>
+          )}
+        </div>
+
+        {/* Mashair Section: Assign Arafat Tents to Campaigns */}
+        <div className="mt-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">{t('mashair.assignArafatTents')}</h2>
+          {mashairAssignments.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              {mashairAssignments.map((assignment) => {
+                const getCampaignInfo = () => {
+                  switch (assignment.campaign) {
+                    case 'office':
+                      return { 
+                        label: t('mashair.office'), 
+                        icon: <BankOutlined />, 
+                        color: 'from-blue-500 to-blue-600',
+                        bgColor: 'from-blue-50 to-blue-50/50',
+                        borderColor: 'border-blue-100',
+                        iconBg: 'bg-blue-100',
+                        iconColor: 'text-blue-600'
+                      };
+                    case 'kitchen':
+                      return { 
+                        label: t('mashair.kitchen'), 
+                        icon: <HomeOutlined />, 
+                        color: 'from-orange-500 to-orange-600',
+                        bgColor: 'from-orange-50 to-orange-50/50',
+                        borderColor: 'border-orange-100',
+                        iconBg: 'bg-orange-100',
+                        iconColor: 'text-orange-600'
+                      };
+                    case 'campaignNumber':
+                      return { 
+                        label: `${t('mashair.campaignNumber')}: ${assignment.campaignNumber}`, 
+                        icon: <FileTextOutlined />, 
+                        color: 'from-purple-500 to-purple-600',
+                        bgColor: 'from-purple-50 to-purple-50/50',
+                        borderColor: 'border-purple-100',
+                        iconBg: 'bg-purple-100',
+                        iconColor: 'text-purple-600'
+                      };
+                    case 'other':
+                      return { 
+                        label: `${t('mashair.other')}: ${assignment.otherCampaignName}`, 
+                        icon: <AppstoreOutlined />, 
+                        color: 'from-gray-500 to-gray-600',
+                        bgColor: 'from-gray-50 to-gray-50/50',
+                        borderColor: 'border-gray-100',
+                        iconBg: 'bg-gray-100',
+                        iconColor: 'text-gray-600'
+                      };
+                    default:
+                      return { 
+                        label: assignment.campaign, 
+                        icon: <AppstoreOutlined />, 
+                        color: 'from-gray-500 to-gray-600',
+                        bgColor: 'from-gray-50 to-gray-50/50',
+                        borderColor: 'border-gray-100',
+                        iconBg: 'bg-gray-100',
+                        iconColor: 'text-gray-600'
+                      };
+                  }
+                };
+                const campaignInfo = getCampaignInfo();
+                
+                return (
+                  <GlassCard key={assignment.id} className="p-3 relative overflow-hidden group">
+                    {/* Decorative Background Shape */}
+                    <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${campaignInfo.color} opacity-10 rounded-full blur-xl -z-0`}></div>
+                    <div className={`absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr ${campaignInfo.color} opacity-5 rounded-full blur-lg -z-0`}></div>
+                    
+                    <div className="relative z-10 space-y-2">
+                      {/* Header with Icon */}
+                      <div className="flex items-center justify-between mb-2">
+                        <div className={`p-1.5 bg-gradient-to-br ${campaignInfo.color} rounded-lg shadow-md`}>
+                          <FaCampground className="text-white text-sm" />
+                        </div>
+                        <Button 
+                          type="text" 
+                          danger 
+                          size="small"
+                          icon={<DeleteOutlined />} 
+                          className="hover:bg-red-50 rounded p-1 h-auto"
+                          onClick={() => {
+                            const newAssignments = mashairAssignments.filter(a => a.id !== assignment.id);
+                            setMashairAssignments(newAssignments);
+                            deleteArafatAssignment(assignment.id);
+                            message.success(t('mashair.assignmentDeleted'));
+                          }}
+                        />
+                      </div>
+                      
+                      <h3 className="text-sm font-bold text-gray-800 truncate mb-2">{assignment.tentNameOrNumber}</h3>
+                      
+                      {/* Campaign Info Card */}
+                      <div className={`flex items-center gap-1.5 p-1.5 bg-gradient-to-r ${campaignInfo.bgColor} rounded-md border ${campaignInfo.borderColor}`}>
+                        <span className={`${campaignInfo.iconColor} text-xs`}>{campaignInfo.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] text-customgray truncate">{t('mashair.campaign')}</p>
+                          <p className="text-xs font-semibold text-gray-800 truncate">{campaignInfo.label}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </GlassCard>
+                );
+              })}
+            </div>
+          ) : (
+            <GlassCard className="p-8 text-center">
+              <div className="flex flex-col items-center gap-2">
+                <FileTextOutlined className="text-3xl text-customgray/50" />
+                <p className="text-customgray">{t('mashair.noAssignments')}</p>
+              </div>
+            </GlassCard>
+          )}
+        </div>
 
         {/* Show All Tents Button */}
         <div className="mb-4 flex justify-end">
@@ -463,6 +664,190 @@ const ArafatHousingPage: React.FC = () => {
           }}
           roomOrTentInfo={selectedBedRoomInfo || undefined}
         />
+
+
+        {/* Add Tents Modal */}
+        {isAddTentsModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={(e) => { if (e.target === e.currentTarget) setIsAddTentsModalOpen(false); }}>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <div className="relative w-full max-w-4xl max-h-[95vh] bg-white rounded-xl shadow-2xl overflow-hidden z-10">
+              <div className="flex items-center justify-between p-6 border-b border-bordergray bg-gradient-to-r from-gray-50 to-white">
+                <h2 className="text-2xl font-bold text-gray-800">{t('mashair.uploadArafatLayout')}</h2>
+                <button onClick={() => { setIsAddTentsModalOpen(false); setUploadedTentsFile(null); setExtractedTentsData([]); }} className="p-2 text-customgray hover:text-gray-700 hover:bg-gray-200 rounded-lg transition">
+                  <CloseOutlined className="text-lg" />
+                </button>
+              </div>
+              <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-6">
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.uploadPDF')}</label>
+                    <div className="border-2 border-dashed border-bordergray rounded-lg p-6 text-center">
+                      <input type="file" accept=".pdf" onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        if (file.type !== 'application/pdf') { message.error(t('mashair.invalidFileType')); return; }
+                        setUploadedTentsFile(file);
+                        setIsProcessingTents(true);
+                        setTimeout(() => {
+                          const mockData: MashairTent[] = [
+                            { id: `arafat-tent-${Date.now()}-1`, tentNameOrNumber: 'خيمة 1', area: 50, capacity: 20, location: 'arafat', createdAt: new Date().toISOString() },
+                            { id: `arafat-tent-${Date.now()}-2`, tentNameOrNumber: 'خيمة 2', area: 60, capacity: 25, location: 'arafat', createdAt: new Date().toISOString() },
+                          ];
+                          setExtractedTentsData(mockData);
+                          setIsProcessingTents(false);
+                          message.success(t('mashair.dataExtracted'));
+                        }, 1500);
+                      }} className="hidden" id="pdf-upload-tents-arafat" disabled={isProcessingTents} />
+                      <label htmlFor="pdf-upload-tents-arafat" className="cursor-pointer flex flex-col items-center gap-3">
+                        <UploadOutlined className="text-4xl text-primaryColor" />
+                        <span className="text-gray-700">{uploadedTentsFile ? uploadedTentsFile.name : t('mashair.selectPDFFile')}</span>
+                        {isProcessingTents && <span className="text-customgray">{t('mashair.processing')}...</span>}
+                      </label>
+                    </div>
+                  </div>
+                  {extractedTentsData.length > 0 && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('mashair.extractedData')}</h3>
+                      <Table columns={[
+                        { title: t('mashair.tentNameOrNumber'), dataIndex: 'tentNameOrNumber', key: 'tentNameOrNumber' },
+                        { title: t('mashair.area'), dataIndex: 'area', key: 'area', render: (area: number) => `${area} ${t('mashair.squareMeters')}` },
+                        { title: t('mashair.capacity'), dataIndex: 'capacity', key: 'capacity' },
+                      ]} dataSource={extractedTentsData} rowKey="id" pagination={false} className="mb-4" />
+                      <div className="flex gap-3 justify-end">
+                        <Button onClick={() => setIsAddTentsModalOpen(false)}>{t('form.cancel')}</Button>
+                        <Button type="primary" onClick={() => {
+                          const newTents = [...mashairTents, ...extractedTentsData];
+                          setMashairTents(newTents);
+                          saveArafatTents(newTents);
+                          setExtractedTentsData([]);
+                          setUploadedTentsFile(null);
+                          setIsAddTentsModalOpen(false);
+                          message.success(t('mashair.dataSaved'));
+                        }}>{t('form.save')}</Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Assignments Modal */}
+        {isAssignmentsModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={(e) => { if (e.target === e.currentTarget) setIsAssignmentsModalOpen(false); }}>
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <div className="relative w-full max-w-4xl max-h-[95vh] bg-white rounded-xl shadow-2xl overflow-hidden z-10">
+              <div className="flex items-center justify-between p-6 border-b border-bordergray bg-gradient-to-r from-gray-50 to-white">
+                <h2 className="text-2xl font-bold text-gray-800">{t('mashair.uploadArafatAssignmentLayout')}</h2>
+                <button onClick={() => { setIsAssignmentsModalOpen(false); setUploadedAssignmentsFile(null); setExtractedAssignmentsData([]); }} className="p-2 text-customgray hover:text-gray-700 hover:bg-gray-200 rounded-lg transition">
+                  <CloseOutlined className="text-lg" />
+                </button>
+              </div>
+              <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-6">
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.uploadPDF')}</label>
+                    <div className="border-2 border-dashed border-bordergray rounded-lg p-6 text-center">
+                      <input type="file" accept=".pdf" onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        if (file.type !== 'application/pdf') { message.error(t('mashair.invalidFileType')); return; }
+                        setUploadedAssignmentsFile(file);
+                        setIsProcessingAssignments(true);
+                        setTimeout(() => {
+                          const mockData: Partial<MashairTentAssignment>[] = [
+                            { tentNameOrNumber: 'خيمة 1', campaign: 'office' },
+                            { tentNameOrNumber: 'خيمة 2', campaign: 'kitchen' },
+                          ];
+                          setExtractedAssignmentsData(mockData);
+                          setIsProcessingAssignments(false);
+                          message.success(t('mashair.dataExtracted'));
+                        }, 1500);
+                      }} className="hidden" id="pdf-upload-assignments-arafat" disabled={isProcessingAssignments} />
+                      <label htmlFor="pdf-upload-assignments-arafat" className="cursor-pointer flex flex-col items-center gap-3">
+                        <UploadOutlined className="text-4xl text-primaryColor" />
+                        <span className="text-gray-700">{uploadedAssignmentsFile ? uploadedAssignmentsFile.name : t('mashair.selectPDFFile')}</span>
+                        {isProcessingAssignments && <span className="text-customgray">{t('mashair.processing')}...</span>}
+                      </label>
+                    </div>
+                  </div>
+                  {extractedAssignmentsData.length > 0 && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('mashair.extractedData')}</h3>
+                      <div className="space-y-4">
+                        {extractedAssignmentsData.map((item, index) => (
+                          <GlassCard key={index} className="p-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.tentNameOrNumber')}</label>
+                                <Input value={item.tentNameOrNumber} disabled className="bg-gray-50" />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.campaign')}</label>
+                                <Select value={item.campaign || 'office'} onChange={(value) => {
+                                  const newData = [...extractedAssignmentsData];
+                                  newData[index] = { ...newData[index], campaign: value as any, campaignNumber: value === 'campaignNumber' ? newData[index].campaignNumber : undefined, otherCampaignName: value === 'other' ? newData[index].otherCampaignName : undefined };
+                                  setExtractedAssignmentsData(newData);
+                                }} className="w-full">
+                                  <Option value="office">{t('mashair.office')}</Option>
+                                  <Option value="kitchen">{t('mashair.kitchen')}</Option>
+                                  <Option value="campaignNumber">{t('mashair.campaignNumber')}</Option>
+                                  <Option value="other">{t('mashair.other')}</Option>
+                                </Select>
+                              </div>
+                              {item.campaign === 'campaignNumber' && (
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.campaignNumber')}</label>
+                                  <Input value={item.campaignNumber || ''} onChange={(e) => {
+                                    const newData = [...extractedAssignmentsData];
+                                    newData[index] = { ...newData[index], campaignNumber: e.target.value };
+                                    setExtractedAssignmentsData(newData);
+                                  }} placeholder={t('mashair.enterCampaignNumber')} />
+                                </div>
+                              )}
+                              {item.campaign === 'other' && (
+                                <div>
+                                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('mashair.otherCampaignName')}</label>
+                                  <Input value={item.otherCampaignName || ''} onChange={(e) => {
+                                    const newData = [...extractedAssignmentsData];
+                                    newData[index] = { ...newData[index], otherCampaignName: e.target.value };
+                                    setExtractedAssignmentsData(newData);
+                                  }} placeholder={t('mashair.enterCampaignName')} />
+                                </div>
+                              )}
+                            </div>
+                          </GlassCard>
+                        ))}
+                      </div>
+                      <div className="flex gap-3 justify-end mt-6">
+                        <Button onClick={() => setIsAssignmentsModalOpen(false)}>{t('form.cancel')}</Button>
+                        <Button type="primary" onClick={() => {
+                          const newAssignments: MashairTentAssignment[] = extractedAssignmentsData.map((item, idx) => ({
+                            id: `arafat-assignment-${Date.now()}-${idx}`,
+                            tentNameOrNumber: item.tentNameOrNumber || '',
+                            campaign: item.campaign || 'office',
+                            campaignNumber: item.campaignNumber,
+                            otherCampaignName: item.otherCampaignName,
+                            location: 'arafat',
+                            createdAt: new Date().toISOString()
+                          }));
+                          const updated = [...mashairAssignments, ...newAssignments];
+                          setMashairAssignments(updated);
+                          saveArafatAssignments(updated);
+                          setExtractedAssignmentsData([]);
+                          setUploadedAssignmentsFile(null);
+                          setIsAssignmentsModalOpen(false);
+                          message.success(t('mashair.dataSaved'));
+                        }}>{t('form.save')}</Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

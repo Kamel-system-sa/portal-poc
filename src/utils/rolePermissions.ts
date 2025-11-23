@@ -12,6 +12,10 @@ export type MenuKey =
   | "housing-mina"
   | "housing-arafat"
   | "housing-reports"
+  | "mashair"
+  | "mashair-dashboard"
+  | "mashair-mina"
+  | "mashair-arafat"
   | "reception"
   | "reception-dashboard"
   | "reception-pre-arrival-arrivals"
@@ -36,9 +40,11 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "housing-dashboard",
     "housing-hotels",
     "housing-buildings",
-    "housing-mina",
-    "housing-arafat",
     "housing-reports",
+    "mashair",
+    "mashair-dashboard",
+    "mashair-mina",
+    "mashair-arafat",
 
     // reception permissions
     "reception",
@@ -63,9 +69,11 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "housing-dashboard",
     "housing-hotels",
     "housing-buildings",
-    "housing-mina",
-    "housing-arafat",
     "housing-reports",
+    "mashair",
+    "mashair-dashboard",
+    "mashair-mina",
+    "mashair-arafat",
   ],
   "company-user": [
     "home",

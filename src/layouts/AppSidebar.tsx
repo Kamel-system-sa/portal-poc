@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -28,10 +28,11 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     if (location.pathname.startsWith("/hr")) return ["hr"];
     if (location.pathname.startsWith("/housing")) {
       if (location.pathname === "/housing") return ["housing-dashboard"];
+      if (location.pathname.includes("/mashair")) return ["mashair-dashboard"];
       if (location.pathname.includes("/hotels")) return ["housing-hotels"];
       if (location.pathname.includes("/buildings")) return ["housing-buildings"];
-      if (location.pathname.includes("/mina")) return ["housing-mina"];
-      if (location.pathname.includes("/arafat")) return ["housing-arafat"];
+      if (location.pathname.includes("/mina")) return ["mashair-mina"];
+      if (location.pathname.includes("/arafat")) return ["mashair-arafat"];
       if (location.pathname.includes("/reports")) return ["housing-reports"];
       return ["housing-dashboard"];
     }
@@ -65,6 +66,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const openKeys: string[] = [];
   if (location.pathname.startsWith("/housing") && location.pathname !== "/housing") {
     openKeys.push("housing");
+    if (location.pathname.includes("/mina") || location.pathname.includes("/arafat") || location.pathname.includes("/mashair")) {
+      openKeys.push("mashair");
+    }
   }
   if (location.pathname.startsWith("/reception")) {
     openKeys.push("reception");
@@ -119,14 +123,26 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             label: <Link to="/housing/buildings">{t("housing.buildings")}</Link>
           },
           {
-            key: "housing-mina",
-            icon: <ApartmentOutlined />,
-            label: <Link to="/housing/mina">{t("housing.mina")}</Link>
-          },
-          {
-            key: "housing-arafat",
-            icon: <ApartmentOutlined />,
-            label: <Link to="/housing/arafat">{t("housing.arafat")}</Link>
+            key: "mashair",
+            icon: <EnvironmentOutlined />,
+            label: t("mashair.title"),
+            children: [
+              {
+                key: "mashair-dashboard",
+                icon: <DashboardOutlined />,
+                label: <Link to="/housing/mashair">{t("mashair.dashboardTitle")}</Link>
+              },
+              {
+                key: "mashair-mina",
+                icon: <ApartmentOutlined />,
+                label: <Link to="/housing/mina">{t("housing.mina")}</Link>
+              },
+              {
+                key: "mashair-arafat",
+                icon: <ApartmentOutlined />,
+                label: <Link to="/housing/arafat">{t("housing.arafat")}</Link>
+              }
+            ]
           },
           {
             key: "housing-reports",
@@ -216,10 +232,36 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         
         // For menus with children (housing, reception, public-affairs), filter children and only show parent if at least one child is visible
         if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs") && "children" in item && item.children) {
-          const filteredChildren = item.children.filter((child: any) => {
-            if (!child) return false;
-            return hasPermission(currentRole, child.key as any);
-          });
+          const filteredChildren = item.children
+            .map((child: any) => {
+              if (!child) return null;
+              
+              // If child has its own children (nested menu like mashair), filter those too
+              if ("children" in child && child.children) {
+                const filteredGrandChildren = child.children.filter((grandChild: any) => {
+                  if (!grandChild) return false;
+                  return hasPermission(currentRole, grandChild.key as any);
+                });
+                
+                // Only show child if it has visible grandchildren
+                if (filteredGrandChildren.length === 0) {
+                  return null;
+                }
+                
+                return {
+                  ...child,
+                  children: filteredGrandChildren,
+                };
+              }
+              
+              // Regular child item
+              if (!hasPermission(currentRole, child.key as any)) {
+                return null;
+              }
+              
+              return child;
+            })
+            .filter((child): child is NonNullable<typeof child> => child !== null);
           
           // Only show menu if it has visible children
           if (filteredChildren.length === 0) {

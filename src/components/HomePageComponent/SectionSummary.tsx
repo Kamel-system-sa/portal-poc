@@ -41,7 +41,7 @@ const SectionSummary: React.FC<SectionSummaryProps> = ({
   return (
     <Card
       className="h-full border-0 shadow-sm hover:shadow-md transition-shadow duration-300"
-      bodyStyle={{ padding: '20px' }}
+      styles={{ body: { padding: '20px' } }}
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">

@@ -8,9 +8,11 @@ const { Option } = Select;
 
 interface HousingActionsMenuProps {
   type: 'hotel' | 'building' | 'mina' | 'arafat';
+  onAddSite?: () => void;
+  onUploadAssignmentPDF?: () => void;
 }
 
-export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type }) => {
+export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type, onAddSite, onUploadAssignmentPDF }) => {
   const { t } = useTranslation('common');
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [exportModalOpen, setExportModalOpen] = useState(false);
@@ -87,6 +89,49 @@ export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type }) 
       ),
       onClick: handleExport,
     },
+    {
+      type: 'divider',
+    },
+    ...(type === 'mina' && onAddSite ? [{
+      key: 'addMinaSite',
+      label: (
+        <div className="flex items-center gap-2 px-2 py-1">
+          <PlusOutlined className="text-primaryColor" />
+          <span>{t('mashair.addMinaTents')}</span>
+        </div>
+      ),
+      onClick: onAddSite,
+    }] : []),
+    ...(type === 'mina' && onUploadAssignmentPDF ? [{
+      key: 'uploadMinaAssignment',
+      label: (
+        <div className="flex items-center gap-2 px-2 py-1">
+          <UploadOutlined className="text-primaryColor" />
+          <span>{t('mashair.uploadAssignmentPDF')}</span>
+        </div>
+      ),
+      onClick: onUploadAssignmentPDF,
+    }] : []),
+    ...(type === 'arafat' && onAddSite ? [{
+      key: 'addArafatSite',
+      label: (
+        <div className="flex items-center gap-2 px-2 py-1">
+          <PlusOutlined className="text-primaryColor" />
+          <span>{t('mashair.addArafatTents')}</span>
+        </div>
+      ),
+      onClick: onAddSite,
+    }] : []),
+    ...(type === 'arafat' && onUploadAssignmentPDF ? [{
+      key: 'uploadArafatAssignment',
+      label: (
+        <div className="flex items-center gap-2 px-2 py-1">
+          <UploadOutlined className="text-primaryColor" />
+          <span>{t('mashair.uploadAssignmentPDF')}</span>
+        </div>
+      ),
+      onClick: onUploadAssignmentPDF,
+    }] : []),
     {
       type: 'divider',
     },

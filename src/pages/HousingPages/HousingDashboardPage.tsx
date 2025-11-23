@@ -270,8 +270,8 @@ const HousingDashboardPage: React.FC = () => {
 
         {/* Chart with Legend */}
         <div className="flex gap-4 items-center flex-1">
-          <div className="flex-1" style={{ height: '200px' }}>
-            <ResponsiveContainer width="100%" height={200}>
+          <div className="flex-1" style={{ height: '200px', minHeight: '200px' }}>
+            <ResponsiveContainer width="100%" height={200} minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={chartData}
@@ -496,8 +496,8 @@ const HousingDashboardPage: React.FC = () => {
             </div>
 
             <div className="flex gap-6 items-center">
-              <div className="flex-1" style={{ height: '250px' }}>
-                <ResponsiveContainer width="100%" height={250}>
+              <div className="flex-1" style={{ height: '250px', minHeight: '250px' }}>
+                <ResponsiveContainer width="100%" height={250} minWidth={0} minHeight={0}>
                   <BarChart data={cityChartData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                     <XAxis dataKey="name" tick={{ fontSize: 12 }} />
@@ -559,8 +559,8 @@ const HousingDashboardPage: React.FC = () => {
 
             {/* Chart with Legend */}
             <div className="flex gap-4 items-center">
-              <div className="flex-1" style={{ height: '180px' }}>
-                <ResponsiveContainer width="100%" height={180}>
+              <div className="flex-1" style={{ height: '180px', minHeight: '180px' }}>
+                <ResponsiveContainer width="100%" height={180} minWidth={0} minHeight={0}>
                   <PieChart>
                     <Pie
                       data={preferencesChartData}
@@ -624,8 +624,8 @@ const HousingDashboardPage: React.FC = () => {
 
             {/* Chart with Legend */}
             <div className="flex gap-4 items-center">
-              <div className="flex-1" style={{ height: '180px' }}>
-                <ResponsiveContainer width="100%" height={180}>
+              <div className="flex-1" style={{ height: '180px', minHeight: '180px' }}>
+                <ResponsiveContainer width="100%" height={180} minWidth={0} minHeight={0}>
                   <PieChart>
                     <Pie
                       data={inspectionChartData}

@@ -10,9 +10,6 @@ export default defineConfig({
       }
     }
   },
-  optimizeDeps: {
-    include: ["firebase/app", "firebase/firestore", "firebase/storage"]
-  },
   resolve: {
     preserveSymlinks: false
   }

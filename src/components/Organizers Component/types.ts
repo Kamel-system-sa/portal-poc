@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+// Removed Firebase dependency
 
 export interface Organizer {
   id: string;

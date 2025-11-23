@@ -32,7 +32,7 @@ const OverviewCard: React.FC<OverviewCardProps> = ({
   return (
     <Card
       className="h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border-0 group overflow-hidden relative"
-      bodyStyle={{ padding: '24px' }}
+      styles={{ body: { padding: '24px' } }}
     >
       {/* Animated Background Gradient on Hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent to-mainColor/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

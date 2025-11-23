@@ -119,7 +119,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
             <Card
               hoverable
               className="h-full border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
-              bodyStyle={{ padding: '20px' }}
+              styles={{ body: { padding: '20px' } }}
               onClick={item.action}
             >
               {item.image && (

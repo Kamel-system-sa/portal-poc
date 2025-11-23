@@ -1,17 +1,5 @@
 import { useState, useEffect } from "react";
 import { Card, message, Typography, Spin, Form } from "antd";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-  Timestamp,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../config/firebase";
 import { useTranslation } from "react-i18next";
 import { mockOrganizers } from "../data/mockOrganizers";
 import {
@@ -111,33 +99,11 @@ const OrganizersPage = () => {
   const saveToLocalStorageHelper = (data: Organizer[]) => saveToLocalStorage(data, STORAGE_KEY);
   const loadFromLocalStorageHelper = (): Organizer[] => loadFromLocalStorage(STORAGE_KEY);
 
-  // Fetch organizers from Firebase, localStorage, or mock data
+  // Fetch organizers from localStorage or mock data
   const fetchOrganizers = async () => {
     setLoading(true);
     try {
-      // Try Firebase first
-      if (db) {
-        try {
-          console.log("Fetching organizers from Firebase...");
-          const q = query(collection(db, "organizers"), orderBy("createdAt", "desc"));
-          const querySnapshot = await getDocs(q);
-          const organizersData: Organizer[] = [];
-          querySnapshot.forEach((doc) => {
-            organizersData.push({ id: doc.id, ...doc.data() } as Organizer);
-          });
-          
-          if (organizersData.length > 0) {
-            console.log(`Fetched ${organizersData.length} organizers from Firebase`);
-            setOrganizers(organizersData);
-            saveToLocalStorageHelper(organizersData);
-            return;
-          }
-        } catch (error: any) {
-          console.warn("Firebase fetch failed, trying alternatives:", error);
-        }
-      }
-
-      // Try localStorage second and merge with mock data
+      // Try localStorage first and merge with mock data
       const localData = loadFromLocalStorageHelper();
       const mockData = mockOrganizers as Organizer[];
       
@@ -180,7 +146,7 @@ const OrganizersPage = () => {
       }));
       setOrganizers(mockDataArray);
       saveToLocalStorageHelper(mockDataArray);
-      message.warning("Using demo data. Please configure Firebase or add organizers.");
+      message.warning("Using demo data. Please add organizers.");
     } finally {
       setLoading(false);
     }
@@ -264,53 +230,39 @@ const OrganizersPage = () => {
       .reduce((total, org) => total + (org.hajjCount || 0), 0);
   };
 
-  // Handle image upload
+  // Handle image upload - convert to base64 for localStorage
   const handleImageUpload = async (file: File): Promise<string | null> => {
-    if (!storage) {
-      console.warn("Firebase Storage is not initialized.");
-      message.warning("Firebase Storage is not configured.");
-      return null;
-    }
-    
-    try {
-      const storageRef = ref(storage, `organizers/${Date.now()}_${file.name}`);
-      await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      return downloadURL;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      message.error("Failed to upload image");
-      return null;
-    }
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = () => {
+        console.error("Error reading image file");
+        message.error("Failed to read image file");
+        resolve(null);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   // Handle form submission
   const handleSubmit = async (values: any) => {
     console.log("Form submitted with values:", values);
     
-    // Don't block if Firebase is not initialized - use localStorage instead
-    if (!db) {
-      console.log("Firebase db is not initialized, using local storage");
-    }
-    
     setUploading(true);
     try {
       let imageURL = null;
       if (imageFile) {
-        if (storage) {
-          console.log("Uploading image...");
-          imageURL = await handleImageUpload(imageFile);
-          if (!imageURL) {
-            console.error("Image upload failed");
-            setUploading(false);
-            message.error("Failed to upload image. Please try again.");
-            return;
-          }
-          console.log("Image uploaded successfully:", imageURL);
-        } else {
-          // If storage is not configured, continue without image
-          console.warn("Storage not configured, saving without image");
+        console.log("Processing image...");
+        imageURL = await handleImageUpload(imageFile);
+        if (!imageURL) {
+          console.error("Image processing failed");
+          setUploading(false);
+          message.error("Failed to process image. Please try again.");
+          return;
         }
+        console.log("Image processed successfully");
       }
 
       // Combine phone fields
@@ -338,130 +290,44 @@ const OrganizersPage = () => {
         passport: values.passport,
         email: values.email,
         imageURL: imageURL || undefined,
-        createdAt: Timestamp.now(),
+        createdAt: new Date(),
       };
 
       console.log("Saving organizer data:", organizerData);
-      console.log("DB object:", db);
-      console.log("Collection path:", "organizers");
+      // Save to localStorage and merge with mock data
+      console.log("Saving to local storage...");
+      const newId = `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const newOrganizer: Organizer = {
+        id: newId,
+        ...organizerData
+      };
+      const currentOrganizers = loadFromLocalStorageHelper();
+      const mockData = mockOrganizers as Organizer[];
       
-      // Save to Firebase if available, otherwise save to localStorage
-      if (db && typeof db === 'object') {
-        try {
-          console.log("Attempting to add document to Firebase...");
-          const docRef = await addDoc(collection(db, "organizers"), organizerData);
-          console.log("Organizer saved to Firebase with ID:", docRef.id);
-          
-          // Also save to localStorage as backup and merge with mock data
-          const newOrganizer: Organizer = {
-            id: docRef.id,
-            ...organizerData
-          };
-          const currentOrganizers = loadFromLocalStorageHelper();
-          const mockData = mockOrganizers as Organizer[];
-          
-          // Create a map to avoid duplicates
-          const organizersMap = new Map<string, Organizer>();
-          
-          // Add mock data first
-          mockData.forEach((org) => {
-            organizersMap.set(org.organizerNumber, org);
-          });
-          
-          // Add existing localStorage data
-          currentOrganizers.forEach((org) => {
-            organizersMap.set(org.organizerNumber, org);
-          });
-          
-          // Add new organizer (will override if duplicate organizerNumber)
-          organizersMap.set(newOrganizer.organizerNumber, newOrganizer);
-          
-          const mergedOrganizers = Array.from(organizersMap.values());
-          saveToLocalStorageHelper(mergedOrganizers);
-        } catch (addDocError: any) {
-          console.error("addDoc error:", addDocError);
-          // Fallback to localStorage
-          console.log("Falling back to local storage...");
-          const newId = `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-          const newOrganizer: Organizer = {
-            id: newId,
-            ...organizerData
-          };
-          // Merge with mock data and existing localStorage data
-          const currentOrganizers = loadFromLocalStorageHelper();
-          const mockData = mockOrganizers as Organizer[];
-          
-          // Create a map to avoid duplicates
-          const organizersMap = new Map<string, Organizer>();
-          
-          // Add mock data first
-          mockData.forEach((org) => {
-            organizersMap.set(org.organizerNumber, org);
-          });
-          
-          // Add existing localStorage data
-          currentOrganizers.forEach((org) => {
-            organizersMap.set(org.organizerNumber, org);
-          });
-          
-          // Add new organizer (will override if duplicate organizerNumber)
-          organizersMap.set(newOrganizer.organizerNumber, newOrganizer);
-          
-          const mergedOrganizers = Array.from(organizersMap.values());
-          saveToLocalStorageHelper(mergedOrganizers);
-          setOrganizers(mergedOrganizers);
-          message.success("Organizer saved locally (Firebase unavailable)!");
-          form.resetFields();
-          setImageFile(null);
-          setModalVisible(false);
-          setUploading(false);
-          await fetchOrganizers();
-          return;
-        }
-      } else {
-        // Save to localStorage only and merge with mock data
-        console.log("Saving to local storage only...");
-        const newId = `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        const newOrganizer: Organizer = {
-          id: newId,
-          ...organizerData
-        };
-        const currentOrganizers = loadFromLocalStorageHelper();
-        const mockData = mockOrganizers as Organizer[];
-        
-        // Create a map to avoid duplicates
-        const organizersMap = new Map<string, Organizer>();
-        
-        // Add mock data first
-        mockData.forEach((org) => {
-          organizersMap.set(org.organizerNumber, org);
-        });
-        
-        // Add existing localStorage data
-        currentOrganizers.forEach((org) => {
-          organizersMap.set(org.organizerNumber, org);
-        });
-        
-        // Add new organizer (will override if duplicate organizerNumber)
-        organizersMap.set(newOrganizer.organizerNumber, newOrganizer);
-        
-        const mergedOrganizers = Array.from(organizersMap.values());
-        saveToLocalStorageHelper(mergedOrganizers);
-        setOrganizers(mergedOrganizers);
-        message.success("Organizer saved locally!");
-        form.resetFields();
-        setImageFile(null);
-        setModalVisible(false);
-        setUploading(false);
-        await fetchOrganizers();
-        return;
-      }
+      // Create a map to avoid duplicates
+      const organizersMap = new Map<string, Organizer>();
       
-      // If we reach here, Firebase save was successful
-      message.success("Organizer added successfully!");
+      // Add mock data first
+      mockData.forEach((org) => {
+        organizersMap.set(org.organizerNumber, org);
+      });
+      
+      // Add existing localStorage data
+      currentOrganizers.forEach((org) => {
+        organizersMap.set(org.organizerNumber, org);
+      });
+      
+      // Add new organizer (will override if duplicate organizerNumber)
+      organizersMap.set(newOrganizer.organizerNumber, newOrganizer);
+      
+      const mergedOrganizers = Array.from(organizersMap.values());
+      saveToLocalStorageHelper(mergedOrganizers);
+      setOrganizers(mergedOrganizers);
+      message.success("Organizer saved locally!");
       form.resetFields();
       setImageFile(null);
       setModalVisible(false);
+      setUploading(false);
       await fetchOrganizers();
     } catch (error: any) {
       console.error("Error adding organizer:", error);
@@ -475,11 +341,7 @@ const OrganizersPage = () => {
       });
       
       let errorMessage = "Failed to add organizer";
-      if (error?.code === "permission-denied") {
-        errorMessage = "Permission denied. Please check your Firebase rules.";
-      } else if (error?.code === "unavailable") {
-        errorMessage = "Firebase service is unavailable. Please check your connection.";
-      } else if (error?.code === "invalid-argument") {
+      if (error?.code === "invalid-argument") {
         errorMessage = "Invalid data. Please check all fields are filled correctly.";
       } else if (error?.message) {
         errorMessage = `Error: ${error.message}`;
@@ -580,16 +442,6 @@ const OrganizersPage = () => {
       saveToLocalStorageHelper(updatedOrganizers);
       setOrganizers(updatedOrganizers);
 
-      // Update in Firebase if available
-      if (db && selectedOrganizer.id && !selectedOrganizer.id.startsWith("local_")) {
-        try {
-          const { updateDoc, doc } = await import("firebase/firestore");
-          await updateDoc(doc(db, "organizers", selectedOrganizer.id), organizerData);
-          console.log("Updated in Firebase");
-        } catch (error) {
-          console.warn("Firebase update failed, using local storage only:", error);
-        }
-      }
 
       message.success("Organizer updated successfully!");
       form.resetFields();
@@ -656,15 +508,6 @@ const OrganizersPage = () => {
       saveToLocalStorageHelper(filteredStored);
       console.log("Deleted from localStorage");
 
-      // Delete from Firebase if exists
-      if (db && selectedOrganizer.id && !selectedOrganizer.id.startsWith("local_") && !selectedOrganizer.id.startsWith("mock_")) {
-        try {
-          await deleteDoc(doc(db, "organizers", selectedOrganizer.id));
-          console.log("Deleted from Firebase");
-        } catch (error) {
-          console.warn("Firebase delete failed:", error);
-        }
-      }
 
       message.success(t("organizerDeleted") || "Organizer deleted successfully");
       setDeleteConfirmVisible(false);
@@ -724,7 +567,7 @@ const OrganizersPage = () => {
             org.email || "",
             org.passport || "",
             org.imageURL || "",
-            org.createdAt ? (org.createdAt instanceof Timestamp ? org.createdAt.toDate().toISOString() : String(org.createdAt)) : ""
+            org.createdAt ? (org.createdAt instanceof Date ? org.createdAt.toISOString() : typeof org.createdAt === 'string' ? org.createdAt : new Date(org.createdAt).toISOString()) : ""
           ].map(field => {
             // Escape commas and quotes in CSV
             const stringField = String(field || "");
@@ -835,7 +678,7 @@ const OrganizersPage = () => {
               passport: organizerData.passport || "",
               email: organizerData.email || "",
               imageURL: organizerData.imageurl || undefined,
-              createdAt: Timestamp.now(),
+              createdAt: new Date(),
             };
 
             importedOrganizers.push(organizer);

@@ -127,3 +127,25 @@ export interface HousingStats {
   arafatTentsCount: number;
 }
 
+// Mashair Section Types
+export interface MashairTent {
+  id: string;
+  tentNameOrNumber: string;
+  area: number; // in m²
+  capacity: number;
+  location: 'mina' | 'arafat';
+  pdfFile?: File | string;
+  createdAt: string;
+}
+
+export interface MashairTentAssignment {
+  id: string;
+  tentNameOrNumber: string;
+  campaign: 'office' | 'kitchen' | 'campaignNumber' | 'other';
+  campaignNumber?: string;
+  otherCampaignName?: string;
+  location: 'mina' | 'arafat';
+  pdfFile?: File | string;
+  createdAt: string;
+}
+

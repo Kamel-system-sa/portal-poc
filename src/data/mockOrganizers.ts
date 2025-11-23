@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+// Removed Firebase dependency
 import type { Organizer } from "../components/Organizers Component/types";
 
 // Pre-generated random hajj counts (above 5000)
@@ -46,7 +46,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "A12345678",
     email: "ahmed@alrajhi-hajj.com",
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_2",
@@ -66,7 +66,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "PK98765432",
     email: "fatima@makkah-tours.com",
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_3",
@@ -86,7 +86,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "IN12345678",
     email: "mohammed@alharamain.com",
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_4",
@@ -106,7 +106,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "BD87654321",
     email: "sara@almadinah-hajj.com",
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_5",
@@ -126,7 +126,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "TR12345678",
     email: "ali@alkaaba-travel.com",
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   // Additional 15 organizers
   {
@@ -147,7 +147,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "ID12345678",
     email: getRandomEmail("Al-Noor Hajj & Umrah Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_7",
@@ -167,7 +167,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "MY12345678",
     email: getRandomEmail("Al-Safa Travel Group"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_8",
@@ -187,7 +187,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "NG12345678",
     email: getRandomEmail("Al-Marwa International Tours"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_9",
@@ -207,7 +207,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "SD12345678",
     email: getRandomEmail("Al-Zamzam Hajj Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_10",
@@ -227,7 +227,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "YE12345678",
     email: getRandomEmail("Al-Hijra Travel & Tourism"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_11",
@@ -247,7 +247,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "MA12345678",
     email: getRandomEmail("Al-Quds Hajj & Umrah"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_12",
@@ -267,7 +267,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "DZ12345678",
     email: getRandomEmail("Al-Aqsa Travel Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_13",
@@ -287,7 +287,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "TN12345678",
     email: getRandomEmail("Al-Bait Travel Agency"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_14",
@@ -307,7 +307,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "JO12345678",
     email: getRandomEmail("Al-Masjid Al-Haram Tours"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_15",
@@ -327,7 +327,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "LB12345678",
     email: getRandomEmail("Al-Nabawi Travel Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_16",
@@ -347,7 +347,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "SY12345678",
     email: getRandomEmail("Al-Rawda Hajj & Umrah"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_17",
@@ -367,7 +367,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "IQ12345678",
     email: getRandomEmail("Al-Sham Travel Group"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_18",
@@ -387,7 +387,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "AF12345678",
     email: getRandomEmail("Al-Firdaus Hajj Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_19",
@@ -407,7 +407,7 @@ export const mockOrganizers: Organizer[] = [
     passport: "SO12345678",
     email: getRandomEmail("Al-Jannah Travel & Tourism"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
   {
     id: "mock_20",
@@ -427,6 +427,6 @@ export const mockOrganizers: Organizer[] = [
     passport: "ET12345678",
     email: getRandomEmail("Al-Rahma Hajj & Umrah Services"),
     imageURL: undefined,
-    createdAt: Timestamp.now(),
+    createdAt: new Date(),
   },
 ];

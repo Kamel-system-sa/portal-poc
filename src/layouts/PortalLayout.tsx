@@ -47,11 +47,13 @@ const PortalLayout = () => {
         closable={false}
         onClose={() => setCollapsed(true)}
         open={!collapsed && isMobile}
-        bodyStyle={{ padding: 0 }}
+        styles={{ 
+          body: { padding: 0 },
+          mask: { backgroundColor: 'rgba(0, 0, 0, 0.5)' }
+        }}
         width={260}
         className="lg:hidden"
         style={{ zIndex: 1000 }}
-        maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       >
         <AppSidebar collapsed={false} />
       </Drawer>

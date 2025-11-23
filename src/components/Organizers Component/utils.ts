@@ -1,4 +1,4 @@
-import { Timestamp } from "firebase/firestore";
+// Removed Firebase dependency
 import type { Organizer } from "./types";
 
 export const saveToLocalStorage = (data: Organizer[], storageKey: string) => {

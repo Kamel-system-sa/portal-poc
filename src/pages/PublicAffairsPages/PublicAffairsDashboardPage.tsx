@@ -172,8 +172,8 @@ const PublicAffairsDashboardPage: React.FC = () => {
 
         {/* Chart with Legend */}
         <div className="flex gap-4 items-center flex-1">
-          <div className="flex-1" style={{ height: '200px' }}>
-            <ResponsiveContainer width="100%" height={200}>
+          <div className="flex-1" style={{ height: '200px', minHeight: '200px' }}>
+            <ResponsiveContainer width="100%" height={200} minWidth={0} minHeight={0}>
               <PieChart>
                 <Pie
                   data={donutData}
@@ -457,8 +457,8 @@ const PublicAffairsDashboardPage: React.FC = () => {
 
             {/* Chart with Legend */}
             <div className="flex flex-col items-center justify-center pt-8 pb-4">
-              <div className="w-full flex justify-center" style={{ height: '260px' }}>
-                <ResponsiveContainer width="100%" height={260}>
+              <div className="w-full flex justify-center" style={{ height: '260px', minHeight: '260px' }}>
+                <ResponsiveContainer width="100%" height={260} minWidth={0} minHeight={0}>
                   <PieChart>
                     <Pie
                       data={caseTypesChartData}
@@ -502,8 +502,8 @@ const PublicAffairsDashboardPage: React.FC = () => {
             </h3>
             {nationalityChartData.length > 0 ? (
               <div className="space-y-4">
-                <div style={{ height: '250px', marginBottom: '20px', width: '100%' }}>
-                  <ResponsiveContainer width="100%" height={250}>
+                <div style={{ height: '250px', minHeight: '250px', marginBottom: '20px', width: '100%' }}>
+                  <ResponsiveContainer width="100%" height={250} minWidth={0} minHeight={0}>
                     <BarChart 
                       data={nationalityChartData} 
                       layout="vertical" 
@@ -564,8 +564,8 @@ const PublicAffairsDashboardPage: React.FC = () => {
               {t('casesByLocation')}
             </h3>
             <div className="space-y-4">
-              <div style={{ height: '280px' }}>
-                <ResponsiveContainer width="100%" height={280}>
+              <div style={{ height: '280px', minHeight: '280px' }}>
+                <ResponsiveContainer width="100%" height={280} minWidth={0} minHeight={0}>
                   <BarChart data={locationChartData} margin={{ left: 20, right: 20, top: 20, bottom: 60 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                     <XAxis 

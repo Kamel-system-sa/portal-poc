@@ -5,6 +5,45 @@ import "./index.css";
 import "antd/dist/reset.css";
 import "./i18n";
 
+// Additional React DevTools error suppression (backup)
+if (typeof window !== 'undefined') {
+  // Suppress console errors from React DevTools
+  const originalError = console.error;
+  console.error = function(...args: any[]) {
+    const message = args[0]?.toString() || '';
+    if (message.includes('Invalid argument not valid semver') || 
+        message.includes('react_devtools_backend') ||
+        message.includes('semver')) {
+      return; // Suppress
+    }
+    originalError.apply(console, args);
+  };
+
+  // Global error handler backup
+  window.addEventListener('error', function(e) {
+    if (e.message && (
+        e.message.includes('semver') || 
+        e.message.includes('react_devtools_backend') ||
+        e.message.includes('Invalid argument not valid semver')
+      )) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, true);
+
+  // Unhandled promise rejection handler
+  window.addEventListener('unhandledrejection', function(e) {
+    if (e.reason && typeof e.reason === 'object' && e.reason.message) {
+      const msg = e.reason.message.toString();
+      if (msg.includes('semver') || msg.includes('react_devtools_backend')) {
+        e.preventDefault();
+        return false;
+      }
+    }
+  });
+}
+
 import PortalLayout from "./layouts/PortalLayout";
 import HomePage from "./pages/HomePage";
 import TestPage from "./pages/TestPage";
@@ -19,6 +58,7 @@ import ArafatHousingPage from "./pages/HousingPages/ArafatHousingPage";
 import PilgrimsListPage from "./pages/HousingPages/PilgrimsListPage";
 import PilgrimDetailsPage from "./pages/HousingPages/PilgrimDetailsPage";
 import ReportsPage from "./pages/HousingPages/ReportsPage";
+import MashairDashboardPage from "./pages/HousingPages/MashairDashboardPage";
 import PreArrivalDashboardPage from "./pages/ReceptionPages/PreArrivalDashboardPage";
 import PreDepartureDashboardPage from "./pages/ReceptionPages/PreDepartureDashboardPage";
 import ReceptionDashboardPage from "./pages/ReceptionPages/ReceptionDashboardPage";
@@ -48,6 +88,7 @@ const router = createBrowserRouter([
       { path: "housing/mina", element: <MinaHousingPage /> },
       { path: "housing/arafat", element: <ArafatHousingPage /> },
       { path: "housing/reports", element: <ReportsPage /> },
+      { path: "housing/mashair", element: <MashairDashboardPage /> },
       { path: "housing/pilgrims/:id", element: <PilgrimDetailsPage /> },
       { path: "reception", element: <ReceptionDashboardPage /> },
       { path: "reception/dashboard", element: <ReceptionDashboardPage /> },

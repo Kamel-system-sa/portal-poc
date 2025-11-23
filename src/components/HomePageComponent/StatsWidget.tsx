@@ -64,7 +64,7 @@ const StatsWidget: React.FC<StatsWidgetProps> = ({ stats = defaultStats }) => {
           <Col xs={12} sm={12} md={12} lg={6} key={index}>
             <Card
               className={`border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${bgColor} group cursor-pointer overflow-hidden relative`}
-              bodyStyle={{ padding: '12px' }}
+              styles={{ body: { padding: '12px' } }}
             >
               {/* Decorative corner accent */}
               <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-white/40 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

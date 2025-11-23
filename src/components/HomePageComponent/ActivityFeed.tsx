@@ -73,7 +73,7 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({
   return (
     <Card
       className="h-full border-0 shadow-md hover:shadow-lg transition-shadow duration-300"
-      bodyStyle={{ padding: '24px' }}
+      styles={{ body: { padding: '24px' } }}
     >
       <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <h3 className={`text-lg font-semibold text-gray-800 m-0 ${isRTL ? 'text-right' : ''}`}>{title}</h3>

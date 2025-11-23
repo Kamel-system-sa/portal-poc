@@ -62,7 +62,7 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
   return (
     <Card
       className="h-full border-0 shadow-md hover:shadow-lg transition-shadow duration-300"
-      bodyStyle={{ padding: '24px' }}
+      styles={{ body: { padding: '24px' } }}
     >
       <div className="flex items-center justify-between mb-6">
         <Title level={5} className="!mb-0 !text-gray-800">
