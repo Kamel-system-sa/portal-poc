@@ -65,6 +65,7 @@ import ReceptionDashboardPage from "./pages/ReceptionPages/ReceptionDashboardPag
 import PortsListPage from "./pages/ReceptionPages/PortsListPage";
 import CampaignsListPage from "./pages/ReceptionPages/CampaignsListPage";
 import CampaignsRegistrationPage from "./pages/ReceptionPages/CampaignsRegistrationPage";
+import CentersDashboardPage from "./pages/ReceptionPages/CentersDashboardPage";
 import PublicAffairsDashboardPage from "./pages/PublicAffairsPages/PublicAffairsDashboardPage";
 import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
@@ -100,6 +101,7 @@ const router = createBrowserRouter([
       { path: "reception/ports/land", element: <PortsListPage /> },
       { path: "reception/campaigns", element: <CampaignsListPage /> },
       { path: "reception/campaigns/register", element: <CampaignsRegistrationPage /> },
+      { path: "reception/centers-dashboard", element: <CentersDashboardPage /> },
       { path: "public-affairs", element: <PublicAffairsDashboardPage /> },
       { path: "public-affairs/deaths", element: <DeathCasesPage /> },
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },

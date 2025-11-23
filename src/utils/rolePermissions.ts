@@ -22,6 +22,7 @@ export type MenuKey =
   | "reception-pre-arrival-departures"
   | "reception-ports"
   | "reception-campaigns"
+  | "reception-centers-dashboard"
   | "public-affairs"
   | "public-affairs-dashboard"
   | "public-affairs-deaths"
@@ -53,6 +54,7 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "reception-pre-arrival-departures",
     "reception-ports",
     "reception-campaigns",
+    "reception-centers-dashboard",
 
     // public affairs permissions
     "public-affairs",

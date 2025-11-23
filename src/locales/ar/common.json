@@ -1245,6 +1245,32 @@
         "confirmed": "تم التأكيد! تم إرسال الإشعارات إلى فريق الإسكان وفريق الاستقبال وفريق البطاقات."
       }
     },
+    "centersDashboard": {
+      "title": "لوحة تحكم المراكز",
+      "subtitle": "نظرة شاملة على جميع بيانات المراكز",
+      "viewAllCenters": "عرض جميع المراكز",
+      "centers": "مركز",
+      "totalCapacity": "إجمالي الطاقة",
+      "totalMembers": "إجمالي الأعضاء",
+      "activeCenters": "مراكز نشطة",
+      "average": "متوسط",
+      "percentage": "النسبة",
+      "charts": "التحليلات والإحصائيات",
+      "serviceTypeDistribution": "توزيع أنواع الخدمة",
+      "statusDistribution": "توزيع الحالة",
+      "locationsDistribution": "توزيع المواقع",
+      "serviceDetailDistribution": "توزيع تفاصيل الخدمة",
+      "centersList": "قائمة المراكز",
+      "centerReceptionDetails": "تفاصيل المركز - قسم الاستقبال",
+      "centerInfo": "معلومات المركز",
+      "totalCampaigns": "إجمالي الحملات",
+      "arrivalGroups": "مجموعات الوصول",
+      "departureGroups": "مجموعات المغادرة",
+      "totalPilgrims": "إجمالي الحجاج",
+      "noCampaigns": "لا توجد حملات مرتبطة",
+      "noArrivals": "لا توجد مجموعات وصول",
+      "noDepartures": "لا توجد مجموعات مغادرة"
+    },
     "campaigns": {
       "title": "قسم الحملات",
       "comingSoon": "قريباً",
