@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 
 const { Title, Text } = Typography;
@@ -27,6 +28,7 @@ const OverviewCard: React.FC<OverviewCardProps> = ({
   trend,
   suffix,
 }) => {
+  const { t } = useTranslation('common');
   return (
     <Card
       className="h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border-0 group overflow-hidden relative"
@@ -69,7 +71,7 @@ const OverviewCard: React.FC<OverviewCardProps> = ({
               >
                 {Math.abs(trend.value)}%
               </Text>
-              <Text className="text-gray-500 text-sm ml-1">vs last month</Text>
+              <Text className="text-gray-500 text-sm ml-1">{t('homepage.vsLastMonth')}</Text>
             </div>
           )}
         </div>

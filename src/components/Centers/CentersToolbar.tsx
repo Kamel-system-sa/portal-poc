@@ -30,8 +30,8 @@ export const CentersToolbar: React.FC<CentersToolbarProps> = ({
   const activeFiltersCount = filters.serviceType.length + filters.status.length;
   
   return (
-    <div className="mb-8">
-      <div className="flex flex-col sm:flex-row gap-4">
+    <div className="mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div className="flex-1 relative">
           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
             <SearchOutlined className="text-gray-400 text-lg" />
@@ -70,7 +70,7 @@ export const CentersToolbar: React.FC<CentersToolbarProps> = ({
       </div>
       
       {isFiltersOpen && (
-        <div className="mt-4 bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <div className="mt-4 bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-4 sm:p-5 md:p-6 border border-gray-100">
           <FiltersForm
             filters={filters}
             onChange={onFiltersChange}

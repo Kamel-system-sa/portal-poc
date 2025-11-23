@@ -164,15 +164,15 @@ const HotelHousingPage: React.FC = () => {
   }, [allRooms]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-grayBG via-white to-gray-100 overflow-x-hidden">
+      <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
         {/* Header */}
-        <div className="mb-6 flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-1 sm:mb-2 break-words">
               {t('housing.hotels')} — {t('housing.managementAndBedAssignment')}
             </h1>
-            <p className="text-customgray">
+            <p className="text-customgray text-sm sm:text-base break-words">
               {t('housing.manageHotelRooms')}
             </p>
           </div>
@@ -180,7 +180,7 @@ const HotelHousingPage: React.FC = () => {
         </div>
 
         {/* Hotel Selector */}
-        <GlassCard className="p-5 mb-6 border-2 border-bordergray/50">
+        <GlassCard className="p-4 sm:p-5 border-2 border-bordergray/50">
           <div className="flex flex-col md:flex-row md:items-end gap-4">
             <div className="flex-1">
               <label className="block text-sm font-semibold text-gray-700 mb-3">
@@ -215,7 +215,7 @@ const HotelHousingPage: React.FC = () => {
         </GlassCard>
 
         {/* Stats Cards - Enhanced */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           <HousingStatsCard
             title={t('housing.totalRooms')}
             value={stats.totalRooms}
@@ -250,13 +250,13 @@ const HotelHousingPage: React.FC = () => {
 
         {/* Rooms Grid */}
         {filteredRooms.length > 0 && (
-          <div className="mb-4">
-            <p className="text-sm text-customgray">
+          <div>
+            <p className="text-xs sm:text-sm text-customgray">
               {t('housing.showingResults')} {filteredRooms.length} {t('housing.of')} {allRooms.length} {t('housing.totalRooms')}
             </p>
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
           {filteredRooms.map((room) => (
             <GlassCard key={room.id} className="p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col min-h-[420px]">
               <div className="flex-1 flex flex-col">

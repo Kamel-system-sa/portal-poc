@@ -9,5 +9,11 @@ export default defineConfig({
         javascriptEnabled: true
       }
     }
+  },
+  optimizeDeps: {
+    include: ["firebase/app", "firebase/firestore", "firebase/storage"]
+  },
+  resolve: {
+    preserveSymlinks: false
   }
 });

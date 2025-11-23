@@ -15,7 +15,7 @@ import {
   LinkOutlined,
   SaveOutlined
 } from '@ant-design/icons';
-import { allOrganizers } from '../../data/mockOrganizers';
+import { allOrganizers } from '../../data/housingOrganizers';
 import type { HousingRecord, Organizer } from '../../types/housing';
 
 interface AddHousingFormProps {
@@ -228,7 +228,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             <input
               type="tel"
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-              placeholder="05XXXXXXXX"
+              placeholder={t('placeholders.phone')}
               value={form.organizerPhone}
               onChange={(e) => updateField('organizerPhone', e.target.value)}
               pattern="^05\d{8}$"
@@ -275,7 +275,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             <input
               type="tel"
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-              placeholder="05XXXXXXXX"
+              placeholder={t('placeholders.phone')}
               value={form.contact1}
               onChange={(e) => updateField('contact1', e.target.value)}
               pattern="^05\d{8}$"
@@ -291,7 +291,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             <input
               type="tel"
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-              placeholder="05XXXXXXXX"
+              placeholder={t('placeholders.phone')}
               value={form.contact2}
               onChange={(e) => updateField('contact2', e.target.value)}
               pattern="^05\d{8}$"
@@ -443,7 +443,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             <input
               type="url"
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-              placeholder="https://maps.google.com/..."
+              placeholder={t('placeholders.googleMapsLink')}
               value={form.googleMapsUrl}
               onChange={(e) => updateField('googleMapsUrl', e.target.value)}
             />

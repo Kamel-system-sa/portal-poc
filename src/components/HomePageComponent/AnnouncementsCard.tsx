@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography, List, Tag, Avatar } from 'antd';
 import { NotificationOutlined, InfoCircleOutlined, WarningOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
@@ -25,6 +26,7 @@ const AnnouncementsCard: React.FC<AnnouncementsCardProps> = ({
   title = 'Company Announcements',
   maxItems = 5,
 }) => {
+  const { t } = useTranslation('common');
   const getIcon = (type: Announcement['type']) => {
     switch (type) {
       case 'info':
@@ -70,7 +72,7 @@ const AnnouncementsCard: React.FC<AnnouncementsCardProps> = ({
           </Title>
         </div>
         <Tag color="blue" className="cursor-pointer hover:shadow-md transition-shadow">
-          View All
+          {t('homepage.viewAll')}
         </Tag>
       </div>
 
@@ -100,7 +102,7 @@ const AnnouncementsCard: React.FC<AnnouncementsCardProps> = ({
                   </Text>
                   {item.isNew && (
                     <Tag color="red" className="!m-0 text-xs">
-                      New
+                      {t('homepage.active')}
                     </Tag>
                   )}
                 </div>
@@ -109,9 +111,9 @@ const AnnouncementsCard: React.FC<AnnouncementsCardProps> = ({
                 </Text>
                 <div className="flex items-center gap-2">
                   <Tag color={getTagColor(item.type)} className="!m-0 text-xs">
-                    {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                    {t(`homepage.${item.type === 'urgent' ? 'high' : item.type}`)}
                   </Tag>
-                  <Text className="text-gray-400 text-xs">by {item.author}</Text>
+                  <Text className="text-gray-400 text-xs">{t('homepage.by')} {item.author}</Text>
                   <Text className="text-gray-400 text-xs">•</Text>
                   <Text className="text-gray-400 text-xs">{item.date}</Text>
                 </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography, List, Tag, Empty } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 
 const { Title, Text } = Typography;
@@ -34,6 +35,7 @@ const SectionSummary: React.FC<SectionSummaryProps> = ({
   onViewAll,
   maxItems = 5,
 }) => {
+  const { t } = useTranslation('common');
   const displayItems = items.slice(0, maxItems);
 
   return (
@@ -53,7 +55,7 @@ const SectionSummary: React.FC<SectionSummaryProps> = ({
             className="text-primaryColor cursor-pointer hover:underline text-sm font-medium"
             onClick={onViewAll}
           >
-            View All <RightOutlined className="text-xs" />
+            {t('homepage.viewAll')} <RightOutlined className="text-xs" />
           </Text>
         )}
       </div>

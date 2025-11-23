@@ -101,8 +101,8 @@ const ServiceCentersPage: React.FC = () => {
 
   return (
     <>
-      <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-x-hidden">
+        <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
           <CentersToolbar
             searchValue={searchValue}
             onSearch={handleSearch}
@@ -125,26 +125,26 @@ const ServiceCentersPage: React.FC = () => {
 
       {isAddFormOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             if (e.target === e.currentTarget) handleCloseAdd();
           }}
         >
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative w-full max-w-7xl max-h-[90vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-xl font-semibold text-gray-800">
+          <div className="relative w-full max-w-7xl max-h-[95vh] sm:max-h-[90vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
+            <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 truncate pr-2">
                 {editCenterData ? t('centers.editCenter') : t('centers.addNewCenter')}
               </h2>
               <button
                 onClick={handleCloseAdd}
-                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition"
-                aria-label="Close modal"
+                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition flex-shrink-0"
+                aria-label={t('ariaLabels.closeModal')}
               >
                 <CloseOutlined className="text-lg" />
               </button>
             </div>
-            <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
+            <div className="overflow-y-auto max-h-[calc(95vh-80px)] sm:max-h-[calc(90vh-80px)] p-3 sm:p-4 md:p-6">
               <AddCenterForm
                 initialData={editCenterData ?? undefined}
                 onCancel={handleCloseAdd}
@@ -157,24 +157,24 @@ const ServiceCentersPage: React.FC = () => {
 
       {selectedCenter && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4"
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             if (e.target === e.currentTarget) setSelectedCenter(null);
           }}
         >
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
           <div className="relative w-full max-w-5xl max-h-[95vh] bg-white rounded-lg shadow-2xl overflow-hidden z-10">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-xl font-semibold text-gray-800">{t('centers.centerDetails')}</h2>
+            <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800 truncate pr-2">{t('centers.centerDetails')}</h2>
               <button
                 onClick={() => setSelectedCenter(null)}
-                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition"
-                aria-label="Close modal"
+                className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition flex-shrink-0"
+                aria-label={t('ariaLabels.closeModal')}
               >
                 <CloseOutlined className="text-lg" />
               </button>
             </div>
-            <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-6">
+            <div className="overflow-y-auto max-h-[calc(95vh-80px)] p-3 sm:p-4 md:p-6">
               <CenterDetails
                 center={selectedCenter}
                 onEdit={handleEditCenter}

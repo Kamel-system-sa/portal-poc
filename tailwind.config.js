@@ -6,6 +6,14 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // Arabic font (Cairo) - for RTL languages (Arabic, Urdu)
+        arabic: ['Cairo', 'sans-serif'],
+        // English font (Inter) - for LTR languages (English)
+        english: ['Inter', 'sans-serif'],
+        // Default sans-serif fallback
+        sans: ['Inter', 'Cairo', 'sans-serif'],
+      },
       colors: {
         // Brand Colors
         mainColor: "#005B4F",

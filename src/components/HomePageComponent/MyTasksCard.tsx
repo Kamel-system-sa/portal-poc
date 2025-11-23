@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography, List, Progress, Tag, Button } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, RightOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
@@ -26,6 +27,7 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
   title = 'My Tasks',
   maxItems = 6,
 }) => {
+  const { t } = useTranslation('common');
   const getPriorityColor = (priority: Task['priority']) => {
     switch (priority) {
       case 'high':
@@ -67,14 +69,14 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
           {title}
         </Title>
         <Button type="link" className="p-0 text-mainColor hover:text-primaryColor font-medium">
-          View All <RightOutlined />
+          {t('homepage.viewAll')} <RightOutlined />
         </Button>
       </div>
 
       {/* Progress Summary */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
         <div className="flex items-center justify-between mb-2">
-          <Text className="text-gray-600 text-sm font-medium">Overall Progress</Text>
+          <Text className="text-gray-600 text-sm font-medium">{t('homepage.overallProgress')}</Text>
           <Text className="text-gray-800 font-semibold">{completionRate}%</Text>
         </div>
         <Progress
@@ -87,7 +89,7 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
           className="mb-2"
         />
         <Text className="text-gray-500 text-xs">
-          {completedTasks} of {totalTasks} tasks completed
+          {completedTasks} {t('homepage.homepageOf')} {totalTasks} {t('homepage.tasksCompleted')}
         </Text>
       </div>
 
@@ -105,7 +107,7 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
                     {item.title}
                   </Text>
                   <Tag color={getPriorityColor(item.priority)} className="!m-0 text-xs flex-shrink-0">
-                    {item.priority}
+                    {t(`homepage.${item.priority}`)}
                   </Tag>
                 </div>
                 {item.description && (
@@ -123,7 +125,7 @@ const MyTasksCard: React.FC<MyTasksCardProps> = ({
                       className="flex-1 max-w-[100px]"
                     />
                   )}
-                  <Text className="text-gray-400 text-xs">Due: {item.dueDate}</Text>
+                  <Text className="text-gray-400 text-xs">{t('homepage.due')}: {item.dueDate}</Text>
                 </div>
               </div>
             </div>

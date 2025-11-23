@@ -2,23 +2,50 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import en from "./locales/en/common.json";
-import ar from "./locales/ar/common.json";
-import ur from "./locales/ur/common.json";
+import enCommon from "./locales/en/common.json";
+import arCommon from "./locales/ar/common.json";
+import urCommon from "./locales/ur/common.json";
+import enOrganizers from "./locales/en/organizers.json";
+import arOrganizers from "./locales/ar/organizers.json";
+import urOrganizers from "./locales/ur/organizers.json";
+
+// Utility function to apply font and direction based on language
+const applyLanguageStyles = (language: string) => {
+  const isRtl = language === "ar" || language === "ur";
+  document.documentElement.dir = isRtl ? "rtl" : "ltr";
+  
+  // Remove existing font classes
+  document.documentElement.classList.remove("font-arabic", "font-english");
+  // Add appropriate font class
+  if (isRtl) {
+    document.documentElement.classList.add("font-arabic");
+  } else {
+    document.documentElement.classList.add("font-english");
+  }
+};
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
-      en: { common: en },
-      ar: { common: ar },
-      ur: { common: ur },
+      en: { 
+        common: enCommon,
+        organizers: enOrganizers
+      },
+      ar: { 
+        common: arCommon,
+        organizers: arOrganizers
+      },
+      ur: { 
+        common: urCommon,
+        organizers: urOrganizers
+      },
     },
     fallbackLng: "ar",
     supportedLngs: ["en", "ar", "ur"],
     defaultNS: "common",
-    ns: ["common"],
+    ns: ["common", "organizers"],
     interpolation: {
       escapeValue: false,
     },
@@ -26,6 +53,15 @@ i18n
       order: ["querystring", "localStorage", "navigator"],
       caches: ["localStorage"],
     },
+  })
+  .then(() => {
+    // Initialize font class based on detected language
+    applyLanguageStyles(i18n.language);
   });
+
+// Also listen for language changes
+i18n.on('languageChanged', (lng) => {
+  applyLanguageStyles(lng);
+});
 
 export default i18n;

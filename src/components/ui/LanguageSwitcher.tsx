@@ -23,6 +23,16 @@ const LanguageSwitcher = () => {
     const lng = i18n.language;
     const isRtl = lng === "ar" || lng === "ur";
     document.documentElement.dir = isRtl ? "rtl" : "ltr";
+    
+    // Apply font class based on language
+    // Remove existing font classes
+    document.documentElement.classList.remove("font-arabic", "font-english");
+    // Add appropriate font class
+    if (isRtl) {
+      document.documentElement.classList.add("font-arabic");
+    } else {
+      document.documentElement.classList.add("font-english");
+    }
   }, [i18n.language]);
 
   const items = [

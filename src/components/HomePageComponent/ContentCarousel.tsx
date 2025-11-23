@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Carousel, Card, Typography, Button } from 'antd';
 import { LeftOutlined, RightOutlined, RightCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 
 const { Title, Text } = Typography;
@@ -38,6 +39,7 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
   itemsPerSlide = { xs: 1, sm: 2, md: 3, lg: 4 },
   showNavigation = true,
 }) => {
+  const { t } = useTranslation('common');
   const carouselRef = useRef<any>(null);
 
   const next = () => {
@@ -69,14 +71,14 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
             <button
               onClick={prev}
               className="bg-white hover:bg-gray-50 text-gray-700 rounded-lg p-2 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
-              aria-label="Previous"
+              aria-label={t('ariaLabels.previous')}
             >
               <LeftOutlined />
             </button>
             <button
               onClick={next}
               className="bg-white hover:bg-gray-50 text-gray-700 rounded-lg p-2 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200"
-              aria-label="Next"
+              aria-label={t('ariaLabels.next')}
             >
               <RightOutlined />
             </button>
