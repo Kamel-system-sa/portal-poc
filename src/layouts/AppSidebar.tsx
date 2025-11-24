@@ -16,6 +16,7 @@ interface AppSidebarProps {
 const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const { t, i18n } = useTranslation("common");
   const { t: tPublicAffairs } = useTranslation("PublicAffairs");
+  const { t: tTransport } = useTranslation("Transport");
   const { currentRole } = useUserRole();
   const location = useLocation();
   const isRtl = i18n.language === "ar" || i18n.language === "ur";
@@ -62,6 +63,11 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
       return ["public-affairs-dashboard"];
     }
+    if (location.pathname.startsWith("/transport")) {
+      if (location.pathname === "/transport") return ["transport-dashboard"];
+      if (location.pathname.includes("/transfer-info")) return ["transport-transfer-info"];
+      return ["transport-dashboard"];
+    }
     return [];
   };
 
@@ -78,6 +84,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/public-affairs")) {
     openKeys.push("public-affairs");
+  }
+  if (location.pathname.startsWith("/transport")) {
+    openKeys.push("transport");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -219,6 +228,23 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         ]
       },
       {
+        key: "transport",
+        icon: <CarOutlined />,
+        label: tTransport("title"),
+        children: [
+          {
+            key: "transport-dashboard",
+            icon: <DashboardOutlined />,
+            label: <Link to="/transport">{tTransport("dashboardTitle")}</Link>
+          },
+          {
+            key: "transport-transfer-info",
+            icon: <FileTextOutlined />,
+            label: <Link to="/transport/transfer-info">{tTransport("transferInfo")}</Link>
+          }
+        ]
+      },
+      {
         key: "test",
         icon: <AppstoreOutlined />,
         label: <Link to="/test">{t("testPageTitle")}</Link>
@@ -238,8 +264,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           return null;
         }
         
-        // For menus with children (housing, reception, public-affairs), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs") && "children" in item && item.children) {
+        // For menus with children (housing, reception, public-affairs, transport), filter children and only show parent if at least one child is visible
+        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "transport") && "children" in item && item.children) {
           const filteredChildren = item.children
             .map((child: any) => {
               if (!child) return null;

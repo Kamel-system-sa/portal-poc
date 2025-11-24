@@ -70,6 +70,8 @@ import PublicAffairsDashboardPage from "./pages/PublicAffairsPages/PublicAffairs
 import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
+import TransportDashboardPage from "./pages/TransportPages/TransportDashboardPage";
+import TransferInfoPage from "./pages/TransportPages/TransferInfoPage";
 import App from "./App";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
@@ -106,6 +108,8 @@ const router = createBrowserRouter([
       { path: "public-affairs/deaths", element: <DeathCasesPage /> },
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
+      { path: "transport", element: <TransportDashboardPage /> },
+      { path: "transport/transfer-info", element: <TransferInfoPage /> },
     ],
   },
 ]);

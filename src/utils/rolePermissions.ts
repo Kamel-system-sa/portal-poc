@@ -28,6 +28,9 @@ export type MenuKey =
   | "public-affairs-deaths"
   | "public-affairs-hospitalized"
   | "public-affairs-other"
+  | "transport"
+  | "transport-dashboard"
+  | "transport-transfer-info"
   | "test";
 
 // Define which menu items each role can access
@@ -62,6 +65,11 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "public-affairs-deaths",
     "public-affairs-hospitalized",
     "public-affairs-other",
+
+    // transport permissions
+    "transport",
+    "transport-dashboard",
+    "transport-transfer-info",
 
     "test",
   ],
