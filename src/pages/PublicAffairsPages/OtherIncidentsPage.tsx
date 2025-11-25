@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlassCard } from '../../components/HousingComponent/GlassCard';
 import { HousingStatsCard } from '../../components/HousingComponent/HousingStatsCard';
@@ -19,11 +19,11 @@ import { Dropdown, Button } from 'antd';
 import { OtherIncidentForm } from '../../components/PublicAffairs/OtherIncidentForm';
 import { ConfirmCompleteModal } from '../../components/PublicAffairs/ConfirmCompleteModal';
 import { 
-  mockOtherIncidents, 
   getOtherIncidentsCount, 
   getTodayOtherIncidents, 
   type OtherIncident 
 } from '../../data/mockPublicAffairs';
+import { getOtherIncidents, saveOtherIncident, deleteOtherIncident } from '../../data/publicAffairsStorage';
 
 const OtherIncidentsPage: React.FC = () => {
   const { t } = useTranslation('PublicAffairs');
@@ -31,7 +31,13 @@ const OtherIncidentsPage: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<OtherIncident | null>(null);
   const [caseToDelete, setCaseToDelete] = useState<OtherIncident | null>(null);
   const [caseToComplete, setCaseToComplete] = useState<OtherIncident | null>(null);
-  const [otherIncidents, setOtherIncidents] = useState<OtherIncident[]>(mockOtherIncidents);
+  const [otherIncidents, setOtherIncidents] = useState<OtherIncident[]>([]);
+
+  // Load other incidents from localStorage on mount
+  useEffect(() => {
+    const loadedIncidents = getOtherIncidents();
+    setOtherIncidents(loadedIncidents);
+  }, []);
   const [filterCompleted, setFilterCompleted] = useState<'all' | 'active' | 'completed'>('active');
 
   const activeCases = otherIncidents.filter(c => !c.completed);
@@ -56,6 +62,7 @@ const OtherIncidentsPage: React.FC = () => {
 
   const handleDelete = () => {
     if (caseToDelete) {
+      deleteOtherIncident(caseToDelete.id);
       setOtherIncidents(otherIncidents.filter(c => c.id !== caseToDelete.id));
       setCaseToDelete(null);
       setSelectedCase(null);
@@ -64,10 +71,15 @@ const OtherIncidentsPage: React.FC = () => {
 
   const handleComplete = () => {
     if (caseToComplete) {
+      const updatedIncident = { 
+        ...caseToComplete, 
+        completed: true, 
+        completedAt: new Date().toISOString(), 
+        resolved: true 
+      };
+      saveOtherIncident(updatedIncident);
       setOtherIncidents(otherIncidents.map(c => 
-        c.id === caseToComplete.id 
-          ? { ...c, completed: true, completedAt: new Date().toISOString(), resolved: true }
-          : c
+        c.id === caseToComplete.id ? updatedIncident : c
       ));
       setCaseToComplete(null);
       setSelectedCase(null);
@@ -87,6 +99,9 @@ const OtherIncidentsPage: React.FC = () => {
       createdAt: new Date().toISOString(),
       completed: false
     };
+    // Save to localStorage
+    saveOtherIncident(newIncident);
+    // Update state to reflect changes immediately
     setOtherIncidents([...otherIncidents, newIncident]);
     setIsFormOpen(false);
   };

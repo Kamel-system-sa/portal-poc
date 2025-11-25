@@ -1,11 +1,11 @@
-# Reception Module (قسم الاستقبال) - UI Mockups Handoff
+# Reception Module (الاستقبال) - UI Mockups Handoff
 
 ## Overview
 This document provides a complete handoff for the Reception module UI mockups. The module is fully bilingual (Arabic RTL / English LTR) and matches the existing site design.
 
 ## Module Structure
 
-### 1. Pre-Arrival Preparation (قسم الاستعداد المسبق للوصول)
+### 1. Pre-Arrival Preparation (الاستعداد المسبق للوصول)
 
 #### Pages
 - **Dashboard**: `/reception/pre-arrival` - `PreArrivalDashboardPage.tsx`
@@ -23,7 +23,7 @@ This document provides a complete handoff for the Reception module UI mockups. T
 - ✅ Loading, empty, error states
 - ✅ Privacy: raw passenger data stored but hidden by default (role-based toggle needed)
 
-### 2. Air & Land Ports (قسم المنافذ الجوية والبرية)
+### 2. Air & Land Ports (المنافذ الجوية والبرية)
 
 #### Pages
 - **Airports**: `/reception/ports/airports` - `AirportPortPage.tsx`
@@ -35,7 +35,7 @@ This document provides a complete handoff for the Reception module UI mockups. T
 - ✅ Notifications: Placeholder for bus passage → notify Accommodation, Reception, Card teams
 - ✅ Overcapacity alerts / mismatch warnings (ready for implementation)
 
-### 3. Campaigns (قسم الحملات)
+### 3. Campaigns (الحملات)
 - Placeholder: Coming Soon (routes ready)
 
 ## Route Structure

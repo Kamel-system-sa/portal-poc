@@ -293,8 +293,9 @@ export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type, on
           manualEntryForm.resetFields();
         }}
         footer={null}
-        width={700}
+        width={900}
         centered
+        className="housing-modal"
       >
         <Form
           form={manualEntryForm}
@@ -302,86 +303,163 @@ export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type, on
           onFinish={handleManualEntrySubmit}
           className="mt-4"
         >
-          <Form.Item
-            label={isRoomType ? t('housing.hotelName') : t('housing.campName')}
-            name="name"
-            rules={[{ required: true, message: t('housing.pleaseEnterName') }]}
-          >
-            <Input size="large" placeholder={isRoomType ? t('housing.enterHotelName') : t('housing.enterCampName')} />
-          </Form.Item>
-          
-          <Form.Item
-            label={t('housing.location')}
-            name="location"
-            rules={[{ required: true, message: t('housing.pleaseEnterLocation') }]}
-          >
-            <Input size="large" placeholder={t('housing.enterLocation')} />
-          </Form.Item>
+          <div className="space-y-6">
+            {/* City Selection Section */}
+            {isRoomType && (
+              <div className="bg-gradient-to-r from-gray-50 to-white p-5 rounded-xl border border-gray-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-1 h-5 bg-gradient-to-b from-primaryColor to-secondaryColor rounded-full"></div>
+                  <h4 className="text-lg font-bold text-gray-800">{t('housing.selectCity') || 'اختر المدينة'}</h4>
+                </div>
+                <Form.Item
+                  label={t('housing.city')}
+                  name="city"
+                  rules={[{ required: true, message: t('housing.pleaseSelectCity') || 'يرجى اختيار المدينة' }]}
+                  className="mb-0"
+                >
+                  <Select 
+                    size="large" 
+                    placeholder={t('housing.selectCity') || 'اختر المدينة'}
+                    className="w-full"
+                  >
+                    <Option value="makkah">{t('housing.makkah')}</Option>
+                    <Option value="madinah">{t('housing.madinah')}</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+            )}
 
-          {isRoomType && (
-            <>
-              <Form.Item
-                label={t('housing.totalRooms')}
-                name="totalRooms"
-                rules={[{ required: true, message: t('housing.pleaseEnterTotalRooms') }]}
-              >
-                <InputNumber min={1} className="w-full" size="large" placeholder={t('housing.enterTotalRooms')} />
-              </Form.Item>
-              <Form.Item
-                label={t('housing.numberOfFloors')}
-                name="floors"
-              >
-                <InputNumber min={1} className="w-full" size="large" placeholder={t('housing.enterNumberOfFloors')} />
-              </Form.Item>
-            </>
-          )}
-
-          {isTentType && (
-            <>
-              <Form.Item
-                label={t('housing.totalTents')}
-                name="totalTents"
-                rules={[{ required: true, message: t('housing.pleaseEnterTotalTents') }]}
-              >
-                <InputNumber min={1} className="w-full" size="large" placeholder={t('housing.enterTotalTents')} />
-              </Form.Item>
-              <Form.Item
-                label={t('housing.section')}
-                name="section"
-              >
-                <Input size="large" placeholder={t('housing.enterSection')} />
-              </Form.Item>
-            </>
-          )}
-
-          <Form.Item
-            label={t('housing.totalCapacity')}
-            name="capacity"
-            rules={[{ required: true, message: t('housing.pleaseEnterCapacity') }]}
-          >
-            <InputNumber min={1} className="w-full" size="large" placeholder={t('housing.enterCapacity')} />
-          </Form.Item>
-
-          <Form.Item className="mb-0">
-            <div className="flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setManualEntryModalOpen(false);
-                  manualEntryForm.resetFields();
-                }}
-                className="px-4 py-2 rounded-lg border-2 border-bordergray text-gray-700 hover:border-primaryColor hover:text-primaryColor transition-all duration-200"
-              >
-                {t('cancel')}
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-lg bg-primaryColor text-white hover:bg-primaryColor/90 border-2 border-primaryColor transition-all duration-200"
-              >
-                {t('save')}
-              </button>
+            {/* Basic Information Section */}
+            <div className="bg-gradient-to-r from-gray-50 to-white p-5 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-1 h-5 bg-gradient-to-b from-primaryColor to-secondaryColor rounded-full"></div>
+                <h4 className="text-lg font-bold text-gray-800">{t('housing.basicInformation') || 'المعلومات الأساسية'}</h4>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Form.Item
+                  label={isRoomType ? t('housing.hotelName') : t('housing.campName')}
+                  name="name"
+                  rules={[{ required: true, message: t('housing.pleaseEnterName') }]}
+                >
+                  <Input 
+                    size="large" 
+                    placeholder={isRoomType ? t('housing.enterHotelName') : t('housing.enterCampName')}
+                    className="w-full"
+                  />
+                </Form.Item>
+                
+                <Form.Item
+                  label={t('housing.location')}
+                  name="location"
+                  rules={[{ required: true, message: t('housing.pleaseEnterLocation') }]}
+                >
+                  <Input 
+                    size="large" 
+                    placeholder={t('housing.enterLocation')}
+                    className="w-full"
+                  />
+                </Form.Item>
+              </div>
             </div>
-          </Form.Item>
+
+            {/* Capacity Information Section */}
+            <div className="bg-gradient-to-r from-gray-50 to-white p-5 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-1 h-5 bg-gradient-to-b from-primaryColor to-secondaryColor rounded-full"></div>
+                <h4 className="text-lg font-bold text-gray-800">{t('housing.capacityInformation') || 'معلومات السعة'}</h4>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {isRoomType && (
+                  <>
+                    <Form.Item
+                      label={t('housing.totalRooms')}
+                      name="totalRooms"
+                      rules={[{ required: true, message: t('housing.pleaseEnterTotalRooms') }]}
+                    >
+                      <InputNumber 
+                        min={1} 
+                        className="w-full" 
+                        size="large" 
+                        placeholder={t('housing.enterTotalRooms')}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label={t('housing.numberOfFloors')}
+                      name="floors"
+                    >
+                      <InputNumber 
+                        min={1} 
+                        className="w-full" 
+                        size="large" 
+                        placeholder={t('housing.enterNumberOfFloors')}
+                      />
+                    </Form.Item>
+                  </>
+                )}
+
+                {isTentType && (
+                  <>
+                    <Form.Item
+                      label={t('housing.totalTents')}
+                      name="totalTents"
+                      rules={[{ required: true, message: t('housing.pleaseEnterTotalTents') }]}
+                    >
+                      <InputNumber 
+                        min={1} 
+                        className="w-full" 
+                        size="large" 
+                        placeholder={t('housing.enterTotalTents')}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label={t('housing.section')}
+                      name="section"
+                    >
+                      <Input 
+                        size="large" 
+                        placeholder={t('housing.enterSection')}
+                        className="w-full"
+                      />
+                    </Form.Item>
+                  </>
+                )}
+
+                <Form.Item
+                  label={t('housing.totalCapacity')}
+                  name="capacity"
+                  rules={[{ required: true, message: t('housing.pleaseEnterCapacity') }]}
+                  className={isRoomType ? 'md:col-span-2' : ''}
+                >
+                  <InputNumber 
+                    min={1} 
+                    className="w-full" 
+                    size="large" 
+                    placeholder={t('housing.enterCapacity')}
+                  />
+                </Form.Item>
+              </div>
+            </div>
+          </div>
+
+          {/* Form Actions */}
+          <div className="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-200">
+            <button
+              type="button"
+              onClick={() => {
+                setManualEntryModalOpen(false);
+                manualEntryForm.resetFields();
+              }}
+              className="px-6 py-2.5 rounded-xl border-2 border-gray-300 text-gray-700 hover:border-primaryColor hover:text-primaryColor hover:bg-primaryColor/5 transition-all duration-200 font-semibold"
+            >
+              {t('cancel')}
+            </button>
+            <button
+              type="submit"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primaryColor to-secondaryColor text-white hover:shadow-lg hover:shadow-primaryColor/30 transition-all duration-200 font-semibold"
+            >
+              {t('save')}
+            </button>
+          </div>
         </Form>
       </Modal>
     </>

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined, DollarOutlined, ClockCircleOutlined, CalendarOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -24,8 +24,24 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
     if (location.pathname === "/") return ["home"];
     if (location.pathname.startsWith("/test")) return ["test"];
     if (location.pathname.startsWith("/service-centers")) return ["service-centers"];
-    if (location.pathname.startsWith("/organizers")) return ["organizers"];
-    if (location.pathname.startsWith("/hr")) return ["hr"];
+    if (location.pathname.startsWith("/organizers")) {
+      if (location.pathname === "/organizers") {
+        return ["organizers-list"];
+      }
+      if (location.pathname.includes("/campaigns")) {
+        return ["organizers-campaigns"];
+      }
+      return ["organizers-list"];
+    }
+    if (location.pathname.startsWith("/hr")) {
+      if (location.pathname === "/hr") return ["hr-dashboard"];
+      if (location.pathname.includes("/shift-schedules")) return ["hr-shift-schedules"];
+      if (location.pathname.includes("/attendance")) return ["hr-attendance"];
+      if (location.pathname.includes("/leaves")) return ["hr-leaves"];
+      if (location.pathname.includes("/employees")) return ["hr-employees"];
+      if (location.pathname.includes("/reports")) return ["hr-reports"];
+      return ["hr-dashboard"];
+    }
     if (location.pathname.startsWith("/housing")) {
       if (location.pathname === "/housing") return ["housing-dashboard"];
       if (location.pathname.includes("/mashair")) return ["mashair-dashboard"];
@@ -48,11 +64,12 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       }
       if (location.pathname.includes("/ports")) return ["reception-ports"];
       if (location.pathname.includes("/campaigns")) {
-        return ["reception-campaigns"];
+        return ["organizers-campaigns"];
       }
       if (location.pathname.includes("/centers-dashboard")) {
         return ["reception-centers-dashboard"];
       }
+      if (location.pathname.includes("/reports")) return ["reception-reports"];
       return ["reception-dashboard"];
     }
     if (location.pathname.startsWith("/public-affairs")) {
@@ -62,6 +79,7 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
       return ["public-affairs-dashboard"];
     }
+    if (location.pathname.startsWith("/finance")) return ["finance"];
     return [];
   };
 
@@ -78,6 +96,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/public-affairs")) {
     openKeys.push("public-affairs");
+  }
+  if (location.pathname.startsWith("/organizers")) {
+    openKeys.push("organizers");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -98,12 +119,61 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       {
         key: "organizers",
         icon: <UserOutlined />,
-        label: <Link to="/organizers">{t("organizersTitle")}</Link>
+        label: t("organizersTitle"),
+        children: [
+          {
+            key: "organizers-list",
+            icon: <UserOutlined />,
+            label: <Link to="/organizers">{t("organizersTitle")}</Link>
+          },
+          {
+            key: "organizers-campaigns",
+            icon: <GlobalOutlined />,
+            label: <Link to="/organizers/campaigns">{t("reception.campaigns.title")}</Link>
+          }
+        ]
       },
       {
         key: "hr",
         icon: <TeamOutlined />,
-        label: <Link to="/hr">{t("hr.title")}</Link>
+        label: t("hr.title"),
+        children: [
+          {
+            key: "hr-dashboard",
+            icon: <DashboardOutlined />,
+            label: <Link to="/hr">{t("hr.dashboardTitle")}</Link>
+          },
+          {
+            key: "hr-employees",
+            icon: <UserOutlined />,
+            label: <Link to="/hr/employees">{t("hr.employees")}</Link>
+          },
+          {
+            key: "hr-shift-schedules",
+            icon: <ClockCircleOutlined />,
+            label: <Link to="/hr/shift-schedules">{t("hr.shifts.title")}</Link>
+          },
+          {
+            key: "hr-attendance",
+            icon: <ClockCircleOutlined />,
+            label: <Link to="/hr/attendance">{t("hr.attendance.title") || "الحضور والانصراف"}</Link>
+          },
+          {
+            key: "hr-leaves",
+            icon: <CalendarOutlined />,
+            label: <Link to="/hr/leaves">{t("hr.leaves.title") || "الإجازات"}</Link>
+          },
+          {
+            key: "hr-reports",
+            icon: <FileTextOutlined />,
+            label: <Link to="/hr/reports">{t("hr.reports") || "التقارير"}</Link>
+          }
+        ]
+      },
+      {
+        key: "finance",
+        icon: <DollarOutlined />,
+        label: <Link to="/finance">{t("finance.title")}</Link>
       },
       {
         key: "housing",
@@ -185,10 +255,10 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             label: <Link to="/reception/ports">{t("reception.ports.title")}</Link>
           },
           {
-            key: "reception-campaigns",
-            icon: <GlobalOutlined />,
-            label: <Link to="/reception/campaigns">{t("reception.campaigns.title")}</Link>
-          }
+            key: "reception-reports",
+            icon: <FileTextOutlined />,
+            label: <Link to="/reception/reports">{t("reception.reports") || "التقارير"}</Link>
+          },
         ]
       },
       {
@@ -238,8 +308,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           return null;
         }
         
-        // For menus with children (housing, reception, public-affairs), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs") && "children" in item && item.children) {
+        // For menus with children (housing, reception, public-affairs, organizers, hr), filter children and only show parent if at least one child is visible
+        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "organizers" || item.key === "hr") && "children" in item && item.children) {
           const filteredChildren = item.children
             .map((child: any) => {
               if (!child) return null;

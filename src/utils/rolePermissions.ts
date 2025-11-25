@@ -4,7 +4,15 @@ export type MenuKey =
   | "home"
   | "service-centers"
   | "organizers"
+  | "organizers-list"
+  | "organizers-campaigns"
   | "hr"
+  | "hr-dashboard"
+  | "hr-shift-schedules"
+  | "hr-attendance"
+  | "hr-leaves"
+  | "hr-employees"
+  | "hr-reports"
   | "housing"
   | "housing-dashboard"
   | "housing-hotels"
@@ -21,13 +29,15 @@ export type MenuKey =
   | "reception-pre-arrival-arrivals"
   | "reception-pre-arrival-departures"
   | "reception-ports"
-  | "reception-campaigns"
+  | "reception-reports"
+  | "organizers-campaigns"
   | "reception-centers-dashboard"
   | "public-affairs"
   | "public-affairs-dashboard"
   | "public-affairs-deaths"
   | "public-affairs-hospitalized"
   | "public-affairs-other"
+  | "finance"
   | "test";
 
 // Define which menu items each role can access
@@ -36,7 +46,15 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "home",
     "service-centers",
     "organizers",
+    "organizers-list",
+    "organizers-campaigns",
     "hr",
+    "hr-dashboard",
+    "hr-shift-schedules",
+    "hr-attendance",
+    "hr-leaves",
+    "hr-employees",
+    "hr-reports",
     "housing",
     "housing-dashboard",
     "housing-hotels",
@@ -53,7 +71,8 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "reception-pre-arrival-arrivals",
     "reception-pre-arrival-departures",
     "reception-ports",
-    "reception-campaigns",
+    "reception-reports",
+    "organizers-campaigns",
     "reception-centers-dashboard",
 
     // public affairs permissions
@@ -62,6 +81,9 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "public-affairs-deaths",
     "public-affairs-hospitalized",
     "public-affairs-other",
+
+    // finance permissions
+    "finance",
 
     "test",
   ],
@@ -80,6 +102,8 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
   "company-user": [
     "home",
     "organizers",
+    "organizers-list",
+    "organizers-campaigns",
   ],
   "service-center-user": [
     "home",
@@ -88,12 +112,26 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
   "department-user": [
     "home",
     "hr",
+    "hr-dashboard",
+    "hr-shift-schedules",
+    "hr-attendance",
+    "hr-leaves",
+    "hr-employees",
+    "hr-reports",
   ],
   "pmo-user": [
     "home",
     "service-centers",
     "organizers",
+    "organizers-list",
+    "organizers-campaigns",
     "hr",
+    "hr-dashboard",
+    "hr-shift-schedules",
+    "hr-attendance",
+    "hr-leaves",
+    "hr-employees",
+    "hr-reports",
   ],
 };
 

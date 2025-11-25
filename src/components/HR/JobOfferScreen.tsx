@@ -44,7 +44,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
           name: 'قالب احترافي',
           subject: `${t('hr.jobOffer.title')} - ${employeeName} - ${department}`,
           body: `السيد/السيدة ${employeeName}،\n\n` +
-            `نتشرف نحن إدارة الموارد البشرية في بوابة كامل بتقديم عرض عمل لكم للانضمام إلى فريقنا المتميز في منصب ${jobRank} بقسم ${department}.\n\n` +
+            `نتشرف نحن إدارة الموارد البشرية في بوابة كامل بتقديم عرض عمل لكم للانضمام إلى فريقنا المتميز في منصب ${jobRank} ب${department}.\n\n` +
             `ملاحظة: سيتم إرسال هذا العرض على بريدكم الإلكتروني: ${employee.email}\n\n` +
             `تفاصيل الوظيفة:\n` +
             `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -64,7 +64,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
             `${t('hr.form.numberOfDays')}: ${employee.numberOfDays} يوم\n\n` +
             `نتمنى أن ينال هذا العرض رضاكم ونتطلع إلى انضمامكم لفريقنا. يرجى تأكيد قبولكم لهذا العرض خلال مدة أسبوع من تاريخه.\n\n` +
             `مع أطيب التحيات،\n\n` +
-            `قسم الموارد البشرية\n` +
+            `الموارد البشرية\n` +
             `بوابة كامل`
         }
       ];
@@ -166,7 +166,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
       const arabicContent = `
         <div style="text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 3px solid #005B4F;">
           <h1 style="color: #005B4F; font-size: 28px; margin-bottom: 10px;">عرض عمل</h1>
-          <p style="color: #666; font-size: 14px;">بوابة كامل - قسم الموارد البشرية</p>
+          <p style="color: #666; font-size: 14px;">بوابة كامل - الموارد البشرية</p>
         </div>
         
         <div style="margin-bottom: 30px; text-align: right;">
@@ -179,7 +179,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
             تحية طيبة وبعد،
           </p>
           <p style="font-size: 16px; margin-bottom: 20px; text-align: justify;">
-            نتشرف نحن إدارة الموارد البشرية في بوابة كامل بتقديم عرض عمل لكم للانضمام إلى فريقنا المتميز في منصب <strong>${translateJobRank(employee.jobRank)}</strong> بقسم <strong>${translateDepartment(employee.department)}</strong>.
+            نتشرف نحن إدارة الموارد البشرية في بوابة كامل بتقديم عرض عمل لكم للانضمام إلى فريقنا المتميز في منصب <strong>${translateJobRank(employee.jobRank)}</strong> ب<strong>${translateDepartment(employee.department)}</strong>.
           </p>
         </div>
         
@@ -187,7 +187,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
           <h3 style="color: #005B4F; font-size: 20px; margin-bottom: 20px; text-align: right; border-bottom: 2px solid #005B4F; padding-bottom: 10px;">تفاصيل الوظيفة:</h3>
           <div style="text-align: right; font-size: 16px; line-height: 2.5;">
             <p><strong>المنصب:</strong> ${translateJobRank(employee.jobRank)}</p>
-            <p><strong>القسم:</strong> ${translateDepartment(employee.department)}</p>
+            <p><strong>:</strong> ${translateDepartment(employee.department)}</p>
             <p><strong>${t('hr.form.shiftPeriod')}:</strong> ${translateShiftPeriod(employee.shiftPeriod)}</p>
             <p><strong>${t('hr.form.shiftDuration')}:</strong> ${employee.shiftDuration === '8h' ? t('hr.form.8h') : t('hr.form.12h')}</p>
           </div>
@@ -220,7 +220,7 @@ export const JobOfferScreen: React.FC<JobOfferScreenProps> = ({
         </div>
         
         <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #ddd; text-align: right;">
-          <p style="font-size: 18px; font-weight: bold; color: #005B4F; margin-bottom: 10px;">قسم الموارد البشرية</p>
+          <p style="font-size: 18px; font-weight: bold; color: #005B4F; margin-bottom: 10px;">الموارد البشرية</p>
           <p style="font-size: 16px; color: #666; margin-bottom: 10px;">بوابة كامل</p>
           <p style="font-size: 14px; color: #999;">${employee.email}</p>
         </div>

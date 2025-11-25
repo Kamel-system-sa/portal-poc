@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CloseOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import { CampaignRegistrationForm } from '../../components/Reception/CampaignRegistrationForm';
-import { CampaignFollowUpForm } from '../../components/Reception/CampaignFollowUpForm';
-import { CampaignDetails } from '../../components/Reception/CampaignDetails';
+import { CampaignRegistrationForm } from '../../components/Organizers Component/CampaignRegistrationForm';
+import { CampaignFollowUpForm } from '../../components/Organizers Component/CampaignFollowUpForm';
+import { CampaignDetails } from '../../components/Organizers Component/CampaignDetails';
 import type { CampaignRegistrationFormData, CampaignFollowUpFormData, Campaign } from '../../types/reception';
 
 const CampaignsRegistrationPage: React.FC = () => {
@@ -52,7 +52,7 @@ const CampaignsRegistrationPage: React.FC = () => {
   const handleFollowUpSaveAndExit = (data: CampaignFollowUpFormData) => {
     handleFollowUpSave(data);
     setTimeout(() => {
-      navigate('/reception/campaigns');
+      navigate('/organizers/campaigns');
     }, 2000);
   };
 
@@ -69,11 +69,11 @@ const CampaignsRegistrationPage: React.FC = () => {
 
   const handleCancel = () => {
     if (step === 'registration') {
-      navigate('/reception/campaigns');
+      navigate('/organizers/campaigns');
     } else if (step === 'followUp') {
       setStep('registration');
     } else {
-      navigate('/reception/campaigns');
+      navigate('/organizers/campaigns');
     }
   };
 
@@ -169,7 +169,7 @@ const CampaignsRegistrationPage: React.FC = () => {
               <CampaignDetails campaign={createdCampaign} />
               <div className="flex justify-center gap-4 pt-6 border-t border-gray-200">
                 <button
-                  onClick={() => navigate('/reception/campaigns')}
+                  onClick={() => navigate('/organizers/campaigns')}
                   className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all duration-200 font-semibold"
                 >
                   {t('reception.campaigns.registration.backToList') || 'Back to List'}

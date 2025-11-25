@@ -50,6 +50,11 @@ import TestPage from "./pages/TestPage";
 import ServiceCentersPage from "./pages/ServiceCentersPage";
 import OrganizersPage from "./pages/OrganizersPage";
 import HRDashboardPage from "./pages/HRDashboardPage";
+import ShiftSchedulesPage from "./pages/HRPages/ShiftSchedulesPage";
+import AttendancePage from "./pages/HRPages/AttendancePage";
+import LeavesPage from "./pages/HRPages/LeavesPage";
+import EmployeesPage from "./pages/HRPages/EmployeesPage";
+import HRReportsPage from "./pages/HRPages/ReportsPage";
 import HousingDashboardPage from "./pages/HousingPages/HousingDashboardPage";
 import HotelHousingPage from "./pages/HousingPages/HotelHousingPage";
 import BuildingHousingPage from "./pages/HousingPages/BuildingHousingPage";
@@ -62,14 +67,17 @@ import MashairDashboardPage from "./pages/HousingPages/MashairDashboardPage";
 import PreArrivalDashboardPage from "./pages/ReceptionPages/PreArrivalDashboardPage";
 import PreDepartureDashboardPage from "./pages/ReceptionPages/PreDepartureDashboardPage";
 import ReceptionDashboardPage from "./pages/ReceptionPages/ReceptionDashboardPage";
+import ReceptionReportsPage from "./pages/ReceptionPages/ReportsPage";
 import PortsListPage from "./pages/ReceptionPages/PortsListPage";
-import CampaignsListPage from "./pages/ReceptionPages/CampaignsListPage";
-import CampaignsRegistrationPage from "./pages/ReceptionPages/CampaignsRegistrationPage";
+import PortsDashboardPage from "./pages/ReceptionPages/PortsDashboardPage";
+import CampaignsListPage from "./pages/OrganizersPages/CampaignsListPage";
+import CampaignsRegistrationPage from "./pages/OrganizersPages/CampaignsRegistrationPage";
 import CentersDashboardPage from "./pages/ReceptionPages/CentersDashboardPage";
 import PublicAffairsDashboardPage from "./pages/PublicAffairsPages/PublicAffairsDashboardPage";
 import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
+import FinancePage from "./pages/FinancePage";
 import App from "./App";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
@@ -82,7 +90,14 @@ const router = createBrowserRouter([
       { path: "test", element: <TestPage /> },
       { path: "service-centers", element: <ServiceCentersPage /> },
       { path: "organizers", element: <OrganizersPage /> },
+      { path: "organizers/campaigns", element: <CampaignsListPage /> },
+      { path: "organizers/campaigns/register", element: <CampaignsRegistrationPage /> },
       { path: "hr", element: <HRDashboardPage /> },
+      { path: "hr/shift-schedules", element: <ShiftSchedulesPage /> },
+      { path: "hr/attendance", element: <AttendancePage /> },
+      { path: "hr/leaves", element: <LeavesPage /> },
+      { path: "hr/employees", element: <EmployeesPage /> },
+      { path: "hr/reports", element: <HRReportsPage /> },
       { path: "housing", element: <HousingDashboardPage /> },
       { path: "housing/hotels", element: <HotelHousingPage /> },
       { path: "housing/buildings", element: <BuildingHousingPage /> },
@@ -96,16 +111,16 @@ const router = createBrowserRouter([
       { path: "reception/pre-arrival", element: <PreArrivalDashboardPage /> },
       { path: "reception/pre-arrival/list", element: <PreArrivalDashboardPage /> },
       { path: "reception/pre-arrival/departures", element: <PreDepartureDashboardPage /> },
-      { path: "reception/ports", element: <PortsListPage /> },
-      { path: "reception/ports/airports", element: <PortsListPage /> },
-      { path: "reception/ports/land", element: <PortsListPage /> },
-      { path: "reception/campaigns", element: <CampaignsListPage /> },
-      { path: "reception/campaigns/register", element: <CampaignsRegistrationPage /> },
+      { path: "reception/ports", element: <PortsDashboardPage /> },
+      { path: "reception/ports/airports", element: <PortsDashboardPage /> },
+      { path: "reception/ports/land", element: <PortsDashboardPage /> },
       { path: "reception/centers-dashboard", element: <CentersDashboardPage /> },
+      { path: "reception/reports", element: <ReceptionReportsPage /> },
       { path: "public-affairs", element: <PublicAffairsDashboardPage /> },
       { path: "public-affairs/deaths", element: <DeathCasesPage /> },
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
+      { path: "finance", element: <FinancePage /> },
     ],
   },
 ]);

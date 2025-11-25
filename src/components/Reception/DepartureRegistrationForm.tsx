@@ -23,21 +23,11 @@ interface Step1Data {
   }>;
 }
 
-interface Step2Data {
-  arrivalDestination: 'makkah' | 'madinah' | 'jeddah' | 'madinah-airport' | '';
-  arrivalAccommodations: Array<{
-    accommodationId: string;
-    accommodationName: string;
-    contractNumber: string;
-    contractStartDate: string;
-    pilgrimsArriving: number;
-  }>;
-}
 
 export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps> = ({ onComplete, onClose }) => {
   const { t, i18n } = useTranslation('common');
   const isRtl = i18n.language === 'ar' || i18n.language === 'ur';
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
+  const [currentStep, setCurrentStep] = useState<1 | 2>(1);
 
   // Step 1 Data
   const [step1Data, setStep1Data] = useState<Step1Data>({
@@ -47,11 +37,6 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
     accommodations: []
   });
 
-  // Step 2 Data
-  const [step2Data, setStep2Data] = useState<Step2Data>({
-    arrivalDestination: '',
-    arrivalAccommodations: []
-  });
 
   // Auto-filled organizer data
   const [organizerData, setOrganizerData] = useState<any>(null);
@@ -133,55 +118,6 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
     }));
   };
 
-  const handleAddArrivalAccommodation = () => {
-    setStep2Data(prev => ({
-      ...prev,
-      arrivalAccommodations: [
-        ...prev.arrivalAccommodations,
-        {
-          accommodationId: '',
-          accommodationName: '',
-          contractNumber: '',
-          contractStartDate: '',
-          pilgrimsArriving: 0
-        }
-      ]
-    }));
-  };
-
-  const handleRemoveArrivalAccommodation = (index: number) => {
-    setStep2Data(prev => ({
-      ...prev,
-      arrivalAccommodations: prev.arrivalAccommodations.filter((_, i) => i !== index)
-    }));
-  };
-
-  const handleArrivalAccommodationChange = (index: number, field: string, value: any) => {
-    setStep2Data(prev => ({
-      ...prev,
-      arrivalAccommodations: prev.arrivalAccommodations.map((acc, i) => 
-        i === index ? { ...acc, [field]: value } : acc
-      )
-    }));
-  };
-
-  // Get available accommodations for arrival destination
-  const getAvailableAccommodations = () => {
-    if (!step2Data.arrivalDestination) return [];
-    
-    // Filter accommodations based on destination
-    return mockAccommodations.filter(acc => {
-      const location = acc.location.toLowerCase();
-      if (step2Data.arrivalDestination === 'makkah') {
-        return location.includes('makkah') || location.includes('mecca');
-      } else if (step2Data.arrivalDestination === 'madinah' || step2Data.arrivalDestination === 'madinah-airport') {
-        return location.includes('madinah') || location.includes('medina');
-      } else if (step2Data.arrivalDestination === 'jeddah') {
-        return location.includes('jeddah');
-      }
-      return true;
-    });
-  };
 
   const handleNextStep = () => {
     if (currentStep === 1) {
@@ -191,13 +127,6 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
         return;
       }
       setCurrentStep(2);
-    } else if (currentStep === 2) {
-      // Validate step 2
-      if (!step2Data.arrivalDestination) {
-        alert('يرجى اختيار جهة الوصول');
-        return;
-      }
-      setCurrentStep(3);
     }
   };
 
@@ -222,12 +151,12 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
       campaignNumber: step1Data.campaignNumber,
       campaignManagerPhone: campaignData?.organizerPhone || '',
       departurePoint: step1Data.departurePoint,
-      arrivalDestination: step2Data.arrivalDestination,
+      arrivalDestination: '',
       departureDate: departureDate,
       departureTime: departureTime,
       pilgrimsCount: totalPilgrims,
       accommodations: step1Data.accommodations,
-      arrivalAccommodations: step2Data.arrivalAccommodations
+      arrivalAccommodations: []
     };
 
     onComplete(completeData);
@@ -430,163 +359,9 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
     </div>
   );
 
-  // Step 2: Choose Arrival
-  const renderStep2 = () => (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-        <h3 className="text-xl font-bold text-gray-900">
-          {t('reception.preArrival.departures.form.step2.title') || 'الخطوة 2: اختيار الوصول'}
-        </h3>
-      </div>
-
-      {/* Arrival Destination */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2">
-          {t('reception.preArrival.departures.form.step2.arrivalDestination') || 'جهة الوصول'}
-        </label>
-        <div className="grid grid-cols-3 gap-3">
-          <button
-            type="button"
-            onClick={() => setStep2Data(prev => ({ ...prev, arrivalDestination: 'makkah' }))}
-            disabled={step1Data.departurePoint === 'makkah'}
-            className={`px-4 py-3 rounded-xl font-semibold transition-all ${
-              step2Data.arrivalDestination === 'makkah'
-                ? 'bg-mainColor text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            } ${step1Data.departurePoint === 'makkah' ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {t('reception.preArrival.departures.form.step1.makkah') || 'مكة'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setStep2Data(prev => ({ ...prev, arrivalDestination: 'madinah' }))}
-            disabled={step1Data.departurePoint === 'madinah'}
-            className={`px-4 py-3 rounded-xl font-semibold transition-all ${
-              step2Data.arrivalDestination === 'madinah'
-                ? 'bg-mainColor text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            } ${step1Data.departurePoint === 'madinah' ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {t('reception.preArrival.departures.form.step1.madinah') || 'المدينة'}
-          </button>
-          <button
-            type="button"
-            onClick={() => setStep2Data(prev => ({ ...prev, arrivalDestination: 'jeddah' }))}
-            className={`px-4 py-3 rounded-xl font-semibold transition-all ${
-              step2Data.arrivalDestination === 'jeddah'
-                ? 'bg-mainColor text-white shadow-lg'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('reception.preArrival.departures.form.step2.jeddah') || 'جدة'}
-          </button>
-        </div>
-      </div>
-
-      {/* Available Accommodations */}
-      {step2Data.arrivalDestination && (
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            {t('reception.preArrival.departures.form.step2.availableAccommodations') || 'العمائر المتاحة في جهة الوصول'}
-          </label>
-
-          {/* Arrival Accommodations Table */}
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <label className="block text-sm font-semibold text-gray-700">
-                {t('reception.preArrival.departures.form.step2.accommodationsTable') || 'جدول العمائر'}
-              </label>
-              <button
-                type="button"
-                onClick={handleAddArrivalAccommodation}
-                className="px-4 py-2 bg-mainColor text-white rounded-lg hover:bg-primary transition-all font-semibold flex items-center gap-2"
-              >
-                <PlusOutlined />
-                {t('reception.preArrival.departures.form.step2.addArrivalAccommodation') || 'إضافة سكن وصول'}
-              </button>
-            </div>
-
-            <div className="space-y-3">
-              {step2Data.arrivalAccommodations.map((acc, index) => (
-                <div key={index} className="bg-gray-50 rounded-xl p-4 grid grid-cols-5 gap-3">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                      {t('reception.preArrival.departures.form.step1.accommodationName') || 'اسم السكن'}
-                    </label>
-                    <select
-                      value={acc.accommodationId}
-                      onChange={(e) => {
-                        const selectedAcc = getAvailableAccommodations().find(a => a.id === e.target.value);
-                        handleArrivalAccommodationChange(index, 'accommodationId', e.target.value);
-                        handleArrivalAccommodationChange(index, 'accommodationName', selectedAcc?.name || '');
-                      }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                    >
-                      <option value="">اختر السكن</option>
-                      {getAvailableAccommodations().map(a => (
-                        <option key={a.id} value={a.id}>{a.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                      {t('reception.preArrival.departures.form.step1.contractNumber') || 'رقم عقد السكن'}
-                    </label>
-                    <input
-                      type="text"
-                      value={acc.contractNumber}
-                      onChange={(e) => handleArrivalAccommodationChange(index, 'contractNumber', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                      placeholder="رقم العقد"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                      {t('reception.preArrival.departures.form.step2.contractStartDate') || 'تاريخ بداية العقد'}
-                    </label>
-                    <input
-                      type="date"
-                      value={acc.contractStartDate}
-                      onChange={(e) => handleArrivalAccommodationChange(index, 'contractStartDate', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">
-                      {t('reception.preArrival.departures.form.step2.pilgrimsArriving') || 'عدد الواصلين'}
-                    </label>
-                    <input
-                      type="number"
-                      value={acc.pilgrimsArriving || ''}
-                      onChange={(e) => handleArrivalAccommodationChange(index, 'pilgrimsArriving', parseInt(e.target.value) || 0)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                      min="0"
-                    />
-                  </div>
-                  <div className="flex items-end">
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveArrivalAccommodation(index)}
-                      className="w-full px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-all font-semibold flex items-center justify-center gap-2"
-                    >
-                      <DeleteOutlined />
-                      {t('reception.preArrival.departures.form.step2.removeArrivalAccommodation') || 'إزالة'}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
-  // Step 3: Confirm Information
-  const renderStep3 = () => {
+  // Step 2: Confirm Information
+  const renderStep2 = () => {
     const totalPilgrims = step1Data.accommodations.reduce((sum, acc) => sum + acc.pilgrimsDeparting, 0);
-    const route = `${step1Data.departurePoint === 'makkah' ? 'مكة' : 'المدينة'} → ${step2Data.arrivalDestination === 'makkah' ? 'مكة' : step2Data.arrivalDestination === 'madinah' ? 'المدينة' : step2Data.arrivalDestination === 'jeddah' ? 'جدة' : 'مطار المدينة'}`;
 
     return (
       <div className="space-y-6">
@@ -619,10 +394,6 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
             <div>
               <p className="text-sm text-gray-600">{t('reception.preArrival.departures.form.step3.campaignManagerPhone') || 'رقم الجوال مسؤول الحملة'}:</p>
               <p className="font-semibold text-gray-900">{campaignData?.organizerPhone}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600">{t('reception.preArrival.departures.form.step3.route') || 'مسار الرحلة'}:</p>
-              <p className="font-semibold text-gray-900">{route}</p>
             </div>
             <div>
               <p className="text-sm text-gray-600">{t('reception.preArrival.departures.form.step3.departureDateTime') || 'تاريخ ووقت المغادرة'}:</p>
@@ -684,7 +455,7 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
         {/* Steps Indicator */}
         <div className="px-6 py-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
-            {[1, 2, 3].map((step) => (
+            {[1, 2].map((step) => (
               <React.Fragment key={step}>
                 <div className="flex items-center gap-2">
                   <div
@@ -697,10 +468,10 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
                     {currentStep > step ? <CheckOutlined /> : step}
                   </div>
                   <span className={`text-sm font-semibold ${currentStep >= step ? 'text-mainColor' : 'text-gray-500'}`}>
-                    {step === 1 ? 'اختيار المغادرة' : step === 2 ? 'اختيار الوصول' : 'تأكيد المعلومات'}
+                    {step === 1 ? 'اختيار المغادرة' : 'تأكيد المعلومات'}
                   </span>
                 </div>
-                {step < 3 && (
+                {step < 2 && (
                   <div
                     className={`flex-1 h-0.5 mx-4 transition-all ${
                       currentStep > step ? 'bg-mainColor' : 'bg-gray-200'
@@ -716,7 +487,6 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
         <div className="p-6">
           {currentStep === 1 && renderStep1()}
           {currentStep === 2 && renderStep2()}
-          {currentStep === 3 && renderStep3()}
         </div>
 
         {/* Footer */}
@@ -735,7 +505,7 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
             >
               {t('form.cancel') || 'إلغاء'}
             </button>
-            {currentStep < 3 ? (
+            {currentStep < 2 ? (
               <button
                 onClick={handleNextStep}
                 className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all font-semibold"

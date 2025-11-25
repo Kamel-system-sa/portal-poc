@@ -306,7 +306,7 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
             {/* Group Count */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                {t('reception.ports.airports.groupCount') || 'Number of Pilgrims in Group'} *
+                {initialData ? 'عدد الحجاج في الرحلة' : (t('reception.ports.airports.groupCount') || 'عدد الحجاج في المجموعة')} *
               </label>
               <input
                 type="number"

@@ -67,7 +67,9 @@
     "serviceType": "Service Type",
     "status": "Status",
     "reset": "Reset",
-    "apply": "Apply Filters"
+    "apply": "Apply Filters",
+    "min": "Min",
+    "max": "Max"
   },
   "form": {
     "centerData": "Center Data",
@@ -107,6 +109,13 @@
     "edit": "Edit",
     "nationality": "Nationality",
     "selectNationality": "Select Nationality",
+    "gender": "Gender",
+    "selectGender": "Select Gender",
+    "male": "Male",
+    "female": "Female",
+    "uploadPhoto": "Upload Photo",
+    "changePhoto": "Change Photo",
+    "removePhoto": "Remove Photo",
     "status": "Status",
     "confirmDelete": "Confirm Delete",
     "confirmDeleteSubtitle": "This action cannot be undone",
@@ -180,7 +189,12 @@
   "sections": {
     "reception": "Reception Department",
     "housing": "Housing Department",
-    "fieldServices": "Field Services"
+    "fieldServices": "Field Services",
+    "passports": "Passports",
+    "transport": "Transport",
+    "holySites": "Holy Sites",
+    "publicAffairs": "Public Affairs",
+    "guidance": "Guidance"
   },
   "locations": {
     "mecca": "Mecca",
@@ -239,6 +253,8 @@
       "age": "Age",
       "mobile": "Mobile Number",
       "email": "Email",
+      "ibanNumber": "IBAN Number",
+      "ibanProof": "IBAN Proof",
       "departmentRole": "Department & Role",
       "department": "Department",
       "selectDepartment": "Select Department",
@@ -1079,6 +1095,7 @@
       "subtitle": "Confirm arrivals and bus passages",
       "list": {
         "subtitle": "Manage port entries and arrivals",
+        "totalEntries": "Total Entries",
         "searchPlaceholder": "Search by flight number, bus number, carrier...",
         "empty": "No port entries found",
         "emptyMessage": "Start by adding a new airport or land port entry",
@@ -1374,7 +1391,7 @@
     "updated": "Updated",
     "newEmployeeOnboarding": "New Employee Onboarding Procedure",
     "expenseReimbursement": "Expense Reimbursement Process",
-    "financeDepartment": "Finance Department",
+    "financeDepartment": "Finance Requests",
     "leaveRequestProcedure": "Leave Request Procedure",
     "equipmentRequestProcess": "Equipment Request Process",
     "incidentReporting": "Incident Reporting Procedure",
@@ -1493,5 +1510,32 @@
     "activeSessionsDescription": "View and manage devices where you are currently logged in",
     "viewSessions": "View Sessions",
     "saveChanges": "Save Changes"
+  },
+  "finance": {
+    "title": "Finance",
+    "subtitle": "Manage financial budgets for centers",
+    "addBudgetButton": "Add Budget for Center",
+    "totalBudget": "Total Budget",
+    "viewDetails": "View Details",
+    "hideDetails": "Hide Details",
+    "salaries": "Salaries",
+    "rent": "Rent",
+    "furniture": "Furniture",
+    "cars": "Cars",
+    "other": "Other",
+    "reservedAmount": "Reserved Amount",
+    "remainingBudget": "Remaining Budget",
+    "addBudget": "Add Budget for Center",
+    "selectCenter": "Select Center",
+    "selectCenterPlaceholder": "Select Center",
+    "showSummary": "Show Summary",
+    "budgetSummary": "Budget Summary",
+    "add": "Add",
+    "noCenters": "No financial centers to display",
+    "autoDistributedNote": "Budget automatically distributed, you can manually adjust the values",
+    "calculatedTotal": "Calculated Total",
+    "difference": "Difference",
+    "edit": "Edit",
+    "editBudget": "Edit Center Budget"
   }
 }

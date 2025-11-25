@@ -141,12 +141,16 @@ const HousingDashboardPage: React.FC = () => {
   }, [hotels, buildings]);
 
 
-  // Pilgrim Preferences mock data
+  // Pilgrim Preferences mock data (only hotels)
   const pilgrimPreferences = useMemo(() => ({
     totalWithPreferences: 120,
-    preferMina: 45,
-    preferArafat: 30,
     preferHotels: 20,
+    preferHotelsDetails: {
+      nearHaram: 8,
+      nearSafa: 5,
+      luxury: 4,
+      budget: 3
+    },
     withSpecialNotes: 25
   }), []);
 
@@ -157,18 +161,19 @@ const HousingDashboardPage: React.FC = () => {
     criticalIssues: 4
   }), []);
 
-  // Pilgrim Preferences chart data
+  // Pilgrim Preferences chart data (only hotels with details)
   const preferencesChartData = useMemo(() => [
-    { name: t('housing.preferMina') || 'Prefer Mina', value: pilgrimPreferences.preferMina, color: COLORS.primary },
-    { name: t('housing.preferArafat') || 'Prefer Arafat', value: pilgrimPreferences.preferArafat, color: COLORS.secondary },
-    { name: t('housing.preferHotels') || 'Prefer Hotels', value: pilgrimPreferences.preferHotels, color: COLORS.teal },
+    { name: t('housing.preferHotels') + ' - ' + t('housing.nearHaram'), value: pilgrimPreferences.preferHotelsDetails.nearHaram, color: COLORS.primary },
+    { name: t('housing.preferHotels') + ' - ' + t('housing.nearSafa'), value: pilgrimPreferences.preferHotelsDetails.nearSafa, color: COLORS.secondary },
+    { name: t('housing.preferHotels') + ' - ' + t('housing.luxury'), value: pilgrimPreferences.preferHotelsDetails.luxury, color: COLORS.teal },
+    { name: t('housing.preferHotels') + ' - ' + t('housing.budget'), value: pilgrimPreferences.preferHotelsDetails.budget, color: COLORS.amber },
   ], [pilgrimPreferences, t]);
 
   // Inspection Reports chart data
   const inspectionChartData = useMemo(() => [
-    { name: t('housing.noIssues') || 'No Issues', value: inspectionReports.noIssues, color: COLORS.secondary },
-    { name: t('housing.mediumIssues') || 'Medium Issues', value: inspectionReports.mediumIssues, color: COLORS.amber },
-    { name: t('housing.criticalIssues') || 'Critical Issues', value: inspectionReports.criticalIssues, color: '#EF4444' },
+    { name: t('housing.noIssues'), value: inspectionReports.noIssues, color: COLORS.secondary },
+    { name: t('housing.mediumIssues'), value: inspectionReports.mediumIssues, color: COLORS.amber },
+    { name: t('housing.criticalIssues'), value: inspectionReports.criticalIssues, color: '#EF4444' },
   ], [inspectionReports, t]);
 
   // Chart data for Mina
@@ -343,56 +348,32 @@ const HousingDashboardPage: React.FC = () => {
         {/* Overall Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           <HousingStatsCard
-            title={t('housing.totalPilgrims')}
-            value={mockPilgrims.length}
-            icon={<GlobalOutlined />}
+            title={t('housing.totalHousing')}
+            value={hotelsStats.totalHotels + buildingsStats.totalBuildings}
+            icon={<HomeOutlined />}
             color="mainColor"
           />
           <HousingStatsCard
-            title={t('housing.availableBeds')}
-            value={minaStats.availableBeds + arafatStats.availableBeds + hotelsStats.availableBeds + buildingsStats.availableBeds}
-            icon={<CheckSquareOutlined />}
-            color="success"
-          />
-          <HousingStatsCard
             title={t('housing.totalCapacity')}
-            value={minaStats.totalBeds + arafatStats.totalBeds + hotelsStats.totalBeds + buildingsStats.totalBeds}
+            value={hotelsStats.totalBeds + buildingsStats.totalBeds}
             icon={<AppstoreOutlined />}
             color="primaryColor"
           />
           <HousingStatsCard
-            title={t('housing.totalHoused')}
-            value={minaStats.occupiedBeds + arafatStats.occupiedBeds + hotelsStats.occupiedBeds + buildingsStats.occupiedBeds}
-            icon={<HomeOutlined />}
-            color="secondaryColor"
-          />
-          <HousingStatsCard
-            title={t('housing.mina') + ' ' + t('housing.tents')}
-            value={minaStats.totalTents}
-            icon={<FaCampground />}
-            color="primaryColor"
-          />
-          <HousingStatsCard
-            title={t('housing.arafat') + ' ' + t('housing.tents')}
-            value={arafatStats.totalTents}
-            icon={<FaCampground />}
-            color="secondaryColor"
-          />
-          <HousingStatsCard
-            title={t('housing.makkah') + ' ' + t('housing.hotels') + ' & ' + t('housing.buildings')}
+            title={t('housing.makkah') + ' (' + t('housing.hotels') + ' & ' + t('housing.buildings') + ')'}
             value={cityStats.makkah.hotels + cityStats.makkah.buildings}
             icon={<BuildOutlined />}
-            color="mainColor"
+            color="secondaryColor"
           />
           <HousingStatsCard
-            title={t('housing.madinah') + ' ' + t('housing.hotels') + ' & ' + t('housing.buildings')}
+            title={t('housing.madinah') + ' (' + t('housing.hotels') + ' & ' + t('housing.buildings') + ')'}
             value={cityStats.madinah.hotels + cityStats.madinah.buildings}
             icon={<ApartmentOutlined />}
             color="success"
           />
         </div>
 
-        {/* 2x2 Grid: Hotels, Buildings, Mina, Arafat */}
+        {/* 2x2 Grid: Hotels, Buildings */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
           {/* Row 1: Hotels */}
           <SectionCard
@@ -412,26 +393,6 @@ const HousingDashboardPage: React.FC = () => {
             icon={<FaBuilding className="text-primaryColor text-xl" />}
             route="/housing/buildings"
             type="building"
-          />
-
-          {/* Row 2: Mina Camps */}
-          <SectionCard
-            title={t('housing.mina')}
-            stats={minaStats}
-            chartData={minaChartData}
-            icon={<FaCampground className="text-primaryColor text-xl" />}
-            route="/housing/mina"
-            type="mina"
-          />
-
-          {/* Row 2: Arafat Camps */}
-          <SectionCard
-            title={t('housing.arafat')}
-            stats={arafatStats}
-            chartData={arafatChartData}
-            icon={<FaCampground className="text-secondaryColor text-xl" />}
-            route="/housing/arafat"
-            type="arafat"
           />
         </div>
 
@@ -542,18 +503,18 @@ const HousingDashboardPage: React.FC = () => {
           <GlassCard className="p-6 border-2 border-bordergray/50 bg-white/90">
             <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
               <HeartOutlined className="text-primaryColor text-xl" />
-              {t('housing.pilgrimPreferences') || 'Pilgrim Preferences'}
+              {t('housing.pilgrimPreferences')}
             </h3>
 
             {/* KPIs */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="p-4 bg-gradient-to-br from-primaryColor/10 to-primaryColor/5 rounded-lg border border-primaryColor/20">
                 <div className="text-2xl font-bold text-primaryColor mb-1">{pilgrimPreferences.totalWithPreferences}</div>
-                <div className="text-xs text-customgray">{t('housing.pilgrimsWithPreferences') || 'Pilgrims with Preferences'}</div>
+                <div className="text-xs text-customgray">{t('housing.pilgrimsWithPreferences')}</div>
               </div>
               <div className="p-4 bg-gradient-to-br from-secondaryColor/10 to-secondaryColor/5 rounded-lg border border-secondaryColor/20">
                 <div className="text-2xl font-bold text-secondaryColor mb-1">{pilgrimPreferences.withSpecialNotes}</div>
-                <div className="text-xs text-customgray">{t('housing.withSpecialNotes') || 'With Special Notes'}</div>
+                <div className="text-xs text-customgray">{t('housing.withSpecialNotes')}</div>
               </div>
             </div>
 
@@ -600,7 +561,7 @@ const HousingDashboardPage: React.FC = () => {
           <GlassCard className="p-6 border-2 border-bordergray/50 bg-white/90">
             <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
               <SafetyOutlined className="text-primaryColor text-xl" />
-              {t('housing.fieldInspectionReports') || 'Field Inspection Reports'}
+              {t('housing.fieldInspectionReports')}
             </h3>
 
             {/* KPIs */}
@@ -608,17 +569,17 @@ const HousingDashboardPage: React.FC = () => {
               <div className="p-4 bg-gradient-to-br from-secondaryColor/10 to-secondaryColor/5 rounded-lg border border-secondaryColor/20 text-center">
                 <CheckCircleOutlined className="text-secondaryColor text-2xl mx-auto mb-2" />
                 <div className="text-xl font-bold text-secondaryColor mb-1">{inspectionReports.noIssues}</div>
-                <div className="text-xs text-customgray">{t('housing.noIssues') || 'No Issues'}</div>
+                <div className="text-xs text-customgray">{t('housing.noIssues')}</div>
               </div>
               <div className="p-4 bg-gradient-to-br from-amber-100 to-amber-50 rounded-lg border border-amber-200 text-center">
                 <WarningOutlined className="text-amber-600 text-2xl mx-auto mb-2" />
                 <div className="text-xl font-bold text-amber-600 mb-1">{inspectionReports.mediumIssues}</div>
-                <div className="text-xs text-customgray">{t('housing.mediumIssues') || 'Medium Issues'}</div>
+                <div className="text-xs text-customgray">{t('housing.mediumIssues')}</div>
               </div>
               <div className="p-4 bg-gradient-to-br from-red-100 to-red-50 rounded-lg border border-red-200 text-center">
                 <ExclamationCircleOutlined className="text-red-600 text-2xl mx-auto mb-2" />
                 <div className="text-xl font-bold text-red-600 mb-1">{inspectionReports.criticalIssues}</div>
-                <div className="text-xs text-customgray">{t('housing.criticalIssues') || 'Critical Issues'}</div>
+                <div className="text-xs text-customgray">{t('housing.criticalIssues')}</div>
               </div>
             </div>
 

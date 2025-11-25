@@ -66,6 +66,7 @@ export interface Hotel {
   id: string;
   name: string;
   location: string;
+  city?: 'makkah' | 'madinah';
   totalRooms: number;
   rooms: Room[];
   totalCapacity: number;

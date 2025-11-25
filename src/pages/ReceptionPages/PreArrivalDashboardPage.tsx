@@ -7,7 +7,8 @@ import { ArrivalGroupsList } from '../../components/Reception/ArrivalGroupsList'
 import { ExcelUploadFlow } from '../../components/Reception/ExcelUploadFlow';
 import { DataConfirmationScreen } from '../../components/Reception/DataConfirmationScreen';
 import { EditGroupDataModal } from '../../components/Reception/EditGroupDataModal';
-import { mockArrivalGroups, mockDashboardKPI, mockArrivalsByDestination, mockArrivalsTrend, mockArrivalsByCampaign, mockActivityTimeline } from '../../data/mockReception';
+import ArrivalNationalityStatistics from '../../components/Reception/ArrivalNationalityStatistics';
+import { mockArrivalGroups, mockDashboardKPI, mockArrivalsByDestination, mockArrivalsTrend, mockArrivalsByCampaign, mockActivityTimeline, mockNationalityStatistics } from '../../data/mockReception';
 import type { DashboardKPI, ChartData, ActivityTimelineItem, ArrivalGroup } from '../../types/reception';
 
 const PreArrivalDashboardPage: React.FC = () => {
@@ -185,20 +186,6 @@ const PreArrivalDashboardPage: React.FC = () => {
                       className="hover:opacity-80 transition-opacity"
                     />
                     {/* Percentage text in center of segment */}
-                    {segment.percentage > 8 && (
-                      <text
-                        x={centerX + (radius * 0.6) * Math.cos(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        y={centerY + (radius * 0.6) * Math.sin(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontSize="10"
-                        fontWeight="bold"
-                        fill="white"
-                        className="drop-shadow-sm"
-                      >
-                        {segment.percentage.toFixed(0)}%
-                      </text>
-                    )}
                   </g>
                 ))}
                 {/* Center circle for donut effect */}
@@ -208,27 +195,6 @@ const PreArrivalDashboardPage: React.FC = () => {
                   r="38"
                   fill="white"
                 />
-                <text
-                  x={centerX}
-                  y={centerY - 3}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="13"
-                  fontWeight="bold"
-                  fill="#1F2937"
-                >
-                  {total}
-                </text>
-                <text
-                  x={centerX}
-                  y={centerY + 9}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="8.5"
-                  fill="#6B7280"
-                >
-                  المجموع
-                </text>
               </svg>
             </div>
             
@@ -741,7 +707,7 @@ const PreArrivalDashboardPage: React.FC = () => {
         {viewMode === 'dashboard' && (
           <>
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-5">
               {[
                 {
                   title: t('reception.preArrival.dashboard.totalGroups'),
@@ -798,22 +764,33 @@ const PreArrivalDashboardPage: React.FC = () => {
               ].map((card, index) => (
                 <div
                   key={index}
-                  className={`bg-white rounded-xl shadow-md p-4 border ${card.colorScheme.border} hover:shadow-lg ${card.colorScheme.hoverShadow} hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col`}
-                  style={{ minHeight: '120px' }}
+                  className={`bg-white rounded-xl shadow-md p-3 border ${card.colorScheme.border} hover:shadow-lg ${card.colorScheme.hoverShadow} hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center`}
+                  style={{ minHeight: '100px' }}
                 >
-                  <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${card.colorScheme.bgGradient} to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity`}></div>
-                  <div className={`relative w-12 h-12 rounded-lg ${card.colorScheme.iconBg} flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0`}>
-                    <div className={`${card.colorScheme.iconColor} text-lg`}>{card.icon}</div>
+                  <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${card.colorScheme.bgGradient} to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity`}></div>
+                  <div className={`relative w-10 h-10 rounded-lg ${card.colorScheme.iconBg} flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0`}>
+                    <div className={`${card.colorScheme.iconColor} text-base`}>{card.icon}</div>
                   </div>
-                  <h3 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{card.title}</h3>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{card.value}</span>
-                  <div className={`mt-2 w-10 h-0.5 ${card.colorScheme.lineColor} rounded-full flex-shrink-0`}></div>
+                  <h3 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{card.title}</h3>
+                  <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{card.value}</span>
+                  <div className={`mt-1.5 w-8 h-0.5 ${card.colorScheme.lineColor} rounded-full flex-shrink-0`}></div>
                 </div>
               ))}
         </div>
 
             {/* KPI Cards */}
             <PreArrivalKPICards kpi={mockDashboardKPI} />
+
+            {/* Nationality Statistics - Arrivals */}
+            <div className="mb-5">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+                <h2 className="text-xl font-bold text-gray-900">
+                  الوصول حسب الجنسيات
+                </h2>
+              </div>
+              <ArrivalNationalityStatistics data={mockNationalityStatistics} />
+            </div>
 
             {/* Charts & Analytics */}
         <div className="mb-5">
@@ -885,6 +862,8 @@ const PreArrivalDashboardPage: React.FC = () => {
                               <span className="text-mainColor font-semibold">{group.flightNumber}</span>
                             </>
                           )}
+                          <span>•</span>
+                          <span className="text-gray-500">تاريخ الميلاد: {group.rawPassengerData?.[0]?.age ? `${2024 - (group.rawPassengerData[0].age || 0)}-01-01` : 'غير متوفر'}</span>
                         </div>
                       </div>
                     ))
@@ -1067,12 +1046,20 @@ const PreArrivalDashboardPage: React.FC = () => {
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-semibold text-gray-900 text-sm truncate">{activity.title}</span>
                         <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
-                          {new Date(activity.timestamp).toLocaleDateString()}{' '}
-                          {new Date(activity.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          {new Date(activity.timestamp).toLocaleDateString('ar-SA', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                          })}{' '}
+                          {new Date(activity.timestamp).toLocaleTimeString('ar-SA', { 
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            hour12: true 
+                          })}
                         </span>
                       </div>
                       <p className="text-xs text-gray-600">{activity.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">by {activity.userName}</p>
+                      <p className="text-xs text-gray-500 mt-1">بواسطة {activity.userName}</p>
                     </div>
                   </div>
                 ))}

@@ -22,9 +22,14 @@ import { ConfirmDeleteModal } from './ConfirmDeleteModal';
 // Helper to normalize section values (convert old Arabic to keys)
 const normalizeSection = (section: string): string => {
   const sectionMap: Record<string, string> = {
-    'قسم الاستقبال': 'reception',
-    'قسم الإسكان': 'housing',
-    'الخدمات الميدانية': 'fieldServices'
+    'الاستقبال': 'reception',
+    'الإسكان': 'housing',
+    'الخدمات الميدانية': 'fieldServices',
+    'الجوازات': 'passports',
+    'النقل': 'transport',
+    'المشاعر': 'holySites',
+    'الشؤون العامة': 'publicAffairs',
+    'التفويج': 'guidance'
   };
   return sectionMap[section] || section;
 };
@@ -60,6 +65,8 @@ type FormState = {
     bravoCode: string;
     hawiya: string;
     deputy: string;
+    gender: 'male' | 'female' | '';
+    photo?: string;
   };
   firstDeputy: {
     name: string;
@@ -98,14 +105,20 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
     missionNationality: initialData?.missionNationality ?? '',
     capacity: initialData?.capacity ?? 0,
     status: initialData?.status ?? 'active',
-    responsible: initialData?.responsible ?? {
+    responsible: initialData?.responsible ? {
+      ...initialData.responsible,
+      gender: (initialData.responsible as any).gender || '',
+      photo: (initialData.responsible as any).photo || ''
+    } : {
       name: '',
       email: '',
       mobile: '',
       age: '',
       bravoCode: '',
       hawiya: '',
-      deputy: ''
+      deputy: '',
+      gender: '',
+      photo: ''
     },
     firstDeputy: initialData?.firstDeputy ?? {
       name: '',
@@ -162,10 +175,33 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  const updateResponsible = (key: keyof typeof form.responsible, value: string) => {
+  const updateResponsible = (key: keyof typeof form.responsible, value: string | 'male' | 'female' | '') => {
     setForm(prev => ({
       ...prev,
       responsible: { ...prev.responsible, [key]: value }
+    }));
+  };
+
+  // Handle photo upload
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setForm(prev => ({
+          ...prev,
+          responsible: { ...prev.responsible, photo: result }
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    setForm(prev => ({
+      ...prev,
+      responsible: { ...prev.responsible, photo: '' }
     }));
   };
 
@@ -402,7 +438,96 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.responsible')}</h4>
         </div>
+        
+        {/* صورة المطوف وأيقونة الجنس */}
+        <div className="mb-6 flex flex-col items-center gap-4">
+          <div className="relative">
+            {/* صورة المطوف */}
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-mainColor/20 to-primary/20 border-4 border-mainColor/30 flex items-center justify-center overflow-hidden">
+              {form.responsible.photo ? (
+                <img 
+                  src={form.responsible.photo} 
+                  alt="Muttawif Photo"
+                  className="w-full h-full object-cover"
+                />
+              ) : form.responsible.gender ? (
+                <img 
+                  src={form.responsible.gender === 'male' ? '/images/male.png' : '/images/female.png'} 
+                  alt={form.responsible.gender === 'male' ? 'Male' : 'Female'}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/images/male.png" 
+                  alt="Default Muttawif"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            {/* أيقونة الجنس */}
+            {!form.responsible.photo && (
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-white border-4 border-mainColor flex items-center justify-center shadow-lg">
+                {form.responsible.gender ? (
+                  <img 
+                    src={form.responsible.gender === 'male' ? '/images/male.png' : '/images/female.png'} 
+                    alt={form.responsible.gender === 'male' ? 'Male Icon' : 'Female Icon'}
+                    className="w-6 h-6 object-cover"
+                  />
+                ) : (
+                  <img 
+                    src="/images/male.png" 
+                    alt="Default Icon"
+                    className="w-6 h-6 object-cover"
+                  />
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* حقل رفع الصورة */}
+          <div className="flex flex-col items-center gap-2 w-full max-w-xs">
+            <label className="w-full">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                className="hidden"
+                id="photo-upload"
+              />
+              <div className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md text-gray-700 cursor-pointer text-center text-sm font-medium hover:border-mainColor/40 transition-all duration-200">
+                {form.responsible.photo ? t('form.changePhoto') : t('form.uploadPhoto')}
+              </div>
+            </label>
+            {form.responsible.photo && (
+              <button
+                type="button"
+                onClick={removePhoto}
+                className="px-4 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-200"
+              >
+                {t('form.removePhoto')}
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
+          {/* حقل الجنس */}
+          <label className="block">
+            <div className="flex items-center gap-2 mb-2">
+              <UserOutlined className="text-mainColor text-base" />
+              <span className="block text-sm font-semibold text-gray-700">{t('form.gender')}</span>
+            </div>
+            <select
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium"
+              value={form.responsible.gender}
+              onChange={e => updateResponsible('gender', e.target.value as 'male' | 'female' | '')}
+            >
+              <option value="">{t('form.selectGender')}</option>
+              <option value="male">{t('form.male')}</option>
+              <option value="female">{t('form.female')}</option>
+            </select>
+          </label>
+
           {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
               name: <UserOutlined className="text-mainColor text-base" />,
@@ -503,8 +628,131 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
       </section>
       </div>
 
-      {/* Row 3: Locations and Members */}
+      {/* Row 3: Members and Locations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* الأعضاء */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <header className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
+          </div>
+          <button 
+            type="button" 
+            className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-md shadow-mainColor/20 hover:shadow-lg font-semibold flex items-center gap-2"
+            onClick={addMember}
+          >
+            <PlusOutlined />
+            {t('form.addMember')}
+          </button>
+        </header>
+        <div className="space-y-4">
+          {members.map(member => (
+            <div key={member.id} className="p-5 bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-mainColor/30 transition-all duration-200">
+              <div className="flex items-center justify-between mb-4">
+                <label className="block flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ApartmentOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.section')}</span>
+                  </div>
+                  <select
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium text-sm"
+                    value={member.section}
+                    onChange={e => updateMember(member.id, 'section', e.target.value)}
+                  >
+                    <option value="reception">{t('sections.reception')}</option>
+                    <option value="housing">{t('sections.housing')}</option>
+                    <option value="passports">{t('sections.passports')}</option>
+                    <option value="transport">{t('sections.transport')}</option>
+                    <option value="holySites">{t('sections.holySites')}</option>
+                    <option value="publicAffairs">{t('sections.publicAffairs')}</option>
+                    <option value="guidance">{t('sections.guidance')}</option>
+                  </select>
+                </label>
+                <button 
+                  type="button" 
+                  className="px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg font-semibold flex items-center gap-2 ml-4 self-end"
+                  onClick={() => removeMember(member.id)}
+                >
+                  <DeleteOutlined />
+                  {t('form.remove')}
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <UserOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.name')}</span>
+                  </div>
+                  <input 
+                    value={member.name} 
+                    onChange={e => updateMember(member.id, 'name', e.target.value)} 
+                    placeholder={t('placeholders.name')}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
+                  />
+                </label>
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MailOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.email')}</span>
+                  </div>
+                  <input 
+                    value={member.email || ''} 
+                    onChange={e => updateMember(member.id, 'email', e.target.value)} 
+                    placeholder={t('placeholders.email')}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
+                  />
+                </label>
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <PhoneOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.phone')}</span>
+                  </div>
+                  <input 
+                    value={member.phone || ''} 
+                    onChange={e => updateMember(member.id, 'phone', e.target.value)} 
+                    placeholder={t('placeholders.phone')}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
+                  />
+                </label>
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <IdcardOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.bravoCode')}</span>
+                  </div>
+                  <input 
+                    value={member.bravoCode || ''} 
+                    onChange={e => updateMember(member.id, 'bravoCode', e.target.value)} 
+                    placeholder={t('placeholders.bravoCode')}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
+                  />
+                </label>
+                <label className="block md:col-span-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <IdcardOutlined className="text-mainColor text-sm" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('form.hawiya')}</span>
+                  </div>
+                  <input 
+                    value={member.hawiya || ''} 
+                    onChange={e => updateMember(member.id, 'hawiya', e.target.value)} 
+                    placeholder={t('placeholders.hawiya')}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
+                  />
+                </label>
+              </div>
+            </div>
+          ))}
+          {members.length === 0 && (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <TeamOutlined className="text-3xl text-gray-400" />
+              </div>
+              <p className="text-sm font-medium text-gray-500">{t('form.noMembers')}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* المواقع */}
       <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
         <div className="flex items-center gap-3 mb-6">
@@ -639,125 +887,6 @@ export const AddCenterForm: React.FC<AddCenterFormProps> = ({
             ))}
           </div>
         </div>
-        </div>
-      </section>
-
-      {/* الأعضاء */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
-        <header className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-            <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
-          </div>
-          <button 
-            type="button" 
-            className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-md shadow-mainColor/20 hover:shadow-lg font-semibold flex items-center gap-2"
-            onClick={addMember}
-          >
-            <PlusOutlined />
-            {t('form.addMember')}
-          </button>
-        </header>
-        <div className="space-y-4">
-          {members.map(member => (
-            <div key={member.id} className="p-5 bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 hover:border-mainColor/30 transition-all duration-200">
-              <div className="flex items-center justify-between mb-4">
-                <label className="block flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <ApartmentOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.section')}</span>
-                  </div>
-                  <select
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium text-sm"
-                    value={member.section}
-                    onChange={e => updateMember(member.id, 'section', e.target.value)}
-                  >
-                    <option value="reception">{t('sections.reception')}</option>
-                    <option value="housing">{t('sections.housing')}</option>
-                    <option value="fieldServices">{t('sections.fieldServices')}</option>
-                  </select>
-                </label>
-                <button 
-                  type="button" 
-                  className="px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg font-semibold flex items-center gap-2 ml-4 self-end"
-                  onClick={() => removeMember(member.id)}
-                >
-                  <DeleteOutlined />
-                  {t('form.remove')}
-                </button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <label className="block">
-                  <div className="flex items-center gap-2 mb-2">
-                    <UserOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.name')}</span>
-                  </div>
-                  <input 
-                    value={member.name} 
-                    onChange={e => updateMember(member.id, 'name', e.target.value)} 
-                    placeholder={t('placeholders.name')}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
-                  />
-                </label>
-                <label className="block">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MailOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.email')}</span>
-                  </div>
-                  <input 
-                    value={member.email || ''} 
-                    onChange={e => updateMember(member.id, 'email', e.target.value)} 
-                    placeholder={t('placeholders.email')}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
-                  />
-                </label>
-                <label className="block">
-                  <div className="flex items-center gap-2 mb-2">
-                    <PhoneOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.phone')}</span>
-                  </div>
-                  <input 
-                    value={member.phone || ''} 
-                    onChange={e => updateMember(member.id, 'phone', e.target.value)} 
-                    placeholder={t('placeholders.phone')}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
-                  />
-                </label>
-                <label className="block">
-                  <div className="flex items-center gap-2 mb-2">
-                    <IdcardOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.bravoCode')}</span>
-                  </div>
-                  <input 
-                    value={member.bravoCode || ''} 
-                    onChange={e => updateMember(member.id, 'bravoCode', e.target.value)} 
-                    placeholder={t('placeholders.bravoCode')}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
-                  />
-                </label>
-                <label className="block md:col-span-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <IdcardOutlined className="text-mainColor text-sm" />
-                    <span className="block text-sm font-semibold text-gray-700">{t('form.hawiya')}</span>
-                  </div>
-                  <input 
-                    value={member.hawiya || ''} 
-                    onChange={e => updateMember(member.id, 'hawiya', e.target.value)} 
-                    placeholder={t('placeholders.hawiya')}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700" 
-                  />
-                </label>
-              </div>
-            </div>
-          ))}
-          {members.length === 0 && (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                <TeamOutlined className="text-3xl text-gray-400" />
-              </div>
-              <p className="text-sm font-medium text-gray-500">{t('form.noMembers')}</p>
-            </div>
-          )}
         </div>
       </section>
       </div>

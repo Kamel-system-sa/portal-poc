@@ -35,6 +35,8 @@ export interface Center {
     bravoCode: string;
     hawiya: string;
     deputy: string;
+    gender?: 'male' | 'female' | '';
+    photo?: string;
   };
   firstDeputy?: {
     name: string;
@@ -64,6 +66,7 @@ export const mockCenters: Center[] = [
     number: '001',
     serviceType: 'B2B',
     serviceDetail: 'سياحة',
+    missionNationality: 'سعودية',
     capacity: 2500,
     locations: {
       mecca: true,
@@ -73,19 +76,19 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 12', 'مخيم 15']
     },
     responsible: {
-      name: 'أحمد محمد',
+      name: 'مسؤول 1',
       email: 'ahmed@example.com',
       mobile: '0501234567',
       age: '45',
       bravoCode: 'BR001',
       hawiya: '1234567890',
-      deputy: 'محمد علي'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-1',
-        section: 'قسم الاستقبال',
-        name: 'سارة أحمد',
+        section: 'الاستقبال',
+        name: 'عضو 1',
         role: 'منسق',
         phone: '0509876543'
       }
@@ -97,6 +100,7 @@ export const mockCenters: Center[] = [
     id: 'C-2',
     number: '002',
     serviceType: 'B2C',
+    missionNationality: 'أردنية',
     capacity: 1500,
     locations: {
       mecca: true,
@@ -106,13 +110,13 @@ export const mockCenters: Center[] = [
       customMinaSites: []
     },
     responsible: {
-      name: 'فاطمة خالد',
+      name: 'مسؤول 2',
       email: 'fatima@example.com',
       mobile: '0501112233',
       age: '38',
       bravoCode: 'BR002',
       hawiya: '0987654321',
-      deputy: 'خالد سعيد'
+      deputy: 'نائب 15'
     },
     members: [],
     createdAt: '2024-02-20',
@@ -133,27 +137,27 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 5', 'مخيم 8', 'مخيم 10']
     },
     responsible: {
-      name: 'عبدالله سليمان',
+      name: 'مسؤول 3',
       email: 'abdullah@example.com',
       mobile: '0502223344',
       age: '42',
       bravoCode: 'BR003',
       hawiya: '1122334455',
-      deputy: 'سليمان أحمد'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-3-1',
-        section: 'قسم الاستقبال',
-        name: 'نورا حسن',
+        section: 'الاستقبال',
+        name: 'عضو 1',
         role: 'منسق رئيسي',
         phone: '0503334455',
         email: 'nora@example.com'
       },
       {
         id: 'M-3-2',
-        section: 'قسم الإسكان',
-        name: 'يوسف علي',
+        section: 'الإسكان',
+        name: 'عضو 2',
         role: 'منسق إسكان',
         phone: '0504445566'
       }
@@ -165,6 +169,7 @@ export const mockCenters: Center[] = [
     id: 'C-4',
     number: '004',
     serviceType: 'B2G',
+    missionNationality: 'سعودية',
     capacity: 5000,
     locations: {
       mecca: true,
@@ -174,27 +179,27 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 1', 'مخيم 2', 'مخيم 3', 'مخيم 4']
     },
     responsible: {
-      name: 'خالد بن عبدالعزيز',
+      name: 'مسؤول 4',
       email: 'khalid@example.com',
       mobile: '0505556677',
       age: '50',
       bravoCode: 'BR004',
       hawiya: '2233445566',
-      deputy: 'عبدالعزيز محمد'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-4-1',
-        section: 'قسم الاستقبال',
-        name: 'مريم عبدالله',
-        role: 'مدير قسم',
+        section: 'الاستقبال',
+        name: 'عضو 2',
+        role: 'مدير',
         phone: '0506667788',
         email: 'mariam@example.com'
       },
       {
         id: 'M-4-2',
         section: 'الخدمات الميدانية',
-        name: 'عمر خالد',
+        name: 'عضو 3',
         role: 'منسق ميداني',
         phone: '0507778899'
       }
@@ -206,6 +211,7 @@ export const mockCenters: Center[] = [
     id: 'C-5',
     number: '005',
     serviceType: 'B2C',
+    missionNationality: 'لبنانية',
     capacity: 1800,
     locations: {
       mecca: true,
@@ -215,13 +221,13 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 20']
     },
     responsible: {
-      name: 'لينا محمود',
+      name: 'مسؤول 5',
       email: 'lina@example.com',
       mobile: '0508889900',
       age: '35',
       bravoCode: 'BR005',
       hawiya: '3344556677',
-      deputy: 'محمود حسن'
+      deputy: 'نائب 15'
     },
     members: [],
     createdAt: '2024-02-15',
@@ -232,6 +238,7 @@ export const mockCenters: Center[] = [
     number: '006',
     serviceType: 'B2B',
     serviceDetail: 'سياحة',
+    missionNationality: 'سورية',
     capacity: 2800,
     locations: {
       mecca: true,
@@ -241,19 +248,19 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 7', 'مخيم 9']
     },
     responsible: {
-      name: 'طارق إبراهيم',
+      name: 'مسؤول 6',
       email: 'tariq@example.com',
       mobile: '0509990011',
       age: '40',
       bravoCode: 'BR006',
       hawiya: '4455667788',
-      deputy: 'إبراهيم سالم'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-6-1',
-        section: 'قسم الإسكان',
-        name: 'هدى يوسف',
+        section: 'الإسكان',
+        name: 'عضو 4',
         role: 'منسق',
         phone: '0501112233',
         email: 'huda@example.com'
@@ -266,6 +273,7 @@ export const mockCenters: Center[] = [
     id: 'C-7',
     number: '007',
     serviceType: 'B2G',
+    missionNationality: 'عراقية',
     capacity: 4500,
     locations: {
       mecca: true,
@@ -275,33 +283,33 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 11', 'مخيم 13', 'مخيم 14']
     },
     responsible: {
-      name: 'سعد بن فهد',
+      name: 'مسؤول 7',
       email: 'saad@example.com',
       mobile: '0502223344',
       age: '48',
       bravoCode: 'BR007',
       hawiya: '5566778899',
-      deputy: 'فهد سعد'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-7-1',
-        section: 'قسم الاستقبال',
-        name: 'ريم عبدالرحمن',
+        section: 'الاستقبال',
+        name: 'مسؤول 16',
         role: 'منسق',
         phone: '0503334455'
       },
       {
         id: 'M-7-2',
-        section: 'قسم الإسكان',
-        name: 'فهد محمد',
+        section: 'الإسكان',
+        name: 'عضو 3',
         role: 'منسق',
         phone: '0504445566'
       },
       {
         id: 'M-7-3',
         section: 'الخدمات الميدانية',
-        name: 'نواف خالد',
+        name: 'عضو 5',
         role: 'منسق',
         phone: '0505556677'
       }
@@ -324,19 +332,19 @@ export const mockCenters: Center[] = [
       customMinaSites: []
     },
     responsible: {
-      name: 'محمد علي',
+      name: 'مسؤول 8',
       email: 'mohammed@example.com',
       mobile: '0506667788',
       age: '44',
       bravoCode: 'BR008',
       hawiya: '6677889900',
-      deputy: 'علي حسن'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-8-1',
-        section: 'قسم الاستقبال',
-        name: 'عائشة أحمد',
+        section: 'الاستقبال',
+        name: 'عضو 6',
         role: 'منسق',
         phone: '0507778899'
       }
@@ -348,6 +356,7 @@ export const mockCenters: Center[] = [
     id: 'C-9',
     number: '009',
     serviceType: 'B2C',
+    missionNationality: 'يمنية',
     capacity: 1200,
     locations: {
       mecca: true,
@@ -357,13 +366,13 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 16']
     },
     responsible: {
-      name: 'سلمى عبدالله',
+      name: 'مسؤول 9',
       email: 'salma@example.com',
       mobile: '0508889900',
       age: '32',
       bravoCode: 'BR009',
       hawiya: '7788990011',
-      deputy: 'عبدالله خالد'
+      deputy: 'نائب 15'
     },
     members: [],
     createdAt: '2024-02-25',
@@ -374,6 +383,7 @@ export const mockCenters: Center[] = [
     number: '010',
     serviceType: 'B2B',
     serviceDetail: 'سياحة',
+    missionNationality: 'تونسية',
     capacity: 3000,
     locations: {
       mecca: true,
@@ -383,27 +393,27 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 6', 'مخيم 17', 'مخيم 18']
     },
     responsible: {
-      name: 'يوسف عبدالرحمن',
+      name: 'مسؤول 10',
       email: 'youssef@example.com',
       mobile: '0509990011',
       age: '39',
       bravoCode: 'BR010',
       hawiya: '8899001122',
-      deputy: 'عبدالرحمن يوسف'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-10-1',
-        section: 'قسم الاستقبال',
-        name: 'فاطمة علي',
+        section: 'الاستقبال',
+        name: 'عضو 4',
         role: 'منسق رئيسي',
         phone: '0501112233',
         email: 'fatima2@example.com'
       },
       {
         id: 'M-10-2',
-        section: 'قسم الإسكان',
-        name: 'حسن محمد',
+        section: 'الإسكان',
+        name: 'عضو 7',
         role: 'منسق',
         phone: '0502223344'
       }
@@ -415,6 +425,7 @@ export const mockCenters: Center[] = [
     id: 'C-11',
     number: '011',
     serviceType: 'B2G',
+    missionNationality: 'مغربية',
     capacity: 3800,
     locations: {
       mecca: true,
@@ -424,19 +435,19 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 19', 'مخيم 21']
     },
     responsible: {
-      name: 'عبدالله بن سعد',
+      name: 'مسؤول 11',
       email: 'abdullah2@example.com',
       mobile: '0503334455',
       age: '46',
       bravoCode: 'BR011',
       hawiya: '9900112233',
-      deputy: 'سعد عبدالله'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-11-1',
         section: 'الخدمات الميدانية',
-        name: 'نورا سعيد',
+        name: 'عضو 8',
         role: 'منسق ميداني',
         phone: '0504445566',
         email: 'nora2@example.com'
@@ -449,6 +460,7 @@ export const mockCenters: Center[] = [
     id: 'C-12',
     number: '012',
     serviceType: 'B2C',
+    missionNationality: 'جزائرية',
     capacity: 1600,
     locations: {
       mecca: true,
@@ -458,13 +470,13 @@ export const mockCenters: Center[] = [
       customMinaSites: []
     },
     responsible: {
-      name: 'مريم خالد',
+      name: 'مسؤول 12',
       email: 'mariam2@example.com',
       mobile: '0505556677',
       age: '36',
       bravoCode: 'BR012',
       hawiya: '0011223344',
-      deputy: 'خالد مريم'
+      deputy: 'نائب 15'
     },
     members: [],
     createdAt: '2024-02-28',
@@ -485,26 +497,26 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 22']
     },
     responsible: {
-      name: 'أحمد يوسف',
+      name: 'مسؤول 13',
       email: 'ahmed2@example.com',
       mobile: '0506667788',
       age: '41',
       bravoCode: 'BR013',
       hawiya: '1122334455',
-      deputy: 'يوسف أحمد'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-13-1',
-        section: 'قسم الاستقبال',
-        name: 'ليلى حسن',
+        section: 'الاستقبال',
+        name: 'عضو 5',
         role: 'منسق',
         phone: '0507778899'
       },
       {
         id: 'M-13-2',
-        section: 'قسم الإسكان',
-        name: 'مصطفى علي',
+        section: 'الإسكان',
+        name: 'عضو 9',
         role: 'منسق',
         phone: '0508889900'
       }
@@ -516,6 +528,7 @@ export const mockCenters: Center[] = [
     id: 'C-14',
     number: '014',
     serviceType: 'B2G',
+    missionNationality: 'هندية',
     capacity: 4200,
     locations: {
       mecca: true,
@@ -525,34 +538,34 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 23', 'مخيم 24', 'مخيم 25']
     },
     responsible: {
-      name: 'فيصل بن خالد',
+      name: 'مسؤول 14',
       email: 'faisal@example.com',
       mobile: '0509990011',
       age: '49',
       bravoCode: 'BR014',
       hawiya: '2233445566',
-      deputy: 'خالد فيصل'
+      deputy: 'نائب 15'
     },
     members: [
       {
         id: 'M-14-1',
-        section: 'قسم الاستقبال',
-        name: 'هند عبدالعزيز',
-        role: 'مدير قسم',
+        section: 'الاستقبال',
+        name: 'مسؤول 37',
+        role: 'مدير',
         phone: '0501112233',
         email: 'hind@example.com'
       },
       {
         id: 'M-14-2',
-        section: 'قسم الإسكان',
-        name: 'عبدالعزيز سعد',
+        section: 'الإسكان',
+        name: 'عضو 6',
         role: 'منسق',
         phone: '0502223344'
       },
       {
         id: 'M-14-3',
         section: 'الخدمات الميدانية',
-        name: 'خالد فهد',
+        name: 'عضو 10',
         role: 'منسق ميداني',
         phone: '0503334455'
       }
@@ -564,6 +577,7 @@ export const mockCenters: Center[] = [
     id: 'C-15',
     number: '015',
     serviceType: 'B2C',
+    missionNationality: 'إندونيسية',
     capacity: 1900,
     locations: {
       mecca: true,
@@ -573,13 +587,13 @@ export const mockCenters: Center[] = [
       customMinaSites: ['مخيم 26']
     },
     responsible: {
-      name: 'نورا محمد',
+      name: 'مسؤول 15',
       email: 'nora3@example.com',
       mobile: '0504445566',
       age: '33',
       bravoCode: 'BR015',
       hawiya: '3344556677',
-      deputy: 'محمد نورا'
+      deputy: 'نائب 15'
     },
     members: [],
     createdAt: '2024-02-22',

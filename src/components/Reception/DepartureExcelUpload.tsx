@@ -107,7 +107,7 @@ export const DepartureExcelUpload: React.FC<DepartureExcelUploadProps> = ({ onCo
                 {t('reception.preArrival.departures.excelUpload.title') || 'رفع تقرير المغادرة'}
               </h2>
               <p className="text-sm text-gray-500">
-                {t('reception.preArrival.departures.excelUpload.description') || 'رفع بيانات المغادرة من قسم الجوازات بصيغة Excel'}
+                {t('reception.preArrival.departures.excelUpload.description') || 'رفع بيانات المغادرة من الجوازات بصيغة Excel'}
               </p>
             </div>
           </div>

@@ -25,6 +25,7 @@ import type { ChartData } from '../../types/reception';
 import { mockArrivalGroups } from '../../data/mockReception';
 import { mockDepartureGroups } from '../../data/mockDepartures';
 import { mockCampaigns } from '../../data/mockCampaigns';
+import { CentersTable } from '../../components/Centers/CentersTable';
 
 const CentersDashboardPage: React.FC = () => {
   const { t, i18n } = useTranslation('common');
@@ -156,44 +157,9 @@ const CentersDashboardPage: React.FC = () => {
                       strokeWidth="2.5"
                       className="hover:opacity-80 transition-opacity"
                     />
-                    {segment.percentage > 8 && (
-                      <text
-                        x={centerX + (radius * 0.6) * Math.cos(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        y={centerY + (radius * 0.6) * Math.sin(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontSize="10"
-                        fontWeight="bold"
-                        fill="white"
-                        className="drop-shadow-sm"
-                      >
-                        {segment.percentage.toFixed(0)}%
-                      </text>
-                    )}
                   </g>
                 ))}
                 <circle cx={centerX} cy={centerY} r="38" fill="white" />
-                <text
-                  x={centerX}
-                  y={centerY - 3}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="13"
-                  fontWeight="bold"
-                  fill="#1F2937"
-                >
-                  {total}
-                </text>
-                <text
-                  x={centerX}
-                  y={centerY + 9}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="8.5"
-                  fill="#6B7280"
-                >
-                  المجموع
-                </text>
               </svg>
             </div>
             
@@ -323,142 +289,93 @@ const CentersDashboardPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {t('reception.centersDashboard.title') || 'لوحة تحكم المراكز'}
-              </h1>
-              <p className="text-gray-600">
-                {t('reception.centersDashboard.subtitle') || 'نظرة شاملة على جميع بيانات المراكز'}
-              </p>
-            </div>
-            <button
-              onClick={() => navigate('/service-centers')}
-              className="px-6 py-2.5 bg-gradient-to-r from-mainColor to-primary text-white rounded-lg hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 font-semibold shadow-lg shadow-mainColor/25 hover:shadow-xl flex items-center gap-2"
-            >
-              <BankOutlined />
-              <span>{t('reception.centersDashboard.viewAllCenters') || 'عرض جميع المراكز'}</span>
-            </button>
+          <div className="mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              {t('reception.centersDashboard.title') || 'لوحة تحكم المراكز'}
+            </h1>
+            <p className="text-gray-600">
+              {t('reception.centersDashboard.subtitle') || 'نظرة شاملة على جميع بيانات المراكز'}
+            </p>
           </div>
         </div>
 
         {/* Main KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
           {/* Total Centers */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 border border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                <BankOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-blue-700 bg-blue-200 px-3 py-1 rounded-full">
-                {t('centers.totalCenters')}
-              </span>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-cyan-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-cyan-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-cyan-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <BankOutlined className="text-lg text-cyan-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.totalCenters}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.centersDashboard.centers') || 'مركز'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-blue-200">
-              <span className="text-xs text-gray-600">{t('centers.active')}:</span>
-              <span className="text-sm font-bold text-blue-700">{summaryStats.activeCenters}</span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.totalCenters')}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.totalCenters}</span>
+            <div className="mt-2 w-10 h-0.5 bg-cyan-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Total Capacity */}
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg p-6 border border-green-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                <TeamOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-green-700 bg-green-200 px-3 py-1 rounded-full">
-                {t('centers.capacity')}
-              </span>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-emerald-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <TeamOutlined className="text-lg text-emerald-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.totalCapacity.toLocaleString()}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.centersDashboard.totalCapacity') || 'إجمالي الطاقة'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-green-200">
-              <span className="text-xs text-gray-600">{t('reception.centersDashboard.average') || 'متوسط'}:</span>
-              <span className="text-sm font-bold text-green-700">
-                {Math.round(summaryStats.totalCapacity / summaryStats.totalCenters).toLocaleString()}
-              </span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('reception.centersDashboard.totalCapacity') || 'إجمالي الطاقة'}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.totalCapacity.toLocaleString()}</span>
+            <div className="mt-2 w-10 h-0.5 bg-emerald-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Total Members */}
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-lg p-6 border border-purple-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                <UserOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-purple-700 bg-purple-200 px-3 py-1 rounded-full">
-                {t('form.members')}
-              </span>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-violet-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-violet-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-violet-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <UserOutlined className="text-lg text-violet-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.totalMembers}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.centersDashboard.totalMembers') || 'إجمالي الأعضاء'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-purple-200">
-              <span className="text-xs text-gray-600">{t('reception.centersDashboard.average') || 'متوسط'}:</span>
-              <span className="text-sm font-bold text-purple-700">
-                {Math.round(summaryStats.totalMembers / summaryStats.totalCenters * 10) / 10}
-              </span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('reception.centersDashboard.totalMembers') || 'إجمالي الأعضاء'}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.totalMembers}</span>
+            <div className="mt-2 w-10 h-0.5 bg-violet-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Active Centers */}
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-lg p-6 border border-orange-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-                <CheckCircleOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-orange-700 bg-orange-200 px-3 py-1 rounded-full">
-                {t('centers.active')}
-              </span>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-amber-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <CheckCircleOutlined className="text-lg text-amber-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.activeCenters}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.centersDashboard.activeCenters') || 'مراكز نشطة'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-orange-200">
-              <span className="text-xs text-gray-600">{t('reception.centersDashboard.percentage') || 'النسبة'}:</span>
-              <span className="text-sm font-bold text-orange-700">
-                {Math.round((summaryStats.activeCenters / summaryStats.totalCenters) * 100)}%
-              </span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('reception.centersDashboard.activeCenters') || 'مراكز نشطة'}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.activeCenters}</span>
+            <div className="mt-2 w-10 h-0.5 bg-amber-600 rounded-full flex-shrink-0"></div>
           </div>
         </div>
 
         {/* Service Type Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
-                <ShopOutlined className="text-white text-lg" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">{t('centers.b2bCenters')}</p>
-                <p className="text-xl font-bold text-gray-900">{summaryStats.b2bCenters}</p>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-indigo-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <ShopOutlined className="text-lg text-indigo-600" />
             </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2bCenters')}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.b2bCenters}</span>
+            <div className="mt-2 w-10 h-0.5 bg-indigo-600 rounded-full flex-shrink-0"></div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
-                <TeamOutlined className="text-white text-lg" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">{t('centers.b2cCenters')}</p>
-                <p className="text-xl font-bold text-gray-900">{summaryStats.b2cCenters}</p>
-              </div>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-emerald-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <TeamOutlined className="text-lg text-emerald-600" />
             </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2cCenters')}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.b2cCenters}</span>
+            <div className="mt-2 w-10 h-0.5 bg-emerald-600 rounded-full flex-shrink-0"></div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center">
-                <GlobalOutlined className="text-white text-lg" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-600">{t('centers.b2gCenters')}</p>
-                <p className="text-xl font-bold text-gray-900">{summaryStats.b2gCenters}</p>
-              </div>
+          <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-teal-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-teal-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <GlobalOutlined className="text-lg text-teal-600" />
             </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2gCenters')}</h4>
+            <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{summaryStats.b2gCenters}</span>
+            <div className="mt-2 w-10 h-0.5 bg-teal-600 rounded-full flex-shrink-0"></div>
           </div>
         </div>
 
@@ -545,86 +462,11 @@ const CentersDashboardPage: React.FC = () => {
               {t('reception.centersDashboard.centersList') || 'قائمة المراكز'}
             </h2>
           </div>
-          <div className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-mainColor to-primary">
-                  <tr>
-                    <th className="px-6 py-4 text-right text-sm font-bold text-white">{t('centers.centerNumber')}</th>
-                    <th className="px-6 py-4 text-right text-sm font-bold text-white">{t('centers.serviceType')}</th>
-                    <th className="px-6 py-4 text-right text-sm font-bold text-white">{t('centers.capacity')}</th>
-                    <th className="px-6 py-4 text-right text-sm font-bold text-white">{t('centers.responsible')}</th>
-                    <th className="px-6 py-4 text-right text-sm font-bold text-white">{t('centers.status')}</th>
-                    <th className="px-6 py-4 text-center text-sm font-bold text-white">{t('centers.viewDetails')}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {mockCenters.map((center) => (
-                    <tr 
-                      key={center.id} 
-                      className="hover:bg-gray-50 transition-colors cursor-pointer"
-                      onClick={() => setSelectedCenter(center)}
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-mainColor to-primary flex items-center justify-center">
-                            <NumberOutlined className="text-white text-xs" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-900">{center.number}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${
-                          center.serviceType === 'B2B' ? 'bg-blue-50 text-blue-700' :
-                          center.serviceType === 'B2C' ? 'bg-green-50 text-green-700' :
-                          'bg-purple-50 text-purple-700'
-                        }`}>
-                          {center.serviceType}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          <TeamOutlined className="text-gray-400 text-sm" />
-                          <span className="text-sm font-semibold text-gray-700">{center.capacity.toLocaleString()}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          <UserOutlined className="text-gray-400 text-sm" />
-                          <span className="text-sm font-semibold text-gray-800 truncate max-w-[150px]">{center.responsible.name}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          {center.status === 'active' ? (
-                            <CheckCircleOutlined className="text-green-600" />
-                          ) : (
-                            <CloseCircleOutlined className="text-red-600" />
-                          )}
-                          <span className={`text-sm font-semibold ${
-                            center.status === 'active' ? 'text-green-600' : 'text-red-600'
-                          }`}>
-                            {center.status === 'active' ? t('centers.active') : t('centers.inactive')}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedCenter(center);
-                          }}
-                          className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-mainColor to-primary rounded-lg hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 flex items-center gap-2 mx-auto"
-                        >
-                          <EyeOutlined />
-                          <span>{t('centers.viewDetails')}</span>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
+            <CentersTable
+              centers={mockCenters}
+              onSelectCenter={setSelectedCenter}
+            />
           </div>
         </div>
       </div>
@@ -673,7 +515,7 @@ const CentersDashboardPage: React.FC = () => {
               <div className="flex items-center justify-between p-4 sm:p-5 md:p-6 border-b border-gray-200 bg-gradient-to-r from-mainColor to-primary">
                 <div>
                   <h2 className="text-base sm:text-lg md:text-xl font-bold text-white truncate pr-2">
-                    {t('reception.centersDashboard.centerReceptionDetails') || 'تفاصيل المركز - قسم الاستقبال'} - {selectedCenter.number}
+                    {t('reception.centersDashboard.centerReceptionDetails') || 'تفاصيل المركز - الاستقبال'} - {selectedCenter.number}
                   </h2>
                   <p className="text-sm text-white/90 mt-1">{selectedCenter.responsible.name}</p>
                 </div>

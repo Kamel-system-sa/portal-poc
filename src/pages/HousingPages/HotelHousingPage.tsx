@@ -198,7 +198,7 @@ const HotelHousingPage: React.FC = () => {
               >
                 {hotels.map(hotel => (
                   <Option key={hotel.id} value={hotel.id}>
-                    {hotel.name} - {hotel.location}
+                    {hotel.name} - {hotel.location} ({hotel.city === 'makkah' ? t('housing.makkah') : hotel.city === 'madinah' ? t('housing.madinah') : hotel.location.toLowerCase().includes('makkah') ? t('housing.makkah') : t('housing.madinah')})
                   </Option>
                 ))}
               </Select>
@@ -350,6 +350,9 @@ const HotelHousingPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold text-gray-800">{hotel.name}</h3>
                     <p className="text-sm text-customgray">{hotel.location}</p>
+                    <p className="text-xs text-primaryColor mt-1 font-medium">
+                      {hotel.city === 'makkah' ? t('housing.makkah') : hotel.city === 'madinah' ? t('housing.madinah') : hotel.location.toLowerCase().includes('makkah') ? t('housing.makkah') : t('housing.madinah')}
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-medium text-gray-700">{hotel.rooms?.length || 0} {t('housing.totalRooms')}</p>

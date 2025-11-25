@@ -142,11 +142,16 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 className="w-full"
                 allowClear
               >
-                {availableNationalities.map(nat => (
-                  <Option key={nat} value={nat}>
-                    {t(`nationalities.${nat.toLowerCase()}`) || nat}
-                  </Option>
-                ))}
+                {availableNationalities.map(nat => {
+                  const translationKey = `nationalities.${nat.toLowerCase()}`;
+                  const translated = t(translationKey);
+                  const displayName = translated && translated !== translationKey ? translated : nat;
+                  return (
+                    <Option key={nat} value={nat}>
+                      {displayName}
+                    </Option>
+                  );
+                })}
               </Select>
             </div>
 

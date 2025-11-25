@@ -15,42 +15,42 @@ export const mockOrganizers: Organizer[] = [
   {
     id: 'org-1',
     number: 'ORG-001',
-    name: 'Al-Sheikh Travel & Tourism',
-    company: 'Al-Sheikh Group',
+    name: 'منظم 1',
+    company: 'شركة 1',
     phone: '+966501234567',
-    email: 'contact@alsheikh-travel.com'
+    email: 'organizer1@example.com'
   },
   {
     id: 'org-2',
     number: 'ORG-002',
-    name: 'Makkah Tours International',
-    company: 'Makkah Tours Co.',
+    name: 'منظم 2',
+    company: 'شركة 2',
     phone: '+966502345678',
-    email: 'info@makkah-tours.com'
+    email: 'organizer2@example.com'
   },
   {
     id: 'org-3',
     number: 'ORG-003',
-    name: 'Hajj & Umrah Services',
-    company: 'Hajj Services Ltd.',
+    name: 'منظم 3',
+    company: 'شركة 3',
     phone: '+966503456789',
-    email: 'support@hajj-services.com'
+    email: 'organizer3@example.com'
   },
   {
     id: 'org-4',
     number: 'ORG-004',
-    name: 'Al-Haramain Pilgrimage',
-    company: 'Al-Haramain Co.',
+    name: 'منظم 4',
+    company: 'شركة 4',
     phone: '+966504567890',
-    email: 'contact@haramain-pilgrimage.com'
+    email: 'organizer4@example.com'
   },
   {
     id: 'org-5',
     number: 'ORG-005',
-    name: 'Saudi Pilgrimage Services',
-    company: 'SPS Group',
+    name: 'منظم 5',
+    company: 'شركة 5',
     phone: '+966505678901',
-    email: 'info@sps-group.com'
+    email: 'organizer5@example.com'
   }
 ];
 
@@ -58,45 +58,45 @@ export const mockOrganizers: Organizer[] = [
 export const mockAccommodations: Accommodation[] = [
   {
     id: 'acc-1',
-    name: 'Grand Makkah Hotel',
+    name: 'إسكان 1',
     type: 'hotel',
-    location: 'Makkah, Near Haram',
+    location: 'موقع 1',
     capacity: 500,
     occupied: 380,
     available: 120
   },
   {
     id: 'acc-2',
-    name: 'Al-Safa Towers',
+    name: 'إسكان 2',
     type: 'hotel',
-    location: 'Makkah, Al-Safa District',
+    location: 'موقع 2',
     capacity: 400,
     occupied: 320,
     available: 80
   },
   {
     id: 'acc-3',
-    name: 'Pilgrim Residence Complex A',
+    name: 'إسكان 3',
     type: 'building',
-    location: 'Makkah, Al-Aziziyah',
+    location: 'موقع 3',
     capacity: 600,
     occupied: 450,
     available: 150
   },
   {
     id: 'acc-4',
-    name: 'Mina Camp Alpha',
+    name: 'إسكان 4',
     type: 'tent',
-    location: 'Mashair Mina, Section 1',
+    location: 'موقع 4',
     capacity: 800,
     occupied: 600,
     available: 200
   },
   {
     id: 'acc-5',
-    name: 'Arafat Camp Beta',
+    name: 'إسكان 5',
     type: 'tent',
-    location: 'Mashair Arafat, Section 2',
+    location: 'موقع 5',
     capacity: 700,
     occupied: 550,
     available: 150
@@ -139,7 +139,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-1',
     groupNumber: 'GRP-001',
-    groupName: 'Al-Sheikh Group A',
+    groupName: 'مجموعة 1',
     arrivalDate: generateDate(0), // Today
     arrivalTime: '14:30',
     flightNumber: 'SV-1234',
@@ -148,8 +148,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'makkah',
     organizer: mockOrganizers[0],
     accommodations: [
-      { accommodationId: 'acc-1', accommodationName: 'Grand Makkah Hotel', pilgrimsAssigned: 120 },
-      { accommodationId: 'acc-3', accommodationName: 'Pilgrim Residence Complex A', pilgrimsAssigned: 60 }
+      { accommodationId: 'acc-1', accommodationName: 'إسكان 1', pilgrimsAssigned: 120 },
+      { accommodationId: 'acc-3', accommodationName: 'إسكان 3', pilgrimsAssigned: 60 }
     ],
     status: 'arrived',
     campaignNumber: 'CAMP-2024-001',
@@ -159,7 +159,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-2',
     groupNumber: 'GRP-002',
-    groupName: 'Makkah Tours Group B',
+    groupName: 'مجموعة 2',
     arrivalDate: generateDate(0), // Today
     arrivalTime: '18:45',
     flightNumber: 'SV-5678',
@@ -168,8 +168,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'makkah',
     organizer: mockOrganizers[1],
     accommodations: [
-      { accommodationId: 'acc-2', accommodationName: 'Al-Safa Towers', pilgrimsAssigned: 150 },
-      { accommodationId: 'acc-3', accommodationName: 'Pilgrim Residence Complex A', pilgrimsAssigned: 100 }
+      { accommodationId: 'acc-2', accommodationName: 'إسكان 2', pilgrimsAssigned: 150 },
+      { accommodationId: 'acc-3', accommodationName: 'إسكان 3', pilgrimsAssigned: 100 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-002',
@@ -179,7 +179,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-3',
     groupNumber: 'GRP-003',
-    groupName: 'Hajj Services Group C',
+    groupName: 'مجموعة 3',
     arrivalDate: generateDate(1), // Tomorrow
     arrivalTime: '10:15',
     flightNumber: 'SV-9012',
@@ -188,8 +188,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'madinah',
     organizer: mockOrganizers[2],
     accommodations: [
-      { accommodationId: 'acc-1', accommodationName: 'Grand Makkah Hotel', pilgrimsAssigned: 200 },
-      { accommodationId: 'acc-4', accommodationName: 'Mina Camp Alpha', pilgrimsAssigned: 120 }
+      { accommodationId: 'acc-1', accommodationName: 'إسكان 1', pilgrimsAssigned: 200 },
+      { accommodationId: 'acc-4', accommodationName: 'إسكان 4', pilgrimsAssigned: 120 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-003',
@@ -199,7 +199,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-4',
     groupNumber: 'GRP-004',
-    groupName: 'Al-Haramain Group D',
+    groupName: 'مجموعة 4',
     arrivalDate: generateDate(1),
     arrivalTime: '16:20',
     tripNumber: 'TRIP-0045',
@@ -208,7 +208,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'makkah',
     organizer: mockOrganizers[3],
     accommodations: [
-      { accommodationId: 'acc-2', accommodationName: 'Al-Safa Towers', pilgrimsAssigned: 150 }
+      { accommodationId: 'acc-2', accommodationName: 'إسكان 2', pilgrimsAssigned: 150 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-004',
@@ -218,7 +218,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-5',
     groupNumber: 'GRP-005',
-    groupName: 'SPS Group E',
+    groupName: 'مجموعة 5',
     arrivalDate: generateDate(2),
     arrivalTime: '08:30',
     flightNumber: 'SV-3456',
@@ -227,8 +227,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'mina',
     organizer: mockOrganizers[4],
     accommodations: [
-      { accommodationId: 'acc-4', accommodationName: 'Mina Camp Alpha', pilgrimsAssigned: 180 },
-      { accommodationId: 'acc-5', accommodationName: 'Arafat Camp Beta', pilgrimsAssigned: 100 }
+      { accommodationId: 'acc-4', accommodationName: 'إسكان 4', pilgrimsAssigned: 180 },
+      { accommodationId: 'acc-5', accommodationName: 'إسكان 5', pilgrimsAssigned: 100 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-005',
@@ -238,7 +238,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-6',
     groupNumber: 'GRP-006',
-    groupName: 'Al-Sheikh Group F',
+    groupName: 'مجموعة 6',
     arrivalDate: generateDate(2),
     arrivalTime: '20:00',
     flightNumber: 'SV-7890',
@@ -247,7 +247,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'arafat',
     organizer: mockOrganizers[0],
     accommodations: [
-      { accommodationId: 'acc-5', accommodationName: 'Arafat Camp Beta', pilgrimsAssigned: 200 }
+      { accommodationId: 'acc-5', accommodationName: 'إسكان 5', pilgrimsAssigned: 200 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-006',
@@ -257,7 +257,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-7',
     groupNumber: 'GRP-007',
-    groupName: 'Makkah Tours Group G',
+    groupName: 'مجموعة 7',
     arrivalDate: generateDate(-1), // Yesterday - completed
     arrivalTime: '12:00',
     flightNumber: 'SV-2468',
@@ -266,7 +266,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'makkah',
     organizer: mockOrganizers[1],
     accommodations: [
-      { accommodationId: 'acc-1', accommodationName: 'Grand Makkah Hotel', pilgrimsAssigned: 175 }
+      { accommodationId: 'acc-1', accommodationName: 'إسكان 1', pilgrimsAssigned: 175 }
     ],
     status: 'completed',
     campaignNumber: 'CAMP-2024-007',
@@ -276,7 +276,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-8',
     groupNumber: 'GRP-008',
-    groupName: 'Hajj Services Group H',
+    groupName: 'مجموعة 8',
     arrivalDate: generateDate(-2), // 2 days ago - completed
     arrivalTime: '15:30',
     tripNumber: 'TRIP-0032',
@@ -285,7 +285,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'madinah',
     organizer: mockOrganizers[2],
     accommodations: [
-      { accommodationId: 'acc-3', accommodationName: 'Pilgrim Residence Complex A', pilgrimsAssigned: 220 }
+      { accommodationId: 'acc-3', accommodationName: 'إسكان 3', pilgrimsAssigned: 220 }
     ],
     status: 'completed',
     campaignNumber: 'CAMP-2024-008',
@@ -295,7 +295,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-9',
     groupNumber: 'GRP-009',
-    groupName: 'Al-Haramain Group I',
+    groupName: 'مجموعة 9',
     arrivalDate: generateDate(3),
     arrivalTime: '11:45',
     flightNumber: 'SV-1357',
@@ -304,8 +304,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'makkah',
     organizer: mockOrganizers[3],
     accommodations: [
-      { accommodationId: 'acc-1', accommodationName: 'Grand Makkah Hotel', pilgrimsAssigned: 100 },
-      { accommodationId: 'acc-2', accommodationName: 'Al-Safa Towers', pilgrimsAssigned: 90 }
+      { accommodationId: 'acc-1', accommodationName: 'إسكان 1', pilgrimsAssigned: 100 },
+      { accommodationId: 'acc-2', accommodationName: 'إسكان 2', pilgrimsAssigned: 90 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-009',
@@ -315,7 +315,7 @@ export const mockArrivalGroups: ArrivalGroup[] = [
   {
     id: 'group-10',
     groupNumber: 'GRP-010',
-    groupName: 'SPS Group J',
+    groupName: 'مجموعة 10',
     arrivalDate: generateDate(3),
     arrivalTime: '19:15',
     flightNumber: 'SV-9753',
@@ -324,8 +324,8 @@ export const mockArrivalGroups: ArrivalGroup[] = [
     destination: 'mina',
     organizer: mockOrganizers[4],
     accommodations: [
-      { accommodationId: 'acc-4', accommodationName: 'Mina Camp Alpha', pilgrimsAssigned: 200 },
-      { accommodationId: 'acc-5', accommodationName: 'Arafat Camp Beta', pilgrimsAssigned: 110 }
+      { accommodationId: 'acc-4', accommodationName: 'إسكان 4', pilgrimsAssigned: 200 },
+      { accommodationId: 'acc-5', accommodationName: 'إسكان 5', pilgrimsAssigned: 110 }
     ],
     status: 'scheduled',
     campaignNumber: 'CAMP-2024-010',
@@ -339,8 +339,8 @@ export const mockBuses: Bus[] = [
   {
     id: 'bus-1',
     number: 'BUS-001',
-    carrier: 'Al-Najm Transport',
-    driverName: 'Ahmed Mohammed Al-Saud',
+    carrier: 'شركة نقل 1',
+    driverName: 'سائق 1',
     driverPhone: '+966501111111',
     capacity: 50,
     passengers: 50,
@@ -351,7 +351,7 @@ export const mockBuses: Bus[] = [
     id: 'bus-2',
     number: 'BUS-002',
     carrier: 'Al-Najm Transport',
-    driverName: 'Khalid Abdullah Al-Rashid',
+    driverName: 'سائق 2',
     driverPhone: '+966502222222',
     capacity: 50,
     passengers: 45,
@@ -361,8 +361,8 @@ export const mockBuses: Bus[] = [
   {
     id: 'bus-3',
     number: 'BUS-003',
-    carrier: 'Saudi Bus Company',
-    driverName: 'Mohammed Ali Al-Otaibi',
+    carrier: 'شركة نقل 2',
+    driverName: 'سائق 3',
     driverPhone: '+966503333333',
     capacity: 45,
     passengers: 0,
@@ -371,8 +371,8 @@ export const mockBuses: Bus[] = [
   {
     id: 'bus-4',
     number: 'BUS-004',
-    carrier: 'Hajj Transport Services',
-    driverName: 'Salman Ibrahim Al-Ghamdi',
+    carrier: 'شركة نقل 3',
+    driverName: 'سائق 4',
     driverPhone: '+966504444444',
     capacity: 50,
     passengers: 50,
@@ -383,7 +383,7 @@ export const mockBuses: Bus[] = [
     id: 'bus-5',
     number: 'BUS-005',
     carrier: 'Al-Najm Transport',
-    driverName: 'Fahd Saad Al-Mutairi',
+    driverName: 'سائق 5',
     driverPhone: '+966505555555',
     capacity: 45,
     passengers: 0,
@@ -393,7 +393,7 @@ export const mockBuses: Bus[] = [
     id: 'bus-6',
     number: 'BUS-006',
     carrier: 'Saudi Bus Company',
-    driverName: 'Omar Hassan Al-Zahrani',
+    driverName: 'سائق 6',
     driverPhone: '+966506666666',
     capacity: 50,
     passengers: 50,
@@ -451,52 +451,52 @@ export const mockActivityTimeline: ActivityTimelineItem[] = [
   {
     id: 'activity-1',
     type: 'group-arrived',
-    title: 'Group GRP-001 arrived',
-    description: '180 pilgrims arrived at Jeddah Airport',
+    title: 'وصلت المجموعة GRP-001',
+    description: 'وصل 180 حاج إلى مطار جدة',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
     groupId: 'group-1',
     userId: 'user-1',
-    userName: 'Ahmed Al-Saud'
+    userName: 'مستخدم 1'
   },
   {
     id: 'activity-2',
     type: 'accommodation-assigned',
-    title: 'Accommodations assigned to GRP-002',
-    description: '250 pilgrims assigned to Al-Safa Towers and Pilgrim Residence',
+    title: 'تم تخصيص الإسكان للمجموعة GRP-002',
+    description: 'تم تخصيص 250 حاج إلى أبراج الصفا ومقر الحجاج',
     timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
     groupId: 'group-2',
     userId: 'user-2',
-    userName: 'Fatima Al-Mansouri'
+    userName: 'مستخدم 2'
   },
   {
     id: 'activity-3',
     type: 'bus-dispatched',
-    title: 'Bus BUS-002 dispatched',
-    description: 'Bus dispatched for Group GRP-002',
+    title: 'تم إرسال الحافلة BUS-002',
+    description: 'تم إرسال الحافلة للمجموعة GRP-002',
     timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
     groupId: 'group-2',
     userId: 'user-3',
-    userName: 'Khalid Al-Rashid'
+    userName: 'مستخدم 3'
   },
   {
     id: 'activity-4',
     type: 'group-created',
-    title: 'New group GRP-010 created',
-    description: '310 pilgrims scheduled for arrival on Day 3',
+    title: 'تم إنشاء مجموعة جديدة GRP-010',
+    description: 'تم جدولة 310 حاج للوصول في اليوم الثالث',
     timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
     groupId: 'group-10',
     userId: 'user-1',
-    userName: 'Ahmed Al-Saud'
+    userName: 'مستخدم 1'
   },
   {
     id: 'activity-5',
     type: 'port-arrival',
-    title: 'Group GRP-007 confirmed arrival',
-    description: '175 pilgrims confirmed at King Abdulaziz Airport',
+    title: 'تم تأكيد وصول المجموعة GRP-007',
+    description: 'تم تأكيد وصول 175 حاج في مطار الملك عبدالعزيز',
     timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
     groupId: 'group-7',
     userId: 'user-4',
-    userName: 'Salman Al-Ghamdi'
+    userName: 'مستخدم 4'
   }
 ];
 
@@ -507,7 +507,7 @@ export const mockPortActivities: PortActivity[] = [
     type: 'airport-arrival',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
     groupId: 'group-1',
-    groupName: 'Al-Sheikh Group A',
+    groupName: 'مجموعة 1',
     flightNumber: 'SV-1234',
     pilgrimCount: 180,
     status: 'confirmed'
@@ -517,9 +517,118 @@ export const mockPortActivities: PortActivity[] = [
     type: 'land-port-passage',
     timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
     groupId: 'group-4',
-    groupName: 'Al-Haramain Group D',
+    groupName: 'مجموعة 4',
     busNumber: 'BUS-004',
     pilgrimCount: 150,
     status: 'confirmed'
+  }
+];
+
+// Mock Nationality Statistics Data
+export interface NationalityStatisticsData {
+  id: string;
+  name: string;
+  nameAr: string;
+  flag: string;
+  arrivals: number;
+  departures: number;
+}
+
+export const mockNationalityStatistics: NationalityStatisticsData[] = [
+  {
+    id: 'albania',
+    name: 'Albania',
+    nameAr: 'ألبانيا',
+    flag: '🇦🇱',
+    arrivals: 602,
+    departures: 602
+  },
+  {
+    id: 'tunisia',
+    name: 'Tunisia',
+    nameAr: 'تونس',
+    flag: '🇹🇳',
+    arrivals: 11005,
+    departures: 11005
+  },
+  {
+    id: 'tajikistan',
+    name: 'Tajikistan',
+    nameAr: 'طاجيكستان',
+    flag: '🇹🇯',
+    arrivals: 6838,
+    departures: 6838
+  },
+  {
+    id: 'bangladesh',
+    name: 'Bangladesh',
+    nameAr: 'بنجلاديش',
+    flag: '🇧🇩',
+    arrivals: 9802,
+    departures: 9802
+  },
+  {
+    id: 'egypt',
+    name: 'Egypt',
+    nameAr: 'مصر',
+    flag: '🇪🇬',
+    arrivals: 24520,
+    departures: 24520
+  },
+  {
+    id: 'kyrgyzstan',
+    name: 'Kyrgyzstan',
+    nameAr: 'قيرغستان',
+    flag: '🇰🇬',
+    arrivals: 6038,
+    departures: 6038
+  },
+  {
+    id: 'algeria',
+    name: 'Algeria',
+    nameAr: 'الجزائر',
+    flag: '🇩🇿',
+    arrivals: 41274,
+    departures: 41274
+  },
+  {
+    id: 'nigeria',
+    name: 'Nigeria',
+    nameAr: 'نيجيريا',
+    flag: '🇳🇬',
+    arrivals: 20467,
+    departures: 20248
+  },
+  {
+    id: 'oman',
+    name: 'Oman',
+    nameAr: 'عمان',
+    flag: '🇴🇲',
+    arrivals: 14235,
+    departures: 14235
+  },
+  {
+    id: 'mauritania',
+    name: 'Mauritania',
+    nameAr: 'موريتانيا',
+    flag: '🇲🇷',
+    arrivals: 3307,
+    departures: 3307
+  },
+  {
+    id: 'eritrea',
+    name: 'Eritrea',
+    nameAr: 'اريتريا',
+    flag: '🇪🇷',
+    arrivals: 610,
+    departures: 610
+  },
+  {
+    id: 'direct-hajj',
+    name: 'Direct Hajj',
+    nameAr: 'الحج المباشر',
+    flag: '🕋',
+    arrivals: 2718,
+    departures: 2565
   }
 ];

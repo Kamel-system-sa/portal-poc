@@ -9,13 +9,21 @@ import {
   CalendarOutlined,
   CheckCircleOutlined,
   LoginOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  FileTextOutlined,
+  UserOutlined,
+  HomeOutlined,
+  BankOutlined,
+  ExclamationCircleOutlined,
+  MedicineBoxOutlined,
+  CloseCircleOutlined
 } from '@ant-design/icons';
-import { mockArrivalGroups } from '../../data/mockReception';
+import { mockArrivalGroups, mockNationalityStatistics } from '../../data/mockReception';
 import { mockDepartureGroups, mockDepartureKPI } from '../../data/mockDepartures';
 import { mockPortEntries } from '../../data/mockPorts';
 import { mockCampaigns } from '../../data/mockCampaigns';
 import type { ChartData } from '../../types/reception';
+import NationalityStatistics from '../../components/Reception/NationalityStatistics';
 
 const ReceptionDashboardPage: React.FC = () => {
   const { t, i18n } = useTranslation('common');
@@ -168,44 +176,9 @@ const ReceptionDashboardPage: React.FC = () => {
                       strokeWidth="2.5"
                       className="hover:opacity-80 transition-opacity"
                     />
-                    {segment.percentage > 8 && (
-                      <text
-                        x={centerX + (radius * 0.6) * Math.cos(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        y={centerY + (radius * 0.6) * Math.sin(((segment.startAngle + segment.endAngle) / 2 * Math.PI) / 180)}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontSize="10"
-                        fontWeight="bold"
-                        fill="white"
-                        className="drop-shadow-sm"
-                      >
-                        {segment.percentage.toFixed(0)}%
-                      </text>
-                    )}
                   </g>
                 ))}
                 <circle cx={centerX} cy={centerY} r="38" fill="white" />
-                <text
-                  x={centerX}
-                  y={centerY - 3}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="13"
-                  fontWeight="bold"
-                  fill="#1F2937"
-                >
-                  {total}
-                </text>
-                <text
-                  x={centerX}
-                  y={centerY + 9}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fontSize="8.5"
-                  fill="#6B7280"
-                >
-                  المجموع
-                </text>
               </svg>
             </div>
             
@@ -390,7 +363,7 @@ const ReceptionDashboardPage: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {t('reception.dashboard.title') || 'ملخص قسم الاستقبال'}
+                {t('reception.dashboard.title') || 'ملخص الاستقبال'}
               </h1>
               <p className="text-gray-600">
                 {t('reception.dashboard.subtitle') || 'نظرة شاملة على جميع الأقسام الفرعية'}
@@ -400,90 +373,155 @@ const ReceptionDashboardPage: React.FC = () => {
         </div>
 
         {/* Main KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1.5 mb-5">
+          {/* New Summary Cards - Added at the beginning */}
+          {/* التأشيرات */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-indigo-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-indigo-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <FileTextOutlined className="text-base text-indigo-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">التأشيرات</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">148741</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-indigo-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* الوصول الفعلي */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-emerald-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <CheckCircleOutlined className="text-base text-emerald-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">الوصول الفعلي</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">141416</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-emerald-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* المثبت خدمتهم */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-teal-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-teal-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <UserOutlined className="text-base text-teal-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">المثبت خدمتهم</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">141036</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-teal-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* المغادرين */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-rose-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-rose-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-rose-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <LogoutOutlined className="text-base text-rose-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">المغادرين</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">140166</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-rose-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* مراكز الخدمة */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-cyan-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-cyan-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-cyan-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <BankOutlined className="text-base text-cyan-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">مراكز الخدمة</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">48</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-cyan-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* مساكن مكة */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-amber-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-amber-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <HomeOutlined className="text-base text-amber-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">مساكن مكة</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">169</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-amber-600 rounded-full flex-shrink-0"></div>
+          </div>
+
+          {/* مساكن المدينة */}
+          <div className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-lime-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center" style={{ minHeight: '100px' }}>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-lime-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-lime-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <HomeOutlined className="text-base text-lime-600" />
+            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">مساكن المدينة</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">83</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-lime-600 rounded-full flex-shrink-0"></div>
+          </div>
+
           {/* Pre-Arrival Card */}
           <div
             onClick={() => navigate('/reception/pre-arrival')}
-            className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 border border-blue-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+            className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-blue-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center"
+            style={{ minHeight: '100px' }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                <LoginOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-blue-700 bg-blue-200 px-3 py-1 rounded-full">
-                {t('reception.dashboard.preArrivalTitle') || 'الاستعداد المسبق للوصول'}
-              </span>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <LoginOutlined className="text-base text-blue-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.preArrival.groups}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.dashboard.groups') || 'مجموعات'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-blue-200">
-              <span className="text-xs text-gray-600">{t('reception.dashboard.pilgrims') || 'الحجاج'}:</span>
-              <span className="text-sm font-bold text-blue-700">{summaryStats.preArrival.pilgrims.toLocaleString()}</span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{t('reception.dashboard.preArrivalTitle') || 'الاستعداد المسبق للوصول'}</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{summaryStats.preArrival.groups}</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-blue-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Pre-Departure Card */}
           <div
             onClick={() => navigate('/reception/pre-arrival/departures')}
-            className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-lg p-6 border border-purple-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+            className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-purple-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center"
+            style={{ minHeight: '100px' }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                <LogoutOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-purple-700 bg-purple-200 px-3 py-1 rounded-full">
-                {t('reception.dashboard.preDepartureTitle') || 'الاستعداد المسبق للمغادرة'}
-              </span>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <LogoutOutlined className="text-base text-purple-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.preDeparture.groups}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.dashboard.groups') || 'مجموعات'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-purple-200">
-              <span className="text-xs text-gray-600">{t('reception.dashboard.pilgrims') || 'الحجاج'}:</span>
-              <span className="text-sm font-bold text-purple-700">{summaryStats.preDeparture.pilgrims.toLocaleString()}</span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{t('reception.dashboard.preDepartureTitle') || 'الاستعداد المسبق للمغادرة'}</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{summaryStats.preDeparture.groups}</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-purple-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Ports Card */}
           <div
             onClick={() => navigate('/reception/ports')}
-            className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg p-6 border border-green-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+            className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-green-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center"
+            style={{ minHeight: '100px' }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                <CarOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-green-700 bg-green-200 px-3 py-1 rounded-full">
-                {t('reception.dashboard.portsTitle') || 'المنافذ الجوية والبرية'}
-              </span>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <CarOutlined className="text-base text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.ports.entries}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.dashboard.entries') || 'إدخال'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-green-200">
-              <span className="text-xs text-gray-600">{t('reception.dashboard.pilgrims') || 'الحجاج'}:</span>
-              <span className="text-sm font-bold text-green-700">{summaryStats.ports.pilgrims.toLocaleString()}</span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{t('reception.dashboard.portsTitle') || 'المنافذ الجوية والبرية'}</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{summaryStats.ports.entries}</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-green-600 rounded-full flex-shrink-0"></div>
           </div>
 
           {/* Campaigns Card */}
           <div
-            onClick={() => navigate('/reception/campaigns')}
-            className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-lg p-6 border border-orange-200 hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+            onClick={() => navigate('/organizers/campaigns')}
+            className="bg-white rounded-xl shadow-md p-3 border border-slate-200 hover:shadow-lg hover:shadow-orange-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center"
+            style={{ minHeight: '100px' }}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-                <GlobalOutlined className="text-white text-xl" />
-              </div>
-              <span className="text-xs font-semibold text-orange-700 bg-orange-200 px-3 py-1 rounded-full">
-                {t('reception.dashboard.campaignsTitle') || 'الحملات'}
-              </span>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-orange-100 to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+              <GlobalOutlined className="text-base text-orange-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">{summaryStats.campaigns.total}</h3>
-            <p className="text-sm text-gray-600 mb-2">{t('reception.dashboard.campaign') || 'حملة'}</p>
-            <div className="flex items-center justify-between pt-3 border-t border-orange-200">
-              <span className="text-xs text-gray-600">{t('reception.dashboard.pilgrims') || 'الحجاج'}:</span>
-              <span className="text-sm font-bold text-orange-700">{summaryStats.campaigns.pilgrims.toLocaleString()}</span>
-            </div>
+            <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{t('reception.dashboard.campaignsTitle') || 'الحملات'}</h4>
+            <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{summaryStats.campaigns.total}</span>
+            <div className="mt-1.5 w-8 h-0.5 bg-orange-600 rounded-full flex-shrink-0"></div>
           </div>
+        </div>
+
+        {/* Nationality Statistics */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="w-1 h-8 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              الوصول والمغادرة حسب الجنسيات
+            </h2>
+          </div>
+          <NationalityStatistics data={mockNationalityStatistics} />
         </div>
 
         {/* Section Charts */}
@@ -497,12 +535,12 @@ const ReceptionDashboardPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <BarChart
               data={sectionsComparisonData}
-              title={t('reception.dashboard.groupsEntriesBySection') || 'عدد المجموعات/الإدخالات حسب القسم'}
+              title={t('reception.dashboard.groupsEntriesBySection') || 'عدد المجموعات/الإدخالات حسب'}
               onClick={() => {}}
             />
             <BarChart
               data={pilgrimsComparisonData}
-              title={t('reception.dashboard.pilgrimsBySection') || 'عدد الحجاج حسب القسم'}
+              title={t('reception.dashboard.pilgrimsBySection') || 'عدد الحجاج حسب'}
               onClick={() => {}}
             />
           </div>
@@ -542,7 +580,7 @@ const ReceptionDashboardPage: React.FC = () => {
           <PieChart
             data={campaignsStatusData}
             title={t('reception.dashboard.campaignsStatusTitle') || 'حالة الحملات'}
-            onClick={() => navigate('/reception/campaigns')}
+            onClick={() => navigate('/organizers/campaigns')}
           />
 
           {/* Additional KPI - Pre-Departure */}
@@ -594,54 +632,6 @@ const ReceptionDashboardPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-            <div className="flex items-center gap-3 mb-3">
-              <TeamOutlined className="text-2xl text-blue-600" />
-              <div>
-                <p className="text-sm text-gray-600">{t('reception.dashboard.totalPilgrims') || 'إجمالي الحجاج'}</p>
-                <p className="text-xl font-bold text-gray-900">
-                  {(
-                    summaryStats.preArrival.pilgrims +
-                    summaryStats.preDeparture.pilgrims +
-                    summaryStats.ports.pilgrims +
-                    summaryStats.campaigns.pilgrims
-                  ).toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-            <div className="flex items-center gap-3 mb-3">
-              <CalendarOutlined className="text-2xl text-green-600" />
-              <div>
-                <p className="text-sm text-gray-600">{t('reception.dashboard.totalGroupsEntries') || 'إجمالي المجموعات/الإدخالات'}</p>
-                <p className="text-xl font-bold text-gray-900">
-                  {(
-                    summaryStats.preArrival.groups +
-                    summaryStats.preDeparture.groups +
-                    summaryStats.ports.entries +
-                    summaryStats.campaigns.total
-                  ).toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
-            <div className="flex items-center gap-3 mb-3">
-              <CheckCircleOutlined className="text-2xl text-orange-600" />
-              <div>
-                <p className="text-sm text-gray-600">{t('reception.dashboard.completedCampaigns') || 'الحملات المكتملة'}</p>
-                <p className="text-xl font-bold text-gray-900">
-                  {summaryStats.campaigns.byStatus.completed}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

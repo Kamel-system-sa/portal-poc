@@ -25,9 +25,14 @@ export const buildDefaultMembers = (): Member[] => {
 export const translateSection = (section: string): string => {
   // Map old Arabic values to keys
   const sectionMap: Record<string, string> = {
-    'قسم الاستقبال': 'reception',
-    'قسم الإسكان': 'housing',
-    'الخدمات الميدانية': 'fieldServices'
+    'الاستقبال': 'reception',
+    'الإسكان': 'housing',
+    'الخدمات الميدانية': 'fieldServices',
+    'الجوازات': 'passports',
+    'النقل': 'transport',
+    'المشاعر': 'holySites',
+    'الشؤون العامة': 'publicAffairs',
+    'التفويج': 'guidance'
   };
   
   // If it's an old Arabic value, convert to key first
@@ -37,7 +42,12 @@ export const translateSection = (section: string): string => {
   const translations: Record<string, string> = {
     'reception': i18n.t('sections.reception'),
     'housing': i18n.t('sections.housing'),
-    'fieldServices': i18n.t('sections.fieldServices')
+    'fieldServices': i18n.t('sections.fieldServices'),
+    'passports': i18n.t('sections.passports'),
+    'transport': i18n.t('sections.transport'),
+    'holySites': i18n.t('sections.holySites'),
+    'publicAffairs': i18n.t('sections.publicAffairs'),
+    'guidance': i18n.t('sections.guidance')
   };
   
   return translations[key] || section; // Fallback to original if not found
@@ -155,12 +165,12 @@ export const translateShiftPeriod = (shiftPeriod: string): string => {
 export const translateEmployeeName = (name: string, employeeId?: string): string => {
   // Map Arabic names to translation keys based on employee ID
   const nameMap: Record<string, string> = {
-    'أحمد محمد علي': 'E-1',
-    'فاطمة خالد': 'E-2',
-    'محمد عبدالله': 'E-3',
-    'سارة أحمد': 'E-4',
-    'خالد بن سعد': 'E-5',
-    'نورا حسن': 'E-6'
+    'موظف 1': 'E-1',
+    'موظف 2': 'E-2',
+    'موظف 3': 'E-3',
+    'موظف 4': 'E-4',
+    'موظف 5': 'E-5',
+    'موظف 6': 'E-6'
   };
   
   const id = employeeId || nameMap[name];

@@ -16,6 +16,7 @@ import {
   SaveOutlined
 } from '@ant-design/icons';
 import { allOrganizers } from '../../data/housingOrganizers';
+import { getHousingRecords } from '../../data/housingStorage';
 import type { HousingRecord, Organizer } from '../../types/housing';
 
 interface AddHousingFormProps {
@@ -36,6 +37,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
   );
 
   const [form, setForm] = useState({
+    city: initialData?.city || 'makkah',
     organizerNumber: initialData?.organizer.organizerNumber || '',
     organizerName: initialData?.organizer.name || '',
     organizerCompany: initialData?.organizer.company || '',
@@ -49,7 +51,6 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
     licenseNumber: initialData?.licenseNumber || '',
     classificationLevel: initialData?.classificationLevel || 3,
     ministryRegistrationNumber: initialData?.ministryRegistrationNumber || '',
-    city: initialData?.city || 'makkah',
     district: initialData?.district || '',
     fullAddress: initialData?.fullAddress || '',
     googleMapsUrl: initialData?.googleMapsUrl || '',
@@ -63,6 +64,17 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
     checkInDate: initialData?.checkInDate || '',
     checkOutDate: initialData?.checkOutDate || ''
   });
+
+  // Get previously registered hotels and buildings
+  const registeredHotels = useMemo(() => {
+    const records = getHousingRecords().filter(r => r.type === 'hotel' && r.city === form.city);
+    return records.map(r => r.housingName).filter((name, index, self) => self.indexOf(name) === index);
+  }, [form.city]);
+
+  const registeredBuildings = useMemo(() => {
+    const records = getHousingRecords().filter(r => r.type === 'building' && r.city === form.city);
+    return records.map(r => r.housingName).filter((name, index, self) => self.indexOf(name) === index);
+  }, [form.city]);
 
   // Filter organizers based on search
   const filteredOrganizers = useMemo(() => {
@@ -90,7 +102,33 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
         contact1: organizer.contact1,
         contact2: organizer.contact2 || ''
       }));
+      setOrganizerSearch(''); // Clear search after selection
     }
+  };
+
+  // Handle when user types in organizer number field
+  const handleOrganizerNumberChange = (value: string) => {
+    updateField('organizerNumber', value);
+    setOrganizerSearch(value);
+    
+    // Auto-fill if exact match found
+    if (value) {
+      const exactMatch = allOrganizers.find(org => org.organizerNumber === value);
+      if (exactMatch) {
+        handleOrganizerSelect(exactMatch.organizerNumber);
+      } else {
+        // Clear selected organizer if no match
+        setSelectedOrganizer(null);
+      }
+    } else {
+      setSelectedOrganizer(null);
+    }
+  };
+
+  // Handle input event for datalist selection
+  const handleOrganizerInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    handleOrganizerNumberChange(value);
   };
 
   const updateField = (field: string, value: any) => {
@@ -139,6 +177,33 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
+      {/* City Selection at the beginning */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+          <h4 className="text-xl font-bold text-gray-900">{t('housing.selectCity')}</h4>
+        </div>
+        <label className="block">
+          <div className="flex items-center gap-2 mb-2">
+            <EnvironmentOutlined className="text-mainColor text-base" />
+            <span className="block text-sm font-semibold text-gray-700">{t('housing.city')}</span>
+          </div>
+          <select
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium"
+            value={form.city}
+            onChange={(e) => {
+              updateField('city', e.target.value);
+              // Reset housing name when city changes
+              updateField('housingName', '');
+            }}
+            required
+          >
+            <option value="makkah">{t('housing.makkah')}</option>
+            <option value="madinah">{t('housing.madinah')}</option>
+          </select>
+        </label>
+      </section>
+
       {/* Horizontal Layout: Organizer Information (Left) and Housing Information (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Side: Organizer Information */}
@@ -159,10 +224,8 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
                 placeholder={t('housing.searchOrganizerNumber')}
                 value={form.organizerNumber}
-                onChange={(e) => {
-                  updateField('organizerNumber', e.target.value);
-                  setOrganizerSearch(e.target.value);
-                }}
+                onChange={(e) => handleOrganizerNumberChange(e.target.value)}
+                onInput={handleOrganizerInput}
                 list="organizer-list"
                 required
               />
@@ -174,7 +237,7 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
                 ))}
               </datalist>
             </div>
-            {filteredOrganizers.length > 0 && organizerSearch && (
+            {filteredOrganizers.length > 0 && organizerSearch && !selectedOrganizer && (
               <div className="mt-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg bg-white shadow-lg z-10">
                 {filteredOrganizers.map(org => (
                   <div
@@ -330,14 +393,40 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
               <HomeOutlined className="text-mainColor text-base" />
               <span className="block text-sm font-semibold text-gray-700">{t('housing.housingName')}</span>
             </div>
-            <input
-              type="text"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-              placeholder={t('housing.enterHousingName')}
-              value={form.housingName}
-              onChange={(e) => updateField('housingName', e.target.value)}
-              required
-            />
+            {form.housingType === 'hotel' && registeredHotels.length > 0 ? (
+              <select
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium"
+                value={form.housingName}
+                onChange={(e) => updateField('housingName', e.target.value)}
+                required
+              >
+                <option value="">{t('housing.selectHotel') || 'اختر الفندق'}</option>
+                {registeredHotels.map((hotel, index) => (
+                  <option key={index} value={hotel}>{hotel}</option>
+                ))}
+              </select>
+            ) : form.housingType === 'building' && registeredBuildings.length > 0 ? (
+              <select
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium"
+                value={form.housingName}
+                onChange={(e) => updateField('housingName', e.target.value)}
+                required
+              >
+                <option value="">{t('housing.selectBuilding') || 'اختر المبنى'}</option>
+                {registeredBuildings.map((building, index) => (
+                  <option key={index} value={building}>{building}</option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type="text"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                placeholder={t('housing.enterHousingName')}
+                value={form.housingName}
+                onChange={(e) => updateField('housingName', e.target.value)}
+                required
+              />
+            )}
           </label>
 
           <label className="block">
@@ -389,21 +478,6 @@ export const AddHousingForm: React.FC<AddHousingFormProps> = ({
             />
           </label>
 
-          <label className="block">
-            <div className="flex items-center gap-2 mb-2">
-              <EnvironmentOutlined className="text-mainColor text-base" />
-              <span className="block text-sm font-semibold text-gray-700">{t('housing.city')}</span>
-            </div>
-            <select
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 font-medium"
-              value={form.city}
-              onChange={(e) => updateField('city', e.target.value)}
-              required
-            >
-              <option value="makkah">{t('housing.makkah')}</option>
-              <option value="madinah">{t('housing.madinah')}</option>
-            </select>
-          </label>
 
           <label className="block">
             <div className="flex items-center gap-2 mb-2">

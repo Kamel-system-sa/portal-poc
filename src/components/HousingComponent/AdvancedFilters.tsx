@@ -187,11 +187,16 @@ export const AdvancedFilters: React.FC<AdvancedFiltersProps> = ({ onFilterChange
             style={{ borderColor: '#E5E7EB' }}
           >
             <Option value="all">{t('housing.all')}</Option>
-            {nationalities.map(nat => (
-              <Option key={nat} value={nat}>
-                {t(`nationalities.${nat.toLowerCase()}`) || nat}
-              </Option>
-            ))}
+            {nationalities.map(nat => {
+              const translationKey = `nationalities.${nat.toLowerCase()}`;
+              const translated = t(translationKey);
+              const displayName = translated && translated !== translationKey ? translated : nat;
+              return (
+                <Option key={nat} value={nat}>
+                  {displayName}
+                </Option>
+              );
+            })}
           </Select>
         </div>
 

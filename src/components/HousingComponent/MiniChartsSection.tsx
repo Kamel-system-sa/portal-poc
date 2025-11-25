@@ -59,13 +59,26 @@ export const MiniChartsSection: React.FC<MiniChartsSectionProps> = ({ type, room
     const natCount: Record<string, number> = {};
     assignedPilgrims.forEach(p => {
       const nat = (p.nationality || 'Unknown').toLowerCase();
-      natCount[nat] = (natCount[nat] || 0) + 1;
+      // Extract main nationality name without code
+      const natKey = nat.split('_')[0] || nat.split('-')[0] || nat;
+      natCount[natKey] = (natCount[natKey] || 0) + 1;
     });
     return Object.entries(natCount)
-      .map(([key, value]) => ({
-        name: t(`nationalities.${key}`) || key,
-        value
-      }))
+      .map(([key, value]) => {
+        // Get nationality title without code - only show the main title
+        const translationKey = `nationalities.${key}`;
+        const nationalityTitle = t(translationKey);
+        // Check if translation exists (not the same as the key)
+        const displayName = nationalityTitle && nationalityTitle !== translationKey
+          ? nationalityTitle 
+          : key === 'unknown' 
+            ? t('housing.unknown') || 'Unknown'
+            : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+        return {
+          name: displayName,
+          value
+        };
+      })
       .slice(0, 5)
       .sort((a, b) => b.value - a.value);
   }, [assignedPilgrims, t]);

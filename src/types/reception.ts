@@ -84,6 +84,7 @@ export interface PortActivity {
 export interface PortEntry {
   id: string;
   portType: 'airport' | 'land';
+  portName?: string; // اسم المطار أو المنفذ البري
   // Airport fields
   flightNumber?: string;
   groupId?: string;

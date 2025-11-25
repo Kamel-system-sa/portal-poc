@@ -301,7 +301,7 @@ export const DepartureGroupsList: React.FC<DepartureGroupsListProps> = ({
               لا توجد بيانات مغادرة
             </h3>
             <p className="text-sm text-gray-500 max-w-md text-center">
-              ابدأ بإضافة تسجيل مغادرة جديد أو رفع تقرير من قسم الجوازات
+              ابدأ بإضافة تسجيل مغادرة جديد أو رفع تقرير من الجوازات
             </p>
           </div>
         </div>

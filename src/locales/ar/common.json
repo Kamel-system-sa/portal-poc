@@ -67,7 +67,9 @@
     "serviceType": "نوع الخدمة",
     "status": "الحالة",
     "reset": "إعادة الضبط",
-    "apply": "تطبيق الفلاتر"
+    "apply": "تطبيق الفلاتر",
+    "min": "الحد الأدنى",
+    "max": "الحد الأقصى"
   },
   "form": {
     "centerData": "بيانات المركز",
@@ -107,6 +109,13 @@
     "edit": "تعديل",
     "nationality": "الجنسية",
     "selectNationality": "اختر الجنسية",
+    "gender": "الجنس",
+    "selectGender": "اختر الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "uploadPhoto": "رفع صورة شخصية",
+    "changePhoto": "تغيير الصورة",
+    "removePhoto": "إزالة الصورة",
     "status": "الحالة",
     "confirmDelete": "تأكيد الحذف",
     "confirmDeleteSubtitle": "هذا الإجراء لا يمكن التراجع عنه",
@@ -178,9 +187,14 @@
     "googleMapsLink": "https://maps.google.com/..."
   },
   "sections": {
-    "reception": "قسم الاستقبال",
-    "housing": "قسم الإسكان",
-    "fieldServices": "الخدمات الميدانية"
+    "reception": "الاستقبال",
+    "housing": "الإسكان",
+    "fieldServices": "الخدمات الميدانية",
+    "passports": "الجوازات",
+    "transport": "النقل",
+    "holySites": "المشاعر",
+    "publicAffairs": "الشؤون العامة",
+    "guidance": "التفويج"
   },
   "locations": {
     "mecca": "مكة",
@@ -202,6 +216,9 @@
   },
   "hr": {
     "title": "الموارد البشرية",
+    "title": "الموارد البشرية",
+    "dashboardTitle": "لوحة تحكم الموارد البشرية",
+    "dashboardSubtitle": "رؤية شاملة لكل عمليات الموارد البشرية",
     "dashboard": "لوحة تحكم الموارد البشرية",
     "employees": "الموظفون",
     "addEmployee": "إضافة موظف",
@@ -226,7 +243,8 @@
       "gender": "الجنس",
       "status": "الفلاتر",
       "reset": "إعادة الضبط",
-      "apply": "تطبيق"
+      "apply": "تطبيق",
+      "all": "الكل"
     },
     "form": {
       "personalInfo": "المعلومات الشخصية",
@@ -239,9 +257,11 @@
       "age": "العمر",
       "mobile": "رقم الجوال",
       "email": "البريد الإلكتروني",
-      "departmentRole": "القسم والمنصب",
+      "ibanNumber": "رقم الايبان",
+      "ibanProof": "اثبات الايبان",
+      "departmentRole": "والمنصب",
       "department": "القسم",
-      "selectDepartment": "اختر القسم",
+      "selectDepartment": "اختر",
       "transport": "النقل",
       "reception": "الاستقبال",
       "accommodation": "الإسكان",
@@ -251,7 +271,7 @@
       "selectJobRank": "اختر المسمى الوظيفي",
       "field": "ميداني",
       "supervisor": "مشرف",
-      "departmentHead": "رئيس قسم",
+      "departmentHead": "رئيس",
       "shiftDuration": "مدة الفترة",
       "selectShiftDuration": "اختر مدة الفترة",
       "8h": "8 ساعات",
@@ -287,19 +307,97 @@
       "next": "التالي",
       "previous": "السابق",
       "step1": "الخطوة 1: المعلومات الشخصية",
-      "step2": "الخطوة 2: القسم والمنصب",
+      "step2": "الخطوة 2: والمنصب",
       "step3": "الخطوة 3: معلومات العقد",
       "step4": "الخطوة 4: المهام",
-      "step5": "الخطوة 5: المراجعة"
+      "step5": "الخطوة 5: المراجعة",
+      "step6": "الخطوة 6: الدرايف",
+      "review": "مراجعة البيانات",
+      "confirm": "تأكيد",
+      "pdfOnly": "يرجى رفع ملف PDF فقط",
+      "pdfUploaded": "تم رفع الملف",
+      "changeFile": "تغيير الملف",
+      "uploadPdf": "رفع ملف PDF",
+      "enterSeasonalFirst": "أدخل الراتب الموسمي أولاً",
+      "driveStep": "تم حفظ البيانات بنجاح. يمكنك الآن المتابعة إلى الخطوة التالية."
     },
     "shifts": {
-      "title": "جداول الفترة",
+      "title": "جداول الفترات",
+      "titleShort": "الفترات",
       "firstShift": "الفترة الأولى (8:00–14:00)",
       "secondShift": "الفترة الثانية (14:00–22:00)",
       "thirdShift": "الفترة الثالثة (22:00–8:00)",
-      "department": "القسم",
       "employee": "الموظف",
-      "noEmployees": "لا يوجد موظفون في هذه الفترة"
+      "noEmployees": "لا يوجد موظفون في هذه الفترة",
+      "addShift": "إضافة فترة جديدة",
+      "location": "الموقع"
+    },
+    "attendance": {
+      "title": "الحضور والانصراف",
+      "subtitle": "إدارة سجلات الحضور والانصراف",
+      "present": "حاضر",
+      "late": "متأخر",
+      "absent": "غياب",
+      "onLeave": "إجازة",
+      "total": "الإجمالي",
+      "daily": "يومي",
+      "weekly": "أسبوعي",
+      "monthly": "شهري",
+      "addRecord": "إضافة سجل",
+      "editRecord": "تعديل السجل",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "checkIn": "وقت الدخول",
+      "checkOut": "وقت الخروج",
+      "notes": "ملاحظات",
+      "selectEmployee": "اختر الموظف",
+      "selectDate": "يرجى اختيار التاريخ",
+      "selectStatus": "يرجى اختيار الحالة"
+    },
+    "reports": "التقارير",
+    "reportsDescription": "عرض وإدارة التقارير الخاصة بالموارد البشرية",
+    "reportsOverview": "نظرة عامة على التقارير",
+    "totalReportsCreated": "إجمالي التقارير المنشأة",
+    "reportsInDraft": "التقارير المسودة",
+    "reportsSent": "التقارير المرسلة",
+    "reportsReceived": "التقارير المستلمة",
+    "createReport": "إنشاء تقرير",
+    "reportsList": "قائمة التقارير",
+    "reportBuilder": "منشئ التقارير",
+    "reportType": "نوع التقرير",
+    "reportStatus": "الحالة",
+    "createdBy": "أنشأه",
+    "createdAt": "تاريخ الإنشاء",
+    "showingResults": "عرض",
+    "leaves": {
+      "title": "الإجازات",
+      "subtitle": "إدارة طلبات الإجازات",
+      "type": "نوع الإجازة",
+      "annual": "سنوية",
+      "sick": "مرضية",
+      "emergency": "طارئة",
+      "other": "أخرى",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "days": "عدد الأيام",
+      "status": "الحالة",
+      "pending": "قيد الانتظار",
+      "approved": "موافق عليها",
+      "rejected": "مرفوضة",
+      "addLeave": "إضافة إجازة"
+    },
+    "checklist": {
+      "title": "قائمة التحقق الإداري",
+      "nuskCard": "بطاقة نسك",
+      "ajir": "أجير",
+      "employeeCard": "بطاقة الموظف",
+      "printed": "مطبوعة",
+      "notPrinted": "غير مطبوعة",
+      "registered": "مسجل",
+      "notRegistered": "غير مسجل",
+      "nuskCardPrinted": "بطاقات نسك المطبوعة",
+      "registeredInAjir": "المسجلون في أجير",
+      "employeeCardsPrinted": "بطاقات الموظفين المطبوعة"
     },
     "departments": {
       "transport": "النقل",
@@ -309,7 +407,7 @@
       "other": "أخرى",
       "all": "الكل"
     },
-    "departmentManager": "مدير القسم",
+    "departmentManager": "مدير",
     "jobOffer": {
       "title": "عرض العمل",
       "template": "القالب",
@@ -400,6 +498,51 @@
         "nuskCardIssued": "تم إصدار بطاقة نسك للموظف"
       }
     },
+    "dashboard": {
+      "filters": "الفلاتر",
+      "filterByDepartment": "حسب القسم",
+      "filterByJobRank": "حسب المسمى الوظيفي",
+      "filterByStatus": "حسب الحالة",
+      "allDepartments": "جميع الأقسام",
+      "allJobRanks": "جميع المسميات",
+      "allStatuses": "جميع الحالات",
+      "present": "حاضر",
+      "absent": "غائب",
+      "onLeave": "إجازة",
+      "late": "متأخر",
+      "presentToday": "حاضر اليوم",
+      "lateDetails": "متوسط التأخر",
+      "leavesToday": "إجازات اليوم",
+      "upcomingLeaves": "قادمة",
+      "completedLeaves": "منتهية",
+      "activeShifts": "فترات نشطة",
+      "shiftsToday": "فترات اليوم",
+      "staffShortage": "نقص موظفين",
+      "adminOperations": "العمليات الإدارية",
+      "incompleteFiles": "ملفات غير مكتملة",
+      "quickActions": "إجراءات سريعة",
+      "manualAttendance": "تسجيل حضور يدوي",
+      "addLeave": "إضافة إجازة",
+      "reviewPending": "مراجعة طلبات معلقة",
+      "dailyAttendanceChart": "مخطط الحضور اليومي",
+      "jobRankDistribution": "توزيع الموظفين حسب الفئات",
+      "leavesChart": "مخطط الإجازات خلال الشهر",
+      "checklistStatus": "حالة قائمة التحقق",
+      "completed": "مكتمل",
+      "incomplete": "ناقص",
+      "completeFile": "إكمال الملف الوظيفي",
+      "minutes": "دقيقة",
+      "alerts": {
+        "title": "التنبيهات",
+        "incompleteFiles": "ملفات غير مكتملة",
+        "expiringContracts": "عقود قريبة من الانتهاء",
+        "repeatedLate": "تأخرات متكررة"
+      },
+      "missingItems": "الملفات الناقصة",
+      "daysRemaining": "الأيام المتبقية",
+      "days": "يوم",
+      "delayMinutes": "دقائق التأخير"
+    },
     "actions": {
       "edit": "تعديل",
       "delete": "حذف",
@@ -407,7 +550,8 @@
       "printCard": "طباعة البطاقة",
       "sendOffer": "إرسال عرض",
       "export": "تصدير",
-      "print": "طباعة"
+      "print": "طباعة",
+      "actions": "الإجراءات"
     },
     "breadcrumbs": {
       "home": "الرئيسية",
@@ -436,7 +580,7 @@
     },
     "employeeData": {
       "E-1": {
-        "name": "أحمد محمد علي",
+        "name": "موظف 1",
         "mainTasks": {
           "0": "استقبال الحجاج",
           "1": "تنظيم الجدول الزمني",
@@ -449,7 +593,7 @@
         "recommendations": "موصى به لمركز 001 - مهارات ممتازة في خدمة العملاء"
       },
       "E-2": {
-        "name": "فاطمة خالد",
+        "name": "موظف 2",
         "mainTasks": {
           "0": "إدارة الإسكان",
           "1": "تنسيق المواعيد"
@@ -460,7 +604,7 @@
         "recommendations": "مناسب لمراكز VIP"
       },
       "E-3": {
-        "name": "محمد عبدالله",
+        "name": "موظف 3",
         "mainTasks": {
           "0": "الخدمات الميدانية",
           "1": "التنسيق مع المراكز"
@@ -472,7 +616,7 @@
         "recommendations": "موصى به لمراكز B2B"
       },
       "E-4": {
-        "name": "سارة أحمد",
+        "name": "موظف 4",
         "mainTasks": {
           "0": "استقبال العملاء",
           "1": "تسجيل الدخول"
@@ -480,7 +624,7 @@
         "additionalTasks": {}
       },
       "E-5": {
-        "name": "خالد بن سعد",
+        "name": "موظف 5",
         "mainTasks": {
           "0": "إدارة الفريق",
           "1": "التنسيق العام",
@@ -493,7 +637,7 @@
         "recommendations": "مثالي لمراكز عالية السعة"
       },
       "E-6": {
-        "name": "نورا حسن",
+        "name": "موظف 6",
         "mainTasks": {
           "0": "قيادة المركبات",
           "1": "توصيل الحجاج"
@@ -517,6 +661,7 @@
     "minaDescription": "إدارة أماكن الإقامة في خيام مشعر منى وتوزيع الأسرة",
     "arafatDescription": "إدارة أماكن الإقامة في خيام مشعر عرفة وتوزيع الأسرة",
     "totalHoused": "إجمالي المساكن",
+    "totalHousing": "إجمالي المساكن",
     "availableBeds": "الأسرة المتاحة",
     "readyForAssignment": "جاهزة للتوزيع",
     "occupancyRate": "معدل الإشغال",
@@ -539,7 +684,7 @@
     "filterByGender": "تصفية حسب الجنس",
     "filterByCapacity": "تصفية حسب السعة",
     "filterByFloor": "تصفية حسب الطابق",
-    "filterBySection": "تصفية حسب القسم",
+    "filterBySection": "تصفية حسب",
     "male": "ذكر",
     "female": "أنثى",
     "mixed": "مختلط",
@@ -558,7 +703,6 @@
     "tentDetails": "تفاصيل الخيمة",
     "tentInfo": "معلومات الخيمة",
     "tentNumber": "رقم الخيمة",
-    "section": "القسم",
     "assignedPilgrims": "الحجاج المعينون",
     "noPilgrimsAssigned": "لا يوجد حجاج معينون",
     "pilgrimsList": "قائمة الحجاج",
@@ -740,7 +884,7 @@
     "enterNumberOfFloors": "أدخل عدد الطوابق",
     "pleaseEnterTotalTents": "يرجى إدخال إجمالي الخيام",
     "enterTotalTents": "أدخل إجمالي الخيام",
-    "enterSection": "أدخل القسم",
+    "enterSection": "أدخل",
     "totalCapacity": "السعة الإجمالية",
     "pleaseEnterCapacity": "يرجى إدخال السعة",
     "enterCapacity": "أدخل السعة",
@@ -815,14 +959,23 @@
     "preferMina": "يفضلون منى",
     "preferArafat": "يفضلون عرفات",
     "preferHotels": "يفضلون الفنادق",
+    "nearHaram": "قرب الحرم",
+    "nearSafa": "قرب الصفا",
+    "luxury": "فاخر",
+    "budget": "اقتصادي",
+    "selectCity": "اختر المدينة",
+    "pleaseSelectCity": "يرجى اختيار المدينة",
+    "basicInformation": "المعلومات الأساسية",
+    "capacityInformation": "معلومات السعة",
+    "selectBuilding": "اختر المبنى",
     "fieldInspectionReports": "تقارير التفتيش الميداني",
     "noIssues": "لا توجد مشاكل",
     "mediumIssues": "مشاكل متوسطة",
     "criticalIssues": "مشاكل حرجة"
   },
   "mashair": {
-    "title": "قسم المشاعر",
-    "dashboardTitle": "لوحة تحكم قسم المشاعر",
+    "title": "المشاعر",
+    "dashboardTitle": "لوحة تحكم المشاعر",
     "dashboardSubtitle": "إدارة خيام منى وعرفات وتخصيصها للحملات",
     "minaTents": "خيام منى",
     "arafatTents": "خيام عرفات",
@@ -893,8 +1046,8 @@
       "campaign": "حملة",
       "campaigns": "حملات",
       "pilgrims": "الحجاج",
-      "groupsEntriesBySection": "عدد المجموعات/الإدخالات حسب القسم",
-      "pilgrimsBySection": "عدد الحجاج حسب القسم",
+      "groupsEntriesBySection": "عدد المجموعات/الإدخالات حسب",
+      "pilgrimsBySection": "عدد الحجاج حسب",
       "preArrivalStatusTitle": "حالة مجموعات الاستعداد المسبق للوصول",
       "preDepartureStatusTitle": "حالة مجموعات الاستعداد المسبق للمغادرة",
       "portsTypeTitle": "نوع المنافذ (جوية/برية)",
@@ -907,7 +1060,7 @@
       "completedCampaigns": "الحملات المكتملة"
     },
     "preArrival": {
-      "title": "قسم الاستعداد المسبق للوصول",
+      "title": "الاستعداد المسبق للوصول",
       "addGroup": "إضافة مجموعة وصول",
       "editGroup": "تعديل مجموعة وصول",
       "groupDetails": "تفاصيل المجموعة",
@@ -1088,7 +1241,7 @@
         },
         "excelUpload": {
           "title": "رفع تقرير المغادرة",
-          "description": "رفع بيانات المغادرة من قسم الجوازات بصيغة Excel",
+          "description": "رفع بيانات المغادرة من الجوازات بصيغة Excel",
           "selectFile": "اختر ملف Excel",
           "fileSelected": "تم اختيار الملف",
           "uploading": "جاري الرفع...",
@@ -1165,11 +1318,28 @@
         "recentEntries": "الإدخالات الأخيرة"
       }
     },
+    "reports": "التقارير",
+    "reportsDescription": "عرض وإدارة التقارير الخاصة بالاستقبال",
+    "reportsOverview": "نظرة عامة على التقارير",
+    "totalReportsCreated": "إجمالي التقارير المنشأة",
+    "reportsInDraft": "التقارير المسودة",
+    "reportsSent": "التقارير المرسلة",
+    "reportsReceived": "التقارير المستلمة",
+    "createReport": "إنشاء تقرير",
+    "reportsList": "قائمة التقارير",
+    "reportBuilder": "منشئ التقارير",
+    "reportType": "نوع التقرير",
+    "reportStatus": "الحالة",
+    "createdBy": "أنشأه",
+    "createdAt": "تاريخ الإنشاء",
+    "showingResults": "عرض",
+    "groups": "المجموعات",
     "ports": {
-      "title": "قسم المنافذ الجوية والبرية",
+      "title": "المنافذ الجوية والبرية",
       "subtitle": "تأكيد الوصولات ومرور الحافلات",
       "list": {
         "subtitle": "إدارة إدخالات المنافذ والوصولات",
+        "totalEntries": "إجمالي الإدخالات",
         "searchPlaceholder": "البحث برقم الرحلة، رقم الحافلة، الناقل...",
         "empty": "لا توجد إدخالات للمنافذ",
         "emptyMessage": "ابدأ بإضافة إدخال منفذ جوي أو بري جديد",
@@ -1261,7 +1431,7 @@
       "locationsDistribution": "توزيع المواقع",
       "serviceDetailDistribution": "توزيع تفاصيل الخدمة",
       "centersList": "قائمة المراكز",
-      "centerReceptionDetails": "تفاصيل المركز - قسم الاستقبال",
+      "centerReceptionDetails": "تفاصيل المركز - الاستقبال",
       "centerInfo": "معلومات المركز",
       "totalCampaigns": "إجمالي الحملات",
       "arrivalGroups": "مجموعات الوصول",
@@ -1272,7 +1442,7 @@
       "noDepartures": "لا توجد مجموعات مغادرة"
     },
     "campaigns": {
-      "title": "قسم الحملات",
+      "title": "الحملات",
       "comingSoon": "قريباً",
       "list": {
         "subtitle": "إدارة وعرض جميع الحملات",
@@ -1435,7 +1605,7 @@
     "approveLeaveRequests": "الموافقة على طلبات الإجازة",
     "pendingLeaveRequests": "طلبات إجازة معلقة تحتاج إلى موافقة",
     "updateEmployeeHandbook": "تحديث دليل الموظف",
-    "addNewPolicies": "إضافة قسم السياسات الجديدة",
+    "addNewPolicies": "إضافة السياسات الجديدة",
     "teamMeetingPreparation": "تحضير اجتماع الفريق",
     "prepareAgenda": "تحضير جدول الأعمال والمواد",
     "completeTrainingModule": "إكمال وحدة التدريب",
@@ -1453,13 +1623,13 @@
     "holidaySchedule": "جدول العطلات",
     "newYear": "رأس السنة",
     "officeClosed": "سيتم إغلاق المكتب من 31 ديسمبر إلى 2 يناير لعطلة رأس السنة. يرجى التخطيط لعملك accordingly.",
-    "hrDepartment": "قسم الموارد البشرية",
+    "hrDepartment": "الموارد البشرية",
     "newHealthInsurance": "مزايا التأمين الصحي الجديدة",
     "updatedCoverage": "التغطية المحدثة للتأمين الصحي تشمل الآن طب الأسنان والبصريات. تحقق من بوابة المزايا للتفاصيل.",
     "benefitsTeam": "فريق المزايا",
     "systemMaintenance": "صيانة النظام الليلة",
     "scheduledMaintenance": "صيانة مجدولة من 11 مساءً إلى 2 صباحاً. ستكون البوابة غير متاحة مؤقتاً.",
-    "itDepartment": "قسم تكنولوجيا المعلومات",
+    "itDepartment": "تكنولوجيا المعلومات",
     "annualPerformanceReviews": "تقييمات الأداء السنوية",
     "reviewPeriodStarts": "تبدأ فترة تقييم الأداء الأسبوع القادم. سيستلم المديرون نماذج التقييم عبر البريد الإلكتروني.",
     "securityPolicyUpdate": "عاجل: تحديث سياسة الأمان",
@@ -1474,7 +1644,7 @@
     "expenseReportSubmitted": "تم تقديم تقرير المصروفات",
     "expenseReportPending": "تقرير مصروفاتك في انتظار الموافقة",
     "newTeamMember": "عضو فريق جديد",
-    "teamMemberJoined": "انضم المستخدم 1 إلى قسمك",
+    "teamMemberJoined": "انضم المستخدم 1 إلى",
     "policyUpdated": "تم تحديث السياسة",
     "handbookUpdated": "تم تحديث دليل الموظف",
     "employeeCodeOfConduct": "سياسة قواعد سلوك الموظف",
@@ -1491,11 +1661,11 @@
     "updated": "محدث",
     "newEmployeeOnboarding": "إجراء دمج الموظف الجديد",
     "expenseReimbursement": "عملية استرداد المصروفات",
-    "financeDepartment": "قسم المالية",
+    "financeDepartment": "طلبات الماليه",
     "leaveRequestProcedure": "إجراء طلب الإجازة",
     "equipmentRequestProcess": "عملية طلب المعدات",
     "incidentReporting": "إجراء الإبلاغ عن الحوادث",
-    "safetyDepartment": "قسم السلامة",
+    "safetyDepartment": "السلامة",
     "annualCompanyEvent": "الحدث السنوي للشركة 2024",
     "photos": "صورة",
     "teamBuildingActivity": "نشاط بناء الفريق",
@@ -1611,5 +1781,44 @@
     "activeSessionsDescription": "عرض وإدارة الأجهزة التي قمت بتسجيل الدخول عليها حالياً",
     "viewSessions": "عرض الجلسات",
     "saveChanges": "حفظ التغييرات"
+  },
+  "finance": {
+    "title": "طلبات الماليه",
+    "subtitle": "إدارة الميزانيات المالية للمراكز",
+    "addBudgetButton": "إضافة ميزانية للمركز",
+    "totalBudget": "إجمالي الميزانية",
+    "viewDetails": "عرض التفاصيل",
+    "hideDetails": "إخفاء التفاصيل",
+    "salaries": "الرواتب",
+    "rent": "الإيجارات",
+    "furniture": "الأثاث",
+    "cars": "السيارات",
+    "requests": {
+      "title": "استقبال طلبات المراكز",
+      "item": "البند",
+      "amount": "المبلغ المطلوب",
+      "attachment": "مرفق الملف",
+      "applicant": "مقدم الطلب",
+      "reason": "السبب",
+      "status": "الحالة",
+      "pending": "معلق",
+      "approved": "مقبول",
+      "rejected": "مرفوض"
+    },
+    "other": "أخرى",
+    "reservedAmount": "المبلغ المحجوز",
+    "remainingBudget": "المبلغ المتبقي",
+    "addBudget": "إضافة ميزانية للمركز",
+    "selectCenter": "اختيار المركز",
+    "selectCenterPlaceholder": "اختر المركز",
+    "showSummary": "عرض الملخص",
+    "budgetSummary": "ملخص الميزانية",
+    "add": "إضافة",
+    "noCenters": "لا توجد مراكز مالية لعرضها",
+    "autoDistributedNote": "تم توزيع الميزانية تلقائياً، يمكنك تعديل القيم يدوياً",
+    "calculatedTotal": "المجموع المحسوب",
+    "difference": "الفرق",
+    "edit": "تعديل",
+    "editBudget": "تعديل ميزانية المركز"
   }
 }

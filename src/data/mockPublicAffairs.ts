@@ -1,4 +1,5 @@
 // Mock data for Public Affairs cases
+import { getDeathCases, getHospitalizedCases, getOtherIncidents } from './publicAffairsStorage';
 
 export type DeathCauseType = 'heart_attack' | 'traffic_accident' | 'natural_causes' | 'medical_emergency' | 'other';
 export type HospitalStatus = 'stable' | 'critical' | 'improving' | 'discharged';
@@ -172,60 +173,60 @@ export const mockOtherIncidents: OtherIncident[] = Array.from({ length: 20 }, (_
   };
 });
 
-// Helper functions
-export const getDeathCasesCount = () => mockDeathCases.length;
-export const getHospitalizedCasesCount = () => mockHospitalizedCases.length;
-export const getOtherIncidentsCount = () => mockOtherIncidents.length;
+// Helper functions - use storage functions to get all cases (mock + stored)
+export const getDeathCasesCount = () => getDeathCases().length;
+export const getHospitalizedCasesCount = () => getHospitalizedCases().length;
+export const getOtherIncidentsCount = () => getOtherIncidents().length;
 export const getTotalCasesCount = () => 
-  mockDeathCases.length + mockHospitalizedCases.length + mockOtherIncidents.length;
+  getDeathCases().length + getHospitalizedCases().length + getOtherIncidents().length;
 
-export const getActiveDeathCasesCount = () => mockDeathCases.filter(c => !c.completed).length;
-export const getActiveHospitalizedCasesCount = () => mockHospitalizedCases.filter(c => !c.completed).length;
-export const getActiveOtherIncidentsCount = () => mockOtherIncidents.filter(c => !c.completed).length;
+export const getActiveDeathCasesCount = () => getDeathCases().filter(c => !c.completed).length;
+export const getActiveHospitalizedCasesCount = () => getHospitalizedCases().filter(c => !c.completed).length;
+export const getActiveOtherIncidentsCount = () => getOtherIncidents().filter(c => !c.completed).length;
 
-export const getCompletedDeathCasesCount = () => mockDeathCases.filter(c => c.completed).length;
-export const getCompletedHospitalizedCasesCount = () => mockHospitalizedCases.filter(c => c.completed).length;
-export const getCompletedOtherIncidentsCount = () => mockOtherIncidents.filter(c => c.completed).length;
+export const getCompletedDeathCasesCount = () => getDeathCases().filter(c => c.completed).length;
+export const getCompletedHospitalizedCasesCount = () => getHospitalizedCases().filter(c => c.completed).length;
+export const getCompletedOtherIncidentsCount = () => getOtherIncidents().filter(c => c.completed).length;
 
 export const getTodayDeathCases = () => {
   const today = new Date().toISOString().split('T')[0];
-  return mockDeathCases.filter(c => c.dateOfDeath === today && !c.completed).length;
+  return getDeathCases().filter(c => c.dateOfDeath === today && !c.completed).length;
 };
 
 export const getTodayHospitalizedCases = () => {
   const today = new Date().toISOString().split('T')[0];
-  return mockHospitalizedCases.filter(c => c.createdAt.startsWith(today) && !c.completed).length;
+  return getHospitalizedCases().filter(c => c.createdAt.startsWith(today) && !c.completed).length;
 };
 
 export const getTodayOtherIncidents = () => {
   const today = new Date().toISOString().split('T')[0];
-  return mockOtherIncidents.filter(c => c.createdAt.startsWith(today) && !c.completed).length;
+  return getOtherIncidents().filter(c => c.createdAt.startsWith(today) && !c.completed).length;
 };
 
 // Get recent cases (last 5)
 export const getRecentDeathCases = (limit: number = 5) => {
-  return [...mockDeathCases]
+  return [...getDeathCases()]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, limit);
 };
 
 export const getRecentHospitalizedCases = (limit: number = 5) => {
-  return [...mockHospitalizedCases]
+  return [...getHospitalizedCases()]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, limit);
 };
 
 export const getRecentOtherIncidents = (limit: number = 5) => {
-  return [...mockOtherIncidents]
+  return [...getOtherIncidents()]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, limit);
 };
 
 export const getRecentAllCases = (limit: number = 10) => {
   const allCases = [
-    ...mockDeathCases.map(c => ({ ...c, type: 'death' as const })),
-    ...mockHospitalizedCases.map(c => ({ ...c, type: 'hospitalized' as const })),
-    ...mockOtherIncidents.map(c => ({ ...c, type: 'other' as const }))
+    ...getDeathCases().map(c => ({ ...c, type: 'death' as const })),
+    ...getHospitalizedCases().map(c => ({ ...c, type: 'hospitalized' as const })),
+    ...getOtherIncidents().map(c => ({ ...c, type: 'other' as const }))
   ];
   
   return allCases
@@ -234,16 +235,16 @@ export const getRecentAllCases = (limit: number = 10) => {
 };
 
 // Get completed cases
-export const getCompletedDeathCases = () => mockDeathCases.filter(c => c.completed);
-export const getCompletedHospitalizedCases = () => mockHospitalizedCases.filter(c => c.completed);
-export const getCompletedOtherIncidents = () => mockOtherIncidents.filter(c => c.completed);
+export const getCompletedDeathCases = () => getDeathCases().filter(c => c.completed);
+export const getCompletedHospitalizedCases = () => getHospitalizedCases().filter(c => c.completed);
+export const getCompletedOtherIncidents = () => getOtherIncidents().filter(c => c.completed);
 
 // Statistics by nationality
 export const getCasesByNationality = () => {
   const allCases = [
-    ...mockDeathCases.filter(c => !c.completed).map(c => ({ ...c, type: 'death' as const })),
-    ...mockHospitalizedCases.filter(c => !c.completed).map(c => ({ ...c, type: 'hospitalized' as const })),
-    ...mockOtherIncidents.filter(c => !c.completed).map(c => ({ ...c, type: 'other' as const }))
+    ...getDeathCases().filter(c => !c.completed).map(c => ({ ...c, type: 'death' as const })),
+    ...getHospitalizedCases().filter(c => !c.completed).map(c => ({ ...c, type: 'hospitalized' as const })),
+    ...getOtherIncidents().filter(c => !c.completed).map(c => ({ ...c, type: 'other' as const }))
   ];
 
   const nationalityMap: Record<string, number> = {};
@@ -263,11 +264,11 @@ export const getCasesByNationality = () => {
 export const getCasesByLocation = () => {
   const locationMap: Record<string, number> = {};
   
-  mockDeathCases.filter(c => !c.completed).forEach(c => {
+  getDeathCases().filter(c => !c.completed).forEach(c => {
     locationMap[c.placeOfDeath] = (locationMap[c.placeOfDeath] || 0) + 1;
   });
   
-  mockHospitalizedCases.filter(c => !c.completed).forEach(c => {
+  getHospitalizedCases().filter(c => !c.completed).forEach(c => {
     locationMap[c.hospital] = (locationMap[c.hospital] || 0) + 1;
   });
 
@@ -282,9 +283,9 @@ export const getCasesByLocation = () => {
 // Get cases by nationality
 export const getCasesByNationalityList = (nationality: string) => {
   const allCases = [
-    ...mockDeathCases.map(c => ({ ...c, type: 'death' as const })),
-    ...mockHospitalizedCases.map(c => ({ ...c, type: 'hospitalized' as const })),
-    ...mockOtherIncidents.map(c => ({ ...c, type: 'other' as const }))
+    ...getDeathCases().map(c => ({ ...c, type: 'death' as const })),
+    ...getHospitalizedCases().map(c => ({ ...c, type: 'hospitalized' as const })),
+    ...getOtherIncidents().map(c => ({ ...c, type: 'other' as const }))
   ];
   
   return allCases.filter(c => c.nationality === nationality);
@@ -295,12 +296,12 @@ export const getCasesByLocationList = (location: string) => {
   const allCases: any[] = [];
   
   // Add death cases (location = placeOfDeath)
-  mockDeathCases.forEach(c => {
+  getDeathCases().forEach(c => {
     allCases.push({ ...c, type: 'death' as const, location: c.placeOfDeath });
   });
   
   // Add hospitalized cases (location = hospital)
-  mockHospitalizedCases.forEach(c => {
+  getHospitalizedCases().forEach(c => {
     allCases.push({ ...c, type: 'hospitalized' as const, location: c.hospital });
   });
   

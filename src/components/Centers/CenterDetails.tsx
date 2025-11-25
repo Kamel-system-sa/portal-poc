@@ -111,6 +111,53 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
           <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
           <h4 className="text-xl font-bold text-gray-900">{t('form.responsible')}</h4>
         </div>
+        
+        {/* صورة المطوف وأيقونة الجنس */}
+        <div className="mb-5 flex items-center justify-center">
+          <div className="relative">
+            {/* صورة المطوف */}
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-mainColor/20 to-primary/20 border-4 border-mainColor/30 flex items-center justify-center overflow-hidden">
+              {center.responsible.photo ? (
+                <img 
+                  src={center.responsible.photo} 
+                  alt="Muttawif Photo"
+                  className="w-full h-full object-cover"
+                />
+              ) : center.responsible.gender ? (
+                <img 
+                  src={center.responsible.gender === 'male' ? '/images/male.png' : '/images/female.png'} 
+                  alt={center.responsible.gender === 'male' ? 'Male' : 'Female'}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img 
+                  src="/images/male.png" 
+                  alt="Default Muttawif"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+            {/* أيقونة الجنس */}
+            {!center.responsible.photo && (
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-white border-4 border-mainColor flex items-center justify-center shadow-lg">
+                {center.responsible.gender ? (
+                  <img 
+                    src={center.responsible.gender === 'male' ? '/images/male.png' : '/images/female.png'} 
+                    alt={center.responsible.gender === 'male' ? 'Male Icon' : 'Female Icon'}
+                    className="w-6 h-6 object-cover"
+                  />
+                ) : (
+                  <img 
+                    src="/images/male.png" 
+                    alt="Default Icon"
+                    className="w-6 h-6 object-cover"
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-3">
           {(['name', 'email', 'mobile', 'age', 'bravoCode', 'hawiya'] as const).map(field => {
             const iconMap: Record<string, React.ReactNode> = {
@@ -202,8 +249,43 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
       </section>
       </div>
 
-      {/* Row 3: Locations and Members */}
+      {/* Row 3: Members and Locations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {/* الأعضاء */}
+      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
+        <header className="flex justify-between items-center mb-5">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+            <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
+          </div>
+        </header>
+        {center.members.length === 0 ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+              <TeamOutlined className="text-3xl text-gray-400" />
+            </div>
+            <p className="text-sm font-medium text-gray-500">{t('details.noMembers')}</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {center.members.map((member: Member) => (
+              <div
+                key={member.id}
+                className="px-3 py-2 rounded-lg bg-gradient-to-br from-mainColor/5 to-primary/5 border border-mainColor/20 cursor-pointer hover:border-mainColor/40 hover:shadow-sm transition-all duration-200 group"
+                onClick={() => setSelectedMember(member)}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-mainColor bg-mainColor/10 px-2 py-0.5 rounded">
+                    {translateSection(member.section)}
+                  </span>
+                  <p className="text-sm font-semibold text-gray-900 flex-1 truncate">{member.name || t('details.notSpecified')}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
       {/* المواقع */}
       <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
         <div className="flex items-center gap-3 mb-5">
@@ -291,41 +373,6 @@ export const CenterDetails: React.FC<CenterDetailsProps> = ({ center, onEdit }) 
             )}
           </div>
         </div>
-      </section>
-
-      {/* الأعضاء */}
-      <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-5 border border-gray-100 w-full">
-        <header className="flex justify-between items-center mb-5">
-          <div className="flex items-center gap-3">
-            <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
-            <h4 className="text-xl font-bold text-gray-900">{t('form.members')}</h4>
-          </div>
-        </header>
-        {center.members.length === 0 ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-              <TeamOutlined className="text-3xl text-gray-400" />
-            </div>
-            <p className="text-sm font-medium text-gray-500">{t('details.noMembers')}</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {center.members.map((member: Member) => (
-              <div
-                key={member.id}
-                className="px-3 py-2 rounded-lg bg-gradient-to-br from-mainColor/5 to-primary/5 border border-mainColor/20 cursor-pointer hover:border-mainColor/40 hover:shadow-sm transition-all duration-200 group"
-                onClick={() => setSelectedMember(member)}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-mainColor bg-mainColor/10 px-2 py-0.5 rounded">
-                    {translateSection(member.section)}
-                  </span>
-                  <p className="text-sm font-semibold text-gray-900 flex-1 truncate">{member.name || t('details.notSpecified')}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </section>
       </div>
 

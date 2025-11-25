@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SearchOutlined, PlusOutlined, EyeOutlined, CloseOutlined, CheckCircleOutlined, XOutlined, EditOutlined } from '@ant-design/icons';
+import { SearchOutlined, PlusOutlined, EyeOutlined, CloseOutlined, CheckCircleOutlined, XOutlined, EditOutlined, InboxOutlined } from '@ant-design/icons';
 import { mockCampaigns, mockOrganizers } from '../../data/mockCampaigns';
-import { CampaignDetails } from '../../components/Reception/CampaignDetails';
-import { CampaignRegistrationForm } from '../../components/Reception/CampaignRegistrationForm';
-import { CampaignFollowUpForm } from '../../components/Reception/CampaignFollowUpForm';
+import { CampaignDetails } from '../../components/Organizers Component/CampaignDetails';
+import { CampaignRegistrationForm } from '../../components/Organizers Component/CampaignRegistrationForm';
+import { CampaignFollowUpForm } from '../../components/Organizers Component/CampaignFollowUpForm';
 import type { Campaign, CampaignRegistrationFormData, CampaignFollowUpFormData } from '../../types/reception';
 
 const CampaignsListPage: React.FC = () => {

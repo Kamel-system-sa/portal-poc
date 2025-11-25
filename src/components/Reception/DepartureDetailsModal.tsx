@@ -51,15 +51,6 @@ export const DepartureDetailsModal: React.FC<DepartureDetailsModalProps> = ({ gr
     return pointMap[point] || point;
   };
 
-  const getArrivalDestinationLabel = (destination: string) => {
-    const destMap: Record<string, string> = {
-      makkah: 'مكة',
-      madinah: 'المدينة',
-      jeddah: 'جدة',
-      'madinah-airport': 'مطار المدينة'
-    };
-    return destMap[destination] || destination;
-  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
@@ -158,10 +149,8 @@ export const DepartureDetailsModal: React.FC<DepartureDetailsModalProps> = ({ gr
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-xs text-gray-500 mb-1">مسار الرحلة</p>
-                <p className="font-semibold text-gray-900">
-                  {getDeparturePointLabel(group.departurePoint)} → {getArrivalDestinationLabel(group.arrivalDestination)}
-                </p>
+                <p className="text-xs text-gray-500 mb-1">نقطة الانطلاق</p>
+                <p className="font-semibold text-gray-900">{getDeparturePointLabel(group.departurePoint)}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-500 mb-1">تاريخ ووقت المغادرة</p>
@@ -172,14 +161,6 @@ export const DepartureDetailsModal: React.FC<DepartureDetailsModalProps> = ({ gr
                     day: 'numeric' 
                   })} {group.departureTime}
                 </p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 mb-1">نقطة الانطلاق</p>
-                <p className="font-semibold text-gray-900">{getDeparturePointLabel(group.departurePoint)}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 mb-1">جهة الوصول</p>
-                <p className="font-semibold text-gray-900">{getArrivalDestinationLabel(group.arrivalDestination)}</p>
               </div>
               <div>
                 <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
@@ -225,43 +206,6 @@ export const DepartureDetailsModal: React.FC<DepartureDetailsModalProps> = ({ gr
             </div>
           )}
 
-          {/* Arrival Accommodations */}
-          {group.arrivalAccommodations.length > 0 && (
-            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-              <div className="flex items-center gap-2 mb-4">
-                <HomeOutlined className="text-mainColor text-lg" />
-                <h3 className="text-lg font-bold text-gray-900">بيانات السكن - جهة الوصول</h3>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-100">
-                    <tr>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">اسم السكن</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">رقم عقد السكن</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">تاريخ بداية العقد</th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700">عدد الواصلين</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {group.arrivalAccommodations.map((acc, index) => (
-                      <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-4 py-3 text-sm text-gray-900">{acc.accommodationName}</td>
-                        <td className="px-4 py-3 text-sm text-gray-700">{acc.contractNumber}</td>
-                        <td className="px-4 py-3 text-sm text-gray-700">
-                          {new Date(acc.contractStartDate).toLocaleDateString('ar-SA', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                          })}
-                        </td>
-                        <td className="px-4 py-3 text-sm font-semibold text-gray-900">{acc.pilgrimsArriving}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Footer */}

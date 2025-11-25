@@ -221,7 +221,11 @@ export const PilgrimDetailsModal: React.FC<PilgrimDetailsModalProps> = ({
                   <span className="text-xs font-semibold text-customgray uppercase">{t('form.nationality')}</span>
                 </div>
                 <p className="text-sm font-medium text-gray-800">
-                  {t(`nationalities.${pilgrim.nationality.toLowerCase()}`) || pilgrim.nationality}
+                  {(() => {
+                    const translationKey = `nationalities.${pilgrim.nationality.toLowerCase()}`;
+                    const translated = t(translationKey);
+                    return translated && translated !== translationKey ? translated : pilgrim.nationality;
+                  })()}
                 </p>
               </div>
 
@@ -493,7 +497,11 @@ export const PilgrimDetailsModal: React.FC<PilgrimDetailsModalProps> = ({
                                     <div className="flex-1">
                                       <p className="font-semibold text-gray-800">{p.name}</p>
                                       <p className="text-xs text-customgray">
-                                        {t(`housing.${p.gender}`)} • {t(`nationalities.${p.nationality.toLowerCase()}`) || p.nationality} • {p.age} {t('form.age')}
+                                        {t(`housing.${p.gender}`)} • {(() => {
+                                          const translationKey = `nationalities.${p.nationality.toLowerCase()}`;
+                                          const translated = t(translationKey);
+                                          return translated && translated !== translationKey ? translated : p.nationality;
+                                        })()} • {p.age} {t('form.age')}
                                       </p>
                                       {p.phone && (
                                         <p className="text-xs text-customgray">{p.phone}</p>

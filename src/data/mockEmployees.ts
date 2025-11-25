@@ -23,19 +23,21 @@ export interface Employee {
   employeeCardPrinted: boolean;
   registeredInAjir: boolean;
   nuskCardIssued: boolean;
+  ibanNumber?: string;
+  ibanProof?: string;
   createdAt: string;
 }
 
 export const mockEmployees: Employee[] = [
   {
     id: 'E-1',
-    name: 'أحمد محمد علي',
+    name: 'موظف 1',
     nationality: 'السعودية',
     idNumber: '1234567890',
     gender: 'male',
     age: 32,
     mobile: '0501234567',
-    email: 'ahmed@example.com',
+    email: 'employee1@example.com',
     department: 'Reception',
     jobRank: 'Supervisor',
     shiftDuration: '8h',
@@ -47,7 +49,7 @@ export const mockEmployees: Employee[] = [
     dailySalary: 137,
     mainTasks: ['استقبال الحجاج', 'تنظيم الجدول الزمني', 'التنسيق مع الفرق'],
     additionalTasks: ['مساعدة في حالات الطوارئ', 'تدريب الموظفين الجدد'],
-    recommendations: 'Recommended for Center 001 - Excellent customer service skills',
+    recommendations: 'Recommended for Center 1',
     employeeCardPrinted: true,
     registeredInAjir: true,
     nuskCardIssued: true,
@@ -55,13 +57,13 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-2',
-    name: 'فاطمة خالد',
+    name: 'موظف 2',
     nationality: 'السعودية',
     idNumber: '0987654321',
     gender: 'female',
     age: 28,
     mobile: '0509876543',
-    email: 'fatima@example.com',
+    email: 'employee2@example.com',
     department: 'Accommodation',
     jobRank: 'Field',
     shiftDuration: '12h',
@@ -73,7 +75,7 @@ export const mockEmployees: Employee[] = [
     dailySalary: 148,
     mainTasks: ['إدارة الإسكان', 'تنسيق المواعيد'],
     additionalTasks: ['الرد على الاستفسارات'],
-    recommendations: 'Suitable for VIP centers',
+    recommendations: 'Suitable for centers',
     employeeCardPrinted: true,
     registeredInAjir: false,
     nuskCardIssued: true,
@@ -81,13 +83,13 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-3',
-    name: 'محمد عبدالله',
+    name: 'موظف 3',
     nationality: 'مصرية',
     idNumber: '1122334455',
     gender: 'male',
     age: 35,
     mobile: '0501112233',
-    email: 'mohammed@example.com',
+    email: 'employee3@example.com',
     department: 'Transport',
     jobRank: 'Department Head',
     shiftDuration: '12h',
@@ -99,7 +101,7 @@ export const mockEmployees: Employee[] = [
     dailySalary: 157,
     mainTasks: ['الخدمات الميدانية', 'التنسيق مع المراكز'],
     additionalTasks: ['تسجيل البيانات', 'متابعة الحجاج'],
-    recommendations: 'Recommended for B2B centers',
+    recommendations: 'Recommended for centers',
     employeeCardPrinted: false,
     registeredInAjir: true,
     nuskCardIssued: false,
@@ -107,13 +109,13 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-4',
-    name: 'سارة أحمد',
+    name: 'موظف 4',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',
     age: 26,
     mobile: '0502223344',
-    email: 'sara@example.com',
+    email: 'employee4@example.com',
     department: 'Reception',
     jobRank: 'Field',
     shiftDuration: '8h',
@@ -132,13 +134,13 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-5',
-    name: 'خالد بن سعد',
+    name: 'موظف 5',
     nationality: 'السعودية',
     idNumber: '3344556677',
     gender: 'male',
     age: 40,
     mobile: '0503334455',
-    email: 'khalid@example.com',
+    email: 'employee5@example.com',
     department: 'Field Services',
     jobRank: 'Department Head',
     shiftDuration: '8h',
@@ -150,7 +152,7 @@ export const mockEmployees: Employee[] = [
     dailySalary: 200,
     mainTasks: ['إدارة الفريق', 'التنسيق العام', 'حل المشاكل'],
     additionalTasks: ['التدريب', 'التقييم'],
-    recommendations: 'Ideal for high-capacity centers',
+    recommendations: 'Ideal for centers',
     employeeCardPrinted: true,
     registeredInAjir: true,
     nuskCardIssued: true,
@@ -158,7 +160,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-6',
-    name: 'نورا حسن',
+    name: 'موظف 6',
     nationality: 'السعودية',
     idNumber: '4455667788',
     gender: 'female',
@@ -183,7 +185,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-7',
-    name: 'عبدالرحمن سعيد',
+    name: 'موظف 7',
     nationality: 'السعودية',
     idNumber: '5566778899',
     gender: 'male',
@@ -208,7 +210,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-8',
-    name: 'ليلى أحمد',
+    name: 'موظف 8',
     nationality: 'مصرية',
     idNumber: '6677889900',
     gender: 'female',
@@ -233,7 +235,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-9',
-    name: 'يوسف محمد',
+    name: 'موظف 9',
     nationality: 'السعودية',
     idNumber: '7788990011',
     gender: 'male',
@@ -258,7 +260,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-10',
-    name: 'مريم علي',
+    name: 'موظف 10',
     nationality: 'السعودية',
     idNumber: '8899001122',
     gender: 'female',
@@ -283,7 +285,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-11',
-    name: 'سعد بن خالد',
+    name: 'موظف 11',
     nationality: 'السعودية',
     idNumber: '9900112233',
     gender: 'male',
@@ -308,7 +310,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-12',
-    name: 'هند عبدالله',
+    name: 'موظف 12',
     nationality: 'السعودية',
     idNumber: '0011223344',
     gender: 'female',
@@ -333,7 +335,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-13',
-    name: 'عمر حسن',
+    name: 'موظف 13',
     nationality: 'أردنية',
     idNumber: '1122334455',
     gender: 'male',
@@ -358,7 +360,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-14',
-    name: 'ريم خالد',
+    name: 'موظف 14',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',
@@ -383,7 +385,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-15',
-    name: 'فيصل بن عبدالعزيز',
+    name: 'موظف 15',
     nationality: 'السعودية',
     idNumber: '3344556677',
     gender: 'male',
@@ -408,7 +410,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-16',
-    name: 'لينا محمود',
+    name: 'موظف 16',
     nationality: 'لبنانية',
     idNumber: '4455667788',
     gender: 'female',
@@ -433,7 +435,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-17',
-    name: 'طارق إبراهيم',
+    name: 'موظف 17',
     nationality: 'السعودية',
     idNumber: '5566778899',
     gender: 'male',
@@ -458,7 +460,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-18',
-    name: 'سلمى يوسف',
+    name: 'موظف 18',
     nationality: 'السعودية',
     idNumber: '6677889900',
     gender: 'female',
@@ -483,7 +485,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-19',
-    name: 'عبدالله بن سعد',
+    name: 'موظف 19',
     nationality: 'السعودية',
     idNumber: '7788990011',
     gender: 'male',
@@ -508,7 +510,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-20',
-    name: 'نورا سعيد',
+    name: 'موظف 20',
     nationality: 'السعودية',
     idNumber: '8899001122',
     gender: 'female',
@@ -533,7 +535,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-21',
-    name: 'خالد فهد',
+    name: 'موظف 21',
     nationality: 'السعودية',
     idNumber: '9900112233',
     gender: 'male',
@@ -558,7 +560,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-22',
-    name: 'عائشة محمد',
+    name: 'موظف 22',
     nationality: 'السعودية',
     idNumber: '0011223344',
     gender: 'female',
@@ -583,7 +585,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-23',
-    name: 'مصطفى علي',
+    name: 'موظف 23',
     nationality: 'مصرية',
     idNumber: '1122334455',
     gender: 'male',
@@ -608,7 +610,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-24',
-    name: 'هدى يوسف',
+    name: 'موظف 24',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',
@@ -633,7 +635,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-25',
-    name: 'نواف خالد',
+    name: 'موظف 25',
     nationality: 'السعودية',
     idNumber: '3344556677',
     gender: 'male',
@@ -658,7 +660,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-26',
-    name: 'ليلى حسن',
+    name: 'موظف 26',
     nationality: 'سورية',
     idNumber: '4455667788',
     gender: 'female',
@@ -683,7 +685,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-27',
-    name: 'عبدالعزيز سعد',
+    name: 'موظف 27',
     nationality: 'السعودية',
     idNumber: '5566778899',
     gender: 'male',
@@ -708,7 +710,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-28',
-    name: 'رنا أحمد',
+    name: 'موظف 28',
     nationality: 'السعودية',
     idNumber: '6677889900',
     gender: 'female',
@@ -733,7 +735,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-29',
-    name: 'فهد بن محمد',
+    name: 'موظف 29',
     nationality: 'السعودية',
     idNumber: '7788990011',
     gender: 'male',
@@ -758,7 +760,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-30',
-    name: 'زينب خالد',
+    name: 'موظف 30',
     nationality: 'السعودية',
     idNumber: '8899001122',
     gender: 'female',
@@ -783,7 +785,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-31',
-    name: 'سليمان أحمد',
+    name: 'موظف 31',
     nationality: 'السعودية',
     idNumber: '9900112233',
     gender: 'male',
@@ -808,7 +810,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-32',
-    name: 'دينا علي',
+    name: 'موظف 32',
     nationality: 'السعودية',
     idNumber: '0011223344',
     gender: 'female',
@@ -833,7 +835,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-33',
-    name: 'بندر بن عبدالله',
+    name: 'موظف 33',
     nationality: 'السعودية',
     idNumber: '1122334455',
     gender: 'male',
@@ -858,7 +860,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-34',
-    name: 'جواهر محمد',
+    name: 'موظف 34',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',
@@ -883,7 +885,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-35',
-    name: 'عبدالمحسن خالد',
+    name: 'موظف 35',
     nationality: 'السعودية',
     idNumber: '3344556677',
     gender: 'male',
@@ -908,7 +910,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-36',
-    name: 'منى سعيد',
+    name: 'موظف 36',
     nationality: 'السعودية',
     idNumber: '4455667788',
     gender: 'female',
@@ -933,7 +935,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-37',
-    name: 'مشعل بن فهد',
+    name: 'موظف 37',
     nationality: 'السعودية',
     idNumber: '5566778899',
     gender: 'male',
@@ -958,7 +960,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-38',
-    name: 'ريماز علي',
+    name: 'موظف 38',
     nationality: 'السعودية',
     idNumber: '6677889900',
     gender: 'female',
@@ -983,7 +985,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-39',
-    name: 'وليد بن سعد',
+    name: 'موظف 39',
     nationality: 'السعودية',
     idNumber: '7788990011',
     gender: 'male',
@@ -1008,7 +1010,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-40',
-    name: 'تغريد يوسف',
+    name: 'موظف 40',
     nationality: 'السعودية',
     idNumber: '8899001122',
     gender: 'female',
@@ -1033,7 +1035,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-41',
-    name: 'عبدالرحيم محمد',
+    name: 'موظف 41',
     nationality: 'السعودية',
     idNumber: '9900112233',
     gender: 'male',
@@ -1058,7 +1060,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-42',
-    name: 'سارة خالد',
+    name: 'موظف 42',
     nationality: 'السعودية',
     idNumber: '0011223344',
     gender: 'female',
@@ -1083,7 +1085,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-43',
-    name: 'عبدالوهاب أحمد',
+    name: 'موظف 43',
     nationality: 'السعودية',
     idNumber: '1122334455',
     gender: 'male',
@@ -1108,7 +1110,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-44',
-    name: 'فاطمة علي',
+    name: 'موظف 44',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',
@@ -1133,7 +1135,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-45',
-    name: 'حسن بن عبدالعزيز',
+    name: 'موظف 45',
     nationality: 'السعودية',
     idNumber: '3344556677',
     gender: 'male',
@@ -1158,7 +1160,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-46',
-    name: 'مها سعيد',
+    name: 'موظف 46',
     nationality: 'السعودية',
     idNumber: '4455667788',
     gender: 'female',
@@ -1183,7 +1185,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-47',
-    name: 'عبدالهادي خالد',
+    name: 'موظف 47',
     nationality: 'السعودية',
     idNumber: '5566778899',
     gender: 'male',
@@ -1208,7 +1210,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-48',
-    name: 'لينا يوسف',
+    name: 'موظف 48',
     nationality: 'السعودية',
     idNumber: '6677889900',
     gender: 'female',
@@ -1233,7 +1235,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-49',
-    name: 'سلطان بن محمد',
+    name: 'موظف 49',
     nationality: 'السعودية',
     idNumber: '7788990011',
     gender: 'male',
@@ -1258,7 +1260,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-50',
-    name: 'شهد أحمد',
+    name: 'موظف 50',
     nationality: 'السعودية',
     idNumber: '8899001122',
     gender: 'female',
@@ -1283,7 +1285,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-51',
-    name: 'عبدالرحمن بن فيصل',
+    name: 'موظف 51',
     nationality: 'السعودية',
     idNumber: '9900112233',
     gender: 'male',
@@ -1308,7 +1310,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-52',
-    name: 'نادية حسن',
+    name: 'موظف 52',
     nationality: 'السعودية',
     idNumber: '0011223344',
     gender: 'female',
@@ -1333,7 +1335,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-53',
-    name: 'ماجد بن عبدالله',
+    name: 'موظف 53',
     nationality: 'السعودية',
     idNumber: '1122334455',
     gender: 'male',
@@ -1358,7 +1360,7 @@ export const mockEmployees: Employee[] = [
   },
   {
     id: 'E-54',
-    name: 'هند محمد',
+    name: 'موظف 54',
     nationality: 'السعودية',
     idNumber: '2233445566',
     gender: 'female',

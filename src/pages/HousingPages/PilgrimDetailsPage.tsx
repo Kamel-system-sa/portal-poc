@@ -109,7 +109,11 @@ const PilgrimDetailsPage: React.FC = () => {
                   {pilgrim.gender === 'male' ? t('housing.male') : t('housing.female')}
                 </Tag>
                 <Tag className="text-sm px-3 py-1">
-                  {t(`nationalities.${pilgrim.nationality.toLowerCase()}`) || pilgrim.nationality}
+                  {(() => {
+                    const translationKey = `nationalities.${pilgrim.nationality.toLowerCase()}`;
+                    const translated = t(translationKey);
+                    return translated && translated !== translationKey ? translated : pilgrim.nationality;
+                  })()}
                 </Tag>
                 <Tag className="text-sm px-3 py-1">
                   {pilgrim.age} {t('labels.age') || 'years old'}

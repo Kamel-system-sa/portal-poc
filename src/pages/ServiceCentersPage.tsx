@@ -5,14 +5,14 @@ import { CenterDetails } from '../components/Centers/CenterDetails';
 import { CentersToolbar } from '../components/Centers/CentersToolbar';
 import { SummaryCards } from '../components/Centers/SummaryCards';
 import { CentersGrid } from '../components/Centers/CentersGrid';
-import { mockCenters } from '../data/mockCenters';
+import { getCenters, saveCenter } from '../data/centersStorage';
 import type { Center } from '../data/mockCenters';
 import type { FilterState } from '../types';
 import { CloseOutlined } from '@ant-design/icons';
 
 const ServiceCentersPage: React.FC = () => {
   const { t } = useTranslation('common');
-  const [centers, setCenters] = useState<Center[]>(mockCenters);
+  const [centers, setCenters] = useState<Center[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [isAddFormOpen, setIsAddFormOpen] = useState<boolean>(false);
   const [selectedCenter, setSelectedCenter] = useState<Center | null>(null);
@@ -22,6 +22,12 @@ const ServiceCentersPage: React.FC = () => {
     status: []
   });
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
+
+  // Load centers from localStorage on mount
+  useEffect(() => {
+    const loadedCenters = getCenters();
+    setCenters(loadedCenters);
+  }, []);
 
   const handleSearch = (val: string): void => setSearchValue(val);
 
@@ -55,7 +61,10 @@ const ServiceCentersPage: React.FC = () => {
   }, [isAddFormOpen]);
 
   const handleAddCenter = (newCenter: Center): void => {
-    // لو موجود تعديل، نحدث المركز بدل الإضافة
+    // Save to localStorage
+    saveCenter(newCenter);
+    
+    // Update state to reflect changes immediately
     if (editCenterData) {
       setCenters(centers.map(c => (c.id === newCenter.id ? newCenter : c)));
     } else {
@@ -116,10 +125,13 @@ const ServiceCentersPage: React.FC = () => {
 
           <SummaryCards centers={filteredCenters} />
 
-          <CentersGrid
-            centers={filteredCenters}
-            onSelectCenter={handleSelectCenter}
-          />
+          {/* Centers Grid - Small Cards */}
+          <div className="bg-white rounded-xl shadow-md shadow-gray-200/50 border border-gray-100 p-4 sm:p-6">
+            <CentersGrid
+              centers={filteredCenters}
+              onSelectCenter={handleSelectCenter}
+            />
+          </div>
         </div>
       </section>
 

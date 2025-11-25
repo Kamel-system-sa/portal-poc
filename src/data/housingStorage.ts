@@ -77,6 +77,7 @@ export const getHotelsWithRecords = (): Hotel[] => {
       id: record.id,
       name: record.housingName,
       location: `${record.city === 'makkah' ? 'Makkah' : 'Madinah'}, ${record.district}`,
+      city: record.city,
       totalRooms,
       totalCapacity: record.housingCapacity,
       occupiedCapacity,

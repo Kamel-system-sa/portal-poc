@@ -109,28 +109,12 @@ const PortsListPage: React.FC = () => {
       <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 {t('reception.ports.title') || 'Air & Land Ports'}
               </h1>
               <p className="text-gray-600">{t('reception.ports.list.subtitle') || 'Manage port entries and arrivals'}</p>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => handleOpenModal('airport')}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg font-semibold flex items-center gap-2"
-              >
-                <AirplaneOutlined />
-                {t('reception.ports.airports.addEntry') || 'Add Airport Entry'}
-              </button>
-              <button
-                onClick={() => handleOpenModal('land')}
-                className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-md shadow-mainColor/20 hover:shadow-lg font-semibold flex items-center gap-2"
-              >
-                <CarOutlined />
-                {t('reception.ports.landPorts.addEntry') || 'Add Land Port Entry'}
-              </button>
             </div>
           </div>
 
@@ -239,17 +223,6 @@ const PortsListPage: React.FC = () => {
                       </div>
                       {getStatusBadge(entry.status)}
                     </div>
-
-                    {/* Bus Photo Preview */}
-                    {entry.busPhoto && (
-                      <div className="mb-4 rounded-xl overflow-hidden border border-gray-200">
-                        <img 
-                          src={entry.busPhoto} 
-                          alt="Bus" 
-                          className="w-full h-32 object-cover"
-                        />
-                      </div>
-                    )}
 
                     {/* Entry Details */}
                     <div className="space-y-3 mb-4">
@@ -374,22 +347,6 @@ const PortsListPage: React.FC = () => {
                 <p className="text-sm text-gray-500 max-w-md text-center mb-6">
                   {t('reception.ports.list.emptyMessage') || 'Start by adding a new airport or land port entry'}
                 </p>
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => handleOpenModal('airport')}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg font-semibold flex items-center gap-2"
-                  >
-                    <AirplaneOutlined />
-                    {t('reception.ports.airports.addEntry') || 'Add Airport Entry'}
-                  </button>
-                  <button
-                    onClick={() => handleOpenModal('land')}
-                    className="px-6 py-3 bg-gradient-to-r from-mainColor to-primary text-white rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-md shadow-mainColor/20 hover:shadow-lg font-semibold flex items-center gap-2"
-                  >
-                    <CarOutlined />
-                    {t('reception.ports.landPorts.addEntry') || 'Add Land Port Entry'}
-                  </button>
-                </div>
               </div>
             </div>
           )}
@@ -532,16 +489,6 @@ const PortsListPage: React.FC = () => {
                     </div>
                   )}
                 </div>
-
-                {/* Bus Photo */}
-                {selectedEntry.busPhoto && (
-                  <div>
-                    <label className="text-sm font-semibold text-gray-700 mb-2 block">
-                      {t('reception.ports.airports.busPhoto') || 'Bus Photo'}
-                    </label>
-                    <img src={selectedEntry.busPhoto} alt="Bus" className="w-full max-w-md rounded-xl border border-gray-200" />
-                  </div>
-                )}
 
                 {/* Timestamps */}
                 <div className="pt-4 border-t border-gray-200">

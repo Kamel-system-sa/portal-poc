@@ -94,6 +94,58 @@ th {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* Finance Tabs Styling */
+.finance-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+  padding: 12px 0 0 0;
+}
+
+.finance-tabs .ant-tabs-nav::before {
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.finance-tabs .ant-tabs-tab {
+  padding: 8px 16px;
+  margin: 0 4px;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.finance-tabs .ant-tabs-tab:hover {
+  background-color: rgba(0, 91, 79, 0.05);
+  color: #005B4F;
+}
+
+.finance-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
+  color: #005B4F !important;
+}
+
+.finance-tabs .ant-tabs-tab-active {
+  background: linear-gradient(to bottom, rgba(0, 91, 79, 0.1), transparent);
+  color: #005B4F !important;
+  font-weight: 600;
+}
+
+.finance-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #005B4F !important;
+}
+
+.finance-tabs .ant-tabs-tab-btn {
+  color: inherit;
+}
+
+.finance-tabs .ant-tabs-ink-bar {
+  background: linear-gradient(90deg, #005B4F, #00796B);
+  height: 3px;
+  border-radius: 2px;
+}
+
+.finance-tabs .ant-tabs-content-holder {
+  padding: 16px;
+}
+
 
 /* Sidebar menu base text colors */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item,
@@ -627,4 +679,103 @@ button.ant-btn[class*="bg-red-500"] * {
 
 .add-organizer-modal .ant-form-item-label {
   padding-bottom: 0 !important;
+}
+
+/* Centers Table Styling - Consistent with site design */
+.centers-table .ant-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #E5E7EB;
+}
+
+.centers-table .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #00796B 0%, #005B4F 100%) !important;
+  border-bottom: 2px solid #00443A !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  padding: 16px !important;
+  font-size: 14px;
+}
+
+.centers-table .ant-table-tbody > tr > td {
+  padding: 16px !important;
+  border-bottom: 1px solid #F3F4F6 !important;
+  color: #374151 !important;
+  font-size: 14px;
+}
+
+.centers-table .ant-table-tbody > tr:hover > td {
+  background-color: #F9FAFB !important;
+}
+
+.centers-table .ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: rgba(0, 121, 107, 0.08) !important;
+}
+
+.centers-table .ant-table-tbody > tr.ant-table-row-selected:hover > td {
+  background-color: rgba(0, 121, 107, 0.12) !important;
+}
+
+.centers-table .ant-pagination {
+  margin: 16px 0 0 0 !important;
+  padding: 16px 0 !important;
+}
+
+.centers-table .ant-pagination-item {
+  border-radius: 8px !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+.centers-table .ant-pagination-item:hover {
+  border-color: #00796B !important;
+}
+
+.centers-table .ant-pagination-item-active {
+  background: #00796B !important;
+  border-color: #00796B !important;
+}
+
+.centers-table .ant-pagination-item-active a {
+  color: #ffffff !important;
+}
+
+.centers-table .ant-pagination-prev,
+.centers-table .ant-pagination-next {
+  border-radius: 8px !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+.centers-table .ant-pagination-prev:hover,
+.centers-table .ant-pagination-next:hover {
+  border-color: #00796B !important;
+  color: #00796B !important;
+}
+
+.centers-table .ant-table-filter-trigger {
+  color: #6B7280 !important;
+}
+
+.centers-table .ant-table-filter-trigger:hover {
+  color: #00796B !important;
+}
+
+.centers-table .ant-table-filter-trigger-container-open {
+  color: #00796B !important;
+}
+
+.centers-table .ant-tag {
+  border-radius: 6px !important;
+  padding: 4px 12px !important;
+  font-weight: 500 !important;
+  border: none !important;
+}
+
+.centers-table .ant-btn-link {
+  color: #00796B !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+}
+
+.centers-table .ant-btn-link:hover {
+  color: #005B4F !important;
 }

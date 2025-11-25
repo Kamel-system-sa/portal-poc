@@ -20,7 +20,7 @@ export const PreArrivalKPICards: React.FC<PreArrivalKPICardsProps> = ({ kpi, onC
   const cards = [
     {
       key: 'totalContracted',
-      title: t('reception.preArrival.kpi.totalContracted'),
+      title: 'التأشيرات',
       value: kpi.totalContracted.toLocaleString(),
       icon: <TeamOutlined />,
       colorScheme: {
@@ -91,21 +91,21 @@ export const PreArrivalKPICards: React.FC<PreArrivalKPICardsProps> = ({ kpi, onC
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mb-5">
       {cards.map((card) => (
         <div
           key={card.key}
           onClick={() => onCardClick?.(card.key)}
-          className={`bg-white rounded-xl shadow-md p-4 border ${card.colorScheme.borderColor} hover:shadow-lg ${card.colorScheme.hoverShadow} hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col`}
-          style={{ minHeight: '120px' }}
+          className={`bg-white rounded-xl shadow-md p-3 border ${card.colorScheme.borderColor} hover:shadow-lg ${card.colorScheme.hoverShadow} hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col items-center justify-center`}
+          style={{ minHeight: '100px' }}
         >
-          <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${card.colorScheme.bgGradient} to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity`}></div>
-          <div className={`relative w-12 h-12 rounded-lg ${card.colorScheme.iconBg} flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0`}>
-            <div className={`text-lg ${card.colorScheme.iconColor}`}>{card.icon}</div>
+          <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${card.colorScheme.bgGradient} to-transparent rounded-full -mr-10 -mt-10 opacity-40 group-hover:opacity-60 transition-opacity`}></div>
+          <div className={`relative w-10 h-10 rounded-lg ${card.colorScheme.iconBg} flex items-center justify-center mb-2 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0`}>
+            <div className={`text-base ${card.colorScheme.iconColor}`}>{card.icon}</div>
           </div>
-          <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{card.title}</h4>
-          <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{card.value}</span>
-          <div className={`mt-2 w-10 h-0.5 ${card.colorScheme.lineColor} rounded-full flex-shrink-0`}></div>
+          <h4 className="text-xs font-medium text-gray-700 mb-1.5 leading-tight text-center">{card.title}</h4>
+          <span className="text-xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent text-center">{card.value}</span>
+          <div className={`mt-1.5 w-8 h-0.5 ${card.colorScheme.lineColor} rounded-full flex-shrink-0`}></div>
         </div>
       ))}
     </div>

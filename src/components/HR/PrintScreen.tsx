@@ -225,7 +225,7 @@ export const PrintScreen: React.FC<PrintScreenProps> = ({
                       <div className="text-center">
                         <p className="font-semibold text-mainColor mb-2">{t('hr.print.companySignature') || 'توقيع الشركة'}</p>
                         <div className="border-t-2 border-mainColor mt-2 h-16"></div>
-                        <p className="text-sm text-gray-600 mt-2">بوابة كامل - قسم الموارد البشرية</p>
+                        <p className="text-sm text-gray-600 mt-2">بوابة كامل - الموارد البشرية</p>
                       </div>
                     </div>
                     <div className="text-center mt-6 pt-4 border-t border-gray-200">

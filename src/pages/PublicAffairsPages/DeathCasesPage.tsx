@@ -19,11 +19,12 @@ import { Dropdown, Button } from 'antd';
 import { DeathCaseForm } from '../../components/PublicAffairs/DeathCaseForm';
 import { ConfirmCompleteModal } from '../../components/PublicAffairs/ConfirmCompleteModal';
 import { 
-  mockDeathCases, 
   getDeathCasesCount, 
   getTodayDeathCases, 
   type DeathCase 
 } from '../../data/mockPublicAffairs';
+import { getDeathCases, saveDeathCase, deleteDeathCase } from '../../data/publicAffairsStorage';
+import { useEffect } from 'react';
 
 const DeathCasesPage: React.FC = () => {
   const { t } = useTranslation('PublicAffairs');
@@ -31,7 +32,13 @@ const DeathCasesPage: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<DeathCase | null>(null);
   const [caseToDelete, setCaseToDelete] = useState<DeathCase | null>(null);
   const [caseToComplete, setCaseToComplete] = useState<DeathCase | null>(null);
-  const [deathCases, setDeathCases] = useState<DeathCase[]>(mockDeathCases);
+  const [deathCases, setDeathCases] = useState<DeathCase[]>([]);
+
+  // Load death cases from localStorage on mount
+  useEffect(() => {
+    const loadedCases = getDeathCases();
+    setDeathCases(loadedCases);
+  }, []);
   const [filterCompleted, setFilterCompleted] = useState<'all' | 'active' | 'completed'>('active');
 
   const activeCases = deathCases.filter(c => !c.completed);
@@ -60,6 +67,7 @@ const DeathCasesPage: React.FC = () => {
 
   const handleDelete = () => {
     if (caseToDelete) {
+      deleteDeathCase(caseToDelete.id);
       setDeathCases(deathCases.filter(c => c.id !== caseToDelete.id));
       setCaseToDelete(null);
       setSelectedCase(null);
@@ -68,10 +76,15 @@ const DeathCasesPage: React.FC = () => {
 
   const handleComplete = () => {
     if (caseToComplete) {
+      const updatedCase = { 
+        ...caseToComplete, 
+        completed: true, 
+        completedAt: new Date().toISOString(), 
+        burialCompleted: true 
+      };
+      saveDeathCase(updatedCase);
       setDeathCases(deathCases.map(c => 
-        c.id === caseToComplete.id 
-          ? { ...c, completed: true, completedAt: new Date().toISOString(), burialCompleted: true }
-          : c
+        c.id === caseToComplete.id ? updatedCase : c
       ));
       setCaseToComplete(null);
       setSelectedCase(null);
@@ -91,6 +104,9 @@ const DeathCasesPage: React.FC = () => {
       createdAt: new Date().toISOString(),
       completed: false
     };
+    // Save to localStorage
+    saveDeathCase(newCase);
+    // Update state to reflect changes immediately
     setDeathCases([...deathCases, newCase]);
     setIsFormOpen(false);
   };

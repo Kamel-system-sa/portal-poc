@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlassCard } from '../../components/HousingComponent/GlassCard';
 import { HousingStatsCard } from '../../components/HousingComponent/HousingStatsCard';
@@ -20,11 +20,11 @@ import { Dropdown, Button } from 'antd';
 import { HospitalizedCaseForm } from '../../components/PublicAffairs/HospitalizedCaseForm';
 import { ConfirmCompleteModal } from '../../components/PublicAffairs/ConfirmCompleteModal';
 import { 
-  mockHospitalizedCases, 
   getHospitalizedCasesCount, 
   getTodayHospitalizedCases, 
   type HospitalizedCase 
 } from '../../data/mockPublicAffairs';
+import { getHospitalizedCases, saveHospitalizedCase, deleteHospitalizedCase } from '../../data/publicAffairsStorage';
 
 const HospitalizedCasesPage: React.FC = () => {
   const { t } = useTranslation('PublicAffairs');
@@ -32,7 +32,13 @@ const HospitalizedCasesPage: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<HospitalizedCase | null>(null);
   const [caseToDelete, setCaseToDelete] = useState<HospitalizedCase | null>(null);
   const [caseToComplete, setCaseToComplete] = useState<HospitalizedCase | null>(null);
-  const [hospitalizedCases, setHospitalizedCases] = useState<HospitalizedCase[]>(mockHospitalizedCases);
+  const [hospitalizedCases, setHospitalizedCases] = useState<HospitalizedCase[]>([]);
+
+  // Load hospitalized cases from localStorage on mount
+  useEffect(() => {
+    const loadedCases = getHospitalizedCases();
+    setHospitalizedCases(loadedCases);
+  }, []);
   const [filterCompleted, setFilterCompleted] = useState<'all' | 'active' | 'completed'>('active');
 
   const activeCases = hospitalizedCases.filter(c => !c.completed);
@@ -56,6 +62,7 @@ const HospitalizedCasesPage: React.FC = () => {
 
   const handleDelete = () => {
     if (caseToDelete) {
+      deleteHospitalizedCase(caseToDelete.id);
       setHospitalizedCases(hospitalizedCases.filter(c => c.id !== caseToDelete.id));
       setCaseToDelete(null);
       setSelectedCase(null);
@@ -64,10 +71,17 @@ const HospitalizedCasesPage: React.FC = () => {
 
   const handleComplete = () => {
     if (caseToComplete) {
+      const updatedCase = { 
+        ...caseToComplete, 
+        completed: true, 
+        completedAt: new Date().toISOString(), 
+        discharged: true, 
+        status: 'تم الإفاقة', 
+        statusType: 'discharged' as const 
+      };
+      saveHospitalizedCase(updatedCase);
       setHospitalizedCases(hospitalizedCases.map(c => 
-        c.id === caseToComplete.id 
-          ? { ...c, completed: true, completedAt: new Date().toISOString(), discharged: true, status: 'تم الإفاقة', statusType: 'discharged' as const }
-          : c
+        c.id === caseToComplete.id ? updatedCase : c
       ));
       setCaseToComplete(null);
       setSelectedCase(null);
@@ -87,6 +101,9 @@ const HospitalizedCasesPage: React.FC = () => {
       createdAt: new Date().toISOString(),
       completed: false
     };
+    // Save to localStorage
+    saveHospitalizedCase(newCase);
+    // Update state to reflect changes immediately
     setHospitalizedCases([...hospitalizedCases, newCase]);
     setIsFormOpen(false);
   };

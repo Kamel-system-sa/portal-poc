@@ -136,9 +136,12 @@ const ReportsPage: React.FC = () => {
       title: t('form.nationality') || 'Nationality',
       dataIndex: 'nationality',
       key: 'nationality',
-      render: (nationality: string) => (
-        <Tag>{t(`nationalities.${nationality.toLowerCase()}`) || nationality}</Tag>
-      ),
+      render: (nationality: string) => {
+        const translationKey = `nationalities.${nationality.toLowerCase()}`;
+        const translated = t(translationKey);
+        const displayName = translated && translated !== translationKey ? translated : nationality;
+        return <Tag>{displayName}</Tag>;
+      },
     },
     {
       title: t('housing.assignment'),

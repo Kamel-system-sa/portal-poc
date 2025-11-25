@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShopOutlined, TeamOutlined, BankOutlined, GlobalOutlined } from '@ant-design/icons';
+import { ShopOutlined, TeamOutlined, BankOutlined, GlobalOutlined, AppstoreOutlined } from '@ant-design/icons';
 import type { Center } from '../../data/mockCenters';
 
 interface SummaryCardsProps {
@@ -10,6 +10,7 @@ interface SummaryCardsProps {
 export const SummaryCards: React.FC<SummaryCardsProps> = ({ centers }) => {
   const { t } = useTranslation('common');
 
+  const totalCenters = centers.length;
   const b2bCenters = centers.filter((c: Center) => c.serviceType === 'B2B').length;
   const b2cCenters = centers.filter((c: Center) => c.serviceType === 'B2C').length;
   const b2gCenters = centers.filter((c: Center) => c.serviceType === 'B2G').length;
@@ -25,35 +26,45 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ centers }) => {
           <p className="text-xs sm:text-sm text-gray-500 mt-0.5 break-words">{t('centers.totalCentersSubtitle')}</p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-        <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 hover:shadow-xl hover:shadow-blue-200/30 hover:-translate-y-1 hover:border-blue-200/50 transition-all duration-300 flex flex-col items-center group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-full -mr-16 -mt-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
-          <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/30">
-            <ShopOutlined className="text-2xl text-white" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-blue-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+          <div className="relative w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+            <AppstoreOutlined className="text-lg text-blue-600" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3 tracking-wide">{t('centers.b2bCenters')}</h4>
-          <span className="text-4xl font-extrabold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent">{b2bCenters}</span>
-          <div className="mt-2 w-12 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+          <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.totalCenters')}</h4>
+          <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{totalCenters}</span>
+          <div className="mt-2 w-10 h-0.5 bg-blue-600 rounded-full flex-shrink-0"></div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 hover:shadow-xl hover:shadow-green-200/30 hover:-translate-y-1 hover:border-green-200/50 transition-all duration-300 flex flex-col items-center group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-50 to-transparent rounded-full -mr-16 -mt-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
-          <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-green-500/30">
-            <TeamOutlined className="text-2xl text-white" />
+        <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-indigo-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+          <div className="relative w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+            <ShopOutlined className="text-lg text-indigo-600" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3 tracking-wide">{t('centers.b2cCenters')}</h4>
-          <span className="text-4xl font-extrabold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent">{b2cCenters}</span>
-          <div className="mt-2 w-12 h-1 bg-gradient-to-r from-green-500 to-green-600 rounded-full"></div>
+          <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2bCenters')}</h4>
+          <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{b2bCenters}</span>
+          <div className="mt-2 w-10 h-0.5 bg-indigo-600 rounded-full flex-shrink-0"></div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100 hover:shadow-xl hover:shadow-purple-200/30 hover:-translate-y-1 hover:border-purple-200/50 transition-all duration-300 flex flex-col items-center group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-50 to-transparent rounded-full -mr-16 -mt-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
-          <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/30">
-            <BankOutlined className="text-2xl text-white" />
+        <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-emerald-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+          <div className="relative w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+            <TeamOutlined className="text-lg text-emerald-600" />
           </div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3 tracking-wide">{t('centers.b2gCenters')}</h4>
-          <span className="text-4xl font-extrabold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent">{b2gCenters}</span>
-          <div className="mt-2 w-12 h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full"></div>
+          <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2cCenters')}</h4>
+          <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{b2cCenters}</span>
+          <div className="mt-2 w-10 h-0.5 bg-emerald-600 rounded-full flex-shrink-0"></div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-md p-4 border border-slate-200 hover:shadow-lg hover:shadow-teal-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col" style={{ minHeight: '120px' }}>
+          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-teal-100 to-transparent rounded-full -mr-12 -mt-12 opacity-40 group-hover:opacity-60 transition-opacity"></div>
+          <div className="relative w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-sm flex-shrink-0">
+            <BankOutlined className="text-lg text-teal-600" />
+          </div>
+          <h4 className="text-xs font-medium text-gray-700 mb-2 leading-tight flex-shrink-0">{t('centers.b2gCenters')}</h4>
+          <span className="text-2xl font-bold bg-gradient-to-r from-mainColor to-primary bg-clip-text text-transparent mt-auto">{b2gCenters}</span>
+          <div className="mt-2 w-10 h-0.5 bg-teal-600 rounded-full flex-shrink-0"></div>
         </div>
       </div>
     </div>

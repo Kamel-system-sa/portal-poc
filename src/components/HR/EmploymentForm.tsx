@@ -37,6 +37,8 @@ type FormState = {
   age: number;
   mobile: string;
   email: string;
+  ibanNumber?: string;
+  ibanProof?: string;
   department: 'Transport' | 'Reception' | 'Accommodation' | 'Field Services' | 'Other';
   jobRank: 'Field' | 'Supervisor' | 'Department Head';
   shiftDuration: '8h' | '12h';
@@ -62,9 +64,11 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
 }) => {
   const { t } = useTranslation('common');
   const [currentStep, setCurrentStep] = useState(1);
+  const [showReview, setShowReview] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(
-    initialData?.profilePicture || null
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfFileName, setPdfFileName] = useState<string | null>(
+    initialData?.profilePicture ? 'uploaded.pdf' : null
   );
 
   const [form, setForm] = useState<FormState>({
@@ -75,6 +79,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
     age: initialData?.age || 0,
     mobile: initialData?.mobile || '',
     email: initialData?.email || '',
+    ibanNumber: initialData?.ibanNumber || '',
+    ibanProof: initialData?.ibanProof || '',
     department: initialData?.department || 'Reception',
     jobRank: initialData?.jobRank || 'Field',
     shiftDuration: initialData?.shiftDuration || '8h',
@@ -118,16 +124,22 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
     }));
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setPreviewImage(result);
-        updateField('profilePicture', result);
-      };
-      reader.readAsDataURL(file);
+      if (file.type === 'application/pdf') {
+        setPdfFile(file);
+        setPdfFileName(file.name);
+        // Store file name or convert to base64 if needed
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const result = reader.result as string;
+          updateField('profilePicture', result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert(t('hr.form.pdfOnly') || 'يرجى رفع ملف PDF فقط');
+      }
     }
   };
 
@@ -145,19 +157,20 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
     calculateDays();
   }, [form.contractStartDate, form.contractEndDate]);
 
-  const calculateSalaries = () => {
-    if (form.numberOfDays > 0 && form.dailySalary > 0) {
-      const calculatedSeasonal = form.dailySalary * form.numberOfDays * 0.8;
-      updateField('seasonalSalary', Math.round(calculatedSeasonal));
+  // Calculate daily salary from seasonal salary
+  const calculateDailySalary = () => {
+    if (form.numberOfDays > 0 && form.seasonalSalary > 0) {
+      const calculatedDaily = form.seasonalSalary / form.numberOfDays / 0.8;
+      updateField('dailySalary', Math.round(calculatedDaily));
     }
   };
 
   React.useEffect(() => {
-    calculateSalaries();
-  }, [form.dailySalary, form.numberOfDays]);
+    calculateDailySalary();
+  }, [form.seasonalSalary, form.numberOfDays]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     const newEmployee: Employee = {
       id: initialData?.id || `E-${Date.now()}`,
       name: form.name,
@@ -167,6 +180,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
       age: form.age,
       mobile: form.mobile,
       email: form.email,
+      ibanNumber: form.ibanNumber,
+      ibanProof: form.ibanProof,
       department: form.department,
       jobRank: form.jobRank,
       shiftDuration: form.shiftDuration,
@@ -188,8 +203,23 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
     onSubmit(newEmployee);
   };
 
+  const handleReviewConfirm = () => {
+    handleSubmit();
+    setShowReview(false);
+    setCurrentStep(6);
+  };
+
+  const handleReviewCancel = () => {
+    setShowReview(false);
+  };
+
   const nextStep = () => {
-    if (currentStep < 5) setCurrentStep(currentStep + 1);
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep === 5) {
+      // Show review page instead of submitting
+      setShowReview(true);
+    }
   };
 
   const prevStep = () => {
@@ -201,7 +231,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
     { number: 2, title: t('hr.form.step2') },
     { number: 3, title: t('hr.form.step3') },
     { number: 4, title: t('hr.form.step4') },
-    { number: 5, title: t('hr.form.step5') }
+    { number: 5, title: t('hr.form.step5') },
+    { number: 6, title: t('hr.form.step6') || 'الدرايف' }
   ];
 
   return (
@@ -358,33 +389,62 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
                 />
               </label>
 
-              {/* Profile Picture Upload */}
               <label className="block md:col-span-2">
                 <div className="flex items-center gap-2 mb-2">
-                  <PictureOutlined className="text-mainColor text-base" />
+                  <IdcardOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('hr.form.ibanNumber')}</span>
+                </div>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  value={form.ibanNumber || ''}
+                  onChange={e => updateField('ibanNumber', e.target.value)}
+                  placeholder={t('hr.form.ibanNumber')}
+                />
+              </label>
+
+              <label className="block md:col-span-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileTextOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('hr.form.ibanProof')}</span>
+                </div>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  value={form.ibanProof || ''}
+                  onChange={e => updateField('ibanProof', e.target.value)}
+                  placeholder={t('hr.form.ibanProof')}
+                />
+              </label>
+
+              {/* PDF Upload */}
+              <label className="block md:col-span-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileTextOutlined className="text-mainColor text-base" />
                   <span className="block text-sm font-semibold text-gray-700">{t('hr.form.profilePicture')}</span>
+                  <span className="text-xs text-gray-500">(PDF فقط)</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <input
                     ref={fileInputRef}
                     type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
+                    accept="application/pdf"
+                    onChange={handlePdfUpload}
                     className="hidden"
                   />
-                  {previewImage ? (
-                    <div className="relative">
-                      <img
-                        src={previewImage}
-                        alt="Profile"
-                        className="w-24 h-24 rounded-xl object-cover border-2 border-mainColor/20"
-                      />
+                  {pdfFileName ? (
+                    <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border-2 border-mainColor/20">
+                      <FileTextOutlined className="text-mainColor text-2xl" />
+                      <div className="flex-1">
+                        <p className="font-semibold text-gray-900">{pdfFileName}</p>
+                        <p className="text-xs text-gray-500">{t('hr.form.pdfUploaded') || 'تم رفع الملف'}</p>
+                      </div>
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="absolute -top-2 -right-2 bg-mainColor text-white rounded-full p-1 hover:bg-primary transition"
+                        className="px-4 py-2 bg-mainColor text-white rounded-lg hover:bg-primary transition"
                       >
-                        <PictureOutlined />
+                        {t('hr.form.changeFile') || 'تغيير الملف'}
                       </button>
                     </div>
                   ) : (
@@ -393,8 +453,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
                       onClick={() => fileInputRef.current?.click()}
                       className="px-6 py-3 bg-gradient-to-r from-mainColor/10 to-primary/10 text-mainColor rounded-xl hover:from-mainColor/20 hover:to-primary/20 transition-all duration-200 border-2 border-mainColor/20 hover:border-mainColor/40 font-semibold flex items-center gap-2"
                     >
-                      <PictureOutlined />
-                      {t('hr.form.uploadImage')}
+                      <FileTextOutlined />
+                      {t('hr.form.uploadPdf') || 'رفع ملف PDF'}
                     </button>
                   )}
                 </div>
@@ -443,9 +503,9 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
                   onChange={e => updateField('jobRank', e.target.value as FormState['jobRank'])}
                   required
                 >
-                  <option value="Field">{t('hr.form.field')}</option>
-                  <option value="Supervisor">{t('hr.form.supervisor')}</option>
                   <option value="Department Head">{t('hr.form.departmentHead')}</option>
+                  <option value="Supervisor">{t('hr.form.supervisor')}</option>
+                  <option value="Field">{t('hr.form.field')}</option>
                 </select>
               </label>
 
@@ -547,30 +607,33 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
               <label className="block">
                 <div className="flex items-center gap-2 mb-2">
                   <DollarOutlined className="text-mainColor text-base" />
-                  <span className="block text-sm font-semibold text-gray-700">{t('hr.form.dailySalary')}</span>
-                </div>
-                <input
-                  type="number"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-                  value={form.dailySalary || ''}
-                  onChange={e => updateField('dailySalary', Number(e.target.value))}
-                  required
-                />
-              </label>
-
-              <label className="block">
-                <div className="flex items-center gap-2 mb-2">
-                  <DollarOutlined className="text-mainColor text-base" />
                   <span className="block text-sm font-semibold text-gray-700">{t('hr.form.seasonalSalary')}</span>
                 </div>
                 <input
                   type="number"
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
                   value={form.seasonalSalary || ''}
-                  readOnly
+                  onChange={e => updateField('seasonalSalary', Number(e.target.value))}
+                  required
                 />
-                <p className="text-xs text-gray-500 mt-1">{t('hr.form.seasonalSalary')} ({t('hr.form.calculatedAutomatically')})</p>
+                <p className="text-xs text-gray-500 mt-1">{t('hr.form.enterSeasonalFirst') || 'أدخل الراتب الموسمي أولاً'}</p>
               </label>
+
+              {form.seasonalSalary > 0 && (
+                <label className="block">
+                  <div className="flex items-center gap-2 mb-2">
+                    <DollarOutlined className="text-mainColor text-base" />
+                    <span className="block text-sm font-semibold text-gray-700">{t('hr.form.dailySalary')}</span>
+                  </div>
+                  <input
+                    type="number"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                    value={form.dailySalary || ''}
+                    readOnly
+                  />
+                  <p className="text-xs text-gray-500 mt-1">{t('hr.form.calculatedAutomatically')}</p>
+                </label>
+              )}
             </div>
           </section>
 
@@ -712,7 +775,7 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
       )}
 
       {/* Step 5: Review */}
-      {currentStep === 5 && (
+      {currentStep === 5 && !showReview && (
         <div className="space-y-6 mt-6">
           <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
             <div className="flex items-center gap-3 mb-6">
@@ -730,6 +793,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
                   <p><strong>{t('hr.form.age')}:</strong> {form.age}</p>
                   <p><strong>{t('hr.form.mobile')}:</strong> {form.mobile}</p>
                   <p><strong>{t('hr.form.email')}:</strong> {form.email}</p>
+                  {form.ibanNumber && <p><strong>{t('hr.form.ibanNumber')}:</strong> {form.ibanNumber}</p>}
+                  {form.ibanProof && <p><strong>{t('hr.form.ibanProof')}:</strong> {form.ibanProof}</p>}
                 </div>
               </div>
               <div>
@@ -747,8 +812,8 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
                   <p><strong>{t('hr.form.contractStartDate')}:</strong> {form.contractStartDate}</p>
                   <p><strong>{t('hr.form.contractEndDate')}:</strong> {form.contractEndDate}</p>
                   <p><strong>{t('hr.form.numberOfDays')}:</strong> {form.numberOfDays}</p>
-                  <p><strong>{t('hr.form.dailySalary')}:</strong> {form.dailySalary} SAR</p>
                   <p><strong>{t('hr.form.seasonalSalary')}:</strong> {form.seasonalSalary} SAR</p>
+                  <p><strong>{t('hr.form.dailySalary')}:</strong> {form.dailySalary} SAR</p>
                 </div>
               </div>
               {form.recommendations && (
@@ -791,6 +856,86 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
         </div>
       )}
 
+      {/* Review Modal */}
+      {showReview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+              <h3 className="text-2xl font-bold text-gray-900">{t('hr.form.review') || 'مراجعة البيانات'}</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <h5 className="font-semibold text-gray-700 mb-2">{t('hr.form.personalInfo')}</h5>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p><strong>{t('hr.form.name')}:</strong> {form.name}</p>
+                  <p><strong>{t('hr.form.nationality')}:</strong> {translateNationality(form.nationality)}</p>
+                  <p><strong>{t('hr.form.id')}:</strong> {form.idNumber}</p>
+                  <p><strong>{t('hr.form.gender')}:</strong> {form.gender === 'male' ? t('hr.form.male') : t('hr.form.female')}</p>
+                  <p><strong>{t('hr.form.age')}:</strong> {form.age}</p>
+                  <p><strong>{t('hr.form.mobile')}:</strong> {form.mobile}</p>
+                  <p><strong>{t('hr.form.email')}:</strong> {form.email}</p>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-semibold text-gray-700 mb-2">{t('hr.form.departmentRole')}</h5>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p><strong>{t('hr.form.department')}:</strong> {translateDepartment(form.department)}</p>
+                  <p><strong>{t('hr.form.jobRank')}:</strong> {translateJobRank(form.jobRank)}</p>
+                  <p><strong>{t('hr.form.shiftDuration')}:</strong> {form.shiftDuration === '8h' ? t('hr.form.8h') : t('hr.form.12h')}</p>
+                  <p><strong>{t('hr.form.shiftPeriod')}:</strong> {translateShiftPeriod(form.shiftPeriod)}</p>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-semibold text-gray-700 mb-2">{t('hr.form.contractInfo')}</h5>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p><strong>{t('hr.form.contractStartDate')}:</strong> {form.contractStartDate}</p>
+                  <p><strong>{t('hr.form.contractEndDate')}:</strong> {form.contractEndDate}</p>
+                  <p><strong>{t('hr.form.numberOfDays')}:</strong> {form.numberOfDays}</p>
+                  <p><strong>{t('hr.form.seasonalSalary')}:</strong> {form.seasonalSalary} SAR</p>
+                  <p><strong>{t('hr.form.dailySalary')}:</strong> {form.dailySalary} SAR</p>
+                </div>
+              </div>
+              {form.recommendations && (
+                <div>
+                  <h5 className="font-semibold text-gray-700 mb-2">{t('hr.form.recommendations')}</h5>
+                  <p className="text-sm text-gray-600">{form.recommendations}</p>
+                </div>
+              )}
+            </div>
+            <div className="flex gap-4 justify-end pt-4 border-t border-gray-200">
+              <button
+                type="button"
+                onClick={handleReviewCancel}
+                className="px-6 py-3 text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-semibold"
+              >
+                {t('hr.form.cancel')}
+              </button>
+              <button
+                type="button"
+                onClick={handleReviewConfirm}
+                className="px-6 py-3 text-white bg-gradient-to-r from-mainColor to-primary rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold"
+              >
+                {t('hr.form.confirm') || 'تأكيد'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Step 6: Drive (after confirmation) */}
+      {currentStep === 6 && (
+        <div className="space-y-6 mt-6">
+          <section className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 p-6 border border-gray-100">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-6 bg-gradient-to-b from-mainColor to-primary rounded-full"></div>
+              <h4 className="text-xl font-bold text-gray-900">{t('hr.form.step6') || 'الدرايف'}</h4>
+            </div>
+            <p className="text-gray-600">{t('hr.form.driveStep') || 'تم حفظ البيانات بنجاح. يمكنك الآن المتابعة إلى الخطوة التالية.'}</p>
+          </section>
+        </div>
+      )}
+
       {/* Navigation Buttons */}
       <div className="flex gap-4 pt-6 border-t border-gray-200">
         <button
@@ -818,15 +963,23 @@ export const EmploymentForm: React.FC<EmploymentFormProps> = ({
           >
             {t('hr.form.next')}
           </button>
-        ) : (
+        ) : currentStep === 5 && !showReview ? (
           <button
-            type="submit"
+            type="button"
+            onClick={nextStep}
             className="flex-1 px-6 py-3.5 text-white bg-gradient-to-r from-mainColor to-primary rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold flex items-center justify-center gap-2"
           >
-            <SaveOutlined />
-            {initialData ? t('form.saveChanges') : t('hr.form.save')}
+            {t('hr.form.review') || 'مراجعة'}
           </button>
-        )}
+        ) : currentStep === 6 ? (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="flex-1 px-6 py-3.5 text-white bg-gradient-to-r from-mainColor to-primary rounded-xl hover:from-mainColor/90 hover:to-primary/90 transition-all duration-300 shadow-lg shadow-mainColor/25 hover:shadow-xl font-semibold flex items-center justify-center gap-2"
+          >
+            {t('hr.form.close')}
+          </button>
+        ) : null}
       </div>
     </form>
   );
