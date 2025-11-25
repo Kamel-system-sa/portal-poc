@@ -165,7 +165,7 @@ const TransferInfoPage: React.FC = () => {
                         innerRadius={60}
                         outerRadius={100}
                         dataKey="value"
-                        label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                        label={({ percent }: { percent?: number }) => `${((percent ?? 0) * 100).toFixed(0)}%`}
                       >
                         {chartData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.fill} />

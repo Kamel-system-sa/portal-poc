@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { PlusOutlined, UploadOutlined, BarChartOutlined, OrderedListOutlined, TeamOutlined, HomeOutlined, ClockCircleOutlined, CalendarOutlined } from '@ant-design/icons';
+import { PlusOutlined, UploadOutlined, BarChartOutlined, OrderedListOutlined, HomeOutlined, ClockCircleOutlined, CalendarOutlined } from '@ant-design/icons';
 import type { DepartureDashboardKPI, ChartData, DepartureGroup } from '../../types/reception';
 import { PreDepartureKPICards } from '../../components/Reception/PreDepartureKPICards';
 import { DepartureRegistrationForm } from '../../components/Reception/DepartureRegistrationForm';
 import { DepartureExcelUpload } from '../../components/Reception/DepartureExcelUpload';
 import { DepartureGroupsList } from '../../components/Reception/DepartureGroupsList';
 import { DepartureDetailsModal } from '../../components/Reception/DepartureDetailsModal';
-import { mockDepartureKPI, mockDepartureGroups } from '../../data/mockDepartures';
+import { mockDepartureGroups } from '../../data/mockDepartures';
 import { mockOrganizers } from '../../data/mockReception';
 import { mockCampaigns } from '../../data/mockCampaigns';
 
@@ -40,7 +40,6 @@ const PreDepartureDashboardPage: React.FC = () => {
   // Calculate KPI from actual departure groups data
   const calculatedKPI: DepartureDashboardKPI = useMemo(() => {
     const registeredPilgrimsInCenter = 5000; // Base number from system
-    const totalPilgrims = departureGroups.reduce((sum, g) => sum + g.pilgrimsCount, 0);
     const arrivedPilgrimsCount = departureGroups.filter(g => g.status === 'arrived' || g.status === 'completed').reduce((sum, g) => sum + g.pilgrimsCount, 0);
     const departedPilgrimsCount = departureGroups.filter(g => g.status === 'departed' || g.status === 'completed').reduce((sum, g) => sum + g.pilgrimsCount, 0);
     const uniqueOrganizers = new Set(departureGroups.map(g => g.organizerId));
@@ -216,7 +215,6 @@ const PreDepartureDashboardPage: React.FC = () => {
 
   // Enhanced Bar Chart Component
   const SimpleChart: React.FC<{ data: ChartData; title: string; onClick?: () => void }> = ({ data, title, onClick }) => {
-    const maxValue = Math.max(...data.values, 1);
     const total = data.values.reduce((sum, val) => sum + val, 0);
     const colors = ['#00796B', '#00A896', '#4ECDC4', '#26A69A'];
     
@@ -407,8 +405,8 @@ const PreDepartureDashboardPage: React.FC = () => {
       organizerEmail: '', // Would come from organizer lookup
       campaignNumber: row.campaignNumber,
       campaignManagerPhone: row.campaignManagerPhone,
-      departurePoint: row.route.includes('مكة') ? 'makkah' : 'madinah',
-      arrivalDestination: row.route.includes('جدة') ? 'jeddah' : row.route.includes('مطار') ? 'madinah-airport' : row.route.includes('المدينة') ? 'madinah' : 'makkah',
+      departurePoint: (row.route.includes('مكة') ? 'makkah' : 'madinah') as 'makkah' | 'madinah',
+      arrivalDestination: (row.route.includes('جدة') ? 'jeddah' : row.route.includes('مطار') ? 'madinah-airport' : row.route.includes('المدينة') ? 'madinah' : 'makkah') as 'makkah' | 'madinah' | 'jeddah' | 'madinah-airport',
       departureDate: row.departureDate,
       departureTime: row.departureTime,
       pilgrimsCount: row.pilgrimsCount,

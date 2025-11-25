@@ -40,11 +40,12 @@ const PreArrivalListPage: React.FC = () => {
     setEditGroup(null);
   };
 
-  const handleSaveGroup = (group: ArrivalGroup) => {
-    console.log('Save group', group);
-    handleCloseForm();
-    // In real app, this would call an API
-  };
+  // Note: handleSaveGroup is defined but not currently used
+  // const handleSaveGroup = (group: ArrivalGroup) => {
+  //   console.log('Save group', group);
+  //   handleCloseForm();
+  //   // In real app, this would call an API
+  // };
 
   return (
     <>
