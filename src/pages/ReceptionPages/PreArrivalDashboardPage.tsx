@@ -454,7 +454,7 @@ const PreArrivalDashboardPage: React.FC = () => {
               </defs>
               
               {/* Clean professional grid - horizontal */}
-              {yAxisLabels.map((label, i) => {
+              {yAxisLabels.map((_label, i) => {
                 const y = chartEndY - ((i / yAxisSteps) * (chartEndY - chartStartY));
                 return (
                   <g key={`h-grid-${i}`}>
@@ -628,27 +628,18 @@ const PreArrivalDashboardPage: React.FC = () => {
   const sortedDates = Object.keys(dateGroups).sort();
   
   // If we have data, use it. Otherwise, generate last 7 days with zeros or sample data
-  let arrivalsTrendData: ChartData;
-  if (sortedDates.length > 0) {
-    // Get last 7 dates from data
-    const last7Dates = sortedDates.slice(-7);
-    arrivalsTrendData = {
-      labels: last7Dates.map(d => new Date(d).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })),
-      values: last7Dates.map(d => dateGroups[d] || 0)
-    };
-  } else {
-    // Generate last 7 days with sample data for demonstration
-    const today = new Date();
-    const last7Days = Array.from({ length: 7 }, (_, i) => {
-      const date = new Date(today);
-      date.setDate(date.getDate() - (6 - i));
-      return date.toISOString().split('T')[0];
-    });
-    arrivalsTrendData = {
-      labels: last7Days.map(d => new Date(d).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })),
-      values: last7Days.map(() => 0) // All zeros if no data
-    };
-  }
+  // Note: arrivalsTrendData is calculated but not currently used in the UI
+  // const arrivalsTrendData: ChartData = sortedDates.length > 0 ? {
+  //   labels: sortedDates.slice(-7).map(d => new Date(d).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })),
+  //   values: sortedDates.slice(-7).map(d => dateGroups[d] || 0)
+  // } : {
+  //   labels: Array.from({ length: 7 }, (_, i) => {
+  //     const date = new Date();
+  //     date.setDate(date.getDate() - (6 - i));
+  //     return date.toISOString().split('T')[0];
+  //   }).map(d => new Date(d).toLocaleDateString('ar-SA', { month: 'short', day: 'numeric' })),
+  //   values: Array(7).fill(0)
+  // };
 
   // Group by campaign for campaign chart
   const campaignGroups = groups.reduce((acc, group) => {

@@ -33,6 +33,11 @@ export type MenuKey =
   | "transport-transfer-info"
   | "transport-inter-city"
   | "transport-holy-sites"
+  | "passport"
+  | "passport-box-arrangement"
+  | "passport-service-proof"
+  | "passport-verified-pilgrims"
+  | "passport-reports"
   | "test";
 
 // Define which menu items each role can access
@@ -75,6 +80,13 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "transport-inter-city",
     "transport-holy-sites",
 
+    // passport permissions
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
+
     "test",
   ],
   "housing-user": [
@@ -92,10 +104,20 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
   "company-user": [
     "home",
     "organizers",
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
   ],
   "service-center-user": [
     "home",
     "service-centers",
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
   ],
   "department-user": [
     "home",

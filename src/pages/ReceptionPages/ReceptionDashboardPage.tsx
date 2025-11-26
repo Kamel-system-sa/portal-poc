@@ -18,9 +18,8 @@ import { mockCampaigns } from '../../data/mockCampaigns';
 import type { ChartData } from '../../types/reception';
 
 const ReceptionDashboardPage: React.FC = () => {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const isRtl = i18n.language === 'ar' || i18n.language === 'ur';
 
   // Calculate summary statistics from all sections
   const summaryStats = useMemo(() => {
