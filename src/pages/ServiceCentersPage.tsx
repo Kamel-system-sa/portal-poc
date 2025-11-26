@@ -112,6 +112,16 @@ const ServiceCentersPage: React.FC = () => {
     <>
       <section className="w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 overflow-x-hidden">
         <div className="p-3 sm:p-4 md:p-5 lg:p-6 space-y-4 sm:space-y-5 md:space-y-6">
+          {/* Page Header */}
+          <div className="mb-4 sm:mb-5 md:mb-6">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-1 sm:mb-2 break-words">
+              {t('serviceCenters.dashboardTitle')}
+            </h1>
+            <p className="text-customgray text-sm sm:text-base break-words">
+              {t('serviceCenters.dashboardSubtitle')}
+            </p>
+          </div>
+          
           <CentersToolbar
             searchValue={searchValue}
             onSearch={handleSearch}

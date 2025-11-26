@@ -48,6 +48,7 @@ import PortalLayout from "./layouts/PortalLayout";
 import HomePage from "./pages/HomePage";
 import TestPage from "./pages/TestPage";
 import ServiceCentersPage from "./pages/ServiceCentersPage";
+import ServiceCenterReportsPage from "./pages/ServiceCentersPages/ReportsPage";
 import OrganizersPage from "./pages/OrganizersPage";
 import HRDashboardPage from "./pages/HRDashboardPage";
 import ShiftSchedulesPage from "./pages/HRPages/ShiftSchedulesPage";
@@ -75,6 +76,7 @@ import PublicAffairsDashboardPage from "./pages/PublicAffairsPages/PublicAffairs
 import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
+import PublicAffairsReportsPage from "./pages/PublicAffairsPages/PublicAffairsReportsPage";
 import FinancePage from "./pages/FinancePage";
 import TransportDashboardPage from "./pages/TransportPages/TransportDashboardPage";
 import TransferInfoPage from "./pages/TransportPages/TransferInfoPage";
@@ -94,6 +96,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "test", element: <TestPage /> },
       { path: "service-centers", element: <ServiceCentersPage /> },
+      { path: "service-centers/reports", element: <ServiceCenterReportsPage /> },
       { path: "organizers", element: <OrganizersPage /> },
       { path: "organizers/campaigns", element: <CampaignsListPage /> },
       { path: "organizers/campaigns/register", element: <CampaignsRegistrationPage /> },
@@ -125,6 +128,7 @@ const router = createBrowserRouter([
       { path: "public-affairs/deaths", element: <DeathCasesPage /> },
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
+      { path: "public-affairs/reports", element: <PublicAffairsReportsPage /> },
       { path: "finance", element: <FinancePage /> },
       { path: "transport", element: <TransportDashboardPage /> },
       { path: "transport/transfer-info", element: <TransferInfoPage /> },

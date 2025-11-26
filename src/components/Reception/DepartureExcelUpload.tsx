@@ -189,7 +189,7 @@ export const DepartureExcelUpload: React.FC<DepartureExcelUploadProps> = ({ onCo
                   onClick={onClose}
                   className="px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all font-semibold text-gray-700"
                 >
-                  {t('form.cancel') || 'إلغاء'}
+                  {t('form.cancel')}
                 </button>
               </div>
             </div>
@@ -226,7 +226,7 @@ export const DepartureExcelUpload: React.FC<DepartureExcelUploadProps> = ({ onCo
               <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <div className="p-4 border-b border-gray-200">
                   <h3 className="text-lg font-bold text-gray-900">
-                    {t('reception.preArrival.departures.excelUpload.tableTitle') || 'بيانات المغادرة'}
+                    {t('reception.preArrival.departures.excelUpload.tableTitle')}
                   </h3>
                 </div>
                 <div className="overflow-x-auto">
@@ -234,25 +234,25 @@ export const DepartureExcelUpload: React.FC<DepartureExcelUploadProps> = ({ onCo
                     <thead className="bg-gray-50">
                       <tr>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.organizerNumber') || 'رقم المنظم'}
+                          {t('reception.preArrival.departures.form.step3.organizerNumber')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.organizerName') || 'اسم المنظم'}
+                          {t('reception.preArrival.departures.form.step3.organizerName')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step1.organizerCompany') || 'اسم الشركة'}
+                          {t('reception.preArrival.departures.form.step1.organizerCompany')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.campaignManagerPhone') || 'رقم الجوال مسؤول الحملة'}
+                          {t('reception.preArrival.departures.form.step3.campaignManagerPhone')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.route') || 'مسار الرحلة'}
+                          {t('reception.preArrival.departures.form.step3.route')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.departureDateTime') || 'تاريخ ووقت المغادرة'}
+                          {t('reception.preArrival.departures.form.step3.departureDateTime')}
                         </th>
                         <th className="px-4 py-3 text-right text-sm font-semibold text-gray-700 border-b border-gray-200">
-                          {t('reception.preArrival.departures.form.step3.pilgrimsCount') || 'عدد الحجاج'}
+                          {t('reception.preArrival.departures.form.step3.pilgrimsCount')}
                         </th>
                       </tr>
                     </thead>
@@ -279,7 +279,7 @@ export const DepartureExcelUpload: React.FC<DepartureExcelUploadProps> = ({ onCo
                   onClick={onClose}
                   className="px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all font-semibold text-gray-700"
                 >
-                  {t('form.cancel') || 'إلغاء'}
+                  {t('form.cancel')}
                 </button>
                 <button
                   onClick={() => {

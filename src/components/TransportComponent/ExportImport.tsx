@@ -103,7 +103,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ onDataImported }) =>
         } else {
           // CSV parsing would go here
           // TODO: Implement CSV parsing
-          message.error('CSV import not yet implemented');
+          message.error(t('csvImportNotImplemented'));
         }
       } catch (error) {
         message.error(t('importError'));
@@ -136,7 +136,7 @@ export const ExportImport: React.FC<ExportImportProps> = ({ onDataImported }) =>
       icon: <FileExcelOutlined />,
       onClick: () => {
         // TODO: Implement CSV import
-        message.info('CSV import not yet implemented');
+        message.info(t('csvImportNotImplemented'));
       }
     },
     {

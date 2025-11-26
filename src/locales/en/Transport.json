@@ -150,6 +150,7 @@
   "madinah": "Madinah",
   "jeddah": "Jeddah",
   "airport": "Airport",
-  "all": "All"
+  "all": "All",
+  "csvImportNotImplemented": "CSV import not yet implemented"
 }
 

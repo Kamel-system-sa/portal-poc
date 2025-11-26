@@ -236,7 +236,7 @@ const FinancePage: React.FC = () => {
       r.id === requestId ? { ...r, status: 'approved' as const } : r
     );
     saveRequests(updatedRequests);
-    message.success('تم قبول الطلب بنجاح');
+    message.success(t('finance.requests.requestApproved'));
   };
 
   const handleRejectClick = (requestId: string) => {
@@ -256,7 +256,7 @@ const FinancePage: React.FC = () => {
       setIsRejectModalOpen(false);
       setRejectingRequestId(null);
       rejectForm.resetFields();
-      message.error('تم رفض الطلب');
+      message.error(t('finance.requests.requestRejected'));
     }
   };
 
@@ -267,7 +267,7 @@ const FinancePage: React.FC = () => {
         : r
     );
     saveRequests(updatedRequests);
-    message.success('تم إعادة إرسال الطلب');
+    message.success(t('finance.requests.requestResubmitted'));
   };
 
   const handleEditRequest = (request: CenterRequest) => {
@@ -297,7 +297,7 @@ const FinancePage: React.FC = () => {
       setIsEditModalOpen(false);
       setSelectedRequest(null);
       form.resetFields();
-      message.success('تم تعديل الطلب وإعادة إرساله بنجاح');
+      message.success(t('finance.requests.requestEdited'));
     }
   };
 

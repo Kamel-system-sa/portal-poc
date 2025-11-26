@@ -3,6 +3,8 @@ import type { UserRole } from "../contexts/UserRoleContext";
 export type MenuKey = 
   | "home"
   | "service-centers"
+  | "service-centers-main"
+  | "service-centers-reports"
   | "organizers"
   | "organizers-list"
   | "organizers-campaigns"
@@ -24,6 +26,7 @@ export type MenuKey =
   | "mashair-dashboard"
   | "mashair-mina"
   | "mashair-arafat"
+  | "mashair-reports"
   | "reception"
   | "reception-dashboard"
   | "reception-pre-arrival-arrivals"
@@ -36,6 +39,7 @@ export type MenuKey =
   | "public-affairs-deaths"
   | "public-affairs-hospitalized"
   | "public-affairs-other"
+  | "public-affairs-reports"
   | "finance"
   | "transport"
   | "transport-dashboard"
@@ -54,6 +58,8 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
   "main-admin": [
     "home",
     "service-centers",
+    "service-centers-main",
+    "service-centers-reports",
     "organizers",
     "organizers-list",
     "organizers-campaigns",
@@ -73,6 +79,7 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "mashair-dashboard",
     "mashair-mina",
     "mashair-arafat",
+    "mashair-reports",
 
     // reception permissions
     "reception",
@@ -89,6 +96,7 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "public-affairs-deaths",
     "public-affairs-hospitalized",
     "public-affairs-other",
+    "public-affairs-reports",
 
     // finance permissions
     "finance",
@@ -120,6 +128,7 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "mashair-dashboard",
     "mashair-mina",
     "mashair-arafat",
+    "mashair-reports",
   ],
   "company-user": [
     "home",
@@ -131,10 +140,21 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "passport-service-proof",
     "passport-verified-pilgrims",
     "passport-reports",
+    "public-affairs",
+    "public-affairs-dashboard",
+    "public-affairs-deaths",
+    "public-affairs-hospitalized",
+    "public-affairs-other",
+    "public-affairs-reports",
+    "service-centers",
+    "service-centers-main",
+    "service-centers-reports",
   ],
   "service-center-user": [
     "home",
     "service-centers",
+    "service-centers-main",
+    "service-centers-reports",
     "passport",
     "passport-box-arrangement",
     "passport-service-proof",

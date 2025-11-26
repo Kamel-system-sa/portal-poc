@@ -3,13 +3,18 @@
   "dashboardTitle": "Dashboard",
   "homeTitle": "Home",
   "serviceCentersTitle": "Service Centers",
+  "serviceCenters": {
+    "dashboardTitle": "Service Centers Field Dashboard",
+    "dashboardSubtitle": "Comprehensive overview of field service centers and their statistics"
+  },
   "organizersTitle": "Organizers",
   "housingTitle": "Housing",
   "testPageTitle": "Test Page",
   "scrollToTop": "Scroll to top",
   "sidebar": {
     "openSidebar": "Open sidebar",
-    "closeSidebar": "Close sidebar"
+    "closeSidebar": "Close sidebar",
+    "organizersControlPanel": "Organizers Control Panel"
   },
   "header": {
     "switchRole": "Switch Role",
@@ -216,6 +221,7 @@
   },
   "hr": {
     "title": "Human Resources",
+    "dashboardTitle": "HR Dashboard",
     "dashboard": "HR Dashboard",
     "employees": "Employees",
     "addEmployee": "Add Employee",
@@ -428,8 +434,18 @@
       "form": "Employment Form",
       "offer": "Job Offer",
       "export": "Data Export",
-      "print": "Print"
+      "print": "Print",
+      "reports": "Reports"
     },
+    "attendance": {
+      "title": "Attendance",
+      "subtitle": "Manage attendance records"
+    },
+    "leaves": {
+      "title": "Leaves",
+      "subtitle": "Manage leave requests"
+    },
+    "reports": "Reports",
     "states": {
       "loading": "Loading...",
       "error": "Error",
@@ -812,6 +828,7 @@
   },
   "mashair": {
     "title": "Mashair Section",
+    "holySitesTitle": "Holy Sites",
     "dashboardTitle": "Mashair Dashboard",
     "dashboardSubtitle": "Manage Mina and Arafat tents and their campaign assignments",
     "minaTents": "Mina Tents",
@@ -853,6 +870,7 @@
     "dataSaved": "Data saved successfully",
     "tentDeleted": "Tent deleted successfully",
     "assignmentDeleted": "Assignment deleted successfully",
+    "reports": "Reports",
     "invalidFileType": "Invalid file type. Please upload a PDF file",
     "processing": "Processing",
     "extractedData": "Extracted Data",
@@ -938,6 +956,10 @@
         "todayArrived": "Arrived Today"
       },
       "form": {
+        "validationErrors": "Validation Errors",
+        "isRequired": "is required",
+        "mustBeGreaterThanZero": "must be greater than 0",
+        "flightOrTripRequired": "Flight number or Trip number is required",
         "groupInfo": "Group Information",
         "groupNumber": "Group Number",
         "groupName": "Group Name",
@@ -984,7 +1006,10 @@
       },
       "departures": {
         "title": "Pre-Arrival for Departures",
-        "subtitle": "Manage departure groups and schedules"
+        "subtitle": "Manage departure groups and schedules",
+        "form": {
+          "validationErrors": "Validation Errors"
+        }
       },
       "excelUpload": {
         "title": "Upload Excel File",
@@ -1113,6 +1138,8 @@
       "photoRequired": "Required for confirmation",
       "carrierPlaceholder": "Enter carrier name",
       "passengersPlaceholder": "Enter number of passengers",
+      "busNumberPlaceholder": "BUS-001",
+      "phonePlaceholder": "+9665XXXXXXXX",
       "busCapacity": "Bus capacity",
       "passengers": "passengers",
       "alerts": {
@@ -1130,6 +1157,11 @@
         "confirmed": "Confirmed! Notifications sent to Accommodation team, Reception team, and Card team."
       }
     },
+    "centersDashboard": {
+      "title": "Centers Dashboard",
+      "subtitle": "Comprehensive overview of all centers data"
+    },
+    "reports": "Reports",
     "campaigns": {
       "title": "Campaigns",
       "comingSoon": "Coming Soon",
@@ -1243,6 +1275,79 @@
     "settings": "Settings",
     "announcements": "Announcements",
     "recentActivity": "Recent Activity",
+    "departmentOverview": "Department Overview",
+    "viewAll": "View All",
+    "by": "by",
+    "general": "General",
+    "language": "Language",
+    "languageDescription": "Choose your preferred language for the interface",
+    "languageNames": {
+      "en": "English",
+      "ar": "العربية",
+      "ur": "اردو"
+    },
+    "departmentCards": {
+      "reception": {
+        "title": "Reception",
+        "totalArrivals": "Total Arrivals",
+        "expectedToday": "Expected Today"
+      },
+      "housing": {
+        "title": "Housing",
+        "hotelOccupancy": "Hotel Occupancy",
+        "availableRooms": "Available Rooms"
+      },
+      "mashair": {
+        "title": "Holy Sites",
+        "totalCampaigns": "Total Campaigns",
+        "facilityReadiness": "Facility Readiness"
+      },
+      "employees": {
+        "title": "Human Resources",
+        "totalEmployees": "Total Employees",
+        "attendanceRate": "Attendance Rate"
+      },
+      "serviceCenters": {
+        "title": "Service Centers",
+        "totalCenters": "Total Centers",
+        "activeCenters": "Active Centers"
+      },
+      "organizers": {
+        "title": "Organizers",
+        "totalOrganizers": "Total Organizers",
+        "activeCampaigns": "Active Campaigns"
+      },
+      "publicAffairs": {
+        "title": "Public Affairs",
+        "totalReports": "Total Reports",
+        "inProcess": "In Process"
+      },
+      "finance": {
+        "title": "Finance",
+        "totalBudget": "Total Budget",
+        "expenses": "Expenses"
+      },
+      "transport": {
+        "title": "Transport",
+        "totalTrips": "Total Trips",
+        "todayTrips": "Today's Trips"
+      },
+      "passport": {
+        "title": "Passport",
+        "totalPilgrims": "Total Pilgrims",
+        "verifiedServices": "Verified Services"
+      },
+      "reports": {
+        "title": "Reports",
+        "totalReports": "Total Reports",
+        "monthlyReports": "Monthly Reports"
+      },
+      "operations": {
+        "title": "Operations",
+        "activeOperations": "Active Operations",
+        "completionRate": "Completion Rate"
+      }
+    },
     "featuredItems": "Featured Items",
     "policies": "Policies",
     "procedures": "Procedures",
@@ -1408,6 +1513,16 @@
     "submit": "Submit",
     "leaveRequestSubmitted": "Leave request submitted successfully",
     "expenseSubmitted": "Expense submitted successfully",
+    "leaveType": "Leave Type",
+    "pleaseSelectLeaveType": "Please select leave type",
+    "selectLeaveType": "Select leave type",
+    "annualLeave": "Annual Leave",
+    "sickLeave": "Sick Leave",
+    "emergencyLeave": "Emergency Leave",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "pleaseSelectStartDate": "Please select start date",
+    "pleaseSelectEndDate": "Please select end date",
     "submissionError": "Failed to submit",
     "expenseType": "Expense Type",
     "pleaseSelectExpenseType": "Please select expense type",
@@ -1495,7 +1610,13 @@
     "calculatedTotal": "Calculated Total",
     "difference": "Difference",
     "edit": "Edit",
-    "editBudget": "Edit Center Budget"
+    "editBudget": "Edit Center Budget",
+    "requests": {
+      "requestApproved": "Request approved successfully",
+      "requestRejected": "Request rejected",
+      "requestResubmitted": "Request resubmitted",
+      "requestEdited": "Request edited and resubmitted successfully"
+    }
   },
   "passport": {
     "title": "Passport",
@@ -1656,5 +1777,42 @@
         "totalVerified": "Total Verified"
       }
     }
+  },
+  "publicAffairsReports": {
+    "title": "Reports",
+    "addReport": "Add Report",
+    "reportNumber": "Report Number",
+    "source": "Source",
+    "date": "Date",
+    "type": "Report Type",
+    "responseTime": "Response Time",
+    "description": "Description",
+    "status": "Status",
+    "completed": "Completed",
+    "delayed": "Delayed",
+    "pending": "Pending",
+    "notCompleted": "Not Completed",
+    "totalReports": "Total Reports",
+    "fromMinistry": "Ministry",
+    "fromWhatsApp": "WhatsApp",
+    "fromRadio": "Radio",
+    "fromCallCenter": "Call Center"
+  },
+  "serviceCentersReports": {
+    "title": "Reports",
+    "subtitle": "View and manage service center reports",
+    "addReport": "Add Report",
+    "reportNumber": "Report Number",
+    "status": "Report Status",
+    "period": "Period",
+    "involvedParties": "Involved Parties",
+    "issueDate": "Issue Date",
+    "description": "Description",
+    "details": "Details",
+    "completed": "Completed",
+    "pending": "In Progress",
+    "delayed": "Delayed",
+    "escalated": "Escalated",
+    "totalReports": "Total Reports"
   }
 }

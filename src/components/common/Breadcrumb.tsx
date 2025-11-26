@@ -5,6 +5,8 @@ import { HomeOutlined, RightOutlined } from '@ant-design/icons';
 
 const Breadcrumb: React.FC = () => {
   const { t, i18n } = useTranslation('common');
+  const { t: tPublicAffairs } = useTranslation('PublicAffairs');
+  const { t: tTransport } = useTranslation('Transport');
   const location = useLocation();
   const isRtl = i18n.language === 'ar' || i18n.language === 'ur';
 
@@ -64,7 +66,16 @@ const Breadcrumb: React.FC = () => {
           }
           break;
         case 'pre-arrival':
-          label = t('reception.preArrival.list.title') || t('reception.preArrival.dashboard.title') || 'Pre-Arrival Preparation';
+          if (pathSegments.includes('departures')) {
+            label = t('reception.preArrival.departures.title') || t('reception.preArrival.dashboard.title');
+          } else {
+            label = t('reception.preArrival.list.title') || t('reception.preArrival.dashboard.title');
+          }
+          break;
+        case 'departures':
+          if (pathSegments.includes('pre-arrival')) {
+            label = t('reception.preArrival.departures.title');
+          }
           break;
         case 'ports':
           if (pathSegments[pathSegments.length - 1] === 'airports') {
@@ -77,8 +88,11 @@ const Breadcrumb: React.FC = () => {
           break;
         case 'list':
           if (pathSegments.includes('pre-arrival')) {
-            label = t('reception.preArrival.list.title') || 'Arrival Schedules';
+            label = t('reception.preArrival.list.title');
           }
+          break;
+        case 'centers-dashboard':
+          label = t('reception.centersDashboard.title');
           break;
         case 'airports':
           label = t('reception.ports.airports.title');
@@ -117,7 +131,84 @@ const Breadcrumb: React.FC = () => {
           if (pathSegments.includes('passport')) {
             label = t('passport.reports.title');
           } else if (pathSegments.includes('housing')) {
-            label = t('housing.reports') || 'Reports';
+            label = t('housing.reports');
+          } else if (pathSegments.includes('hr')) {
+            label = t('hr.reports');
+          } else if (pathSegments.includes('reception')) {
+            label = t('reception.reports');
+          } else if (pathSegments.includes('public-affairs')) {
+            label = t('publicAffairsReports.title');
+          } else if (pathSegments.includes('service-centers')) {
+            label = t('serviceCentersReports.title');
+          } else if (pathSegments.includes('mashair')) {
+            label = t('mashair.reports');
+          } else {
+            label = t('breadcrumbs.reports') || t('reports.title');
+          }
+          break;
+        case 'organizers':
+          label = t('sidebar.organizersControlPanel');
+          break;
+        case 'public-affairs':
+          label = tPublicAffairs('title');
+          break;
+        case 'deaths':
+          if (pathSegments.includes('public-affairs')) {
+            label = tPublicAffairs('deaths');
+          }
+          break;
+        case 'hospitalized':
+          if (pathSegments.includes('public-affairs')) {
+            label = tPublicAffairs('hospitalized');
+          }
+          break;
+        case 'other-incidents':
+          if (pathSegments.includes('public-affairs')) {
+            label = tPublicAffairs('otherIncidents');
+          }
+          break;
+        case 'finance':
+          label = t('finance.title');
+          break;
+        case 'transport':
+          label = tTransport('title');
+          break;
+        case 'transfer-info':
+          if (pathSegments.includes('transport')) {
+            label = tTransport('transferInfo');
+          }
+          break;
+        case 'inter-city':
+          if (pathSegments.includes('transport')) {
+            label = tTransport('interCityTransfers');
+          }
+          break;
+        case 'holy-sites':
+          if (pathSegments.includes('transport')) {
+            label = tTransport('holySitesTransfers');
+          }
+          break;
+        case 'mashair':
+          label = t('mashair.holySitesTitle');
+          break;
+        case 'employees':
+          if (pathSegments.includes('hr')) {
+            label = t('hr.employees');
+          }
+          break;
+        case 'attendance':
+          if (pathSegments.includes('hr')) {
+            label = t('hr.attendance.title');
+          }
+          break;
+        case 'leaves':
+          if (pathSegments.includes('hr')) {
+            label = t('hr.leaves.title');
+          }
+          break;
+        case 'shift-schedules':
+          if (pathSegments.includes('hr')) {
+            label = t('hr.shifts.title');
           }
           break;
         default:
@@ -125,7 +216,15 @@ const Breadcrumb: React.FC = () => {
           if (segment.match(/^\d+$/)) {
             label = segment; // For IDs, just show the ID
           } else {
-            label = segment.charAt(0).toUpperCase() + segment.slice(1);
+            // Try to find a translation key for unknown segments
+            const translationKey = `breadcrumbs.${segment}`;
+            const translated = t(translationKey);
+            if (translated !== translationKey) {
+              label = translated;
+            } else {
+              // Fallback: use translation for common segment or capitalize
+              label = t(`breadcrumbs.${segment.replace(/-/g, '')}`) || segment.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            }
           }
       }
 

@@ -150,6 +150,7 @@
   "madinah": "المدينة",
   "jeddah": "جدة",
   "airport": "المطار",
-  "all": "الكل"
+  "all": "الكل",
+  "csvImportNotImplemented": "استيراد CSV غير متاح حالياً"
 }
 

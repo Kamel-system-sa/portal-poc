@@ -127,7 +127,7 @@ const ShiftSchedulesPage: React.FC = () => {
             </button>
           </Breadcrumb.Item>
           <Breadcrumb.Item className="text-mainColor font-semibold text-xs">
-            {t('hr.shifts.titleShort') || 'الفترات'}
+            {t('hr.shifts.title')}
           </Breadcrumb.Item>
         </Breadcrumb>
 

@@ -326,7 +326,7 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
                     value={acc.contractNumber}
                     onChange={(e) => handleAccommodationChange(index, 'contractNumber', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                    placeholder="رقم العقد"
+                    placeholder={t('reception.preArrival.departures.editModal.contractPlaceholder')}
                   />
                 </div>
                 <div>
@@ -503,7 +503,7 @@ export const DepartureRegistrationForm: React.FC<DepartureRegistrationFormProps>
               onClick={onClose}
               className="px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all font-semibold text-gray-700"
             >
-              {t('form.cancel') || 'إلغاء'}
+              {t('form.cancel')}
             </button>
             {currentStep < 2 ? (
               <button

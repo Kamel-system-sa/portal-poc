@@ -146,7 +146,7 @@ const OrganizersPage = () => {
       }));
       setOrganizers(mockDataArray);
       saveToLocalStorageHelper(mockDataArray);
-      message.warning("Using demo data. Please add organizers.");
+      message.warning(t("usingDemoData"));
     } finally {
       setLoading(false);
     }
@@ -239,7 +239,7 @@ const OrganizersPage = () => {
       };
       reader.onerror = () => {
         console.error("Error reading image file");
-        message.error("Failed to read image file");
+        message.error(t("failedToReadImage"));
         resolve(null);
       };
       reader.readAsDataURL(file);
@@ -259,7 +259,7 @@ const OrganizersPage = () => {
         if (!imageURL) {
           console.error("Image processing failed");
           setUploading(false);
-          message.error("Failed to process image. Please try again.");
+          message.error(t("failedToProcessImage"));
           return;
         }
         console.log("Image processed successfully");
@@ -323,7 +323,7 @@ const OrganizersPage = () => {
       const mergedOrganizers = Array.from(organizersMap.values());
       saveToLocalStorageHelper(mergedOrganizers);
       setOrganizers(mergedOrganizers);
-      message.success("Organizer saved locally!");
+      message.success(t("organizerSavedLocally"));
       form.resetFields();
       setImageFile(null);
       setModalVisible(false);
@@ -340,13 +340,13 @@ const OrganizersPage = () => {
         name: error?.name
       });
       
-      let errorMessage = "Failed to add organizer";
+      let errorMessage = t("failedToAddOrganizer");
       if (error?.code === "invalid-argument") {
-        errorMessage = "Invalid data. Please check all fields are filled correctly.";
+        errorMessage = t("invalidDataMessage");
       } else if (error?.message) {
-        errorMessage = `Error: ${error.message}`;
+        errorMessage = `${t("error")}: ${error.message}`;
       } else if (error?.toString) {
-        errorMessage = `Error: ${error.toString()}`;
+        errorMessage = `${t("error")}: ${error.toString()}`;
       }
       
       message.error(errorMessage);
@@ -386,7 +386,7 @@ const OrganizersPage = () => {
   // Handle edit form submission
   const handleEditSubmit = async (values: any) => {
     if (!selectedOrganizer) {
-      message.error("Organizer not selected.");
+      message.error(t("organizerNotSelected"));
       return;
     }
 
@@ -439,7 +439,7 @@ const OrganizersPage = () => {
       setOrganizers(updatedOrganizers);
 
 
-      message.success("Organizer updated successfully!");
+      message.success(t("organizerUpdatedSuccessfully"));
       form.resetFields();
       setImageFile(null);
       setEditModalVisible(false);
@@ -447,7 +447,7 @@ const OrganizersPage = () => {
       await fetchOrganizers();
     } catch (error: any) {
       console.error("Error updating organizer:", error);
-      message.error("Failed to update organizer");
+      message.error(t("failedToUpdateOrganizer"));
     } finally {
       setUploading(false);
     }
@@ -458,7 +458,7 @@ const OrganizersPage = () => {
     console.log("handleDeleteOrganizer called", selectedOrganizer);
     
     if (!selectedOrganizer) {
-      message.error("Organizer not selected.");
+      message.error(t("organizerNotSelected"));
       return;
     }
 

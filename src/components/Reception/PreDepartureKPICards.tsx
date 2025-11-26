@@ -23,7 +23,7 @@ export const PreDepartureKPICards: React.FC<PreDepartureKPICardsProps> = ({ kpi,
   const cards = [
     {
       key: 'registeredPilgrimsInCenter',
-      title: 'إجمالي عدد الحجاج',
+      title: t('reception.preArrival.departures.dashboard.registeredPilgrimsInCenter'),
       value: kpi.registeredPilgrimsInCenter.toLocaleString(),
       icon: <TeamOutlined />,
       colorScheme: {
@@ -37,7 +37,7 @@ export const PreDepartureKPICards: React.FC<PreDepartureKPICardsProps> = ({ kpi,
     },
     {
       key: 'organizersCount',
-      title: 'عدد المنظمين',
+      title: t('reception.preArrival.departures.dashboard.organizersCount'),
       value: kpi.organizersCount.toLocaleString(),
       icon: <UserOutlined />,
       colorScheme: {

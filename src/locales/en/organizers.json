@@ -1,5 +1,5 @@
 {
-  "title": "Organizers",
+  "title": "Organizers Control Panel",
   "organizersTitle": "Organizers",
   "addOrganizer": "Add Organizer",
   "editOrganizer": "Edit Organizer",
@@ -64,6 +64,16 @@
   "exportSuccess": "Data exported successfully",
   "exportError": "Failed to export data",
   "importSuccess": "Data imported successfully",
-  "importError": "Failed to import data"
+  "importError": "Failed to import data",
+  "usingDemoData": "Using demo data. Please add organizers.",
+  "failedToReadImage": "Failed to read image file",
+  "failedToProcessImage": "Failed to process image. Please try again.",
+  "organizerSavedLocally": "Organizer saved locally!",
+  "organizerNotSelected": "Organizer not selected.",
+  "organizerUpdatedSuccessfully": "Organizer updated successfully!",
+  "failedToUpdateOrganizer": "Failed to update organizer",
+  "failedToAddOrganizer": "Failed to add organizer",
+  "invalidDataMessage": "Invalid data. Please check all fields are filled correctly.",
+  "error": "Error"
 }
 

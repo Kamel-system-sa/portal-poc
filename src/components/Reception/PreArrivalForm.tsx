@@ -95,17 +95,17 @@ const PreArrivalForm: React.FC<PreArrivalFormProps> = ({
   const validateForm = (): boolean => {
     const errors: string[] = [];
     
-    if (!formData.groupNumber) errors.push(t('reception.preArrival.form.groupNumber') + ' is required');
-    if (!formData.groupName) errors.push(t('reception.preArrival.form.groupName') + ' is required');
-    if (!formData.arrivalDate) errors.push(t('reception.preArrival.form.arrivalDate') + ' is required');
-    if (!formData.arrivalTime) errors.push(t('reception.preArrival.form.arrivalTime') + ' is required');
+    if (!formData.groupNumber) errors.push(t('reception.preArrival.form.groupNumber') + ' ' + t('reception.preArrival.form.isRequired'));
+    if (!formData.groupName) errors.push(t('reception.preArrival.form.groupName') + ' ' + t('reception.preArrival.form.isRequired'));
+    if (!formData.arrivalDate) errors.push(t('reception.preArrival.form.arrivalDate') + ' ' + t('reception.preArrival.form.isRequired'));
+    if (!formData.arrivalTime) errors.push(t('reception.preArrival.form.arrivalTime') + ' ' + t('reception.preArrival.form.isRequired'));
     if (!formData.flightNumber && !formData.tripNumber) {
-      errors.push('Flight number or Trip number is required');
+      errors.push(t('reception.preArrival.form.flightOrTripRequired'));
     }
     if (!formData.pilgrimsCount || formData.pilgrimsCount <= 0) {
-      errors.push(t('reception.preArrival.form.pilgrimsCount') + ' must be greater than 0');
+      errors.push(t('reception.preArrival.form.pilgrimsCount') + ' ' + t('reception.preArrival.form.mustBeGreaterThanZero'));
     }
-    if (!formData.destination) errors.push(t('reception.preArrival.form.destination') + ' is required');
+    if (!formData.destination) errors.push(t('reception.preArrival.form.destination') + ' ' + t('reception.preArrival.form.isRequired'));
     
     setValidationErrors(errors);
     return errors.length === 0;
@@ -271,7 +271,7 @@ const PreArrivalForm: React.FC<PreArrivalFormProps> = ({
         <div className="bg-red-50 border border-red-200 rounded-xl p-4">
           <div className="flex items-center gap-2 mb-2">
             <WarningOutlined className="text-red-600" />
-            <span className="font-semibold text-red-900">Validation Errors</span>
+            <span className="font-semibold text-red-900">{t('reception.preArrival.form.validationErrors')}</span>
           </div>
           <ul className="list-disc list-inside text-sm text-red-800 space-y-1">
             {validationErrors.map((error, index) => (

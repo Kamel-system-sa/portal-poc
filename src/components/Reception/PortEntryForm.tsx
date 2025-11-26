@@ -236,8 +236,8 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
                 showAlerts.type === 'overcapacity' ? 'text-red-900' : 'text-orange-900'
               }`}>
                 {showAlerts.type === 'overcapacity' 
-                  ? t('reception.ports.alerts.overcapacityTitle') || 'Overcapacity Warning'
-                  : t('reception.ports.alerts.mismatchTitle') || 'Count Mismatch Warning'}
+                  ? t('reception.ports.alerts.overcapacityTitle')
+                  : t('reception.ports.alerts.mismatchTitle')}
               </h4>
               <p className={`text-sm ${
                 showAlerts.type === 'overcapacity' ? 'text-red-700' : 'text-orange-700'
@@ -419,7 +419,7 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
               type="text"
               value={busNumber}
               onChange={(e) => setBusNumber(e.target.value)}
-              placeholder="BUS-001"
+              placeholder={t('reception.ports.busNumberPlaceholder')}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
               dir={isRtl ? 'rtl' : 'ltr'}
               required
@@ -436,7 +436,7 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
               type="tel"
               value={driverPhone}
               onChange={(e) => setDriverPhone(e.target.value)}
-              placeholder="+9665XXXXXXXX"
+              placeholder={t('reception.ports.phonePlaceholder')}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
               dir={isRtl ? 'rtl' : 'ltr'}
               required
@@ -484,7 +484,7 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
                 type="tel"
                 value={guidePhone}
                 onChange={(e) => setGuidePhone(e.target.value)}
-                placeholder="+9665XXXXXXXX"
+                placeholder={t('reception.ports.phonePlaceholder')}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
                 dir={isRtl ? 'rtl' : 'ltr'}
                 required
@@ -519,7 +519,7 @@ export const PortEntryForm: React.FC<PortEntryFormProps> = ({
           onClick={onCancel}
           className="px-6 py-3.5 text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-semibold flex items-center justify-center gap-2"
         >
-          {t('form.cancel') || 'Cancel'}
+          {t('form.cancel')}
         </button>
         <button
           type="submit"

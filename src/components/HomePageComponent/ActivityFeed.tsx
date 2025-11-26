@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Typography, Avatar, Timeline, Tag } from 'antd';
+import { Card, Typography, Avatar, Tag } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
   UserOutlined,
@@ -30,41 +30,42 @@ export interface ActivityFeedProps {
 const ActivityFeed: React.FC<ActivityFeedProps> = ({
   activities,
   title = 'Recent Activity',
-  maxItems = 8,
+  maxItems = 6,
 }) => {
   const { i18n, t } = useTranslation('common');
   const isRTL = i18n.language === 'ar' || i18n.language === 'ur';
+  
   const getActivityIcon = (type: ActivityItem['type']) => {
     switch (type) {
       case 'user':
-        return <UserOutlined className="text-blue-500" />;
+        return <UserOutlined />;
       case 'approval':
-        return <CheckCircleOutlined className="text-success" />;
+        return <CheckCircleOutlined />;
       case 'document':
-        return <FileTextOutlined className="text-purple-500" />;
+        return <FileTextOutlined />;
       case 'notification':
-        return <BellOutlined className="text-orange-500" />;
+        return <BellOutlined />;
       case 'system':
-        return <ClockCircleOutlined className="text-gray-500" />;
+        return <ClockCircleOutlined />;
       default:
-        return <BellOutlined className="text-gray-500" />;
+        return <BellOutlined />;
     }
   };
 
   const getActivityColor = (type: ActivityItem['type']) => {
     switch (type) {
       case 'user':
-        return 'blue';
+        return { bg: 'bg-blue-50', icon: 'text-blue-600', border: 'border-blue-200' };
       case 'approval':
-        return 'green';
+        return { bg: 'bg-green-50', icon: 'text-green-600', border: 'border-green-200' };
       case 'document':
-        return 'purple';
+        return { bg: 'bg-purple-50', icon: 'text-purple-600', border: 'border-purple-200' };
       case 'notification':
-        return 'orange';
+        return { bg: 'bg-orange-50', icon: 'text-orange-600', border: 'border-orange-200' };
       case 'system':
-        return 'gray';
+        return { bg: 'bg-gray-50', icon: 'text-gray-600', border: 'border-gray-200' };
       default:
-        return 'gray';
+        return { bg: 'bg-gray-50', icon: 'text-gray-600', border: 'border-gray-200' };
     }
   };
 
@@ -73,50 +74,54 @@ const ActivityFeed: React.FC<ActivityFeedProps> = ({
   return (
     <Card
       className="h-full border-0 shadow-md hover:shadow-lg transition-shadow duration-300"
-      styles={{ body: { padding: '24px' } }}
+      styles={{ body: { padding: '16px' } }}
     >
-      <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <h3 className={`text-lg font-semibold text-gray-800 m-0 ${isRTL ? 'text-right' : ''}`}>{title}</h3>
-        <Tag color="blue" className="cursor-pointer hover:shadow-md transition-shadow">
-          {t('homepage.viewAll') || 'View All'}
+      <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <h3 className={`text-base font-semibold text-gray-800 m-0 ${isRTL ? 'text-right' : 'text-left'}`}>
+          {title}
+        </h3>
+        <Tag color="blue" className="cursor-pointer hover:shadow-md transition-shadow text-xs">
+          {t('homepage.viewAll')}
         </Tag>
       </div>
 
-      <Timeline
-        mode={isRTL ? 'right' : 'left'}
-        items={displayActivities.map((activity) => ({
-          dot: (
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white border-2 border-gray-200 shadow-sm">
-              {activity.avatar ? (
-                <Avatar src={activity.avatar} size={20} icon={<UserOutlined />} />
-              ) : (
-                getActivityIcon(activity.type)
-              )}
-            </div>
-          ),
-          children: (
-            <div className={`${isRTL ? 'mr-4' : 'ml-4'} animate-fade-in`}>
-              <div className={`flex items-start justify-between gap-2 mb-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Text className={`text-gray-800 font-medium text-sm ${isRTL ? 'text-right' : ''}`}>
-                  {activity.title}
-                </Text>
-                <Text className={`text-gray-400 text-xs whitespace-nowrap ${isRTL ? 'text-left' : ''}`}>
-                  {activity.time}
-                </Text>
+      <div className="space-y-2">
+        {displayActivities.map((activity, index) => {
+          const colors = getActivityColor(activity.type);
+          return (
+            <div
+              key={activity.id || index}
+              className={`group flex items-start gap-3 p-3 rounded-lg border ${colors.border} ${colors.bg} hover:shadow-sm transition-all cursor-pointer ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <div className={`flex items-center justify-center w-10 h-10 rounded-lg ${colors.bg} border ${colors.border} flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                {activity.avatar ? (
+                  <Avatar src={activity.avatar} size={24} icon={<UserOutlined />} />
+                ) : (
+                  <span className={colors.icon}>{getActivityIcon(activity.type)}</span>
+                )}
               </div>
-              <Text className={`text-gray-600 text-xs block mb-1 ${isRTL ? 'text-right' : ''}`}>
-                {activity.description}
-              </Text>
-              {activity.user && (
-                <Text className={`text-gray-500 text-xs ${isRTL ? 'text-right' : ''}`}>
-                  {isRTL ? `${activity.user} ${t('homepage.by')}` : `${t('homepage.by')} ${activity.user}`}
+              <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <div className={`flex items-start justify-between gap-2 mb-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <Text className="text-gray-900 font-medium text-sm flex-1 break-words">
+                    {activity.title}
+                  </Text>
+                  <Text className="text-gray-400 text-xs whitespace-nowrap flex-shrink-0">
+                    {activity.time}
+                  </Text>
+                </div>
+                <Text className="text-gray-600 text-xs block mb-1 leading-relaxed">
+                  {activity.description}
                 </Text>
-              )}
+                {activity.user && (
+                  <Text className="text-gray-500 text-xs">
+                    {isRTL ? `${activity.user} ${t('homepage.by') || 'بواسطة'}` : `${t('homepage.by') || 'by'} ${activity.user}`}
+                  </Text>
+                )}
+              </div>
             </div>
-          ),
-          color: getActivityColor(activity.type),
-        }))}
-      />
+          );
+        })}
+      </div>
     </Card>
   );
 };

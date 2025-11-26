@@ -1,5 +1,5 @@
 {
-  "title": "المنظمون",
+  "title": "لوحة التحكم بالمنظمين",
   "organizersTitle": "المنظمون",
   "addOrganizer": "إضافة منظم",
   "editOrganizer": "تعديل المنظم",
@@ -64,6 +64,16 @@
   "exportSuccess": "تم تصدير البيانات بنجاح",
   "exportError": "فشل تصدير البيانات",
   "importSuccess": "تم استيراد البيانات بنجاح",
-  "importError": "فشل استيراد البيانات"
+  "importError": "فشل استيراد البيانات",
+  "usingDemoData": "استخدام بيانات تجريبية. يرجى إضافة منظمين.",
+  "failedToReadImage": "فشل قراءة ملف الصورة",
+  "failedToProcessImage": "فشل معالجة الصورة. يرجى المحاولة مرة أخرى.",
+  "organizerSavedLocally": "تم حفظ المنظم محلياً!",
+  "organizerNotSelected": "لم يتم اختيار منظم.",
+  "organizerUpdatedSuccessfully": "تم تحديث المنظم بنجاح!",
+  "failedToUpdateOrganizer": "فشل تحديث المنظم",
+  "failedToAddOrganizer": "فشل إضافة المنظم",
+  "invalidDataMessage": "بيانات غير صحيحة. يرجى التحقق من ملء جميع الحقول بشكل صحيح.",
+  "error": "خطأ"
 }
 

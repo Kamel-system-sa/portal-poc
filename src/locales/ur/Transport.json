@@ -150,6 +150,7 @@
   "madinah": "مدینہ",
   "jeddah": "جدة",
   "airport": "ہوائی اڈہ",
-  "all": "سب"
+  "all": "سب",
+  "csvImportNotImplemented": "CSV درآمد ابھی تک لاگو نہیں کیا گیا"
 }
 

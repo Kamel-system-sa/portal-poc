@@ -236,11 +236,11 @@ export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type, on
           className="mt-4"
         >
           <Form.Item
-            label={t('housing.exportFormat') || 'Export Format'}
+            label={t('housing.exportFormat')}
             name="format"
-            rules={[{ required: true, message: t('housing.pleaseSelectFormat') || 'Please select format' }]}
+            rules={[{ required: true, message: t('housing.pleaseSelectFormat') }]}
           >
-            <Select size="large" placeholder={t('housing.selectFormat') || 'Select format'}>
+            <Select size="large" placeholder={t('housing.selectFormat')}>
               <Option value="excel">Excel (.xlsx)</Option>
               <Option value="csv">CSV (.csv)</Option>
               <Option value="pdf">PDF (.pdf)</Option>
@@ -314,12 +314,12 @@ export const HousingActionsMenu: React.FC<HousingActionsMenuProps> = ({ type, on
                 <Form.Item
                   label={t('housing.city')}
                   name="city"
-                  rules={[{ required: true, message: t('housing.pleaseSelectCity') || 'يرجى اختيار المدينة' }]}
+                  rules={[{ required: true, message: t('housing.pleaseSelectCity') }]}
                   className="mb-0"
                 >
                   <Select 
                     size="large" 
-                    placeholder={t('housing.selectCity') || 'اختر المدينة'}
+                    placeholder={t('housing.selectCity')}
                     className="w-full"
                   >
                     <Option value="makkah">{t('housing.makkah')}</Option>

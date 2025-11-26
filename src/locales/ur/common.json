@@ -3,13 +3,18 @@
   "dashboardTitle": "ڈیش بورڈ",
   "homeTitle": "ہوم",
   "serviceCentersTitle": "سروس سینٹرز",
+  "serviceCenters": {
+    "dashboardTitle": "فیلڈ سروس سینٹرز ڈیش بورڈ",
+    "dashboardSubtitle": "فیلڈ سروس سینٹرز اور ان کے اعداد و شمار کا جامع جائزہ"
+  },
   "organizersTitle": "آرگنائزرز",
   "housingTitle": "رہائش",
   "testPageTitle": "ٹیسٹ پیج",
   "scrollToTop": "اوپر سکرول کریں",
   "sidebar": {
     "openSidebar": "سائیڈبار کھولیں",
-    "closeSidebar": "سائیڈبار بند کریں"
+    "closeSidebar": "سائیڈبار بند کریں",
+    "organizersControlPanel": "آرگنائزرز کنٹرول پینل"
   },
   "header": {
     "switchRole": "کردار تبدیل کریں",
@@ -209,6 +214,7 @@
   },
   "hr": {
     "title": "انسانی وسائل",
+    "dashboardTitle": "HR ڈیش بورڈ",
     "dashboard": "HR ڈیش بورڈ",
     "employees": "ملازمین",
     "addEmployee": "ملازم شامل کریں",
@@ -347,6 +353,15 @@
       "exporting": "ایکسپورٹ ہو رہا ہے...",
       "exportSuccess": "ایکسپورٹ کامیاب"
     },
+    "attendance": {
+      "title": "حاضری",
+      "subtitle": "حاضری کے ریکارڈز کا انتظام"
+    },
+    "leaves": {
+      "title": "چھٹیاں",
+      "subtitle": "چھٹی کی درخواستوں کا انتظام"
+    },
+    "reports": "رپورٹس",
     "print": {
       "title": "پرنٹ",
       "paperSize": "کاغذ کا سائز",
@@ -395,7 +410,8 @@
       "form": "ملازمت کا فارم",
       "offer": "کام کا پیشکش",
       "export": "ڈیٹا ایکسپورٹ",
-      "print": "پرنٹ"
+      "print": "پرنٹ",
+      "reports": "رپورٹس"
     },
     "states": {
       "loading": "لوڈ ہو رہا ہے...",
@@ -749,6 +765,19 @@
       "totalPilgrims": "کل حجاج",
       "totalGroupsEntries": "کل گروپس/اندراجات",
       "completedCampaigns": "مکمل شدہ مہمات"
+    },
+    "centersDashboard": {
+      "title": "مراکز کا ڈیش بورڈ",
+      "subtitle": "تمام مراکز کے ڈیٹا کا جامع جائزہ"
+    },
+    "reports": "رپورٹس",
+    "preArrival": {
+      "form": {
+        "validationErrors": "تصدیق کی خرابیاں",
+        "isRequired": "ضروری ہے",
+        "mustBeGreaterThanZero": "0 سے زیادہ ہونا چاہیے",
+        "flightOrTripRequired": "فلائٹ نمبر یا ٹرپ نمبر ضروری ہے"
+      }
     }
   },
   "mashair": {
@@ -794,6 +823,7 @@
     "dataSaved": "ڈیٹا کامیابی سے محفوظ ہو گیا",
     "tentDeleted": "خیمہ کامیابی سے حذف ہو گیا",
     "assignmentDeleted": "تفویض کامیابی سے حذف ہو گئی",
+    "reports": "رپورٹس",
     "invalidFileType": "غلط فائل کی۔ براہ کرم PDF فائل اپ لوڈ کریں",
     "processing": "پروسیسنگ",
     "extractedData": "نکالا گیا ڈیٹا",
@@ -836,6 +866,79 @@
     "settings": "ترتیبات",
     "announcements": "اعلانات",
     "recentActivity": "حالیہ سرگرمی",
+    "departmentOverview": "شعبوں کا جائزہ",
+    "viewAll": "سب دیکھیں",
+    "by": "بذریعہ",
+    "general": "عام",
+    "language": "زبان",
+    "languageDescription": "انٹرفیس کے لیے اپنی پسندیدہ زبان منتخب کریں",
+    "languageNames": {
+      "en": "English",
+      "ar": "العربية",
+      "ur": "اردو"
+    },
+    "departmentCards": {
+      "reception": {
+        "title": "استقبال",
+        "totalArrivals": "کل آمدنی",
+        "expectedToday": "آج متوقع"
+      },
+      "housing": {
+        "title": "رہائش",
+        "hotelOccupancy": "ہوٹل کی رہائش",
+        "availableRooms": "دستیاب کمرے"
+      },
+      "mashair": {
+        "title": "مقدس مقامات",
+        "totalCampaigns": "کل مہمات",
+        "facilityReadiness": "سہولیات کی تیاری"
+      },
+      "employees": {
+        "title": "انسانی وسائل",
+        "totalEmployees": "کل ملازمین",
+        "attendanceRate": "حاضری کی شرح"
+      },
+      "serviceCenters": {
+        "title": "سروس سینٹرز",
+        "totalCenters": "کل مراکز",
+        "activeCenters": "فعال مراکز"
+      },
+      "organizers": {
+        "title": "منظمین",
+        "totalOrganizers": "کل منظمین",
+        "activeCampaigns": "فعال مہمات"
+      },
+      "publicAffairs": {
+        "title": "عوامی امور",
+        "totalReports": "کل رپورٹس",
+        "inProcess": "جاری عمل"
+      },
+      "finance": {
+        "title": "مالیات",
+        "totalBudget": "کل بجٹ",
+        "expenses": "اخراجات"
+      },
+      "transport": {
+        "title": "نقل و حمل",
+        "totalTrips": "کل سفر",
+        "todayTrips": "آج کے سفر"
+      },
+      "passport": {
+        "title": "پاسپورٹ",
+        "totalPilgrims": "کل حجاج",
+        "verifiedServices": "تصدیق شدہ خدمات"
+      },
+      "reports": {
+        "title": "رپورٹس",
+        "totalReports": "کل رپورٹس",
+        "monthlyReports": "ماہانہ رپورٹس"
+      },
+      "operations": {
+        "title": "آپریشنز",
+        "activeOperations": "فعال آپریشنز",
+        "completionRate": "تکمیل کی شرح"
+      }
+    },
     "featuredItems": "نمایاں آئٹمز",
     "policies": "پالیسیاں",
     "procedures": "طریقہ کار",
@@ -1002,6 +1105,16 @@
     "submit": "جمع کریں",
     "leaveRequestSubmitted": "چھٹی کی درخواست کامیابی سے جمع کرائی گئی",
     "expenseSubmitted": "خرچ کامیابی سے جمع کرایا گیا",
+    "leaveType": "چھٹی کی قسم",
+    "pleaseSelectLeaveType": "براہ کرم چھٹی کی قسم منتخب کریں",
+    "selectLeaveType": "چھٹی کی قسم منتخب کریں",
+    "annualLeave": "سالانہ چھٹی",
+    "sickLeave": "بیماری کی چھٹی",
+    "emergencyLeave": "ہنگامی چھٹی",
+    "startDate": "شروع کی تاریخ",
+    "endDate": "اختتام کی تاریخ",
+    "pleaseSelectStartDate": "براہ کرم شروع کی تاریخ منتخب کریں",
+    "pleaseSelectEndDate": "براہ کرم اختتام کی تاریخ منتخب کریں",
     "submissionError": "جمع کرانے میں ناکام",
     "expenseType": "خرچ کی",
     "pleaseSelectExpenseType": "براہ کرم خرچ کی منتخب کریں",
@@ -1089,7 +1202,13 @@
     "calculatedTotal": "کل مجموعہ",
     "difference": "فرق",
     "edit": "ترمیم",
-    "editBudget": "مرکز کا بجٹ میں ترمیم کریں"
+    "editBudget": "مرکز کا بجٹ میں ترمیم کریں",
+    "requests": {
+      "requestApproved": "درخواست کامیابی سے منظور ہو گئی",
+      "requestRejected": "درخواست مسترد کر دی گئی",
+      "requestResubmitted": "درخواست دوبارہ جمع کرائی گئی",
+      "requestEdited": "درخواست میں ترمیم کی گئی اور کامیابی سے دوبارہ جمع کرائی گئی"
+    }
   },
   "passport": {
     "title": "پاسپورٹ",
@@ -1250,5 +1369,42 @@
         "totalVerified": "کل تصدیق شدہ"
       }
     }
+  },
+  "publicAffairsReports": {
+    "title": "رپورٹس",
+    "addReport": "رپورٹ شامل کریں",
+    "reportNumber": "رپورٹ نمبر",
+    "source": "ماخذ",
+    "date": "تاریخ",
+    "type": "رپورٹ کی قسم",
+    "responseTime": "جواب کا وقت",
+    "description": "تفصیل",
+    "status": "حالت",
+    "completed": "مکمل",
+    "delayed": "تاخیر",
+    "pending": "زیر التواء",
+    "notCompleted": "نامکمل",
+    "totalReports": "کل رپورٹس",
+    "fromMinistry": "وزارت",
+    "fromWhatsApp": "واٹس ایپ",
+    "fromRadio": "ریڈیو",
+    "fromCallCenter": "کال سینٹر"
+  },
+  "serviceCentersReports": {
+    "title": "رپورٹس",
+    "subtitle": "سروس سینٹر رپورٹس دیکھیں اور منظم کریں",
+    "addReport": "رپورٹ شامل کریں",
+    "reportNumber": "رپورٹ نمبر",
+    "status": "رپورٹ کی حالت",
+    "period": "مدت",
+    "involvedParties": "متعلقہ فریقین",
+    "issueDate": "جاری کرنے کی تاریخ",
+    "description": "تفصیل",
+    "details": "تفصیلات",
+    "completed": "مکمل",
+    "pending": "زیر التواء",
+    "delayed": "تاخیر",
+    "escalated": "بلند",
+    "totalReports": "کل رپورٹس"
   }
 }

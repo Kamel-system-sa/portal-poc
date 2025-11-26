@@ -1,5 +1,5 @@
 {
-  "title": "آرگنائزرز",
+  "title": "آرگنائزرز کنٹرول پینل",
   "organizersTitle": "آرگنائزرز",
   "addOrganizer": "آرگنائزر شامل کریں",
   "editOrganizer": "آرگنائزر میں ترمیم کریں",
@@ -64,6 +64,16 @@
   "exportSuccess": "ڈیٹا کامیابی سے برآمد ہو گیا",
   "exportError": "ڈیٹا برآمد کرنے میں ناکام",
   "importSuccess": "ڈیٹا کامیابی سے درآمد ہو گیا",
-  "importError": "ڈیٹا درآمد کرنے میں ناکام"
+  "importError": "ڈیٹا درآمد کرنے میں ناکام",
+  "usingDemoData": "ڈیمو ڈیٹا استعمال کر رہے ہیں۔ براہ کرم آرگنائزرز شامل کریں۔",
+  "failedToReadImage": "تصویر کی فائل پڑھنے میں ناکام",
+  "failedToProcessImage": "تصویر پراسیس کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+  "organizerSavedLocally": "آرگنائزر مقامی طور پر محفوظ ہو گیا!",
+  "organizerNotSelected": "آرگنائزر منتخب نہیں کیا گیا۔",
+  "organizerUpdatedSuccessfully": "آرگنائزر کامیابی سے اپڈیٹ ہو گیا!",
+  "failedToUpdateOrganizer": "آرگنائزر اپڈیٹ کرنے میں ناکام",
+  "failedToAddOrganizer": "آرگنائزر شامل کرنے میں ناکام",
+  "invalidDataMessage": "غلط ڈیٹا۔ براہ کرم چیک کریں کہ تمام فیلڈز صحیح طریقے سے بھرے گئے ہیں۔",
+  "error": "خرابی"
 }
 

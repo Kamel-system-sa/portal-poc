@@ -78,7 +78,7 @@ export const DeleteConfirmModal = ({ visible, organizer, onCancel, onConfirm, t 
             size="large"
             className="flex-1 rounded-lg h-11 font-semibold border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900"
           >
-            {t("cancel") || "Cancel"}
+            {t("cancel")}
           </Button>
           <Button
             onClick={onConfirm}

@@ -126,10 +126,10 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="route"
               label={t('route')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Select
-                placeholder={t('selectRoute') || 'Select a route'}
+                placeholder={t('selectRoute')}
                 showSearch
                 filterOption={(input, option) =>
                   (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -144,7 +144,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="transportCompany"
               label={t('transportCompany')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -152,7 +152,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="licensePlate"
               label={t('licensePlate')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -160,7 +160,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="busNumber"
               label={t('busNumber')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -168,7 +168,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="busId"
               label={t('busId') || 'Bus ID'}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -176,7 +176,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="capacity"
               label={t('capacity')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <InputNumber min={1} max={100} className="w-full" />
             </Form.Item>
@@ -184,7 +184,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="departureTime"
               label={t('departure')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input type="time" />
             </Form.Item>
@@ -192,7 +192,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="expectedArrival"
               label={t('expectedArrival')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input type="time" />
             </Form.Item>
@@ -209,7 +209,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="driver1Name"
               label={t('driverName') || 'Driver Name'}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -217,7 +217,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="driver1Phone"
               label={t('phoneNumber')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input type="tel" />
             </Form.Item>
@@ -234,7 +234,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="driver2Name"
               label={t('driverName') || 'Driver Name'}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input />
             </Form.Item>
@@ -242,7 +242,7 @@ export const AddBusModal: React.FC<AddBusModalProps> = ({ open, onClose, onSubmi
             <Form.Item
               name="driver2Phone"
               label={t('phoneNumber')}
-              rules={[{ required: true, message: t('requiredField') || 'Required' }]}
+              rules={[{ required: true, message: t('requiredField') }]}
             >
               <Input type="tel" />
             </Form.Item>

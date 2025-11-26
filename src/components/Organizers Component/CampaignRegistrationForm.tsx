@@ -347,7 +347,7 @@ export const CampaignRegistrationForm: React.FC<CampaignRegistrationFormProps> =
           onClick={onCancel}
           className="flex-1 px-6 py-3.5 text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 font-semibold flex items-center justify-center gap-2"
         >
-          {t('form.cancel') || 'Cancel'}
+          {t('form.cancel')}
         </button>
         <button
           type="submit"

@@ -57,7 +57,7 @@ export const EditOrganizerModal = ({
       />
       <div className="flex gap-3 mt-6 pt-4 border-t border-gray-200">
         <Button onClick={onCancel} size="large" className="flex-1 rounded-lg h-11 font-semibold border-gray-300 text-gray-700 hover:text-gray-900">
-          {t("cancel") || "Cancel"}
+          {t("cancel")}
         </Button>
         <Button
           htmlType="submit"

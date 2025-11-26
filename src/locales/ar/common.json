@@ -3,13 +3,19 @@
   "dashboardTitle": "لوحة التحكم",
   "homeTitle": "الرئيسية",
   "serviceCentersTitle": "مراكز الخدمة",
-  "organizersTitle": "المنظمون",
+  "serviceCenters": {
+    "dashboardTitle": "لوحة تحكم مراكز الخدمة ",
+    "dashboardSubtitle": "نظرة شاملة على مراكز الخدمة الميدانية وإحصائياتها"
+  },
+  "organizersTitle": "لوحة تحكم المنظمين",
+  "organizersTitles": "المنظمين",
   "housingTitle": "الإسكان",
   "testPageTitle": "صفحة الاختبار",
   "scrollToTop": "التمرير إلى الأعلى",
   "sidebar": {
     "openSidebar": "فتح القائمة الجانبية",
-    "closeSidebar": "إغلاق القائمة الجانبية"
+    "closeSidebar": "إغلاق القائمة الجانبية",
+    "organizersControlPanel": "لوحة التحكم بالمنظمين"
   },
   "header": {
     "switchRole": "تغيير الدور",
@@ -560,7 +566,8 @@
       "form": "نموذج التوظيف",
       "offer": "عرض العمل",
       "export": "تصدير البيانات",
-      "print": "الطباعة"
+      "print": "الطباعة",
+      "reports": "التقارير"
     },
     "states": {
       "loading": "جاري التحميل...",
@@ -975,6 +982,7 @@
   },
   "mashair": {
     "title": "المشاعر",
+    "holySitesTitle": "المشاعر المقدسة",
     "dashboardTitle": "لوحة تحكم المشاعر",
     "dashboardSubtitle": "إدارة خيام منى وعرفات وتخصيصها للحملات",
     "minaTents": "خيام منى",
@@ -1016,6 +1024,7 @@
     "dataSaved": "تم حفظ البيانات بنجاح",
     "tentDeleted": "تم حذف الخيمة بنجاح",
     "assignmentDeleted": "تم حذف التخصيص بنجاح",
+    "reports": "التقارير",
     "invalidFileType": "نوع الملف غير صحيح. يرجى رفع ملف PDF",
     "processing": "جاري المعالجة",
     "extractedData": "البيانات المستخرجة",
@@ -1184,6 +1193,10 @@
           "uploadDepartureReport": "رفع تقرير المغادرة"
         },
         "form": {
+          "validationErrors": "أخطاء التحقق",
+          "isRequired": "مطلوب",
+          "mustBeGreaterThanZero": "يجب أن يكون أكبر من 0",
+          "flightOrTripRequired": "رقم الرحلة أو رقم الرحلة مطلوب",
           "step1": {
             "title": "الخطوة 1: اختيار المغادرة",
             "selectOrganizer": "اختر رقم المنظم",
@@ -1398,6 +1411,8 @@
       "photoRequired": "مطلوب للتأكيد",
       "carrierPlaceholder": "أدخل اسم الناقل",
       "passengersPlaceholder": "أدخل عدد الركاب",
+      "busNumberPlaceholder": "BUS-001",
+      "phonePlaceholder": "+9665XXXXXXXX",
       "busCapacity": "سعة الحافلة",
       "passengers": "ركاب",
       "alerts": {
@@ -1554,6 +1569,79 @@
     "settings": "الإعدادات",
     "announcements": "الإعلانات",
     "recentActivity": "النشاط الأخير",
+    "departmentOverview": "نظرة عامة على الأقسام",
+    "viewAll": "عرض الكل",
+    "by": "بواسطة",
+    "general": "عام",
+    "language": "اللغة",
+    "languageDescription": "اختر لغتك المفضلة لواجهة المستخدم",
+    "languageNames": {
+      "en": "English",
+      "ar": "العربية",
+      "ur": "اردو"
+    },
+    "departmentCards": {
+      "reception": {
+        "title": "الاستقبال",
+        "totalArrivals": "إجمالي الواصلين",
+        "expectedToday": "المتوقع وصولهم اليوم"
+      },
+      "housing": {
+        "title": "الإسكان",
+        "hotelOccupancy": "إشغال الفنادق",
+        "availableRooms": "الغرف المتاحة"
+      },
+      "mashair": {
+        "title": "المشاعر المقدسة",
+        "totalCampaigns": "عدد الحملات",
+        "facilityReadiness": "جاهزية المرافق"
+      },
+      "employees": {
+        "title": "الموارد البشرية",
+        "totalEmployees": "عدد الموظفين",
+        "attendanceRate": "نسبة الحضور"
+      },
+      "serviceCenters": {
+        "title": "مراكز الخدمة",
+        "totalCenters": "إجمالي المراكز",
+        "activeCenters": "المراكز النشطة"
+      },
+      "organizers": {
+        "title": "المنظمين",
+        "totalOrganizers": "عدد المنظمين",
+        "activeCampaigns": "الحملات النشطة"
+      },
+      "publicAffairs": {
+        "title": "الشؤون العامة",
+        "totalReports": "إجمالي التقارير",
+        "inProcess": "قيد المعالجة"
+      },
+      "finance": {
+        "title": "المالية",
+        "totalBudget": "إجمالي الميزانية",
+        "expenses": "المصروفات"
+      },
+      "transport": {
+        "title": "النقل",
+        "totalTrips": "إجمالي الرحلات",
+        "todayTrips": "الرحلات اليوم"
+      },
+      "passport": {
+        "title": "الجوازات",
+        "totalPilgrims": "إجمالي الحجاج",
+        "verifiedServices": "المثبت خدمتهم"
+      },
+      "reports": {
+        "title": "التقارير",
+        "totalReports": "إجمالي التقارير",
+        "monthlyReports": "التقارير الشهرية"
+      },
+      "operations": {
+        "title": "العمليات",
+        "activeOperations": "العمليات النشطة",
+        "completionRate": "معدل الإنجاز"
+      }
+    },
     "featuredItems": "العناصر المميزة",
     "policies": "السياسات",
     "procedures": "الإجراءات",
@@ -1719,6 +1807,17 @@
     "enterReason": "أدخل سبب الإجازة",
     "submit": "إرسال",
     "leaveRequestSubmitted": "تم إرسال طلب الإجازة بنجاح",
+    "leaveType": "نوع الإجازة",
+    "pleaseSelectLeaveType": "يرجى اختيار نوع الإجازة",
+    "selectLeaveType": "اختر نوع الإجازة",
+    "annualLeave": "إجازة سنوية",
+    "sickLeave": "إجازة مرضية",
+    "emergencyLeave": "إجازة طارئة",
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء",
+    "pleaseSelectStartDate": "يرجى اختيار تاريخ البدء",
+    "pleaseSelectEndDate": "يرجى اختيار تاريخ الانتهاء",
+    "expenseSubmitted": "تم تقديم المصروفات بنجاح",
     "expenseSubmitted": "تم إرسال المصروفات بنجاح",
     "submissionError": "فشل الإرسال",
     "expenseType": "نوع المصروفات",
@@ -1803,7 +1902,11 @@
       "status": "الحالة",
       "pending": "معلق",
       "approved": "مقبول",
-      "rejected": "مرفوض"
+      "rejected": "مرفوض",
+      "requestApproved": "تم قبول الطلب بنجاح",
+      "requestRejected": "تم رفض الطلب",
+      "requestResubmitted": "تم إعادة إرسال الطلب",
+      "requestEdited": "تم تعديل الطلب وإعادة إرساله بنجاح"
     },
     "other": "أخرى",
     "reservedAmount": "المبلغ المحجوز",
@@ -1983,5 +2086,42 @@
         "totalVerified": "إجمالي المثبت"
       }
     }
+  },
+  "publicAffairsReports": {
+    "title": "البلاغات",
+    "addReport": "إضافة بلاغ",
+    "reportNumber": "رقم البلاغ",
+    "source": "المصدر",
+    "date": "التاريخ",
+    "type": "نوع البلاغ",
+    "responseTime": "وقت الاستجابة",
+    "description": "الوصف",
+    "status": "الحالة",
+    "completed": "مكتمل",
+    "delayed": "متأخر",
+    "pending": "قيد الانتظار",
+    "notCompleted": "غير مكتمل",
+    "totalReports": "إجمالي البلاغات",
+    "fromMinistry": "الوزارة",
+    "fromWhatsApp": "الواتساب",
+    "fromRadio": "اللاسلكي",
+    "fromCallCenter": "الكول سنتر"
+  },
+  "serviceCentersReports": {
+    "title": "المحاضر",
+    "subtitle": "عرض وإدارة محاضر مراكز الخدمة",
+    "addReport": "إضافة محضر",
+    "reportNumber": "رقم المحضر",
+    "status": "حالة المحضر",
+    "period": "الفترة",
+    "involvedParties": "الأطراف المعنية",
+    "issueDate": "تاريخ التحرير",
+    "description": "الوصف",
+    "details": "التفاصيل",
+    "completed": "مكتمل",
+    "pending": "قيد الإجراء",
+    "delayed": "متأخر",
+    "escalated": "مرفوع",
+    "totalReports": "إجمالي المحاضر"
   }
 }

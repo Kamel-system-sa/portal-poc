@@ -27,8 +27,8 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
     { key: 'occupancyRate', label: t('housing.occupancyRate') },
     { key: 'pilgrims', label: t('housing.totalPilgrims') },
     { key: 'location', label: t('housing.location') },
-    { key: 'genderDistribution', label: t('housing.genderDistribution') || 'Gender Distribution' },
-    { key: 'nationalityDistribution', label: t('housing.nationalityDistribution') || 'Nationality Distribution' },
+    { key: 'genderDistribution', label: t('housing.genderDistribution') },
+    { key: 'nationalityDistribution', label: t('housing.nationalityDistribution') },
   ];
 
   const handleFieldToggle = (fieldKey: string) => {
@@ -82,10 +82,10 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
       <div className="mb-6">
         <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
           <FileTextOutlined className="text-primaryColor" />
-          {t('housing.reportBuilder') || 'Report Builder'}
+          {t('housing.reportBuilder')}
         </h3>
         <p className="text-sm text-customgray">
-          {t('housing.reportBuilderDescription') || 'Create custom reports with selected fields and templates'}
+          {t('housing.reportBuilderDescription')}
         </p>
       </div>
 
@@ -93,19 +93,19 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
         {/* Template Selection */}
         <div className="mb-6">
           <Form.Item
-            label={t('housing.selectTemplate') || 'Select Template'}
+            label={t('housing.selectTemplate')}
             name="template"
           >
-            <Select size="large" placeholder={t('housing.chooseTemplate') || 'Choose a template'}>
-              <Option value="default">{t('housing.defaultTemplate') || 'Default Template'}</Option>
-              <Option value="detailed">{t('housing.detailedTemplate') || 'Detailed Template'}</Option>
-              <Option value="summary">{t('housing.summaryTemplate') || 'Summary Template'}</Option>
+            <Select size="large" placeholder={t('housing.chooseTemplate')}>
+              <Option value="default">{t('housing.defaultTemplate')}</Option>
+              <Option value="detailed">{t('housing.detailedTemplate')}</Option>
+              <Option value="summary">{t('housing.summaryTemplate')}</Option>
             </Select>
           </Form.Item>
 
           <div className="flex gap-3 mb-4">
             <Input
-              placeholder={t('housing.templateName') || 'Template name'}
+              placeholder={t('housing.templateName')}
               value={templateName}
               onChange={(e) => setTemplateName(e.target.value)}
               className="flex-1"
@@ -119,7 +119,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
               size="large"
               className="border-2 border-bordergray hover:border-primaryColor"
             >
-              {t('housing.saveTemplate') || 'Save Template'}
+              {t('housing.saveTemplate')}
             </Button>
           </div>
 
@@ -134,7 +134,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
                 size="large"
                 className="w-full border-2 border-bordergray hover:border-primaryColor"
               >
-                {t('housing.uploadTemplate') || 'Upload Template'}
+                {t('housing.uploadTemplate')}
               </Button>
             </Upload>
           </Form.Item>
@@ -144,7 +144,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <label className="text-sm font-semibold text-gray-700">
-              {t('housing.selectFields') || 'Select Fields to Include'}
+              {t('housing.selectFields')}
             </label>
             <div className="flex gap-2">
               <Button
@@ -153,7 +153,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
                 onClick={handleSelectAll}
                 className="text-primaryColor hover:text-primaryColor/80"
               >
-                {t('housing.selectAll') || 'Select All'}
+                {t('housing.selectAll')}
               </Button>
               <Button
                 type="text"
@@ -161,7 +161,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
                 onClick={handleDeselectAll}
                 className="text-customgray hover:text-primaryColor"
               >
-                {t('housing.deselectAll') || 'Deselect All'}
+                {t('housing.deselectAll')}
               </Button>
             </div>
           </div>
@@ -185,7 +185,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
         <div className="mb-6">
           <Form.Item name="includeLogo" valuePropName="checked">
             <Checkbox>
-              {t('housing.includeCompanyLogo') || 'Include Company Logo'}
+              {t('housing.includeCompanyLogo')}
             </Checkbox>
           </Form.Item>
         </div>
@@ -200,7 +200,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
             size="large"
             className="bg-primaryColor hover:bg-primaryColor/90 border-2 border-primaryColor flex-1 min-w-[150px]"
           >
-            {t('housing.generatePDF') || 'Generate PDF'}
+            {t('housing.generatePDF')}
           </Button>
           <Button
             type="primary"
@@ -210,7 +210,7 @@ export const ReportBuilder: React.FC<ReportBuilderProps> = ({ onGenerate }) => {
             size="large"
             className="bg-secondaryColor hover:bg-secondaryColor/90 border-2 border-secondaryColor flex-1 min-w-[150px]"
           >
-            {t('housing.generateExcel') || 'Generate Excel'}
+            {t('housing.generateExcel')}
           </Button>
         </div>
       </Form>
