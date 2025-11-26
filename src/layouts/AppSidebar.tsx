@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined, IdcardOutlined, CheckCircleOutlined, FileSearchOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -68,6 +68,13 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/transfer-info")) return ["transport-transfer-info"];
       return ["transport-dashboard"];
     }
+    if (location.pathname.startsWith("/passport")) {
+      if (location.pathname.includes("/box-arrangement")) return ["passport-box-arrangement"];
+      if (location.pathname.includes("/service-proof")) return ["passport-service-proof"];
+      if (location.pathname.includes("/verified-pilgrims")) return ["passport-verified-pilgrims"];
+      if (location.pathname.includes("/reports")) return ["passport-reports"];
+      return ["passport-service-proof"]; // Default to service-proof
+    }
     return [];
   };
 
@@ -87,6 +94,9 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/transport")) {
     openKeys.push("transport");
+  }
+  if (location.pathname.startsWith("/passport")) {
+    openKeys.push("passport");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -245,6 +255,33 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
         ]
       },
       {
+        key: "passport",
+        icon: <IdcardOutlined />,
+        label: t("passport.title"),
+        children: [
+          {
+            key: "passport-box-arrangement",
+            icon: <FileTextOutlined />,
+            label: <Link to="/passport/box-arrangement">{t("passport.boxArrangement")}</Link>
+          },
+          {
+            key: "passport-service-proof",
+            icon: <CheckCircleOutlined />,
+            label: <Link to="/passport/service-proof">{t("passport.serviceProof")}</Link>
+          },
+          {
+            key: "passport-verified-pilgrims",
+            icon: <UserOutlined />,
+            label: <Link to="/passport/verified-pilgrims">{t("passport.verifiedPilgrims")}</Link>
+          },
+          {
+            key: "passport-reports",
+            icon: <FileSearchOutlined />,
+            label: <Link to="/passport/reports">{t("passport.reports.title")}</Link>
+          }
+        ]
+      },
+      {
         key: "test",
         icon: <AppstoreOutlined />,
         label: <Link to="/test">{t("testPageTitle")}</Link>
@@ -264,8 +301,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           return null;
         }
         
-        // For menus with children (housing, reception, public-affairs, transport), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "transport") && "children" in item && item.children) {
+        // For menus with children (housing, reception, public-affairs, transport, passport), filter children and only show parent if at least one child is visible
+        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "transport" || item.key === "passport") && "children" in item && item.children) {
           const filteredChildren = item.children
             .map((child: any) => {
               if (!child) return null;

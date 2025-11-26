@@ -72,6 +72,10 @@ import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesP
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
 import TransportDashboardPage from "./pages/TransportPages/TransportDashboardPage";
 import TransferInfoPage from "./pages/TransportPages/TransferInfoPage";
+import NewServiceProofPage from "./pages/Passport/NewServiceProofPage";
+import BoxArrangementPage from "./pages/Passport/BoxArrangementPage";
+import VerifiedPilgrimsPage from "./pages/Passport/VerifiedPilgrimsPage";
+import PassportReportsPage from "./pages/Passport/PassportReportsPage";
 import App from "./App";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
@@ -110,6 +114,11 @@ const router = createBrowserRouter([
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
       { path: "transport", element: <TransportDashboardPage /> },
       { path: "transport/transfer-info", element: <TransferInfoPage /> },
+      { path: "passport/box-arrangement", element: <BoxArrangementPage /> },
+      { path: "passport/service-proof", element: <NewServiceProofPage /> },
+      { path: "passport/verified-pilgrims", element: <VerifiedPilgrimsPage /> },
+      { path: "passport/reports", element: <PassportReportsPage /> },
+      { path: "passport", element: <NewServiceProofPage /> },
     ],
   },
 ]);
