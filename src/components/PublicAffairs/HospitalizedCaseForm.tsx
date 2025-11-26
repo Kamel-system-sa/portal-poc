@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal, Input, Select, Button } from 'antd';
+import { Modal, Input, Select, Button, Upload } from 'antd';
 import { 
   UserOutlined,
   IdcardOutlined,
@@ -9,7 +9,8 @@ import {
   SaveOutlined,
   HeartOutlined,
   PhoneOutlined,
-  FileTextOutlined
+  FileTextOutlined,
+  UploadOutlined
 } from '@ant-design/icons';
 import type { HospitalizedCase, HospitalStatus } from '../../data/mockPublicAffairs';
 
@@ -298,7 +299,6 @@ export const HospitalizedCaseForm: React.FC<HospitalizedCaseFormProps> = ({
               <h4 className="text-xl font-bold text-gray-900">{t('additionalDetails')}</h4>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
               <label className="block">
                 <div className="flex items-center gap-2 mb-2">
                   <IdcardOutlined className="text-mainColor text-base" />
@@ -315,6 +315,34 @@ export const HospitalizedCaseForm: React.FC<HospitalizedCaseFormProps> = ({
                   required
                 />
                 {errors.nusukCaseNumber && <p className="text-red-500 text-xs mt-1">{errors.nusukCaseNumber}</p>}
+              </label>
+
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileTextOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('hospitalReport') || 'تقرير من المستشفى'}</span>
+                </div>
+                <Upload
+                  beforeUpload={() => false}
+                  maxCount={1}
+                  className="w-full"
+                >
+                  <Button icon={<UploadOutlined />} className="rounded-xl w-full">
+                    {t('uploadHospitalReport') || 'رفع تقرير من المستشفى'}
+                  </Button>
+                </Upload>
+              </label>
+
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <UserOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('anotherCompanion') || 'مرافق آخر'}</span>
+                </div>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  placeholder={t('enterAnotherCompanion') || 'أدخل اسم المرافق الآخر'}
+                />
               </label>
             </div>
           </section>

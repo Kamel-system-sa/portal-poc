@@ -63,11 +63,13 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
       return ["public-affairs-dashboard"];
     }
-    if (location.pathname.startsWith("/transport")) {
-      if (location.pathname === "/transport") return ["transport-dashboard"];
-      if (location.pathname.includes("/transfer-info")) return ["transport-transfer-info"];
-      return ["transport-dashboard"];
-    }
+      if (location.pathname.startsWith("/transport")) {
+        if (location.pathname === "/transport") return ["transport-dashboard"];
+        if (location.pathname.includes("/transfer-info")) return ["transport-transfer-info"];
+        if (location.pathname.includes("/inter-city")) return ["transport-inter-city"];
+        if (location.pathname.includes("/holy-sites")) return ["transport-holy-sites"];
+        return ["transport-dashboard"];
+      }
     return [];
   };
 
@@ -241,6 +243,16 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
             key: "transport-transfer-info",
             icon: <FileTextOutlined />,
             label: <Link to="/transport/transfer-info">{tTransport("transferInfo")}</Link>
+          },
+          {
+            key: "transport-inter-city",
+            icon: <EnvironmentOutlined />,
+            label: <Link to="/transport/inter-city">{tTransport("interCityTransfers")}</Link>
+          },
+          {
+            key: "transport-holy-sites",
+            icon: <EnvironmentOutlined />,
+            label: <Link to="/transport/holy-sites">{tTransport("holySitesTransfers")}</Link>
           }
         ]
       },

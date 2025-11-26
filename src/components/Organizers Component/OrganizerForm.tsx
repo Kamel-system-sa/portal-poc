@@ -81,6 +81,23 @@ export const OrganizerForm = ({
             </Form.Item>
 
             <Form.Item
+              name="organizerName"
+              rules={[{ required: true, message: t("requiredField") }]}
+              className="mb-0"
+            >
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <UserOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t("organizerName")}</span>
+                </div>
+                <Input
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
+                  placeholder={t("organizerName")}
+                />
+              </label>
+            </Form.Item>
+
+            <Form.Item
               name="company"
               rules={[{ required: true, message: t("requiredField") }]}
               className="mb-0"
@@ -92,7 +109,7 @@ export const OrganizerForm = ({
                 </div>
                 <Input
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-                  placeholder={t("companyName")}
+                  placeholder={t("companyNamePlaceholder")}
                 />
               </label>
             </Form.Item>
@@ -123,22 +140,6 @@ export const OrganizerForm = ({
                   min={0}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
                   placeholder={t("hajjCount")}
-                />
-              </label>
-            </Form.Item>
-
-            <Form.Item
-              name="organizerNationality"
-              className="mb-0"
-            >
-              <label className="block">
-                <div className="flex items-center gap-2 mb-2">
-                  <GlobalOutlined className="text-primary text-base" />
-                  <span className="block text-sm font-semibold text-gray-700">{t("organizerNationality") || "Organizer Nationality"}</span>
-                </div>
-                <Input
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700"
-                  placeholder={t("organizerNationality") || "Organizer Nationality"}
                 />
               </label>
             </Form.Item>

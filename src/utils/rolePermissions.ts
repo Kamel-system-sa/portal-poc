@@ -31,6 +31,8 @@ export type MenuKey =
   | "transport"
   | "transport-dashboard"
   | "transport-transfer-info"
+  | "transport-inter-city"
+  | "transport-holy-sites"
   | "test";
 
 // Define which menu items each role can access
@@ -70,6 +72,8 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "transport",
     "transport-dashboard",
     "transport-transfer-info",
+    "transport-inter-city",
+    "transport-holy-sites",
 
     "test",
   ],

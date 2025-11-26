@@ -256,7 +256,6 @@ export const OtherIncidentForm: React.FC<OtherIncidentFormProps> = ({
               <h4 className="text-xl font-bold text-gray-900">{t('additionalDetails')}</h4>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
               <label className="block">
                 <div className="flex items-center gap-2 mb-2">
                   <IdcardOutlined className="text-mainColor text-base" />

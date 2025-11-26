@@ -326,6 +326,24 @@ export const DeathCaseForm: React.FC<DeathCaseFormProps> = ({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <label className="block">
                 <div className="flex items-center gap-2 mb-2">
+                  <IdcardOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('nusukCaseNumber')} <span className="text-red-500">*</span></span>
+                </div>
+                <input
+                  type="text"
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 ${
+                    errors.nusukCaseNumber ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                  placeholder={t('nusukCaseNumberPlaceholder')}
+                  value={formData.nusukCaseNumber}
+                  onChange={(e) => updateField('nusukCaseNumber', e.target.value)}
+                  required
+                />
+                {errors.nusukCaseNumber && <p className="text-red-500 text-xs mt-1">{errors.nusukCaseNumber}</p>}
+              </label>
+
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
                   <PictureOutlined className="text-mainColor text-base" />
                   <span className="block text-sm font-semibold text-gray-700">{t('addImage')}</span>
                 </div>
@@ -355,20 +373,34 @@ export const DeathCaseForm: React.FC<DeathCaseFormProps> = ({
 
               <label className="block">
                 <div className="flex items-center gap-2 mb-2">
-                  <IdcardOutlined className="text-mainColor text-base" />
-                  <span className="block text-sm font-semibold text-gray-700">{t('nusukCaseNumber')} <span className="text-red-500">*</span></span>
+                  <FileTextOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('deathCertificate') || 'شهادة الوفاة'}</span>
                 </div>
-                <input
-                  type="text"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-mainColor/20 focus:border-mainColor transition-all duration-200 bg-white shadow-sm hover:shadow-md text-gray-700 ${
-                    errors.nusukCaseNumber ? 'border-red-500' : 'border-gray-200'
-                  }`}
-                  placeholder={t('nusukCaseNumberPlaceholder')}
-                  value={formData.nusukCaseNumber}
-                  onChange={(e) => updateField('nusukCaseNumber', e.target.value)}
-                  required
-                />
-                {errors.nusukCaseNumber && <p className="text-red-500 text-xs mt-1">{errors.nusukCaseNumber}</p>}
+                <Upload
+                  beforeUpload={() => false}
+                  maxCount={1}
+                  className="w-full"
+                >
+                  <Button icon={<UploadOutlined />} className="rounded-xl w-full">
+                    {t('uploadDeathCertificate') || 'رفع شهادة الوفاة'}
+                  </Button>
+                </Upload>
+              </label>
+
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileTextOutlined className="text-mainColor text-base" />
+                  <span className="block text-sm font-semibold text-gray-700">{t('otherDocuments') || 'إثباتات أخرى'}</span>
+                </div>
+                <Upload
+                  beforeUpload={() => false}
+                  multiple
+                  className="w-full"
+                >
+                  <Button icon={<UploadOutlined />} className="rounded-xl w-full">
+                    {t('uploadOtherDocuments') || 'رفع إثباتات أخرى'}
+                  </Button>
+                </Upload>
               </label>
             </div>
           </section>

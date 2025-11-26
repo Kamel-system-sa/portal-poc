@@ -52,10 +52,10 @@ export const SearchAndFilter = ({
                 className="flex flex-col gap-2"
               >
                 <Radio value="all">{t("searchAll") || "Search All"}</Radio>
-                <Radio value="organizerNationality">{t("organizerNationality") || "Organizer Nationality"}</Radio>
-                <Radio value="hajjNationality">{t("hajjNationality") || "Hajj Nationality"}</Radio>
-                <Radio value="organizerNumber">{t("organizerNumber") || "Organizer Number"}</Radio>
-                <Radio value="licenseNumber">{t("licenseNumber") || "License Number"}</Radio>
+                <Radio value="organizerName">{t("organizerName")}</Radio>
+                <Radio value="hajjNationality">{t("hajjNationality")}</Radio>
+                <Radio value="organizerNumber">{t("organizerNumber")}</Radio>
+                <Radio value="licenseNumber">{t("licenseNumber")}</Radio>
               </Radio.Group>
             </div>
           }

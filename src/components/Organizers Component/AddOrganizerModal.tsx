@@ -65,7 +65,7 @@ export const AddOrganizerModal = ({
           className="flex-1 bg-gradient-to-r from-mainColor to-primary border-0 hover:from-[#00443A] hover:to-[#00695C] text-white rounded-lg h-11 font-semibold shadow-lg shadow-mainColor/25 hover:shadow-xl hover:shadow-mainColor/30 transform hover:-translate-y-0.5 transition-all duration-300"
           style={{ color: '#ffffff' }}
         >
-          {uploading ? t("saving") || "Saving..." : t("saveOrganizer")}
+          {uploading ? t("saving") || "Saving..." : t("addOrganizer") || "Add Organizer"}
         </Button>
       </div>
     </Modal>

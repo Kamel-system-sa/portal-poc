@@ -72,6 +72,8 @@ import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesP
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
 import TransportDashboardPage from "./pages/TransportPages/TransportDashboardPage";
 import TransferInfoPage from "./pages/TransportPages/TransferInfoPage";
+import InterCityTransfersPage from "./pages/TransportPages/InterCityTransfersPage";
+import HolySitesTransfersPage from "./pages/TransportPages/HolySitesTransfersPage";
 import App from "./App";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
@@ -110,6 +112,8 @@ const router = createBrowserRouter([
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
       { path: "transport", element: <TransportDashboardPage /> },
       { path: "transport/transfer-info", element: <TransferInfoPage /> },
+      { path: "transport/inter-city", element: <InterCityTransfersPage /> },
+      { path: "transport/holy-sites", element: <HolySitesTransfersPage /> },
     ],
   },
 ]);
