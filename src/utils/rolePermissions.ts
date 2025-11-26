@@ -30,7 +30,6 @@ export type MenuKey =
   | "reception-pre-arrival-departures"
   | "reception-ports"
   | "reception-reports"
-  | "organizers-campaigns"
   | "reception-centers-dashboard"
   | "public-affairs"
   | "public-affairs-dashboard"
@@ -38,6 +37,16 @@ export type MenuKey =
   | "public-affairs-hospitalized"
   | "public-affairs-other"
   | "finance"
+  | "transport"
+  | "transport-dashboard"
+  | "transport-transfer-info"
+  | "transport-inter-city"
+  | "transport-holy-sites"
+  | "passport"
+  | "passport-box-arrangement"
+  | "passport-service-proof"
+  | "passport-verified-pilgrims"
+  | "passport-reports"
   | "test";
 
 // Define which menu items each role can access
@@ -72,7 +81,6 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "reception-pre-arrival-departures",
     "reception-ports",
     "reception-reports",
-    "organizers-campaigns",
     "reception-centers-dashboard",
 
     // public affairs permissions
@@ -84,6 +92,20 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
 
     // finance permissions
     "finance",
+
+    // transport permissions
+    "transport",
+    "transport-dashboard",
+    "transport-transfer-info",
+    "transport-inter-city",
+    "transport-holy-sites",
+
+    // passport permissions
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
 
     "test",
   ],
@@ -104,10 +126,20 @@ const rolePermissions: Record<UserRole, MenuKey[]> = {
     "organizers",
     "organizers-list",
     "organizers-campaigns",
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
   ],
   "service-center-user": [
     "home",
     "service-centers",
+    "passport",
+    "passport-box-arrangement",
+    "passport-service-proof",
+    "passport-verified-pilgrims",
+    "passport-reports",
   ],
   "department-user": [
     "home",

@@ -60,7 +60,6 @@ import HotelHousingPage from "./pages/HousingPages/HotelHousingPage";
 import BuildingHousingPage from "./pages/HousingPages/BuildingHousingPage";
 import MinaHousingPage from "./pages/HousingPages/MinaHousingPage";
 import ArafatHousingPage from "./pages/HousingPages/ArafatHousingPage";
-import PilgrimsListPage from "./pages/HousingPages/PilgrimsListPage";
 import PilgrimDetailsPage from "./pages/HousingPages/PilgrimDetailsPage";
 import ReportsPage from "./pages/HousingPages/ReportsPage";
 import MashairDashboardPage from "./pages/HousingPages/MashairDashboardPage";
@@ -68,7 +67,6 @@ import PreArrivalDashboardPage from "./pages/ReceptionPages/PreArrivalDashboardP
 import PreDepartureDashboardPage from "./pages/ReceptionPages/PreDepartureDashboardPage";
 import ReceptionDashboardPage from "./pages/ReceptionPages/ReceptionDashboardPage";
 import ReceptionReportsPage from "./pages/ReceptionPages/ReportsPage";
-import PortsListPage from "./pages/ReceptionPages/PortsListPage";
 import PortsDashboardPage from "./pages/ReceptionPages/PortsDashboardPage";
 import CampaignsListPage from "./pages/OrganizersPages/CampaignsListPage";
 import CampaignsRegistrationPage from "./pages/OrganizersPages/CampaignsRegistrationPage";
@@ -78,7 +76,14 @@ import DeathCasesPage from "./pages/PublicAffairsPages/DeathCasesPage";
 import HospitalizedCasesPage from "./pages/PublicAffairsPages/HospitalizedCasesPage";
 import OtherIncidentsPage from "./pages/PublicAffairsPages/OtherIncidentsPage";
 import FinancePage from "./pages/FinancePage";
-import App from "./App";
+import TransportDashboardPage from "./pages/TransportPages/TransportDashboardPage";
+import TransferInfoPage from "./pages/TransportPages/TransferInfoPage";
+import InterCityTransfersPage from "./pages/TransportPages/InterCityTransfersPage";
+import HolySitesTransfersPage from "./pages/TransportPages/HolySitesTransfersPage";
+import NewServiceProofPage from "./pages/Passport/NewServiceProofPage";
+import BoxArrangementPage from "./pages/Passport/BoxArrangementPage";
+import VerifiedPilgrimsPage from "./pages/Passport/VerifiedPilgrimsPage";
+import PassportReportsPage from "./pages/Passport/PassportReportsPage";
 import { UserRoleProvider } from "./contexts/UserRoleContext";
 
 const router = createBrowserRouter([
@@ -121,6 +126,15 @@ const router = createBrowserRouter([
       { path: "public-affairs/hospitalized", element: <HospitalizedCasesPage /> },
       { path: "public-affairs/other-incidents", element: <OtherIncidentsPage /> },
       { path: "finance", element: <FinancePage /> },
+      { path: "transport", element: <TransportDashboardPage /> },
+      { path: "transport/transfer-info", element: <TransferInfoPage /> },
+      { path: "transport/inter-city", element: <InterCityTransfersPage /> },
+      { path: "transport/holy-sites", element: <HolySitesTransfersPage /> },
+      { path: "passport/box-arrangement", element: <BoxArrangementPage /> },
+      { path: "passport/service-proof", element: <NewServiceProofPage /> },
+      { path: "passport/verified-pilgrims", element: <VerifiedPilgrimsPage /> },
+      { path: "passport/reports", element: <PassportReportsPage /> },
+      { path: "passport", element: <NewServiceProofPage /> },
     ],
   },
 ]);

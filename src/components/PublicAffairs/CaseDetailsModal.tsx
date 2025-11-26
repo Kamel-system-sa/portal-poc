@@ -50,9 +50,9 @@ export const CaseDetailsModal: React.FC<CaseDetailsModalProps> = ({
   const getCompleteButtonLabel = () => {
     switch (caseType) {
       case 'death':
-        return t('markBurialCompleted');
+        return t('completed') || 'منتهي';
       case 'hospitalized':
-        return t('markDischarged');
+        return t('completed') || 'منتهي';
       case 'other':
         return t('markResolved');
       default:
@@ -164,7 +164,7 @@ export const CaseDetailsModal: React.FC<CaseDetailsModalProps> = ({
         <div className="bg-green-50 border border-green-200 rounded-xl p-4">
           <div className="flex items-center gap-2 text-green-700">
             <CheckCircleOutlined />
-            <span className="font-semibold">{t('burialCompleted')} - {new Date(data.completedAt).toLocaleDateString()}</span>
+            <span className="font-semibold">{t('completed') || 'تم'}</span>
           </div>
         </div>
       )}
@@ -276,7 +276,7 @@ export const CaseDetailsModal: React.FC<CaseDetailsModalProps> = ({
         <div className="bg-green-50 border border-green-200 rounded-xl p-4">
           <div className="flex items-center gap-2 text-green-700">
             <CheckCircleOutlined />
-            <span className="font-semibold">{t('discharged')} - {new Date(data.completedAt).toLocaleDateString()}</span>
+            <span className="font-semibold">{t('completed') || 'تم'}</span>
           </div>
         </div>
       )}
@@ -362,7 +362,7 @@ export const CaseDetailsModal: React.FC<CaseDetailsModalProps> = ({
         <div className="bg-green-50 border border-green-200 rounded-xl p-4">
           <div className="flex items-center gap-2 text-green-700">
             <CheckCircleOutlined />
-            <span className="font-semibold">{t('resolved')} - {new Date(data.completedAt).toLocaleDateString()}</span>
+            <span className="font-semibold">{t('completed') || 'تم'}</span>
           </div>
         </div>
       )}
@@ -379,7 +379,7 @@ export const CaseDetailsModal: React.FC<CaseDetailsModalProps> = ({
       }}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-      <div className="relative w-full max-w-5xl max-h-[95vh] bg-white rounded-xl shadow-2xl overflow-hidden z-10 transform transition-transform duration-300">
+      <div className="relative w-full max-w-4xl max-h-[95vh] bg-white rounded-xl shadow-2xl overflow-hidden z-10 transform transition-transform duration-300">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-bordergray bg-gradient-to-r from-gray-50 to-white">
           <h2 className="text-2xl font-bold text-gray-800">

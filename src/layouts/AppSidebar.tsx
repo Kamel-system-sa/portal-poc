@@ -1,6 +1,27 @@
 import React, { useMemo } from "react";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, AppstoreOutlined, BankOutlined, TeamOutlined, ApartmentOutlined, BuildOutlined, UserOutlined, FileTextOutlined, LoginOutlined, GlobalOutlined, CarOutlined, DashboardOutlined, SafetyOutlined, EnvironmentOutlined, DollarOutlined, ClockCircleOutlined, CalendarOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  AppstoreOutlined,
+  BankOutlined,
+  TeamOutlined,
+  ApartmentOutlined,
+  BuildOutlined,
+  UserOutlined,
+  FileTextOutlined,
+  LoginOutlined,
+  GlobalOutlined,
+  CarOutlined,
+  DashboardOutlined,
+  SafetyOutlined,
+  EnvironmentOutlined,
+  ClockCircleOutlined,
+  CalendarOutlined,
+  DollarOutlined,
+  IdcardOutlined,
+  CheckCircleOutlined,
+  FileSearchOutlined,
+} from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { MenuProps } from "antd";
@@ -16,9 +37,11 @@ interface AppSidebarProps {
 const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const { t, i18n } = useTranslation("common");
   const { t: tPublicAffairs } = useTranslation("PublicAffairs");
+  const { t: tTransport } = useTranslation("Transport");
   const { currentRole } = useUserRole();
   const location = useLocation();
   const isRtl = i18n.language === "ar" || i18n.language === "ur";
+
   // Determine selected keys based on pathname
   const getSelectedKeys = (): string[] => {
     if (location.pathname === "/") return ["home"];
@@ -79,7 +102,6 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       if (location.pathname.includes("/other-incidents")) return ["public-affairs-other"];
       return ["public-affairs-dashboard"];
     }
-    if (location.pathname.startsWith("/finance")) return ["finance"];
     return [];
   };
 
@@ -87,7 +109,11 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   const openKeys: string[] = [];
   if (location.pathname.startsWith("/housing") && location.pathname !== "/housing") {
     openKeys.push("housing");
-    if (location.pathname.includes("/mina") || location.pathname.includes("/arafat") || location.pathname.includes("/mashair")) {
+    if (
+      location.pathname.includes("/mina") ||
+      location.pathname.includes("/arafat") ||
+      location.pathname.includes("/mashair")
+    ) {
       openKeys.push("mashair");
     }
   }
@@ -96,9 +122,6 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
   }
   if (location.pathname.startsWith("/public-affairs")) {
     openKeys.push("public-affairs");
-  }
-  if (location.pathname.startsWith("/organizers")) {
-    openKeys.push("organizers");
   }
 
   const borderClass = isRtl ? "border-l" : "border-r";
@@ -109,12 +132,12 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
       {
         key: "home",
         icon: <HomeOutlined />,
-        label: <Link to="/">{t("homeTitle")}</Link>
+        label: <Link to="/">{t("homeTitle")}</Link>,
       },
       {
         key: "service-centers",
         icon: <BankOutlined />,
-        label: <Link to="/service-centers">{t("serviceCentersTitle")}</Link>
+        label: <Link to="/service-centers">{t("serviceCentersTitle")}</Link>,
       },
       {
         key: "organizers",
@@ -124,14 +147,14 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "organizers-list",
             icon: <UserOutlined />,
-            label: <Link to="/organizers">{t("organizersTitle")}</Link>
+            label: <Link to="/organizers">{t("organizersTitle")}</Link>,
           },
           {
             key: "organizers-campaigns",
             icon: <GlobalOutlined />,
-            label: <Link to="/organizers/campaigns">{t("reception.campaigns.title")}</Link>
-          }
-        ]
+            label: <Link to="/organizers/campaigns">{t("reception.campaigns.title")}</Link>,
+          },
+        ],
       },
       {
         key: "hr",
@@ -141,39 +164,39 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "hr-dashboard",
             icon: <DashboardOutlined />,
-            label: <Link to="/hr">{t("hr.dashboardTitle")}</Link>
+            label: <Link to="/hr">{t("hr.dashboardTitle")}</Link>,
           },
           {
             key: "hr-employees",
             icon: <UserOutlined />,
-            label: <Link to="/hr/employees">{t("hr.employees")}</Link>
+            label: <Link to="/hr/employees">{t("hr.employees")}</Link>,
           },
           {
             key: "hr-shift-schedules",
             icon: <ClockCircleOutlined />,
-            label: <Link to="/hr/shift-schedules">{t("hr.shifts.title")}</Link>
+            label: <Link to="/hr/shift-schedules">{t("hr.shifts.title")}</Link>,
           },
           {
             key: "hr-attendance",
             icon: <ClockCircleOutlined />,
-            label: <Link to="/hr/attendance">{t("hr.attendance.title") || "الحضور والانصراف"}</Link>
+            label: <Link to="/hr/attendance">{t("hr.attendance.title") || "الحضور والانصراف"}</Link>,
           },
           {
             key: "hr-leaves",
             icon: <CalendarOutlined />,
-            label: <Link to="/hr/leaves">{t("hr.leaves.title") || "الإجازات"}</Link>
+            label: <Link to="/hr/leaves">{t("hr.leaves.title") || "الإجازات"}</Link>,
           },
           {
             key: "hr-reports",
             icon: <FileTextOutlined />,
-            label: <Link to="/hr/reports">{t("hr.reports") || "التقارير"}</Link>
-          }
-        ]
+            label: <Link to="/hr/reports">{t("hr.reports") || "التقارير"}</Link>,
+          },
+        ],
       },
       {
         key: "finance",
         icon: <DollarOutlined />,
-        label: <Link to="/finance">{t("finance.title")}</Link>
+        label: <Link to="/finance">{t("finance.title")}</Link>,
       },
       {
         key: "housing",
@@ -183,17 +206,17 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "housing-dashboard",
             icon: <HomeOutlined />,
-            label: <Link to="/housing">{t("housing.dashboardTitle")}</Link>
+            label: <Link to="/housing">{t("housing.dashboardTitle")}</Link>,
           },
           {
             key: "housing-hotels",
             icon: <ApartmentOutlined />,
-            label: <Link to="/housing/hotels">{t("housing.hotels")}</Link>
+            label: <Link to="/housing/hotels">{t("housing.hotels")}</Link>,
           },
           {
             key: "housing-buildings",
             icon: <BuildOutlined />,
-            label: <Link to="/housing/buildings">{t("housing.buildings")}</Link>
+            label: <Link to="/housing/buildings">{t("housing.buildings")}</Link>,
           },
           {
             key: "mashair",
@@ -203,26 +226,26 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
               {
                 key: "mashair-dashboard",
                 icon: <DashboardOutlined />,
-                label: <Link to="/housing/mashair">{t("mashair.dashboardTitle")}</Link>
+                label: <Link to="/housing/mashair">{t("mashair.dashboardTitle")}</Link>,
               },
               {
                 key: "mashair-mina",
                 icon: <ApartmentOutlined />,
-                label: <Link to="/housing/mina">{t("housing.mina")}</Link>
+                label: <Link to="/housing/mina">{t("housing.mina")}</Link>,
               },
               {
                 key: "mashair-arafat",
                 icon: <ApartmentOutlined />,
-                label: <Link to="/housing/arafat">{t("housing.arafat")}</Link>
-              }
-            ]
+                label: <Link to="/housing/arafat">{t("housing.arafat")}</Link>,
+              },
+            ],
           },
           {
             key: "housing-reports",
             icon: <FileTextOutlined />,
-            label: <Link to="/housing/reports">{t("housing.reports")}</Link>
-          }
-        ]
+            label: <Link to="/housing/reports">{t("housing.reports")}</Link>,
+          },
+        ],
       },
       {
         key: "reception",
@@ -232,34 +255,34 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "reception-dashboard",
             icon: <DashboardOutlined />,
-            label: <Link to="/reception">{t("reception.dashboard.title") || "ملخص الاستقبال"}</Link>
+            label: <Link to="/reception">{t("reception.dashboard.title") || "ملخص الاستقبال"}</Link>,
           },
           {
             key: "reception-centers-dashboard",
             icon: <BankOutlined />,
-            label: <Link to="/reception/centers-dashboard">{t("reception.centersDashboard.title") || "لوحة تحكم المراكز"}</Link>
+            label: <Link to="/reception/centers-dashboard">{t("reception.centersDashboard.title") || "لوحة تحكم المراكز"}</Link>,
           },
           {
             key: "reception-pre-arrival-arrivals",
             icon: <HomeOutlined />,
-            label: <Link to="/reception/pre-arrival">{t("reception.preArrival.arrivals.title") || "الاستعداد المسبق للوصول"}</Link>
+            label: <Link to="/reception/pre-arrival">{t("reception.preArrival.arrivals.title") || "الاستعداد المسبق للوصول"}</Link>,
           },
           {
             key: "reception-pre-arrival-departures",
             icon: <HomeOutlined />,
-            label: <Link to="/reception/pre-arrival/departures">{t("reception.preArrival.departures.title") || "Pre-Arrival for Departures"}</Link>
+            label: <Link to="/reception/pre-arrival/departures">{t("reception.preArrival.departures.title") || "Pre-Arrival for Departures"}</Link>,
           },
           {
             key: "reception-ports",
             icon: <CarOutlined />,
-            label: <Link to="/reception/ports">{t("reception.ports.title")}</Link>
+            label: <Link to="/reception/ports">{t("reception.ports.title")}</Link>,
           },
           {
             key: "reception-reports",
             icon: <FileTextOutlined />,
-            label: <Link to="/reception/reports">{t("reception.reports") || "التقارير"}</Link>
+            label: <Link to="/reception/reports">{t("reception.reports") || "التقارير"}</Link>,
           },
-        ]
+        ],
       },
       {
         key: "public-affairs",
@@ -269,139 +292,195 @@ const AppSidebar: React.FC<AppSidebarProps> = ({ collapsed }) => {
           {
             key: "public-affairs-dashboard",
             icon: <DashboardOutlined />,
-            label: <Link to="/public-affairs">{tPublicAffairs("dashboardTitle")}</Link>
+            label: <Link to="/public-affairs">{tPublicAffairs("dashboardTitle")}</Link>,
           },
           {
             key: "public-affairs-deaths",
             icon: <FileTextOutlined />,
-            label: <Link to="/public-affairs/deaths">{tPublicAffairs("deaths")}</Link>
+            label: <Link to="/public-affairs/deaths">{tPublicAffairs("deaths")}</Link>,
           },
           {
             key: "public-affairs-hospitalized",
             icon: <FileTextOutlined />,
-            label: <Link to="/public-affairs/hospitalized">{tPublicAffairs("hospitalized")}</Link>
+            label: <Link to="/public-affairs/hospitalized">{tPublicAffairs("hospitalized")}</Link>,
           },
           {
             key: "public-affairs-other",
             icon: <FileTextOutlined />,
-            label: <Link to="/public-affairs/other-incidents">{tPublicAffairs("otherIncidents")}</Link>
-          }
-        ]
+            label: <Link to="/public-affairs/other-incidents">{tPublicAffairs("otherIncidents")}</Link>,
+          },
+        ],
+      },
+      {
+        key: "transport",
+        icon: <CarOutlined />,
+        label: tTransport("title"),
+        children: [
+          {
+            key: "transport-dashboard",
+            icon: <DashboardOutlined />,
+            label: <Link to="/transport">{tTransport("dashboardTitle")}</Link>,
+          },
+          {
+            key: "transport-transfer-info",
+            icon: <FileTextOutlined />,
+            label: <Link to="/transport/transfer-info">{tTransport("transferInfo")}</Link>,
+          },
+          {
+            key: "transport-inter-city",
+            icon: <EnvironmentOutlined />,
+            label: <Link to="/transport/inter-city">{tTransport("interCityTransfers")}</Link>,
+          },
+          {
+            key: "transport-holy-sites",
+            icon: <EnvironmentOutlined />,
+            label: <Link to="/transport/holy-sites">{tTransport("holySitesTransfers")}</Link>,
+          },
+        ],
+      },
+      {
+        key: "passport",
+        icon: <IdcardOutlined />,
+        label: t("passport.title"),
+        children: [
+          {
+            key: "passport-box-arrangement",
+            icon: <FileTextOutlined />,
+            label: <Link to="/passport/box-arrangement">{t("passport.boxArrangement")}</Link>,
+          },
+          {
+            key: "passport-service-proof",
+            icon: <CheckCircleOutlined />,
+            label: <Link to="/passport/service-proof">{t("passport.serviceProof")}</Link>,
+          },
+          {
+            key: "passport-verified-pilgrims",
+            icon: <UserOutlined />,
+            label: <Link to="/passport/verified-pilgrims">{t("passport.verifiedPilgrims")}</Link>,
+          },
+          {
+            key: "passport-reports",
+            icon: <FileSearchOutlined />,
+            label: <Link to="/passport/reports">{t("passport.reports.title")}</Link>,
+          },
+        ],
       },
       {
         key: "test",
         icon: <AppstoreOutlined />,
-        label: <Link to="/test">{t("testPageTitle")}</Link>
-      }
+        label: <Link to="/test">{t("testPageTitle")}</Link>,
+      },
     ];
 
     // Filter menu items based on permissions
     return allMenuItems
       .map((item) => {
         if (!item) return null;
-        
+
         // Home is always visible
         if (item.key === "home") return item;
-        
+
         // Check permission for top-level items
         if (!hasPermission(currentRole, item.key as any)) {
           return null;
         }
-        
-        // For menus with children (housing, reception, public-affairs, organizers, hr), filter children and only show parent if at least one child is visible
-        if ((item.key === "housing" || item.key === "reception" || item.key === "public-affairs" || item.key === "organizers" || item.key === "hr") && "children" in item && item.children) {
+
+        // For menus with children (housing, reception, public-affairs, etc.), filter children (including nested menus)
+        if ("children" in item && item.children) {
           const filteredChildren = item.children
             .map((child: any) => {
               if (!child) return null;
-              
-              // If child has its own children (nested menu like mashair), filter those too
-              if ("children" in child && child.children) {
+
+              // Process grandchildren if present
+              if ("children" in child && Array.isArray(child.children)) {
                 const filteredGrandChildren = child.children.filter((grandChild: any) => {
                   if (!grandChild) return false;
                   return hasPermission(currentRole, grandChild.key as any);
                 });
-                
-                // Only show child if it has visible grandchildren
                 if (filteredGrandChildren.length === 0) {
                   return null;
                 }
-                
                 return {
                   ...child,
                   children: filteredGrandChildren,
                 };
               }
-              
+
               // Regular child item
               if (!hasPermission(currentRole, child.key as any)) {
                 return null;
               }
-              
+
               return child;
             })
             .filter((child): child is NonNullable<typeof child> => child !== null);
-          
+
           // Only show menu if it has visible children
           if (filteredChildren.length === 0) {
             return null;
           }
-          
           // Return new object with filtered children
           return {
             ...item,
             children: filteredChildren,
           };
         }
-        
+
         return item;
       })
       .filter((item): item is NonNullable<typeof item> => item !== null);
-  }, [currentRole, t]);
+  }, [currentRole, t, tPublicAffairs, tTransport]);
 
   return (
     <Sider
-        collapsible
-        collapsed={collapsed}
-        trigger={null}
-        width={260}
-        collapsedWidth={80}
-        breakpoint="lg"
-        className={`bg-gradient-to-b from-white to-gray-50 ${borderClass} border-bordergray fixed top-0 h-screen z-50 overflow-y-auto shadow-lg transition-transform duration-300 ${
-          collapsed ? 'translate-x-[-100%] lg:translate-x-0' : 'translate-x-0'
-        } ${isRtl ? 'lg:translate-x-0' : ''}`}
-        style={{ 
-          height: '100vh',
-          [isRtl ? 'right' : 'left']: 0,
-          backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)'
-        }}
+      collapsible
+      collapsed={collapsed}
+      trigger={null}
+      width={260}
+      collapsedWidth={80}
+      breakpoint="lg"
+      className={`bg-gradient-to-b from-white to-gray-50 ${borderClass} border-bordergray fixed top-0 h-screen z-50 overflow-y-auto shadow-lg transition-transform duration-300 ${
+        collapsed ? "translate-x-[-100%] lg:translate-x-0" : "translate-x-0"
+      } ${isRtl ? "lg:translate-x-0" : ""}`}
+      style={{
+        height: "100vh",
+        [isRtl ? "right" : "left"]: 0,
+        backdropFilter: "blur(10px)",
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+      }}
+    >
+      <div
+        className={`flex items-center justify-center border-b border-bordergray transition-all duration-300 py-4 px-3`}
       >
-        <div className={`flex items-center justify-center border-b border-bordergray transition-all duration-300 py-4 px-3`}>
-          <img 
-            src={collapsed ? "/images/kamelPortalSmallLogo.png" : "/images/kamelPortalLogo.png"}
-            alt={t("logo.alt")} 
-            className="object-contain transition-all duration-300"
-            style={{
-              height: collapsed ? '56px' : '72px',
-              maxHeight: collapsed ? '56px' : '72px',
-              objectFit: 'contain',
-              width: 'auto'
-            }}
-          />
-        </div>
-
-        <Menu
-          mode="inline"
-          selectedKeys={getSelectedKeys()}
-          defaultOpenKeys={openKeys}
-          className="bg-transparent custom-sidebar-menu border-0 pt-2 sm:pt-3 md:pt-4"
-          items={menuItems}
+        <img
+          src={
+            collapsed
+              ? "/images/kamelPortalSmallLogo.png"
+              : "/images/kamelPortalLogo.png"
+          }
+          alt={t("logo.alt")}
+          className="object-contain transition-all duration-300"
           style={{
-            backgroundColor: 'transparent',
-            border: 'none'
+            height: collapsed ? "56px" : "72px",
+            maxHeight: collapsed ? "56px" : "72px",
+            objectFit: "contain",
+            width: "auto",
           }}
         />
-      </Sider>
+      </div>
+
+      <Menu
+        mode="inline"
+        selectedKeys={getSelectedKeys()}
+        defaultOpenKeys={openKeys}
+        className="bg-transparent custom-sidebar-menu border-0 pt-2 sm:pt-3 md:pt-4"
+        items={menuItems}
+        style={{
+          backgroundColor: "transparent",
+          border: "none",
+        }}
+      />
+    </Sider>
   );
 };
 

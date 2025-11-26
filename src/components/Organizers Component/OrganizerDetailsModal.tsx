@@ -10,6 +10,7 @@ import {
   GlobalOutlined,
   EditOutlined,
   DeleteOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import type { Organizer } from "./types";
 
@@ -110,9 +111,14 @@ export const OrganizerDetailsModal = ({
           </div>
         </div>
 
-        {/* Company Name - Prominent */}
+        {/* Organizer Name and Company Name - Prominent */}
         <div className="text-center mb-4">
-          <Text className="text-xl font-bold text-gray-800 block mb-2">{organizer.company}</Text>
+          <Text className="text-base font-semibold text-gray-700 block mb-1">
+            {organizer.organizerName}
+          </Text>
+          <Text className="text-xl font-bold text-gray-800 block mb-2">
+            {organizer.company}
+          </Text>
           <Tag className="bg-primary/10 text-primary border-primary/20 px-3 py-0.5 text-xs font-medium rounded-full">
             {translateNationality(organizer.nationality)}
           </Tag>
@@ -189,23 +195,6 @@ export const OrganizerDetailsModal = ({
                 </div>
               </div>
             </Card>
-
-            {/* Organizer Nationality */}
-            {organizer.organizerNationality && (
-              <Card className="detail-info-card border-0 shadow-sm hover:shadow-md transition-all duration-300">
-                <div className="flex items-start gap-2">
-                  <div className="bg-primary/10 p-2 rounded-lg flex-shrink-0">
-                    <GlobalOutlined className="text-primary" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <Text className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-0.5">
-                      {t("organizerNationality") || "Organizer Nationality"}
-                    </Text>
-                    <Text className="text-sm font-semibold text-gray-800">{translateNationality(organizer.organizerNationality || "")}</Text>
-                  </div>
-                </div>
-              </Card>
-            )}
           </div>
 
           {/* Right Column */}

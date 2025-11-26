@@ -26,9 +26,8 @@ import type { ChartData } from '../../types/reception';
 import NationalityStatistics from '../../components/Reception/NationalityStatistics';
 
 const ReceptionDashboardPage: React.FC = () => {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const isRtl = i18n.language === 'ar' || i18n.language === 'ur';
 
   // Calculate summary statistics from all sections
   const summaryStats = useMemo(() => {

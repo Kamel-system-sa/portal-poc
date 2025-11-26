@@ -92,7 +92,7 @@ const OrganizersPage = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [searchText, setSearchText] = useState<string>("");
-  const [searchType, setSearchType] = useState<string>("all"); // "all", "organizerNationality", "hajjNationality", "organizerNumber", "licenseNumber"
+  const [searchType, setSearchType] = useState<string>("all"); // "all", "hajjNationality", "organizerNumber", "licenseNumber", "organizerName"
   const [showSearchOptions, setShowSearchOptions] = useState(false);
 
   // Local storage helpers - using imported functions
@@ -168,8 +168,8 @@ const OrganizersPage = () => {
     if (searchText !== "") {
       const searchLower = searchText.toLowerCase();
       switch (searchType) {
-        case "organizerNationality":
-          matchesSearch = org.organizerNationality?.toLowerCase().includes(searchLower) || false;
+        case "organizerName":
+          matchesSearch = org.organizerName?.toLowerCase().includes(searchLower) || false;
           break;
         case "hajjNationality":
           matchesSearch = org.nationality?.toLowerCase().includes(searchLower) || false;
@@ -186,7 +186,7 @@ const OrganizersPage = () => {
             org.organizerNumber.toLowerCase().includes(searchLower) ||
             org.licenseNumber.toLowerCase().includes(searchLower) ||
             org.email.toLowerCase().includes(searchLower) ||
-            org.organizerNationality?.toLowerCase().includes(searchLower) ||
+            org.organizerName?.toLowerCase().includes(searchLower) ||
             org.nationality?.toLowerCase().includes(searchLower);
           break;
       }
@@ -276,9 +276,9 @@ const OrganizersPage = () => {
       const organizerData = {
         organizerNumber: values.organizerNumber,
         licenseNumber: values.licenseNumber,
+        organizerName: values.organizerName,
         company: values.company,
         hajjCount: Number(values.hajjCount) || 0,
-        organizerNationality: values.organizerNationality || "",
         nationality: values.nationality,
         gender: values.gender,
         phone: phone,
@@ -369,9 +369,9 @@ const OrganizersPage = () => {
     form.setFieldsValue({
       organizerNumber: organizer.organizerNumber,
       licenseNumber: organizer.licenseNumber,
+      organizerName: organizer.organizerName,
       company: organizer.company,
       hajjCount: organizer.hajjCount,
-      organizerNationality: organizer.organizerNationality || "",
       nationality: organizer.nationality,
       gender: organizer.gender,
       phoneCountryCode: organizer.phoneCountryCode || organizer.phone?.split(" ")[0],
@@ -394,16 +394,12 @@ const OrganizersPage = () => {
     try {
       let imageURL: string | undefined = selectedOrganizer.imageURL || undefined;
       if (imageFile) {
-        if (storage) {
           const uploadedURL = await handleImageUpload(imageFile);
           if (uploadedURL) {
             imageURL = uploadedURL;
           } else {
             setUploading(false);
             return;
-          }
-        } else {
-          console.warn("Storage not configured, keeping existing image");
         }
       }
 
@@ -417,9 +413,9 @@ const OrganizersPage = () => {
       const organizerData = {
         organizerNumber: values.organizerNumber,
         licenseNumber: values.licenseNumber,
+        organizerName: values.organizerName,
         company: values.company,
         hajjCount: Number(values.hajjCount) || 0,
-        organizerNationality: values.organizerNationality || "",
         nationality: values.nationality,
         gender: values.gender,
         phone: phone,
@@ -534,9 +530,9 @@ const OrganizersPage = () => {
       const headers = [
         "Organizer Number",
         "License Number",
+        "Organizer Name",
         "Company",
         "Hajj Count",
-        "Organizer Nationality",
         "Hajj Nationality",
         "Gender",
         "Phone Country Code",
@@ -555,9 +551,9 @@ const OrganizersPage = () => {
           return [
             org.organizerNumber || "",
             org.licenseNumber || "",
+            org.organizerName || "",
             org.company || "",
             org.hajjCount || "",
-            org.organizerNationality || "",
             org.nationality || "",
             org.gender || "",
             org.phoneCountryCode || "",
@@ -664,9 +660,9 @@ const OrganizersPage = () => {
               id: `imported_${Date.now()}_${i}`,
               organizerNumber: organizerData.organizernumber || "",
               licenseNumber: organizerData.licensenumber || "",
+              organizerName: organizerData.organizername || "",
               company: organizerData.company || "",
               hajjCount: Number(organizerData.hajjcount) || 0,
-              organizerNationality: organizerData.organizernationality || "",
               nationality: organizerData.hajjnationality || "",
               gender: organizerData.gender || "Male",
               phoneCountryCode: organizerData.phonecountrycode || "",
@@ -757,7 +753,7 @@ const OrganizersPage = () => {
             </Text>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
             {filteredOrganizers.map((organizer) => (
               <OrganizerCard
                 key={organizer.id}

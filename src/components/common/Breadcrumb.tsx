@@ -101,6 +101,25 @@ const Breadcrumb: React.FC = () => {
         case 'test':
           label = t('testPageTitle');
           break;
+        case 'passport':
+          label = t('passport.title');
+          break;
+        case 'box-arrangement':
+          label = t('passport.boxArrangement');
+          break;
+        case 'service-proof':
+          label = t('passport.serviceProof');
+          break;
+        case 'verified-pilgrims':
+          label = t('passport.verifiedPilgrims');
+          break;
+        case 'reports':
+          if (pathSegments.includes('passport')) {
+            label = t('passport.reports.title');
+          } else if (pathSegments.includes('housing')) {
+            label = t('housing.reports') || 'Reports';
+          }
+          break;
         default:
           // For dynamic segments like :id, try to get a label or use the segment
           if (segment.match(/^\d+$/)) {

@@ -188,8 +188,7 @@ th {
 /* Hover state */
 .custom-sidebar-menu.ant-menu-light .ant-menu-item:hover,
 .custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover,
-.custom-sidebar-menu.ant-menu-light .ant-menu-item:hover > a,
-.custom-sidebar-menu.ant-menu-light .ant-menu-submenu-title:hover > span {
+.custom-sidebar-menu.ant-menu-light .ant-menu-item:hover > a {
   background-color: rgba(0, 91, 79, 0.08) !important;
   color: #005B4F !important;
   transform: translateX(2px);
@@ -646,6 +645,62 @@ button.ant-btn[class*="bg-red-500"] * {
   height: 48px !important;
   display: flex !important;
   align-items: center !important;
+}
+
+/* Passport Scanner Input Field - Large Size */
+.passport-search-input.ant-input-affix-wrapper {
+  height: 64px !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 12px !important;
+  background: white !important;
+  padding: 0 !important;
+  transition: all 0.3s !important;
+}
+
+.passport-search-input.ant-input-affix-wrapper:hover {
+  border-color: #005B4F !important;
+}
+
+.passport-search-input.ant-input-affix-wrapper-focused,
+.passport-search-input.ant-input-affix-wrapper:focus-within {
+  border-color: #005B4F !important;
+  box-shadow: 0 0 0 3px rgba(0, 91, 79, 0.1) !important;
+}
+
+.passport-search-input .ant-input {
+  height: 64px !important;
+  font-size: 18px !important;
+  padding: 0 16px !important;
+  line-height: 64px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.passport-search-input .ant-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.passport-search-input .ant-input-prefix {
+  padding-left: 16px !important;
+  padding-right: 8px !important;
+}
+
+.passport-search-input .ant-input-suffix {
+  padding-right: 8px !important;
+}
+
+@media (min-width: 768px) {
+  .passport-search-input.ant-input-affix-wrapper {
+    height: 80px !important;
+  }
+  
+  .passport-search-input .ant-input {
+    height: 80px !important;
+    font-size: 20px !important;
+    line-height: 80px !important;
+  }
 }
 
 .phone-field-wrapper .ant-input,

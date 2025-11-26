@@ -4,9 +4,9 @@ export interface Organizer {
   id: string;
   organizerNumber: string;
   licenseNumber: string;
-  company: string;
+  organizerName: string; // اسم المنظم
+  company: string; // اسم الشركة (الوكيل الخارجي)
   hajjCount: number;
-  organizerNationality?: string; // جنسية المنظم
   nationality: string; // جنسية الحجاج
   gender: string;
   phoneCountryCode?: string;
@@ -18,6 +18,6 @@ export interface Organizer {
   passport: string;
   email: string;
   imageURL?: string;
-  createdAt: Timestamp;
+  createdAt: string | Date;
 }
 

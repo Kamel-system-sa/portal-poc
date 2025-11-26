@@ -5,10 +5,11 @@ export const saveToLocalStorage = (data: Organizer[], storageKey: string) => {
   try {
     const dataToSave = data.map((org) => ({
       ...org,
-      createdAt: org.createdAt ? {
-        seconds: org.createdAt.seconds || Date.now() / 1000,
-        nanoseconds: org.createdAt.nanoseconds || 0
-      } : { seconds: Date.now() / 1000, nanoseconds: 0 }
+      createdAt: org.createdAt instanceof Date 
+        ? org.createdAt.toISOString() 
+        : typeof org.createdAt === 'string' 
+          ? org.createdAt 
+          : new Date().toISOString()
     }));
     localStorage.setItem(storageKey, JSON.stringify(dataToSave));
   } catch (error) {
@@ -22,12 +23,17 @@ export const loadFromLocalStorage = (storageKey: string): Organizer[] => {
     if (stored) {
       const parsed = JSON.parse(stored);
       return parsed.map((org: any) => {
-        let createdAt = Timestamp.now();
+        let createdAt: string | Date = new Date();
         if (org.createdAt) {
-          if (org.createdAt.seconds) {
-            createdAt = Timestamp.fromMillis(org.createdAt.seconds * 1000);
+          if (typeof org.createdAt === 'string') {
+            createdAt = org.createdAt;
+          } else if (org.createdAt.seconds) {
+            // Handle legacy Firebase Timestamp format
+            createdAt = new Date(org.createdAt.seconds * 1000).toISOString();
           } else if (typeof org.createdAt === 'number') {
-            createdAt = Timestamp.fromMillis(org.createdAt);
+            createdAt = new Date(org.createdAt).toISOString();
+          } else if (org.createdAt instanceof Date) {
+            createdAt = org.createdAt.toISOString();
           }
         }
         return {
